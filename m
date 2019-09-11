@@ -2,28 +2,42 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 53494AF2F0
-	for <lists+dccp@lfdr.de>; Wed, 11 Sep 2019 00:30:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DE53AF6CD
+	for <lists+dccp@lfdr.de>; Wed, 11 Sep 2019 09:25:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725965AbfIJWaB (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 10 Sep 2019 18:30:01 -0400
-Received: from [157.230.115.232] ([157.230.115.232]:58706 "EHLO
-        TEST.localdomain" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725957AbfIJWaA (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 10 Sep 2019 18:30:00 -0400
-X-Greylist: delayed 15550 seconds by postgrey-1.27 at vger.kernel.org; Tue, 10 Sep 2019 18:30:00 EDT
-Received: from 127.0.0.1 (TEST [127.0.0.1])
-        by TEST.localdomain (Postfix) with SMTP id 4880F4608BF;
-        Tue, 10 Sep 2019 17:33:17 +0000 (UTC)
-From:   128128dccp@vger.kernel.org
-Reply-To: prodawez@cuvox.de
+        id S1727169AbfIKHSW (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 11 Sep 2019 03:18:22 -0400
+Received: from host15-232-177-94.static.arubacloud.fr ([94.177.232.15]:46422
+        "EHLO mail.qeaudio.ml" rhost-flags-OK-FAIL-OK-OK) by vger.kernel.org
+        with ESMTP id S1726894AbfIKHSW (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 11 Sep 2019 03:18:22 -0400
+Received: by mail.qeaudio.ml (Postfix, from userid 48)
+        id 7E2CD6EDB5; Wed, 11 Sep 2019 02:51:24 -0400 (EDT)
 To:     dccp@vger.kernel.org
-Subject: Zdravstvujte! Vas interesujut klientskie bazy dannyh?
-Message-Id: <20190910173317.4880F4608BF@TEST.localdomain>
-Date:   Tue, 10 Sep 2019 17:33:17 +0000 (UTC)
+Subject: September Inquiry 2019
+X-PHP-Originating-Script: 0:amuualer.php
+From:   Julian Smith <juliansmith@126.com>
+Reply-To: julian.smith@list.ru
+MIME-Version: 1.0
+Content-Type:   text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+Message-Id: <20190911065124.7E2CD6EDB5@mail.qeaudio.ml>
+Date:   Wed, 11 Sep 2019 02:51:24 -0400 (EDT)
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Zdravstvujte! Vas interesujut klientskie bazy dannyh?
+Hi,friend,
+
+This is Julian Smith and i am purchasing manager from E-cloth Co.,LTD in the UK.
+We are glad to know about your company from the web and we are interested in your products.
+Could you kindly send us your Latest catalog and price list for our trial order.
+
+Thanks and Best Regards,
+
+Ms Julian Smith
+Purchasing Manager
+E-cloth Co.,LTD
+
+

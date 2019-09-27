@@ -2,34 +2,38 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5727BB380B
-	for <lists+dccp@lfdr.de>; Mon, 16 Sep 2019 12:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 88207C0FDB
+	for <lists+dccp@lfdr.de>; Sat, 28 Sep 2019 07:32:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726075AbfIPKXh (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 16 Sep 2019 06:23:37 -0400
-Received: from [123.163.97.76] ([123.163.97.76]:59784 "EHLO
-        localhost.localdomain" rhost-flags-FAIL-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725850AbfIPKXh (ORCPT
-        <rfc822;dccp@vger.kernel.org>); Mon, 16 Sep 2019 06:23:37 -0400
-X-Greylist: delayed 4219 seconds by postgrey-1.27 at vger.kernel.org; Mon, 16 Sep 2019 06:23:37 EDT
-Received: from 127.0.0.1 (localhost [127.0.0.1])
-        by localhost.localdomain (Postfix) with SMTP id 283F411129F4
-        for <dccp@vger.kernel.org>; Mon, 16 Sep 2019 15:57:20 +0800 (CST)
+        id S1725283AbfI1Fca (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 28 Sep 2019 01:32:30 -0400
+Received: from [129.146.181.251] ([129.146.181.251]:55418 "EHLO
+        issue-4015.localdomain" rhost-flags-FAIL-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725263AbfI1Fca (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Sat, 28 Sep 2019 01:32:30 -0400
+X-Greylist: delayed 33722 seconds by postgrey-1.27 at vger.kernel.org; Sat, 28 Sep 2019 01:32:30 EDT
+Received: from localhost (localhost [IPv6:::1])
+        by issue-4015.localdomain (Postfix) with SMTP id 8AAB5A3B3E13
+        for <dccp@vger.kernel.org>; Fri, 27 Sep 2019 20:06:24 +0000 (GMT)
 From:   dccp@vger.kernel.org
-Reply-To: prodawez@cuvox.de
-To:     dccp@vger.kernel.org
-Subject: =?utf-8?B?0JfQtNGA0LDQstGB0YLQstGD0LnRgtC1ISDQktCw0YEg?=
-        =?utf-8?B?0LjQvdGC0LXRgNC10YHRg9GO0YIg0LrQu9C40LXQvdGC?=
-        =?utf-8?B?0YHQutC40LUg0LHQsNC30Ysg0LTQsNC90L3Ri9GFPw==?=
+Reply-To: prodawez@teleworm.us
+To:     dccp@vger.kernel.org,
+        =?utf-8?Q?=D0=97=D0=B4=D1=80=D0=B0=D0=B2=D1=81=D1=82=D0?=@issue-4015.localdomain,
+        _=D0=92=D0=B0=D1=81?=@=?utf-8?Q?=B2=D1=83=D0=B9=D1=82=D0=B5.localdomain,
+        =?utf-8?Q?_=D0=B8=D0=BD=D1=82=D0=B5=D1=80=D0=B5=D1=81=D1?=@issue-4015.localdomain,
+        =?utf-8?Q?=83=D1=8E=D1=82_=D0=BA=D0=BB=D0=B8=D0=B5=D0=BD?=@issue-4015.localdomain,
+        =?utf-8?Q?=D1=82=D1=81=D0=BA=D0=B8=D0=B5_=D0=B1=D0=B0=D0?=@issue-4015.localdomain,
+        =?utf-8?Q?=B7=D1=8B_=D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85?=@issue-4015.localdomain,
+        =?utf-8?Q?=3F?=@issue-4015.localdomain
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8";
-Content-Transfer-Encoding: base64
-Message-Id: <20190916075721.283F411129F4@localhost.localdomain>
-Date:   Mon, 16 Sep 2019 15:57:20 +0800 (CST)
+Content-Transfer-Encoding: 8bit
+Message-Id: <20190927200624.8AAB5A3B3E13@issue-4015.localdomain>
+Date:   Fri, 27 Sep 2019 20:06:24 +0000 (GMT)
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-0JfQtNGA0LDQstGB0YLQstGD0LnRgtC1ISDQktCw0YEg0LjQvdGC0LXRgNC10YHRg9GO0YIg0LrQ
-u9C40LXQvdGC0YHQutC40LUg0LHQsNC30Ysg0LTQsNC90L3Ri9GFPw0K
+Здравствуйте! Вас интересуют клиентские базы данных?
+

@@ -2,61 +2,37 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D38F8D53B3
-	for <lists+dccp@lfdr.de>; Sun, 13 Oct 2019 03:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 92FF8D989F
+	for <lists+dccp@lfdr.de>; Wed, 16 Oct 2019 19:42:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727440AbfJMBX2 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 12 Oct 2019 21:23:28 -0400
-Received: from [206.81.8.171] ([206.81.8.171]:41280 "EHLO varon.localdomain"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1727184AbfJMBX2 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 12 Oct 2019 21:23:28 -0400
-Received: from 127.0.0.1 (varon [127.0.0.1])
-        by varon.localdomain (Postfix) with SMTP id 8781955573C;
-        Fri, 11 Oct 2019 10:20:34 +0000 (UTC)
-Received: from [27.70.237.28] by 127.0.0.1 id <2123263-11573>; Fri, 11 Oct 2019 04:12:38 -0600
-Message-ID: <c7-3--y-ylw$5yt@6vw9i>
-From:   "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
-Reply-To: "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
-To:     davidzuehlke1@yahoo.com
-Subject: RE:PERSONAL LETTER FROM MRS RASHIA AMIRA ??
-Date:   Fri, 11 Oct 19 04:12:38 GMT
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+        id S2389196AbfJPRmq (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 16 Oct 2019 13:42:46 -0400
+Received: from [195.171.27.244] ([195.171.27.244]:38600 "EHLO
+        gitlab.quiqup.com" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726383AbfJPRmq (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 16 Oct 2019 13:42:46 -0400
+Received: from localhost (localhost [IPv6:::1])
+        by gitlab.quiqup.com (Postfix) with SMTP id AEA67498E52
+        for <dccp@vger.kernel.org>; Wed, 16 Oct 2019 18:28:15 +0100 (BST)
+From:   dccp@vger.kernel.org
+Reply-To: prodawez@teleworm.us
+To:     dccp@vger.kernel.org,
+        =?utf-8?Q?=D0=97=D0=B4=D1=80=D0=B0=D0=B2=D1=81=D1=82=D0?=@gitlab.quiqup.com,
+        _=D0=92=D0=B0=D1=81?=@=?utf-8?Q?=B2=D1=83=D0=B9=D1=82=D0=B5,
+        =?utf-8?Q?_=D0=B8=D0=BD=D1=82=D0=B5=D1=80=D0=B5=D1=81=D1?=@gitlab.quiqup.com,
+        =?utf-8?Q?=83=D1=8E=D1=82_=D0=BA=D0=BB=D0=B8=D0=B5=D0=BD?=@gitlab.quiqup.com,
+        =?utf-8?Q?=D1=82=D1=81=D0=BA=D0=B8=D0=B5_=D0=B1=D0=B0=D0?=@gitlab.quiqup.com,
+        =?utf-8?Q?=B7=D1=8B_=D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85?=@gitlab.quiqup.com,
+        =?utf-8?Q?=3F?=@gitlab.quiqup.com
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="C.F387.BA..3D"
-X-Priority: 3
-X-MSMail-Priority: Normal
+Content-Type: text/plain; charset="utf-8";
+Content-Transfer-Encoding: 8bit
+Message-Id: <20191016172815.AEA67498E52@gitlab.quiqup.com>
+Date:   Wed, 16 Oct 2019 18:28:15 +0100 (BST)
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-
---C.F387.BA..3D
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
-
-Greetings
-
-My name is Barrister Hans Erich.
-
-I have a client who is interested to invest in your country, she is a well=
- known politician in her country and deserve a lucrative investment partne=
-rship with you outside her country without any delay   Please can you mana=
-ge such investment please Kindly reply for further details.
-
-Your full nameS -----------
-
-
-Your urgent response will be appreciated
-
-Thank you and God bless you.
-
-Barrister Hans Erich
-
-Yours sincerely,
-Barrister Hans Erich
-
---C.F387.BA..3D--
+Здравствуйте! Вас интересуют клиентские базы данных?
 

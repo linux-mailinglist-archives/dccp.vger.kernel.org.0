@@ -2,50 +2,51 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A7A1B12FD74
-	for <lists+dccp@lfdr.de>; Fri,  3 Jan 2020 21:15:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4DF29136032
+	for <lists+dccp@lfdr.de>; Thu,  9 Jan 2020 19:34:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727742AbgACUPl (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 3 Jan 2020 15:15:41 -0500
-Received: from mail-qt1-f194.google.com ([209.85.160.194]:37370 "EHLO
-        mail-qt1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726050AbgACUPl (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 3 Jan 2020 15:15:41 -0500
-Received: by mail-qt1-f194.google.com with SMTP id w47so37720842qtk.4
-        for <dccp@vger.kernel.org>; Fri, 03 Jan 2020 12:15:40 -0800 (PST)
+        id S2388497AbgAISeb (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 9 Jan 2020 13:34:31 -0500
+Received: from mail-io1-f65.google.com ([209.85.166.65]:46257 "EHLO
+        mail-io1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388496AbgAISeb (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 9 Jan 2020 13:34:31 -0500
+Received: by mail-io1-f65.google.com with SMTP id t26so8174651ioi.13
+        for <dccp@vger.kernel.org>; Thu, 09 Jan 2020 10:34:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
-        b=n4e+HyLsS9lo+QzhdWbCJCHPnRVX6ymvlAtzIIoq94ZAQBZT22QLhJwC4c1rWALipd
-         tBPYZbZGY8RFA+/2t9LPLwvyXwJNWHR59aKiRNtX/2lHooS73Rs5fEs0Cp77IB2sB9kG
-         y6Fi464EB4GOoZnX4sXabozPeltRdDNEx9OFJmtnZ+anpq1hL2U/zB0YS54vLdltBTvc
-         4Pebl8m+diXDqZEhxVuY77ZQhkquWXOmkeFkPRpWe5dNwNzlgiEdRgZWSkX5hllX/zDQ
-         5HUpzj/VOCYk114xorRxsLGPLkwHMNHT1HkaqaQQS2yP5hhdrD6VRVMhISEEmsrYXmJu
-         C+Kw==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=wjEPAcCB9ChJWBCWxQyuWyaFPQyw6HCZ2YKBaBbQkbo=;
+        b=PmpCALH5Ylswlo/pqdWfstb40KwAJwAk/NiDPvbcZjXiSV20Dn4D0mrhK135HQZg/k
+         ewb8IVDYwmUtpGcNRFYitoLgCdDXSePhOjk79GbcMioncrXenCUmPdtH21ghDJmR7Ono
+         6zPzrPvXWucQzUpS9AlPub4w6xINLOIulIxFrXtcWLsKinzQ64JtIJp0WhMlbHdoe0cz
+         GGEiJr3KEGmXtcIGbw+n3Z9yyKdfIZMAZferJRS7TkPLpPf0NGCtOQXN5YnQ2rANCK0y
+         FS8KSKf7rnwcBwTgV2bO37U7hALJWYsazijg84BWVlDLMHHJZ/SMhnIuMjxt9XpsEyt6
+         Jzrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
-        b=EDnXmchPF0K3RPSHgDsdSzFUBwz1zd5Z+vQTR4KOaPjPJCYAF3fuEIICtpSY3xltPe
-         shvvM+zcVwkOK2ZWyP7TJT0vi3mFrQ2WZu1RRgMLyk8Z3eiZYVhsUfHDF0uDn9X8UXZa
-         SpUxNCXuf/p2SfPSvyuQTbb/L5+p7zv36Y5VeXRAO7MuMhN64GtheU3rz57KzkkYxGxW
-         bThGC6qFb2q4i9fMdJDVSVNQWd8Py+DoJ1EXApP1W82VryFDyo6JDqRMAtlrZio6p9mU
-         XOqVk2bdzpGKqq66Cl+y9dkcE7BdkNeodfB+bzzZpgsvGmkHvcxfpFdv2dEsekXunEFP
-         RG9w==
-X-Gm-Message-State: APjAAAUsMvwEfI259//v6ZggsUWW/Ly8wSqCxm00vGzVe3RceZANeCW1
-        zRgUnIgCOuiRGdQIfBCqT1g+OPf6MnQig8Nf81Y=
-X-Google-Smtp-Source: APXvYqyYrV5TlpAh6oMfa5sC8FQ4OKJW4kxASfebDMKzmejKg6hmrqpY+dafIM9s7SJpwtsHXmEY9DjmSL8TPQHnfEE=
-X-Received: by 2002:aed:3c52:: with SMTP id u18mr65619121qte.382.1578082539506;
- Fri, 03 Jan 2020 12:15:39 -0800 (PST)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=wjEPAcCB9ChJWBCWxQyuWyaFPQyw6HCZ2YKBaBbQkbo=;
+        b=ITZBX4hTJYtoXAxywNPmNNY2Jj4XyNmYR6PQvigh97Dv6eC9Ua0Dx4et/Mums4F7xA
+         F9yMunJW+5OKoDsYlF+zyxe/T+eNlzkshZk92O9XE7I2bdBLs5Tg9jqFKHEajfeNqbbh
+         y9bmJbtwA3TPjeO4x9n6MUDHu97lqwAUB4rnEcusGMM56isu+msowNGsmpItQazl1JrY
+         Awlf76CCDfUfGtaRfUSYLRnC2tpEoPq4FsBLV5LfVZLul1/4pnLZGZuT3diMlkFyAZGA
+         9AzzNKx1LPPI5/USDaL08m7Ge1QOs5vhqivIW/D+8Bs7kxFbjWyqRdnMlmAuvDDg2lg/
+         FmlA==
+X-Gm-Message-State: APjAAAWjocaip7X3sTy/W4b/rFH9V0FHag5Q8kTSD7pukWn+wg0/eah/
+        VvoXsXyv6eH5mFGiO5oZcLw6mHDBqf6eDYcy1Q==
+X-Google-Smtp-Source: APXvYqw2smIiVW4Zh2xyV0aJTSXcke/cYL5y3+NZvwCjQm/22lQw1WMeWcw05UDD6/jDSka+1HlaZawXRUPnK1kMTuY=
+X-Received: by 2002:a02:9f06:: with SMTP id z6mr9899150jal.2.1578594869348;
+ Thu, 09 Jan 2020 10:34:29 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:ac8:4410:0:0:0:0:0 with HTTP; Fri, 3 Jan 2020 12:15:39 -0800 (PST)
-From:   "Rev.Dr Emmanuel Okoye CEO Ecobank-benin" 
-        <westernunion.benin982@gmail.com>
-Date:   Fri, 3 Jan 2020 21:15:39 +0100
-Message-ID: <CAP=nHBJSqXSG96Z0mVpoXGVveL_oYwED0RD2oWnr0d-6N3+AJg@mail.gmail.com>
-Subject: I promise you must be happy today, God has uplifted you and your
- family ok
+Received: by 2002:a02:6603:0:0:0:0:0 with HTTP; Thu, 9 Jan 2020 10:34:29 -0800 (PST)
+Reply-To: mikebenz550@aol.com
+From:   "MS. MARYANNA B. THOMASON" <info.zennitbankplcnigerian@gmail.com>
+Date:   Thu, 9 Jan 2020 19:34:29 +0100
+Message-ID: <CABHzvrkt9hEqva=S767QPi6gJDyhvUd3vjuR8PLbcGvCOzm=cQ@mail.gmail.com>
+Subject: CONTACT DIPLOMATIC MIKE BENZ TO RECEIVE YOUR ATM MASTER CARD WORTH
+ $12.8MILLION US DOLLARS,
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Sender: dccp-owner@vger.kernel.org
@@ -53,49 +54,29 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dear Friend
+ATTN DEAR.
 
-i hope all is well with you,if so, glory be to God almighty. I'm very
-happy to inform you, about my success in getting payment funds under
-the cooperation of a new partner from United States of
-America.Presently I am in uk for investment projects with my own share
-of the total sum. I didn't forget your past efforts. IMF finally
-approved your compensation payment funds this morning by prepaid (ATM)
-Debit card of US$12,500.000.00Million Dollars, Since you not received
-this payment yet, I was not certified
-but it is not your fault and not my fault, I hold nothing against
-you.than bank official whom has been detaining the transfer in the
-bank, trying to claim your funds by themselves.
+CONTACT DIPLOMATIC MIKE BENZ TO RECEIVE YOUR ATM MASTER CARD WORTH
+$12.8MILLION US DOLLARS,
+CONTACT HIM ON THIS EMAIL ADDRESS
 
-Therefore, in appreciation of your effort I have raised an
-International prepaid (ATM) Debit card of US$12,500.000.00 in your
-favor as compensation to you.
+EMAIL/ mikebenz550@aol.com
+PHONE (720) 928-6289 TEXT HIM AS YOU CONTACT HIM TODAY OK.
 
-Now, i want you to contact my Diplomatic Agent, His name is Mike Benz
-on His  e-mail Address (mikebenz550@aol.com
+HE IS WAITING TO HEAR FROM YOU NOW. WITH YOUR FULL DELIVERY ADDRESS
+SUCH AS YOUR LISTED BELOW.
+YOUR FULL NAME
+ADDRESS
+TELEPHONE NUMBERS
 
-ask Him to send the Prepaid (ATM) Debit card to you. Bear in mind that
-the money is in Prepaid (ATM) Debit card, not cash, so you need to
-send to him,
-your full name
-address  where the prepaid (ATM) Debit card will be delivered to you,
-including your cell phone number. Finally, I left explicit
-instructions with him, on how to send the (ATM CARD) to you.
+I WAIT TO HEAR FROM YOU ONCE YOU RECEIVE YOUR ATM MASTER CARD WOTH
+$12.800,000MILLION US DOLLARS FROM MR. MIKE BENZ TODAY, NOTE YOU ARE
+JUST REQUIRED TO SEND HIM $25.00 ONCE YOU CONTACT HER FOR YOUR ATM
+MASTER CARD DELIVERY FEE.
 
-The Prepaid (ATM) Debit card, will be send to you through my
-Diplomatic Agent Mr. Mike Benz immediately you contact him. So contact
-my Diplomatic Agent Mr. Mike Benz immediately you receive this letter.
-Below is his contact information:
+ASK HIM HOW YOU CAN SEND THE DELIVERY FEE OF $25.00 ONLY TO HIM
+IMMEDIATELY TO ENABLE HIM DELIVER TO YOUR HOUSE ADDRESS VERY URGENT
+TODAY OK. THIS IS ONLY HELP I CAN YOU TO RECEIVE YOUR FUNDS NOW OK.
 
-NAME : MIKE BENZ
-EMAIL ADDRESS: mikebenz550@aol.com
-Text Him, (256) 284-4886
-
-Request for Delivery of the Prepaid (ATM) Debit card  to you today.
-Note, please I have paid for the whole service fees for you, so the
-only money you will send to my Diplomatic Agent Mr. Mike Benz is
-$50.00 for your prepaid (ATM) Debit card DELIVERY FEE to your address
-ok.
-Let me know once you receive this Card at your address.
-Best regards,
-Rev.Dr, George Adadar
+THANKS FOR YOUR COPPERATION.
+MS. MARYANNA B. THOMASON

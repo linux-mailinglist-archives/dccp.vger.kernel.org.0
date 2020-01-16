@@ -2,27 +2,27 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BBBD913F167
-	for <lists+dccp@lfdr.de>; Thu, 16 Jan 2020 19:28:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B4F2913EE87
+	for <lists+dccp@lfdr.de>; Thu, 16 Jan 2020 19:10:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388589AbgAPS2b (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 16 Jan 2020 13:28:31 -0500
-Received: from mail.kernel.org ([198.145.29.99]:34598 "EHLO mail.kernel.org"
+        id S2393319AbgAPRiS (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 16 Jan 2020 12:38:18 -0500
+Received: from mail.kernel.org ([198.145.29.99]:54054 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2392257AbgAPR0K (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 16 Jan 2020 12:26:10 -0500
+        id S2393312AbgAPRiR (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 16 Jan 2020 12:38:17 -0500
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
         (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
         (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id EC923246AF;
-        Thu, 16 Jan 2020 17:26:08 +0000 (UTC)
+        by mail.kernel.org (Postfix) with ESMTPSA id 62796246E1;
+        Thu, 16 Jan 2020 17:38:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1579195569;
+        s=default; t=1579196296;
         bh=8CbT8TZ2iRcbrH7EgaNzFCMgeHLem/RyTXHo5n0sxLw=;
         h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=upjhgeqTEa9I7f0z8fkDy5mN6KU0kX8OOM5/PdQQ8oSOnyK3jSXS+DOUlcMGt5+SY
-         czR0qbT7StlaYVtU7VAJFtOR7QYjisPj2Zs64mOOvKSd2ef/eCjoxXoJMCL4sC6hO4
-         QVvgJQ8IdAzO48Sn+LU0BassjTb47gIDim+ErO0Q=
+        b=V2Tf5TkiJ0FnqbMbbS9n0KcS+3USROhPoQt6mjgQHintaVFOeShAOto3F+Z924QBT
+         lcWckQkDGgdyoA4uHj/A47FUClToHsQjaSq9Qj43fM1HTqkZGQa5GOW5r0koh6NJrT
+         c730auiLwA27/HiG3fCilkKdkWSnlIMbV55YKB9E=
 From:   Sasha Levin <sashal@kernel.org>
 To:     linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Cc:     YueHaibing <yuehaibing@huawei.com>, Hulk Robot <hulkci@huawei.com>,
@@ -30,12 +30,12 @@ Cc:     YueHaibing <yuehaibing@huawei.com>, Hulk Robot <hulkci@huawei.com>,
         "David S . Miller" <davem@davemloft.net>,
         Sasha Levin <sashal@kernel.org>, dccp@vger.kernel.org,
         netdev@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 154/371] dccp: Fix memleak in __feat_register_sp
-Date:   Thu, 16 Jan 2020 12:20:26 -0500
-Message-Id: <20200116172403.18149-97-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 109/251] dccp: Fix memleak in __feat_register_sp
+Date:   Thu, 16 Jan 2020 12:34:18 -0500
+Message-Id: <20200116173641.22137-69-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116172403.18149-1-sashal@kernel.org>
-References: <20200116172403.18149-1-sashal@kernel.org>
+In-Reply-To: <20200116173641.22137-1-sashal@kernel.org>
+References: <20200116173641.22137-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore

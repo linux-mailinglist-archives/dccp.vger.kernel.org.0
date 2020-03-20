@@ -2,23 +2,22 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2EDA218D61A
+	by mail.lfdr.de (Postfix) with ESMTP id 9FEF118D61B
 	for <lists+dccp@lfdr.de>; Fri, 20 Mar 2020 18:42:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726976AbgCTRl5 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 20 Mar 2020 13:41:57 -0400
-Received: from [39.50.48.173] ([39.50.48.173]:54907 "EHLO [39.50.48.173]"
+        id S1727444AbgCTRmC (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 20 Mar 2020 13:42:02 -0400
+Received: from [39.50.48.173] ([39.50.48.173]:54940 "EHLO [39.50.48.173]"
         rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1727444AbgCTRlz (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 20 Mar 2020 13:41:55 -0400
-X-Greylist: delayed 1019 seconds by postgrey-1.27 at vger.kernel.org; Fri, 20 Mar 2020 13:41:52 EDT
-Received: from qztfloe ([180.178.133.77]) by 47680.com with MailEnable ESMTP; Fri, 20 Mar 2020 22:41:57 +0500
-Received: (qmail 52149 invoked by uid 521); 20 Mar 2020 22:41:55 +0500
+        id S1726982AbgCTRmB (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 20 Mar 2020 13:42:01 -0400
+Received: from inqhndr ([65.191.186.15]) by 19235.com with MailEnable ESMTP; Fri, 20 Mar 2020 22:42:03 +0500
+Received: (qmail 24784 invoked by uid 247); 20 Mar 2020 22:42:01 +0500
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Fri, 20 Mar 2020 22:41:57 +0500
-Message-ID: <521494.521494@47680.com>
+Date:   Fri, 20 Mar 2020 22:42:03 +0500
+Message-ID: <247847.247847@19235.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -55,5 +54,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 5214949464
+Mail-Client-ID: 2478477408
 

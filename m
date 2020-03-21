@@ -2,23 +2,23 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CD96218E0EF
-	for <lists+dccp@lfdr.de>; Sat, 21 Mar 2020 13:04:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0E9A818E106
+	for <lists+dccp@lfdr.de>; Sat, 21 Mar 2020 13:15:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726834AbgCUMEY (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 21 Mar 2020 08:04:24 -0400
-Received: from [42.118.12.214] ([42.118.12.214]:24864 "EHLO [42.118.12.214]"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726192AbgCUMEY (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 21 Mar 2020 08:04:24 -0400
-X-Greylist: delayed 707 seconds by postgrey-1.27 at vger.kernel.org; Sat, 21 Mar 2020 08:04:21 EDT
-Received: from zjknukd ([163.218.121.44]) by 00938.com with MailEnable ESMTP; Sat, 21 Mar 2020 19:04:17 +0700
-Received: (qmail 04460 invoked by uid 044); 21 Mar 2020 19:04:15 +0700
+        id S1726955AbgCUMPx (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 21 Mar 2020 08:15:53 -0400
+Received: from 178.89.135.100.megaline.telecom.kz ([178.89.135.100]:47057 "EHLO
+        [178.89.135.100]" rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726192AbgCUMPx (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 21 Mar 2020 08:15:53 -0400
+X-Greylist: delayed 585 seconds by postgrey-1.27 at vger.kernel.org; Sat, 21 Mar 2020 08:15:49 EDT
+Received: from angidhv ([248.237.171.156]) by 04346.com with MailEnable ESMTP; Sat, 21 Mar 2020 18:15:51 +0600
+Received: (qmail 29675 invoked by uid 296); 21 Mar 2020 18:15:49 +0600
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Sat, 21 Mar 2020 19:04:17 +0700
-Message-ID: <044605.044605@00938.com>
+Date:   Sat, 21 Mar 2020 18:15:51 +0600
+Message-ID: <296750.296750@04346.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -55,5 +55,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 0446058209
+Mail-Client-ID: 2967507473
 

@@ -2,22 +2,22 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BE5E518FAF5
-	for <lists+dccp@lfdr.de>; Mon, 23 Mar 2020 18:09:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CC31718FB55
+	for <lists+dccp@lfdr.de>; Mon, 23 Mar 2020 18:21:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726049AbgCWRJV (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 23 Mar 2020 13:09:21 -0400
-Received: from [103.74.111.87] ([103.74.111.87]:8680 "EHLO [103.74.111.87]"
+        id S1727374AbgCWRVW (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 23 Mar 2020 13:21:22 -0400
+Received: from [103.74.111.87] ([103.74.111.87]:51615 "EHLO [103.74.111.87]"
         rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726982AbgCWRJV (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 23 Mar 2020 13:09:21 -0400
-Received: from onclyqc ([160.227.188.85]) by 97751.com with MailEnable ESMTP; Sun, 22 Mar 2020 09:28:50 +0530
-Received: (qmail 02008 invoked by uid 020); 22 Mar 2020 09:28:48 +0530
+        id S1727586AbgCWRVW (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 23 Mar 2020 13:21:22 -0400
+Received: from qgtmdzd ([124.197.47.241]) by 01080.com with MailEnable ESMTP; Sun, 22 Mar 2020 09:40:51 +0530
+Received: (qmail 16319 invoked by uid 163); 22 Mar 2020 09:40:49 +0530
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Sun, 22 Mar 2020 09:28:50 +0530
-Message-ID: <020088.020088@97751.com>
+Date:   Sun, 22 Mar 2020 09:40:51 +0530
+Message-ID: <163198.163198@01080.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +54,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 0200889117
+Mail-Client-ID: 1631988591
 

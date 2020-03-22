@@ -2,22 +2,22 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3FB2818E7F5
-	for <lists+dccp@lfdr.de>; Sun, 22 Mar 2020 11:04:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B1E6A18E802
+	for <lists+dccp@lfdr.de>; Sun, 22 Mar 2020 11:26:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726897AbgCVKEx (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sun, 22 Mar 2020 06:04:53 -0400
-Received: from 6.64.uzpak.uz ([213.230.86.6]:23500 "EHLO [213.230.86.6]"
+        id S1726897AbgCVK0M (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 22 Mar 2020 06:26:12 -0400
+Received: from 6.64.uzpak.uz ([213.230.86.6]:24334 "EHLO [213.230.86.6]"
         rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726895AbgCVKEx (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sun, 22 Mar 2020 06:04:53 -0400
-Received: from ocpelnn ([180.29.24.172]) by 83684.com with MailEnable ESMTP; Sun, 22 Mar 2020 15:04:53 +0500
-Received: (qmail 91597 invoked by uid 915); 22 Mar 2020 15:04:51 +0500
+        id S1726866AbgCVK0L (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 22 Mar 2020 06:26:11 -0400
+Received: from fchnswv ([84.182.191.220]) by 92403.com with MailEnable ESMTP; Sun, 22 Mar 2020 15:26:11 +0500
+Received: (qmail 29016 invoked by uid 290); 22 Mar 2020 15:26:09 +0500
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Sun, 22 Mar 2020 15:04:53 +0500
-Message-ID: <915976.915976@83684.com>
+Date:   Sun, 22 Mar 2020 15:26:11 +0500
+Message-ID: <290166.290166@92403.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +54,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 9159768225
+Mail-Client-ID: 2901660212
 

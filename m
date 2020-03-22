@@ -2,22 +2,22 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B7B318E5BC
-	for <lists+dccp@lfdr.de>; Sun, 22 Mar 2020 02:12:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3E40E18E5BE
+	for <lists+dccp@lfdr.de>; Sun, 22 Mar 2020 02:15:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727637AbgCVBMt (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 21 Mar 2020 21:12:49 -0400
-Received: from [185.177.0.234] ([185.177.0.234]:6114 "EHLO [185.177.0.234]"
+        id S1727533AbgCVBPV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 21 Mar 2020 21:15:21 -0400
+Received: from [185.177.0.234] ([185.177.0.234]:7770 "EHLO [185.177.0.234]"
         rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726859AbgCVBMt (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 21 Mar 2020 21:12:49 -0400
-Received: from nigeyvh ([54.245.156.70]) by 49805.com with MailEnable ESMTP; Sun, 22 Mar 2020 06:12:49 +0500
-Received: (qmail 54142 invoked by uid 541); 22 Mar 2020 06:12:47 +0500
+        id S1726859AbgCVBPV (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 21 Mar 2020 21:15:21 -0400
+Received: from etbpjhx ([228.69.190.36]) by 73254.com with MailEnable ESMTP; Sun, 22 Mar 2020 06:15:21 +0500
+Received: (qmail 03956 invoked by uid 039); 22 Mar 2020 06:15:19 +0500
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Sun, 22 Mar 2020 06:12:49 +0500
-Message-ID: <541429.541429@49805.com>
+Date:   Sun, 22 Mar 2020 06:15:21 +0500
+Message-ID: <039564.039564@73254.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +54,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 5414297896
+Mail-Client-ID: 0395644708
 

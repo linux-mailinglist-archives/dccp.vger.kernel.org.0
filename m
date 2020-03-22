@@ -2,22 +2,22 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 18FFE18E677
-	for <lists+dccp@lfdr.de>; Sun, 22 Mar 2020 06:11:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DCB3618E711
+	for <lists+dccp@lfdr.de>; Sun, 22 Mar 2020 07:06:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725825AbgCVFLZ (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sun, 22 Mar 2020 01:11:25 -0400
-Received: from [122.227.86.106] ([122.227.86.106]:2195 "EHLO [122.227.86.106]"
+        id S1726752AbgCVGGJ (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 22 Mar 2020 02:06:09 -0400
+Received: from [1.46.7.249] ([1.46.7.249]:41475 "EHLO [1.46.107.231]"
         rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1725765AbgCVFLZ (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sun, 22 Mar 2020 01:11:25 -0400
-Received: from cwujaxb ([209.13.214.13]) by 68130.com with MailEnable ESMTP; Sun, 22 Mar 2020 13:11:25 +0800
-Received: (qmail 62869 invoked by uid 628); 22 Mar 2020 13:11:23 +0800
+        id S1726502AbgCVGGJ (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 22 Mar 2020 02:06:09 -0400
+Received: from tfxvbvv ([188.70.29.38]) by 48594.com with MailEnable ESMTP; Sun, 22 Mar 2020 13:06:07 +0700
+Received: (qmail 41225 invoked by uid 412); 22 Mar 2020 13:06:05 +0700
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Sun, 22 Mar 2020 13:11:25 +0800
-Message-ID: <628699.628699@68130.com>
+Date:   Sun, 22 Mar 2020 13:06:07 +0700
+Message-ID: <412250.412250@48594.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +54,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 6286997700
+Mail-Client-ID: 4122506788
 

@@ -2,22 +2,23 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CC31718FB55
-	for <lists+dccp@lfdr.de>; Mon, 23 Mar 2020 18:21:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0636A18FB4B
+	for <lists+dccp@lfdr.de>; Mon, 23 Mar 2020 18:20:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727374AbgCWRVW (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 23 Mar 2020 13:21:22 -0400
-Received: from [103.74.111.87] ([103.74.111.87]:51615 "EHLO [103.74.111.87]"
+        id S1727522AbgCWRU2 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 23 Mar 2020 13:20:28 -0400
+Received: from [102.142.140.254] ([102.142.140.254]:56936 "EHLO [0.0.0.0]"
         rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1727586AbgCWRVW (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 23 Mar 2020 13:21:22 -0400
-Received: from qgtmdzd ([124.197.47.241]) by 01080.com with MailEnable ESMTP; Sun, 22 Mar 2020 09:40:51 +0530
-Received: (qmail 16319 invoked by uid 163); 22 Mar 2020 09:40:49 +0530
+        id S1727624AbgCWRU1 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 23 Mar 2020 13:20:27 -0400
+X-Greylist: delayed 578 seconds by postgrey-1.27 at vger.kernel.org; Mon, 23 Mar 2020 13:20:25 EDT
+Received: from ojcayry ([42.8.69.251]) by 40780.com with MailEnable ESMTP; Mon, 23 Mar 2020 18:20:27 +0100
+Received: (qmail 88502 invoked by uid 885); 23 Mar 2020 18:20:25 +0100
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Sun, 22 Mar 2020 09:40:51 +0530
-Message-ID: <163198.163198@01080.com>
+Date:   Mon, 23 Mar 2020 18:20:27 +0100
+Message-ID: <885020.885020@40780.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +55,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 1631988591
+Mail-Client-ID: 8850207362
 

@@ -2,127 +2,58 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F6B818FC94
-	for <lists+dccp@lfdr.de>; Mon, 23 Mar 2020 19:22:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5DF4D18FC8B
+	for <lists+dccp@lfdr.de>; Mon, 23 Mar 2020 19:19:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727361AbgCWSWB (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 23 Mar 2020 14:22:01 -0400
-Received: from smtp-fw-4101.amazon.com ([72.21.198.25]:33571 "EHLO
-        smtp-fw-4101.amazon.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727091AbgCWSWB (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 23 Mar 2020 14:22:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.jp; i=@amazon.co.jp; q=dns/txt;
-  s=amazon201209; t=1584987720; x=1616523720;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=dTUXlBoaxIAuJgjtQvyBD9pejs66JFIyDVKbuPwLcqE=;
-  b=a/haRMjLQ9atRxAz3QToTtZKo/Uyfh8UF3eRjPxPDmF8xSWIGC35QRHV
-   4HDKUq6kWf3huTaTnAcd98YUbeaEvSTkLLuTFd+gvjQnX/gZjjoD+9JmP
-   BZb6HujTD/hS4cOxH6vJlO22JBuNn32Z+1d2ezmmv1irnqgmkjzy0K/Tr
-   s=;
-IronPort-SDR: Zxnhtq1BBTlFOVRjtANYMngFU6HjTEGzO3AFBO+6WGiR2R9RAYU6D6mg8BNzojY8LUzcKJA79E
- L0MizBsbxawA==
-X-IronPort-AV: E=Sophos;i="5.72,297,1580774400"; 
-   d="scan'208";a="22553398"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-2a-22cc717f.us-west-2.amazon.com) ([10.43.8.6])
-  by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP; 23 Mar 2020 18:18:35 +0000
-Received: from EX13MTAUWA001.ant.amazon.com (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
-        by email-inbound-relay-2a-22cc717f.us-west-2.amazon.com (Postfix) with ESMTPS id D9518A1FD4;
-        Mon, 23 Mar 2020 18:18:34 +0000 (UTC)
-Received: from EX13D04ANC001.ant.amazon.com (10.43.157.89) by
- EX13MTAUWA001.ant.amazon.com (10.43.160.118) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Mon, 23 Mar 2020 18:18:34 +0000
-Received: from 38f9d3582de7.ant.amazon.com (10.43.160.101) by
- EX13D04ANC001.ant.amazon.com (10.43.157.89) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 23 Mar 2020 18:18:30 +0000
-From:   Kuniyuki Iwashima <kuniyu@amazon.co.jp>
-To:     "David S . Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Eric Dumazet <edumazet@google.com>,
-        Gerrit Renker <gerrit@erg.abdn.ac.uk>,
-        Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
-        "Hideaki YOSHIFUJI" <yoshfuji@linux-ipv6.org>
-CC:     <dccp@vger.kernel.org>, <netdev@vger.kernel.org>,
-        Kuniyuki Iwashima <kuni1840@gmail.com>,
-        Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
-        <osa-contribution-log@amazon.com>
-Subject: [PATCH net-next 2/2] tcp/dccp: Remove unnecessary initialization of refcounted.
-Date:   Tue, 24 Mar 2020 03:18:14 +0900
-Message-ID: <20200323181814.87661-3-kuniyu@amazon.co.jp>
-X-Mailer: git-send-email 2.17.2 (Apple Git-113)
-In-Reply-To: <20200323181814.87661-1-kuniyu@amazon.co.jp>
-References: <20200323181814.87661-1-kuniyu@amazon.co.jp>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.43.160.101]
-X-ClientProxiedBy: EX13D03UWA003.ant.amazon.com (10.43.160.39) To
- EX13D04ANC001.ant.amazon.com (10.43.157.89)
+        id S1727470AbgCWSTl (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 23 Mar 2020 14:19:41 -0400
+Received: from 102-65-76-11.ftth.web.africa ([102.65.76.11]:55078 "EHLO
+        [102.65.76.11]" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1727149AbgCWSTl (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 23 Mar 2020 14:19:41 -0400
+X-Greylist: delayed 1283 seconds by postgrey-1.27 at vger.kernel.org; Mon, 23 Mar 2020 14:19:38 EDT
+Received: from wkrilpf ([26.104.98.190]) by 00163.com with MailEnable ESMTP; Mon, 23 Mar 2020 20:19:40 +0200
+Received: (qmail 38246 invoked by uid 382); 23 Mar 2020 20:19:38 +0200
+From:   dccp@vger.kernel.org
+To:     dccp@vger.kernel.org
+Subject: I GOT EVERYTHING!
+Date:   Mon, 23 Mar 2020 20:19:40 +0200
+Message-ID: <382464.382464@00163.com>
+Mime-Version: 1.0
+Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-When we get a TCP_NEW_SYN_RECV/DCCP_NEW_SYN_RECV socket by
-__inet_lookup_skb(), refcounted is already set true, so it is not
-necessary to do it again.
+Hey, check the sender of this email, I sent this email from your email account.
 
-Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.co.jp>
----
- net/dccp/ipv4.c     | 1 -
- net/dccp/ipv6.c     | 1 -
- net/ipv4/tcp_ipv4.c | 1 -
- net/ipv6/tcp_ipv6.c | 1 -
- 4 files changed, 4 deletions(-)
+Some time ago your computer was infected with my private malware, RAT (Remote Administration Tool), your browser wasn't updated / patched, so you got automatically infected while browsing the website wich had my iframe placed in the background.
 
-diff --git a/net/dccp/ipv4.c b/net/dccp/ipv4.c
-index d19557c6d04b..c63b6bd68284 100644
---- a/net/dccp/ipv4.c
-+++ b/net/dccp/ipv4.c
-@@ -838,7 +838,6 @@ static int dccp_v4_rcv(struct sk_buff *skb)
- 			goto lookup;
- 		}
- 		sock_hold(sk);
--		refcounted = true;
- 		nsk = dccp_check_req(sk, skb, req);
- 		if (!nsk) {
- 			reqsk_put(req);
-diff --git a/net/dccp/ipv6.c b/net/dccp/ipv6.c
-index 1e5e08cc0bfc..b3ca9b1ef32a 100644
---- a/net/dccp/ipv6.c
-+++ b/net/dccp/ipv6.c
-@@ -740,7 +740,6 @@ static int dccp_v6_rcv(struct sk_buff *skb)
- 			goto lookup;
- 		}
- 		sock_hold(sk);
--		refcounted = true;
- 		nsk = dccp_check_req(sk, skb, req);
- 		if (!nsk) {
- 			reqsk_put(req);
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index df1166b76126..b59a89d8fa69 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1931,7 +1931,6 @@ int tcp_v4_rcv(struct sk_buff *skb)
- 		 * as we might lose it too soon.
- 		 */
- 		sock_hold(sk);
--		refcounted = true;
- 		nsk = NULL;
- 		if (!tcp_filter(sk, skb)) {
- 			th = (const struct tcphdr *)skb->data;
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index eaf09e6b7844..3a587c40ca52 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -1603,7 +1603,6 @@ INDIRECT_CALLABLE_SCOPE int tcp_v6_rcv(struct sk_buff *skb)
- 			goto lookup;
- 		}
- 		sock_hold(sk);
--		refcounted = true;
- 		nsk = NULL;
- 		if (!tcp_filter(sk, skb)) {
- 			th = (const struct tcphdr *)skb->data;
--- 
-2.17.2 (Apple Git-113)
+My malware gave me access to all your accounts, to all your files and it was possible to spy on you over your webcam.
+
+Google: Remote Administration Tool, to see the functions of it.
+
+I collected all your files and I recorded few nice moments of you through your webcam, haha!
+
+After I collected everything, I removed my malware again.
+
+I can publish all your files and the video of you on the whole web, send it to your contacts, social network, hacking forums and the darknet.
+
+You can stop me, send exactly 900$ with the cryptocurrency Monero (XMR) to my Monero (XMR) wallet.
+
+It's very easy to buy Monero (XMR), for example here: www.binance.com , www.anycoindirect.eu , www.bitnovo.com , or Google for another exchanger.
+
+My Monero (XMR) wallet is: 49RD2byfAXfGU4BaZ5mgaQTH8zKowp6V7e88pPkiS1d1iPrJG9RVptDNU1NcHrm5hdKMZzjp2npNzS2CYwy4HjUU3CV52oX
+
+Yes that's a long wallet, copy and paste it, it's (CaSE-SEnSetiVE).
+
+Send the Monero (XMR) directly to my wallet, or create your wallet first with the software from: www.mymonero.com and then send to mine.
+
+I give you 2 days time to send the Monero (XMR).
+
+After that I remove everything and we forget everything.
+
+
+Mail-Client-ID: 3824646891
 

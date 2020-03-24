@@ -2,22 +2,22 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 33E701904CA
-	for <lists+dccp@lfdr.de>; Tue, 24 Mar 2020 06:15:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D674190534
+	for <lists+dccp@lfdr.de>; Tue, 24 Mar 2020 06:31:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725922AbgCXFPG (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 24 Mar 2020 01:15:06 -0400
-Received: from [195.158.20.90] ([195.158.20.90]:2426 "EHLO [195.158.20.90]"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1725827AbgCXFPF (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 24 Mar 2020 01:15:05 -0400
-Received: from iwicued ([168.117.216.237]) by 01141.com with MailEnable ESMTP; Tue, 24 Mar 2020 10:20:20 +0400
-Received: (qmail 26470 invoked by uid 264); 24 Mar 2020 10:20:18 +0400
+        id S1725941AbgCXFb3 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 24 Mar 2020 01:31:29 -0400
+Received: from [213.230.121.156] ([213.230.121.156]:62491 "EHLO
+        [213.230.121.156]" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1725927AbgCXFb3 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 24 Mar 2020 01:31:29 -0400
+Received: from djorotk ([108.15.101.138]) by 70192.com with MailEnable ESMTP; Tue, 24 Mar 2020 10:31:28 +0500
+Received: (qmail 95459 invoked by uid 954); 24 Mar 2020 10:31:26 +0500
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Tue, 24 Mar 2020 10:20:20 +0400
-Message-ID: <264701.264701@01141.com>
+Date:   Tue, 24 Mar 2020 10:31:28 +0500
+Message-ID: <954592.954592@70192.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +54,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 2647012637
+Mail-Client-ID: 9545922793
 

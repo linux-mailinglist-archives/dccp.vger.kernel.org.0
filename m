@@ -2,22 +2,23 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AF0C9190543
-	for <lists+dccp@lfdr.de>; Tue, 24 Mar 2020 06:37:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 49267190560
+	for <lists+dccp@lfdr.de>; Tue, 24 Mar 2020 06:57:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725922AbgCXFhz (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 24 Mar 2020 01:37:55 -0400
-Received: from 2.134.159.48.megaline.telecom.kz ([2.134.159.48]:59406 "EHLO
-        [2.134.159.48]" rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725869AbgCXFhy (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 24 Mar 2020 01:37:54 -0400
-Received: from dycuiku ([178.88.22.56]) by 98756.com with MailEnable ESMTP; Tue, 24 Mar 2020 11:37:56 +0600
-Received: (qmail 16669 invoked by uid 166); 24 Mar 2020 11:37:54 +0600
+        id S1725869AbgCXF55 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 24 Mar 2020 01:57:57 -0400
+Received: from [185.19.192.42] ([185.19.192.42]:59639 "EHLO [185.19.192.41]"
+        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1725853AbgCXF55 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 24 Mar 2020 01:57:57 -0400
+X-Greylist: delayed 585 seconds by postgrey-1.27 at vger.kernel.org; Tue, 24 Mar 2020 01:57:55 EDT
+Received: from ydkrvhy ([149.55.151.136]) by 50725.com with MailEnable ESMTP; Tue, 24 Mar 2020 11:57:57 +0600
+Received: (qmail 64084 invoked by uid 640); 24 Mar 2020 11:57:55 +0600
 From:   dccp@vger.kernel.org
 To:     dccp@vger.kernel.org
 Subject: I GOT EVERYTHING!
-Date:   Tue, 24 Mar 2020 11:37:56 +0600
-Message-ID: <166692.166692@98756.com>
+Date:   Tue, 24 Mar 2020 11:57:57 +0600
+Message-ID: <640845.640845@50725.com>
 Mime-Version: 1.0
 Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
@@ -54,5 +55,5 @@ I give you 2 days time to send the Monero (XMR).
 After that I remove everything and we forget everything.
 
 
-Mail-Client-ID: 1666928400
+Mail-Client-ID: 6408452657
 

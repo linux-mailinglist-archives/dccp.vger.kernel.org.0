@@ -2,57 +2,127 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 13C8F197991
-	for <lists+dccp@lfdr.de>; Mon, 30 Mar 2020 12:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D7E87197F76
+	for <lists+dccp@lfdr.de>; Mon, 30 Mar 2020 17:21:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729181AbgC3Kpk (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 30 Mar 2020 06:45:40 -0400
-Received: from mail.11d01.mspz7.gob.ec ([190.152.145.91]:45740 "EHLO
-        mail.11d01.mspz7.gob.ec" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729472AbgC3Kpj (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 30 Mar 2020 06:45:39 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by mail.11d01.mspz7.gob.ec (Postfix) with ESMTP id 313D62F6EFAA;
-        Mon, 30 Mar 2020 04:07:34 -0500 (-05)
-Received: from mail.11d01.mspz7.gob.ec ([127.0.0.1])
-        by localhost (mail.11d01.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id BeG99Sk9uVdQ; Mon, 30 Mar 2020 04:07:33 -0500 (-05)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.11d01.mspz7.gob.ec (Postfix) with ESMTP id A98882F6EF60;
-        Mon, 30 Mar 2020 04:07:33 -0500 (-05)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.11d01.mspz7.gob.ec A98882F6EF60
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=11d01.mspz7.gob.ec;
-        s=50CBC7E4-8BED-11E9-AF6C-F1A741A224D3; t=1585559253;
-        bh=cLQbOHa1aY+/FyDjaDQOZOnnnlZDxMu+rBX/cg5yps8=;
-        h=Content-Type:MIME-Version:Content-Transfer-Encoding:Subject:To:
-         From:Date:Reply-To:Message-Id;
-        b=nZR8Zo0oYIx1zOuky6w7DibMAZmX9bs0GSi074Gp95mD+wHuS4B/JrMG5L5JsjQeY
-         aIz0zvAciTQtom7wDmylFquFoE3ZMcuNVJBGs2y7DAURrWBGqJ3u/LfhDdKCmzOmYc
-         gro2qR1xlTqG5qtwu4M66rQy36N9aCXjrq/UEzD4=
-X-Virus-Scanned: amavisd-new at 11d01.mspz7.gob.ec
-Received: from mail.11d01.mspz7.gob.ec ([127.0.0.1])
-        by localhost (mail.11d01.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id oGCar08i9qN7; Mon, 30 Mar 2020 04:07:33 -0500 (-05)
-Received: from [10.121.152.251] (unknown [105.12.0.10])
-        by mail.11d01.mspz7.gob.ec (Postfix) with ESMTPSA id 7E3EC2F6EF85;
-        Mon, 30 Mar 2020 04:07:23 -0500 (-05)
-Content-Type: text/plain; charset="iso-8859-1"
+        id S1728993AbgC3PVS (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 30 Mar 2020 11:21:18 -0400
+Received: from mail-il1-f197.google.com ([209.85.166.197]:37946 "EHLO
+        mail-il1-f197.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728798AbgC3PVS (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 30 Mar 2020 11:21:18 -0400
+Received: by mail-il1-f197.google.com with SMTP id b6so17037743iln.5
+        for <dccp@vger.kernel.org>; Mon, 30 Mar 2020 08:21:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+        bh=KToPExNm6RqCbkRxV4jl0trns6uhFAwDCNgSd+zMEPs=;
+        b=BQMwntoP7dEsEjDl48ljWwk+tzNx5xthA+UxR4luBBXw9f0jhyV4/w+ZYczknPEZlg
+         haF507Tn9aDXJ0qhygAg85VY5Yqhlt4ZF59iG/s8GV5aMzn/WEw4YnETU2BxmppIoC3U
+         /XYgFL49n5i+F3xLrvB1fT5z+oel6HGQQZkRz15Y0f9QfmgcxK8ueU+95QA16wFWC2KG
+         BL0U/VjA/qDl8mOqT2/K4vyRFeX/vJCN8cC9fg69O1/m9/k7DOZR+vgPtULMnavC675n
+         //fPIAU2WVjx5YOfNqi5ZuOdzzMs0PfVrNd5lEIuof7hwHi2Co3Px/ggJu7w6e9ZmSw1
+         Rvvw==
+X-Gm-Message-State: ANhLgQ1Nt3TcPkjsUhNmH8HoPHMRx8QqmUYAmpwS0j3IEoA2xggYUJy0
+        plv0f+RptqJqI+Vh4YSmerrgjWNDzSqiTWEvaH44y7tlP3Ov
+X-Google-Smtp-Source: ADFU+vuvRYbW9PNV/q8MLTEHWdAD4ho5LHLs9FI6is/xjztOUo844KhUO8SuovCKxjeg8nBRxi2ZRLcOAt/OOBoIbJgvi9PUz4M6
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: spende von 2.000.000,00 Euro
-To:     Recipients <luis.sanchez@11d01.mspz7.gob.ec>
-From:   "Manuel Franco" <luis.sanchez@11d01.mspz7.gob.ec>
-Date:   Mon, 30 Mar 2020 11:38:37 +0200
-Reply-To: manuelfrancospende11@gmail.com
-Message-Id: <20200330090723.7E3EC2F6EF85@mail.11d01.mspz7.gob.ec>
+X-Received: by 2002:a92:5e55:: with SMTP id s82mr10788385ilb.62.1585581675754;
+ Mon, 30 Mar 2020 08:21:15 -0700 (PDT)
+Date:   Mon, 30 Mar 2020 08:21:15 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000008bf24905a21400b9@google.com>
+Subject: KMSAN: uninit-value in do_dccp_getsockopt
+From:   syzbot <syzbot+de5579bd3a5d86b1e863@syzkaller.appspotmail.com>
+To:     davem@davemloft.net, dccp@vger.kernel.org, gerrit@erg.abdn.ac.uk,
+        glider@google.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Ich bin Manuel Franco, ich spende Ihnen 2.000.000,00 Euro. Kontaktieren Sie=
- mich jetzt, damit wir fortfahren k=F6nnen.
+Hello,
 
-I am Manuel Franco, I donate to you 2,000,000.00 euros. Contact me now so w=
-e can proceed.
+syzbot found the following crash on:
+
+HEAD commit:    c95d0c95 kmsan: block: skip bio block merging logic for KM..
+git tree:       https://github.com/google/kmsan.git master
+console output: https://syzkaller.appspot.com/x/log.txt?x=153677bbe00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7811db4cc444a7f6
+dashboard link: https://syzkaller.appspot.com/bug?extid=de5579bd3a5d86b1e863
+compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
+
+Unfortunately, I don't have any reproducer for this crash yet.
+
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+de5579bd3a5d86b1e863@syzkaller.appspotmail.com
+
+=====================================================
+BUG: KMSAN: uninit-value in ccid_hc_rx_getsockopt net/dccp/ccids/../ccid.h:246 [inline]
+BUG: KMSAN: uninit-value in do_dccp_getsockopt+0x1851/0x1e10 net/dccp/proto.c:671
+CPU: 1 PID: 28577 Comm: syz-executor.1 Not tainted 5.6.0-rc7-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x1c9/0x220 lib/dump_stack.c:118
+ kmsan_report+0xf7/0x1e0 mm/kmsan/kmsan_report.c:118
+ __msan_warning+0x58/0xa0 mm/kmsan/kmsan_instr.c:215
+ ccid_hc_rx_getsockopt net/dccp/ccids/../ccid.h:246 [inline]
+ do_dccp_getsockopt+0x1851/0x1e10 net/dccp/proto.c:671
+ dccp_getsockopt+0xfd/0x200 net/dccp/proto.c:694
+ sock_common_getsockopt+0x13f/0x180 net/core/sock.c:3111
+ __sys_getsockopt+0x533/0x7b0 net/socket.c:2177
+ __do_sys_getsockopt net/socket.c:2192 [inline]
+ __se_sys_getsockopt+0xe1/0x100 net/socket.c:2189
+ __x64_sys_getsockopt+0x62/0x80 net/socket.c:2189
+ do_syscall_64+0xb8/0x160 arch/x86/entry/common.c:296
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x45c849
+Code: ad b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 7b b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00
+RSP: 002b:00007f60866cdc78 EFLAGS: 00000246 ORIG_RAX: 0000000000000037
+RAX: ffffffffffffffda RBX: 00007f60866ce6d4 RCX: 000000000045c849
+RDX: 00000000000000a9 RSI: 000000000000010d RDI: 0000000000000004
+RBP: 000000000076bf00 R08: 00000000200000c0 R09: 0000000000000000
+R10: 0000000020000140 R11: 0000000000000246 R12: 00000000ffffffff
+R13: 0000000000000174 R14: 00000000004c3f3e R15: 000000000076bf0c
+
+Uninit was created at:
+ kmsan_save_stack_with_flags mm/kmsan/kmsan.c:144 [inline]
+ kmsan_internal_poison_shadow+0x66/0xd0 mm/kmsan/kmsan.c:127
+ kmsan_slab_alloc+0x8a/0xe0 mm/kmsan/kmsan_hooks.c:82
+ slab_alloc_node mm/slub.c:2801 [inline]
+ slab_alloc mm/slub.c:2810 [inline]
+ kmem_cache_alloc+0x711/0xd70 mm/slub.c:2815
+ ccid_new+0x1da/0x680 net/dccp/ccid.c:148
+ dccp_hdlr_ccid+0x9f/0x260 net/dccp/feat.c:39
+ __dccp_feat_activate net/dccp/feat.c:339 [inline]
+ dccp_feat_activate_values+0x5e9/0x1660 net/dccp/feat.c:1537
+ dccp_rcv_request_sent_state_process net/dccp/input.c:468 [inline]
+ dccp_rcv_state_process+0x1a6d/0x2320 net/dccp/input.c:676
+ dccp_v4_do_rcv+0x221/0x330 net/dccp/ipv4.c:684
+ sk_backlog_rcv include/net/sock.h:963 [inline]
+ __release_sock+0x2a3/0x5c0 net/core/sock.c:2440
+ release_sock+0x99/0x2a0 net/core/sock.c:2956
+ inet_wait_for_connect net/ipv4/af_inet.c:588 [inline]
+ __inet_stream_connect+0xb05/0x1340 net/ipv4/af_inet.c:680
+ inet_stream_connect+0x101/0x180 net/ipv4/af_inet.c:719
+ __sys_connect_file net/socket.c:1859 [inline]
+ __sys_connect+0x6f7/0x770 net/socket.c:1876
+ __do_sys_connect net/socket.c:1887 [inline]
+ __se_sys_connect+0x8d/0xb0 net/socket.c:1884
+ __x64_sys_connect+0x4a/0x70 net/socket.c:1884
+ do_syscall_64+0xb8/0x160 arch/x86/entry/common.c:296
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+=====================================================
+
+
+---
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

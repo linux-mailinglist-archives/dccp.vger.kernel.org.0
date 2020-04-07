@@ -2,127 +2,129 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D7E87197F76
-	for <lists+dccp@lfdr.de>; Mon, 30 Mar 2020 17:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 08E431A05D5
+	for <lists+dccp@lfdr.de>; Tue,  7 Apr 2020 06:39:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728993AbgC3PVS (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 30 Mar 2020 11:21:18 -0400
-Received: from mail-il1-f197.google.com ([209.85.166.197]:37946 "EHLO
-        mail-il1-f197.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728798AbgC3PVS (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 30 Mar 2020 11:21:18 -0400
-Received: by mail-il1-f197.google.com with SMTP id b6so17037743iln.5
-        for <dccp@vger.kernel.org>; Mon, 30 Mar 2020 08:21:16 -0700 (PDT)
+        id S1726030AbgDGEji (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 7 Apr 2020 00:39:38 -0400
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:53739 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725802AbgDGEji (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 7 Apr 2020 00:39:38 -0400
+Received: by mail-wm1-f66.google.com with SMTP id d77so375337wmd.3
+        for <dccp@vger.kernel.org>; Mon, 06 Apr 2020 21:39:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=/VYKm9GDpxmSLCVpmb+6PCW3URtN2apXdt8g30UTbWM=;
+        b=nJ4jd1L2XQRXapJYQMh0uQ66iVXLUWcWbHj0/WyJdWpsTi/pCJ92El3hfC3YQ+/h6k
+         A7XFHGLkuSkxDgeXIA+n/+CrwJ/t9TMwToN0/Js+fxLgcV+JAtQw1bFOu4O2Fz1Dhw+q
+         WyJwZwFaP0sRn4xYnwSM5l8CidOyg3iKoYIKEJYM1ng9f0VB4eRS1bsaw8d8nHAx4h/G
+         czUwzpZoZDM6LiD/nypUUWIzSPgmSO+qdzUz42PAwKuPULn5tdBeRtIR3lRbLRri9mPB
+         frpvJ4zlbfqIAG49tb9dG7CSWWgGpWAWFGRqRxq+cdTJRQFAiaKvT0g+CifUT1fTUyac
+         zK3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
-        bh=KToPExNm6RqCbkRxV4jl0trns6uhFAwDCNgSd+zMEPs=;
-        b=BQMwntoP7dEsEjDl48ljWwk+tzNx5xthA+UxR4luBBXw9f0jhyV4/w+ZYczknPEZlg
-         haF507Tn9aDXJ0qhygAg85VY5Yqhlt4ZF59iG/s8GV5aMzn/WEw4YnETU2BxmppIoC3U
-         /XYgFL49n5i+F3xLrvB1fT5z+oel6HGQQZkRz15Y0f9QfmgcxK8ueU+95QA16wFWC2KG
-         BL0U/VjA/qDl8mOqT2/K4vyRFeX/vJCN8cC9fg69O1/m9/k7DOZR+vgPtULMnavC675n
-         //fPIAU2WVjx5YOfNqi5ZuOdzzMs0PfVrNd5lEIuof7hwHi2Co3Px/ggJu7w6e9ZmSw1
-         Rvvw==
-X-Gm-Message-State: ANhLgQ1Nt3TcPkjsUhNmH8HoPHMRx8QqmUYAmpwS0j3IEoA2xggYUJy0
-        plv0f+RptqJqI+Vh4YSmerrgjWNDzSqiTWEvaH44y7tlP3Ov
-X-Google-Smtp-Source: ADFU+vuvRYbW9PNV/q8MLTEHWdAD4ho5LHLs9FI6is/xjztOUo844KhUO8SuovCKxjeg8nBRxi2ZRLcOAt/OOBoIbJgvi9PUz4M6
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=/VYKm9GDpxmSLCVpmb+6PCW3URtN2apXdt8g30UTbWM=;
+        b=HtWBqkB2E/r2VOY7o+dLFmWv2OR0agaYqf50gOW4Cjkqb9oMTW5zcyts7Uib73wwxZ
+         qC/aP98Q4w8dAWi84n7m/LcuACJC3hQn9dLfeDTH5hrLE0LgJ5C5VFCmVPIuQ76VdYb2
+         GWtq/FiY4uKRnUP4SSvzeo7ycUbBSoJ+eDp0QKGI3BZWzsyANyb7i1xcyZnw9ilkRZhJ
+         6LhapPQdWDbEceO7tnYiAdqru1rF/8t68Vs45tzh4GKFYPojo+7cJ63qJ3JoiGdaKe3C
+         W530AGYpbIL5/tR2jLFzv6bwNUxUxi4vK2/NYo1YReFPY0Y8PjL+UZ/+IVRI/ukb5Xye
+         pHKQ==
+X-Gm-Message-State: AGi0PuaGBCDSHDZVvSAEvzbb1gbJXOlRO4Qjwh1jeae89Gdfm9em9bR0
+        6VJpwX2ockNm5mTBAhbZT551D5N+ZrvR7A922lI=
+X-Google-Smtp-Source: APiQypKAvLCaZClTzLtCWb9E559XQ4Wj7y3ragTvovvFwyXodsGDQbrqH9QqCUjpVjzvwAeP5ZIBJsg1jyXFgW79w7s=
+X-Received: by 2002:a1c:2203:: with SMTP id i3mr290857wmi.0.1586234376201;
+ Mon, 06 Apr 2020 21:39:36 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 2002:a92:5e55:: with SMTP id s82mr10788385ilb.62.1585581675754;
- Mon, 30 Mar 2020 08:21:15 -0700 (PDT)
-Date:   Mon, 30 Mar 2020 08:21:15 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000008bf24905a21400b9@google.com>
-Subject: KMSAN: uninit-value in do_dccp_getsockopt
-From:   syzbot <syzbot+de5579bd3a5d86b1e863@syzkaller.appspotmail.com>
-To:     davem@davemloft.net, dccp@vger.kernel.org, gerrit@erg.abdn.ac.uk,
-        glider@google.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Received: by 2002:a1c:f30f:0:0:0:0:0 with HTTP; Mon, 6 Apr 2020 21:39:35 -0700 (PDT)
+Reply-To: nelsonyakubu1@yandex.com
+From:   nelson yakubu <ynynynyn01@gmail.com>
+Date:   Tue, 7 Apr 2020 04:39:35 +0000
+Message-ID: <CADbwvdQfqWLY51rFXne=KMGGyqw=zkzUWnvvTUv1vs3r0nqSYg@mail.gmail.com>
+Subject: whether this is your correct email address or not
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello,
+Dear Friend,
 
-syzbot found the following crash on:
+My Name is Mr Yakubu Nelson, I have been searching for your
+contact since you left our country some years ago .I do not know
+whether this is your correct email address or not because I only used
+your name initials to search for your contact in the internet .In case
+you are not the person I am supposed to contact,
 
-HEAD commit:    c95d0c95 kmsan: block: skip bio block merging logic for KM..
-git tree:       https://github.com/google/kmsan.git master
-console output: https://syzkaller.appspot.com/x/log.txt?x=153677bbe00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7811db4cc444a7f6
-dashboard link: https://syzkaller.appspot.com/bug?extid=de5579bd3a5d86b1e863
-compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
+please see this as a confidential message and do not reveal it to
+another person but if you are not the intended receiver, do let me
+know whether you can be of assistance regarding my proposal below
+because it is top secret.
 
-Unfortunately, I don't have any reproducer for this crash yet.
+I am still working with the central bank as the legal advicer where we met
+during your
+official visit to my country.I am about to retire from active Bank
+service to start a new life but I am sceptical to reveal this
+particular secret to a stranger .You must assure me that everything will
+be handled confidentially because we are not going to suffer again in
+ourlife.any more
 
-IMPORTANT: if you fix the bug, please add the following tag to the commit:
-Reported-by: syzbot+de5579bd3a5d86b1e863@syzkaller.appspotmail.com
+It has been 10 years now that most of the greedy Politicians
+used our bank to Launder money overseas through the help of their
+Political advisers. Most of the funds which they transferred out of
+the shores of Africa was old and oil money that was supposed to have
+been used to develop the continent. Their Political advisers always
+inflated the amounts before transfer to foreign accounts so I also
+used the opportunity to divert part of the funds hence I am aware that
+there is no official trace of how much was transferred as all the
+accounts used for such transfers were being closed after transfer,I
+acted as the bank Officer to most of the politicians and when I
+discovered that they were using me to succeed in their greedy act,
 
-=====================================================
-BUG: KMSAN: uninit-value in ccid_hc_rx_getsockopt net/dccp/ccids/../ccid.h:246 [inline]
-BUG: KMSAN: uninit-value in do_dccp_getsockopt+0x1851/0x1e10 net/dccp/proto.c:671
-CPU: 1 PID: 28577 Comm: syz-executor.1 Not tainted 5.6.0-rc7-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Call Trace:
- __dump_stack lib/dump_stack.c:77 [inline]
- dump_stack+0x1c9/0x220 lib/dump_stack.c:118
- kmsan_report+0xf7/0x1e0 mm/kmsan/kmsan_report.c:118
- __msan_warning+0x58/0xa0 mm/kmsan/kmsan_instr.c:215
- ccid_hc_rx_getsockopt net/dccp/ccids/../ccid.h:246 [inline]
- do_dccp_getsockopt+0x1851/0x1e10 net/dccp/proto.c:671
- dccp_getsockopt+0xfd/0x200 net/dccp/proto.c:694
- sock_common_getsockopt+0x13f/0x180 net/core/sock.c:3111
- __sys_getsockopt+0x533/0x7b0 net/socket.c:2177
- __do_sys_getsockopt net/socket.c:2192 [inline]
- __se_sys_getsockopt+0xe1/0x100 net/socket.c:2189
- __x64_sys_getsockopt+0x62/0x80 net/socket.c:2189
- do_syscall_64+0xb8/0x160 arch/x86/entry/common.c:296
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-RIP: 0033:0x45c849
-Code: ad b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 7b b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00
-RSP: 002b:00007f60866cdc78 EFLAGS: 00000246 ORIG_RAX: 0000000000000037
-RAX: ffffffffffffffda RBX: 00007f60866ce6d4 RCX: 000000000045c849
-RDX: 00000000000000a9 RSI: 000000000000010d RDI: 0000000000000004
-RBP: 000000000076bf00 R08: 00000000200000c0 R09: 0000000000000000
-R10: 0000000020000140 R11: 0000000000000246 R12: 00000000ffffffff
-R13: 0000000000000174 R14: 00000000004c3f3e R15: 000000000076bf0c
+I also cleaned some of their banking records from the Bank files and
+no one cared to ask me because the money was too much for them to
+control. They laundered over $2bn during the process .As I am sending
+this message to you, I was able to divert more than Fifty Million
+Dollars ($50m) to an escrow account belonging to no one in the bank.
+The bank is anxious now to know who is the beneficiary to the funds
+because they have made a lot of profits with the funds.
 
-Uninit was created at:
- kmsan_save_stack_with_flags mm/kmsan/kmsan.c:144 [inline]
- kmsan_internal_poison_shadow+0x66/0xd0 mm/kmsan/kmsan.c:127
- kmsan_slab_alloc+0x8a/0xe0 mm/kmsan/kmsan_hooks.c:82
- slab_alloc_node mm/slub.c:2801 [inline]
- slab_alloc mm/slub.c:2810 [inline]
- kmem_cache_alloc+0x711/0xd70 mm/slub.c:2815
- ccid_new+0x1da/0x680 net/dccp/ccid.c:148
- dccp_hdlr_ccid+0x9f/0x260 net/dccp/feat.c:39
- __dccp_feat_activate net/dccp/feat.c:339 [inline]
- dccp_feat_activate_values+0x5e9/0x1660 net/dccp/feat.c:1537
- dccp_rcv_request_sent_state_process net/dccp/input.c:468 [inline]
- dccp_rcv_state_process+0x1a6d/0x2320 net/dccp/input.c:676
- dccp_v4_do_rcv+0x221/0x330 net/dccp/ipv4.c:684
- sk_backlog_rcv include/net/sock.h:963 [inline]
- __release_sock+0x2a3/0x5c0 net/core/sock.c:2440
- release_sock+0x99/0x2a0 net/core/sock.c:2956
- inet_wait_for_connect net/ipv4/af_inet.c:588 [inline]
- __inet_stream_connect+0xb05/0x1340 net/ipv4/af_inet.c:680
- inet_stream_connect+0x101/0x180 net/ipv4/af_inet.c:719
- __sys_connect_file net/socket.c:1859 [inline]
- __sys_connect+0x6f7/0x770 net/socket.c:1876
- __do_sys_connect net/socket.c:1887 [inline]
- __se_sys_connect+0x8d/0xb0 net/socket.c:1884
- __x64_sys_connect+0x4a/0x70 net/socket.c:1884
- do_syscall_64+0xb8/0x160 arch/x86/entry/common.c:296
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-=====================================================
+It is more than Eight years now and most of the politicians are no
+longer using our bank to transfer funds overseas. The $50M has been
+lying waste but I don't want to retire from the bank without
+transferring the funds to a foreign account to enable me share the
+proceeds with the receiver. The money will be shared 60% for me and
+40% for you.
+
+There is no one coming to ask you about the funds because I secured
+everything.I only want you to ass is me by providing a viable bank
+account where the funds can be transferred. You are not to face any
+difficulties or legal implications as I am going to handle the
+transfer personally. If you are capable of receiving the funds, do let
+me know immediately to enable me give you detailed information on what
+to do.
+
+For me, I have not stolen the money from everyone because the other people
+that took the whole money did not face any problems. This is my chance
+also to grab my own but you must keep the details of the funds secret
+to avoid leakages as no one in the bank knows about the funds.
+
+Please supply me the following:
+
+Your current contact address and Telephone Numbers. Whether you will
+be able to come down again to my country to meet me before the
+commencement of the transfer
+I shall intimate you on what to do when I get your confirmation and
+acceptance. If you are capable of being my trusted associate, do
+
+declare your consent to me.PLS REPLY HERE) yakubunelson@yandex.com
+
+Yours Faithfully,
 
 
----
-This bug is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this bug report. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Mr Yakubu Nelson

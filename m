@@ -2,64 +2,53 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3BA421B76B0
-	for <lists+dccp@lfdr.de>; Fri, 24 Apr 2020 15:13:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B5CB91B8142
+	for <lists+dccp@lfdr.de>; Fri, 24 Apr 2020 22:55:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727925AbgDXNNq (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 24 Apr 2020 09:13:46 -0400
-Received: from szxga07-in.huawei.com ([45.249.212.35]:47642 "EHLO huawei.com"
+        id S1726164AbgDXUzl (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 24 Apr 2020 16:55:41 -0400
+Received: from mail.entin.co.kr ([222.122.20.173]:38743 "EHLO entin.co.kr"
         rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726301AbgDXNNq (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 24 Apr 2020 09:13:46 -0400
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
-        by Forcepoint Email with ESMTP id C3E10EBEFB3E2EFFA5E7;
-        Fri, 24 Apr 2020 21:13:41 +0800 (CST)
-Received: from localhost (10.166.215.154) by DGGEMS402-HUB.china.huawei.com
- (10.3.19.202) with Microsoft SMTP Server id 14.3.487.0; Fri, 24 Apr 2020
- 21:13:35 +0800
-From:   YueHaibing <yuehaibing@huawei.com>
-To:     <gerrit@erg.abdn.ac.uk>, <davem@davemloft.net>, <kuba@kernel.org>,
-        <tglx@linutronix.de>
-CC:     <dccp@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH net-next] dccp: remove unused inline function dccp_set_seqno
-Date:   Fri, 24 Apr 2020 21:13:34 +0800
-Message-ID: <20200424131334.37532-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+        id S1726027AbgDXUzl (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 24 Apr 2020 16:55:41 -0400
+X-Greylist: delayed 10663 seconds by postgrey-1.27 at vger.kernel.org; Fri, 24 Apr 2020 16:55:40 EDT
+Received: (qmail 26110 invoked by uid 491); 25 Apr 2020 02:13:01 +0900
+Received: from unknown (HELO webmail.entin.co.kr) (entin@entin.co.kr@222.122.20.173)
+        by 0 (knetqmail v1.06) with ESMTPA;
+        25 Apr 2020 02:13:01 +0900
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.166.215.154]
-X-CFilter-Loop: Reflected
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date:   Sat, 25 Apr 2020 02:13:00 +0900
+From:   KOFI ABUBARKA <entin@entin.co.kr>
+To:     undisclosed-recipients:;
+Subject: Good Day
+Reply-To: <abubarkakofi77@aol.com>
+Mail-Reply-To: <abubarkakofi77@aol.com>
+Message-ID: <0dfd312a915a3546a5b5215a304f3df6@entin.co.kr>
+X-Sender: entin@entin.co.kr
+User-Agent: Roundcube Webmail/0.7.2
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-There's no callers in-tree since commit 792b48780e8b ("dccp: Implement
-both feature-local and feature-remote Sequence Window feature")
+ATTENTION,
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- net/dccp/dccp.h | 5 -----
- 1 file changed, 5 deletions(-)
+THEY ARE TWO GENTLEMEN WHO CAME TO OUR BANK TODAY, STATING THEY ARE 
+YOUR REPRESENTATIVES FOR THE INTERNATIONAL MONETARY FUNDS (IMF) AND THE 
+WORLD BANK BENEFICIARY ALLOWANCE AMNESTY PAYMENT OF US$4,800,000.00
 
-diff --git a/net/dccp/dccp.h b/net/dccp/dccp.h
-index 9c3b27c257bb..7dce4f6c7025 100644
---- a/net/dccp/dccp.h
-+++ b/net/dccp/dccp.h
-@@ -108,11 +108,6 @@ extern int  sysctl_dccp_sync_ratelimit;
- #define ADD48(a, b)	 (((a) + (b)) & UINT48_MAX)
- #define SUB48(a, b)	 ADD48((a), COMPLEMENT48(b))
- 
--static inline void dccp_set_seqno(u64 *seqno, u64 value)
--{
--	*seqno = value & UINT48_MAX;
--}
--
- static inline void dccp_inc_seqno(u64 *seqno)
- {
- 	*seqno = ADD48(*seqno, 1);
--- 
-2.17.1
+THEY ALREADY SUBMITTED YOUR WELLS FARGO ACCOUNT INFORMATION WHERE THEY 
+CONFIRMED YOU WANT YOUR ALLOWANCE PAYMENT TO BE TRANSFERRED, WE 
+THEREFORE WISH TO SEEK YOUR APPROVAL BEFORE DISBURSEMENT, BECAUSE THIS 
+DEPARTMENT WAS SOLELY SET-UP FOR THESE PURPOSE AND WE WILL BE CONCLUDING 
+WITHIN 7 WORKING DAYS.
 
+KINDLY REVERT BEFORE CLOSE OF BUSINESS TODAY.
 
+YOURS FAITHFULLY,
+KOFI ABUBARKA,
+HEAD CORPORATE AFFAIRS
+GHANA COMMERCIAL BANK.

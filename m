@@ -1,62 +1,65 @@
 Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
-Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E37E1A4232
-	for <lists+dccp@lfdr.de>; Fri, 10 Apr 2020 07:13:20 +0200 (CEST)
+Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
+	by mail.lfdr.de (Postfix) with ESMTP id 3BA421B76B0
+	for <lists+dccp@lfdr.de>; Fri, 24 Apr 2020 15:13:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725776AbgDJFNS (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 10 Apr 2020 01:13:18 -0400
-Received: from mail.dsns.gov.ua ([194.0.148.101]:49802 "EHLO mail.dsns.gov.ua"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725710AbgDJFNS (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 10 Apr 2020 01:13:18 -0400
-X-Greylist: delayed 11315 seconds by postgrey-1.27 at vger.kernel.org; Fri, 10 Apr 2020 01:13:17 EDT
-Received: from localhost (localhost [127.0.0.1])
-        by mail.dsns.gov.ua (Postfix) with ESMTP id 9D6301D257D6;
-        Fri, 10 Apr 2020 00:21:32 +0300 (EEST)
-Received: from mail.dsns.gov.ua ([127.0.0.1])
-        by localhost (mail.dsns.gov.ua [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id ECHK5AZ4_LZN; Fri, 10 Apr 2020 00:21:32 +0300 (EEST)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.dsns.gov.ua (Postfix) with ESMTP id 6C4401D257DC;
-        Fri, 10 Apr 2020 00:21:31 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.dsns.gov.ua 6C4401D257DC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dsns.gov.ua;
-        s=1E60DAC0-2607-11E9-81E6-7A77C2B36653; t=1586467291;
-        bh=njlCkWFc0hcw8eBX6ul4CN7Q0eDgIqGtksJn7ge99kc=;
-        h=Date:From:Message-ID:MIME-Version;
-        b=xk2QVa6nx7rxz7MWyH6kdjoLwFRYontJdtKFK3GD+rAlp+MEjBRYTUM2FRpuuZwBM
-         EJRNX66uL+XooLUKflIxh3G8YnNWt5BdX63545/UuGQSAkCN9Ibur6yGPtSlM0yVph
-         g8TwUeqipW3c+uFkg9IaiviyK48KDNlaWjMTaKb6KsnbML82WacJAJxTlCUToXypYp
-         NyICv2eMwdsZLiEU0waQ4/9IsrrkF6E8eMWKb0b+5EMciblfOnH0SEQp3mSP92TKUt
-         2mdrvQO7jIN20Yj4W5arb4n/M8+QJj1pVjssAtkVb36AT/cAb9xCPgOuSU7mGc8Cd1
-         m9eiQ82ZdiVHQ==
-X-Virus-Scanned: amavisd-new at dsns.gov.ua
-Received: from mail.dsns.gov.ua ([127.0.0.1])
-        by localhost (mail.dsns.gov.ua [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id BD79pAqDsZX6; Fri, 10 Apr 2020 00:21:31 +0300 (EEST)
-Received: from mail.dsns.gov.ua (localhost [127.0.0.1])
-        by mail.dsns.gov.ua (Postfix) with ESMTP id 497191D257C1;
-        Fri, 10 Apr 2020 00:21:27 +0300 (EEST)
-Date:   Fri, 10 Apr 2020 00:21:27 +0300 (EEST)
-From:   Bryan Lee <avia_duty@dsns.gov.ua>
-Reply-To: Bryan Lee <0bryanlee09@gmail.com>
-Message-ID: <311967090.32807.1586467287242.JavaMail.zimbra@dsns.gov.ua>
-Subject: Hello
+        id S1727925AbgDXNNq (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 24 Apr 2020 09:13:46 -0400
+Received: from szxga07-in.huawei.com ([45.249.212.35]:47642 "EHLO huawei.com"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1726301AbgDXNNq (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 24 Apr 2020 09:13:46 -0400
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
+        by Forcepoint Email with ESMTP id C3E10EBEFB3E2EFFA5E7;
+        Fri, 24 Apr 2020 21:13:41 +0800 (CST)
+Received: from localhost (10.166.215.154) by DGGEMS402-HUB.china.huawei.com
+ (10.3.19.202) with Microsoft SMTP Server id 14.3.487.0; Fri, 24 Apr 2020
+ 21:13:35 +0800
+From:   YueHaibing <yuehaibing@huawei.com>
+To:     <gerrit@erg.abdn.ac.uk>, <davem@davemloft.net>, <kuba@kernel.org>,
+        <tglx@linutronix.de>
+CC:     <dccp@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH net-next] dccp: remove unused inline function dccp_set_seqno
+Date:   Fri, 24 Apr 2020 21:13:34 +0800
+Message-ID: <20200424131334.37532-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [45.56.137.91, 162.158.150.7]
-X-Mailer: Zimbra 8.8.15_GA_3918 (zclient/8.8.15_GA_3918)
-Thread-Index: DOsR6SkPhl0EbeqmNfPVY3Gw8Zdfmg==
-Thread-Topic: Hello
-To:     unlisted-recipients:; (no To-header on input)
+Content-Type: text/plain
+X-Originating-IP: [10.166.215.154]
+X-CFilter-Loop: Reflected
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
+There's no callers in-tree since commit 792b48780e8b ("dccp: Implement
+both feature-local and feature-remote Sequence Window feature")
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ net/dccp/dccp.h | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/net/dccp/dccp.h b/net/dccp/dccp.h
+index 9c3b27c257bb..7dce4f6c7025 100644
+--- a/net/dccp/dccp.h
++++ b/net/dccp/dccp.h
+@@ -108,11 +108,6 @@ extern int  sysctl_dccp_sync_ratelimit;
+ #define ADD48(a, b)	 (((a) + (b)) & UINT48_MAX)
+ #define SUB48(a, b)	 ADD48((a), COMPLEMENT48(b))
+ 
+-static inline void dccp_set_seqno(u64 *seqno, u64 value)
+-{
+-	*seqno = value & UINT48_MAX;
+-}
+-
+ static inline void dccp_inc_seqno(u64 *seqno)
+ {
+ 	*seqno = ADD48(*seqno, 1);
+-- 
+2.17.1
 
 
-Can we talk now?

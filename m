@@ -2,53 +2,51 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B5CB91B8142
-	for <lists+dccp@lfdr.de>; Fri, 24 Apr 2020 22:55:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7031A1B8BBA
+	for <lists+dccp@lfdr.de>; Sun, 26 Apr 2020 05:43:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726164AbgDXUzl (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 24 Apr 2020 16:55:41 -0400
-Received: from mail.entin.co.kr ([222.122.20.173]:38743 "EHLO entin.co.kr"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726027AbgDXUzl (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 24 Apr 2020 16:55:41 -0400
-X-Greylist: delayed 10663 seconds by postgrey-1.27 at vger.kernel.org; Fri, 24 Apr 2020 16:55:40 EDT
-Received: (qmail 26110 invoked by uid 491); 25 Apr 2020 02:13:01 +0900
-Received: from unknown (HELO webmail.entin.co.kr) (entin@entin.co.kr@222.122.20.173)
-        by 0 (knetqmail v1.06) with ESMTPA;
-        25 Apr 2020 02:13:01 +0900
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+        id S1726159AbgDZDnV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 25 Apr 2020 23:43:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50206 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725943AbgDZDnU (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 25 Apr 2020 23:43:20 -0400
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [IPv6:2620:137:e000::1:9])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FF32C061A0C;
+        Sat, 25 Apr 2020 20:43:20 -0700 (PDT)
+Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
+        (using TLSv1 with cipher AES256-SHA (256/256 bits))
+        (Client did not present a certificate)
+        (Authenticated sender: davem-davemloft)
+        by shards.monkeyblade.net (Postfix) with ESMTPSA id 81265159FE254;
+        Sat, 25 Apr 2020 20:43:19 -0700 (PDT)
+Date:   Sat, 25 Apr 2020 20:43:18 -0700 (PDT)
+Message-Id: <20200425.204318.2085505541872793394.davem@davemloft.net>
+To:     yuehaibing@huawei.com
+Cc:     gerrit@erg.abdn.ac.uk, kuba@kernel.org, tglx@linutronix.de,
+        dccp@vger.kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] dccp: remove unused inline function
+ dccp_set_seqno
+From:   David Miller <davem@davemloft.net>
+In-Reply-To: <20200424131334.37532-1-yuehaibing@huawei.com>
+References: <20200424131334.37532-1-yuehaibing@huawei.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Date:   Sat, 25 Apr 2020 02:13:00 +0900
-From:   KOFI ABUBARKA <entin@entin.co.kr>
-To:     undisclosed-recipients:;
-Subject: Good Day
-Reply-To: <abubarkakofi77@aol.com>
-Mail-Reply-To: <abubarkakofi77@aol.com>
-Message-ID: <0dfd312a915a3546a5b5215a304f3df6@entin.co.kr>
-X-Sender: entin@entin.co.kr
-User-Agent: Roundcube Webmail/0.7.2
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12 (shards.monkeyblade.net [149.20.54.216]); Sat, 25 Apr 2020 20:43:19 -0700 (PDT)
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-ATTENTION,
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Fri, 24 Apr 2020 21:13:34 +0800
 
-THEY ARE TWO GENTLEMEN WHO CAME TO OUR BANK TODAY, STATING THEY ARE 
-YOUR REPRESENTATIVES FOR THE INTERNATIONAL MONETARY FUNDS (IMF) AND THE 
-WORLD BANK BENEFICIARY ALLOWANCE AMNESTY PAYMENT OF US$4,800,000.00
+> There's no callers in-tree since commit 792b48780e8b ("dccp: Implement
+> both feature-local and feature-remote Sequence Window feature")
+> 
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 
-THEY ALREADY SUBMITTED YOUR WELLS FARGO ACCOUNT INFORMATION WHERE THEY 
-CONFIRMED YOU WANT YOUR ALLOWANCE PAYMENT TO BE TRANSFERRED, WE 
-THEREFORE WISH TO SEEK YOUR APPROVAL BEFORE DISBURSEMENT, BECAUSE THIS 
-DEPARTMENT WAS SOLELY SET-UP FOR THESE PURPOSE AND WE WILL BE CONCLUDING 
-WITHIN 7 WORKING DAYS.
-
-KINDLY REVERT BEFORE CLOSE OF BUSINESS TODAY.
-
-YOURS FAITHFULLY,
-KOFI ABUBARKA,
-HEAD CORPORATE AFFAIRS
-GHANA COMMERCIAL BANK.
+Applied.

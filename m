@@ -2,51 +2,62 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7031A1B8BBA
-	for <lists+dccp@lfdr.de>; Sun, 26 Apr 2020 05:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F7711BA286
+	for <lists+dccp@lfdr.de>; Mon, 27 Apr 2020 13:39:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726159AbgDZDnV (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 25 Apr 2020 23:43:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50206 "EHLO
+        id S1726721AbgD0LjY (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 27 Apr 2020 07:39:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35706 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725943AbgDZDnU (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 25 Apr 2020 23:43:20 -0400
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [IPv6:2620:137:e000::1:9])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FF32C061A0C;
-        Sat, 25 Apr 2020 20:43:20 -0700 (PDT)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
-        (using TLSv1 with cipher AES256-SHA (256/256 bits))
-        (Client did not present a certificate)
-        (Authenticated sender: davem-davemloft)
-        by shards.monkeyblade.net (Postfix) with ESMTPSA id 81265159FE254;
-        Sat, 25 Apr 2020 20:43:19 -0700 (PDT)
-Date:   Sat, 25 Apr 2020 20:43:18 -0700 (PDT)
-Message-Id: <20200425.204318.2085505541872793394.davem@davemloft.net>
-To:     yuehaibing@huawei.com
-Cc:     gerrit@erg.abdn.ac.uk, kuba@kernel.org, tglx@linutronix.de,
-        dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] dccp: remove unused inline function
- dccp_set_seqno
-From:   David Miller <davem@davemloft.net>
-In-Reply-To: <20200424131334.37532-1-yuehaibing@huawei.com>
-References: <20200424131334.37532-1-yuehaibing@huawei.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12 (shards.monkeyblade.net [149.20.54.216]); Sat, 25 Apr 2020 20:43:19 -0700 (PDT)
+        with ESMTP id S1726604AbgD0LjX (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 27 Apr 2020 07:39:23 -0400
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com [IPv6:2607:f8b0:4864:20::142])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3FDCC03C1A7
+        for <dccp@vger.kernel.org>; Mon, 27 Apr 2020 04:39:22 -0700 (PDT)
+Received: by mail-il1-x142.google.com with SMTP id b18so16327505ilf.2
+        for <dccp@vger.kernel.org>; Mon, 27 Apr 2020 04:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=F+HbPvxQnRBlqBFKy/zn6110uxUPAWY6eSsMY6+ckPY=;
+        b=EObb2TBK/BjYRlA0XOJMSKSiHzfhMWfrwRKChAYU7QOv4Zs/RfaJeFmUCTpkPU/Gp1
+         +8f7uYHpcFRYDQAC7HrbD8cAHJNwEydiAtCobtt4LzYA0S32XbbyLbVO79ePMcxX7CJ3
+         yPBIYHk9tcygHOpDCi1Qk2fHPY9IRUlaLGaVQommo28u1xA7u7z5olhXPB8YLdOcoXlx
+         wpWJr89rBjbYkmOmbTo/4MDCCRIbzvzP+MgqnjK+qpEjqW6JBt0Fc2e9HyjEG8b2HB/2
+         PvIHxaavHKe9tynwX5i40VcNQbZ7Gc+J4ahOLPvf0ctrMc1M5R5Cjce0Z16SS1dKmlUP
+         sJVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=F+HbPvxQnRBlqBFKy/zn6110uxUPAWY6eSsMY6+ckPY=;
+        b=N4hxfW4mlAgnsH9x+2KCQHIkbvXRUONZk6QiLonz3jq5hwds/hEtp6Kgi21vk/2A4z
+         EofKEnygox2i3RyCyOihXeF1nMYa7XsRqhnGWVRJcKcs8w4lVH+lUyNUesu6TEneDEgM
+         46FR9+pWb+374jY1zrXHanTrGPM6FqwuQOCELURjQVCJAe0yGxYoq9VEzVa1JS0oGlCc
+         gYaYPyt/4yBhdAmvmVd5MwHY9WH1lUBKg159g6pz/ty4Pd+ZFIfXQHHRVybuTseurj1m
+         4zznaFjU6XJgPlzVo7QlynM31Xk1+FRUkHxYdxbIXJpFT/QsSl82EWUuJepgWnqlEP9q
+         tkCg==
+X-Gm-Message-State: AGi0PuZUA/jT++lqpBjpbawpoR5yekdXTu2bf+M3J/BlkVD0O6alJ92Y
+        pmgKGs8xYsWUQESgqQMkmU9DMzM/T+KkzeC6zzo=
+X-Google-Smtp-Source: APiQypKaj/HveCDxvCxIrk85EqqVTpYlKNSM3AhSdWTIQKMCtzW0zpPUGBXnjAK0IppfF/n1vsE1olIkRcB+NueZh5Y=
+X-Received: by 2002:a05:6e02:8a3:: with SMTP id a3mr5502452ilt.219.1587987561967;
+ Mon, 27 Apr 2020 04:39:21 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:a5d:8f89:0:0:0:0:0 with HTTP; Mon, 27 Apr 2020 04:39:21
+ -0700 (PDT)
+Reply-To: convy0090@gmail.com
+From:   Ruben CONVY <andrewboccc@gmail.com>
+Date:   Mon, 27 Apr 2020 12:39:21 +0100
+Message-ID: <CAHVC0+BCfiV-4oVhRBza_VHyzMGLDHZsknFbwXsDRR0DVRoRAQ@mail.gmail.com>
+Subject: Why continued silence 2
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Fri, 24 Apr 2020 21:13:34 +0800
-
-> There's no callers in-tree since commit 792b48780e8b ("dccp: Implement
-> both feature-local and feature-remote Sequence Window feature")
-> 
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-
-Applied.
+Did you receive my previous email regarding your family inheritance?
+Reply strictly through: convy0090@gmail.com
+Best Regards,
+Ruben CONVY

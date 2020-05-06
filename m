@@ -2,48 +2,48 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 724591C7100
-	for <lists+dccp@lfdr.de>; Wed,  6 May 2020 14:55:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 626AA1C7102
+	for <lists+dccp@lfdr.de>; Wed,  6 May 2020 14:55:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728775AbgEFMzj (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 6 May 2020 08:55:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35412 "EHLO
+        id S1728781AbgEFMzk (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 6 May 2020 08:55:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35422 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728770AbgEFMzi (ORCPT
-        <rfc822;dccp@vger.kernel.org>); Wed, 6 May 2020 08:55:38 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAE3FC061A10
-        for <dccp@vger.kernel.org>; Wed,  6 May 2020 05:55:37 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id h4so2468863wmb.4
-        for <dccp@vger.kernel.org>; Wed, 06 May 2020 05:55:37 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1728769AbgEFMzk (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Wed, 6 May 2020 08:55:40 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93023C061A0F
+        for <dccp@vger.kernel.org>; Wed,  6 May 2020 05:55:39 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id h9so2100044wrt.0
+        for <dccp@vger.kernel.org>; Wed, 06 May 2020 05:55:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloudflare.com; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=8MMXgY0TXvd+/8Bf5r+9pGjHTsnA2fHOT0fRA7c4wXg=;
-        b=VTDDjKm0TNiaYyKf9a7lvt3iTreBuPSQUKI4jsKuA2L3Pa0Z71HqJyZ0jfeBaTMAqa
-         +i9s+C7LQQe/+SzedTjjFVxxRSYIouSnwFIF2gpyVwqh9jjkG2Ks/Q+tZn6jA9dalZoz
-         gW9T4TqUhcWsYWYBDi941/KCSF7UrXVJjP8NY=
+        bh=VqCDXocDO5i14k8cYRHa8RKCuTANFN6tDGlDkASkrpE=;
+        b=xuPtNjAPMWquJxSyRYDyUpqZ1kOQCTp3PDWqRw7XofdpT+wYXmoMpp2GrvyiDxty5V
+         WeWhGHEB01jLg81zut/sN475g3EBo/6N6qzGmt6JaOHl66uxbhDlXG/h3dAmnjYPQgb0
+         q45Xdt5b/2Jz+X65ePYdSFahppTh8oFSai5Xo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=8MMXgY0TXvd+/8Bf5r+9pGjHTsnA2fHOT0fRA7c4wXg=;
-        b=f4QWToc7dveC4SOQES20J6Zq00lXPOXV+61SSXIdnyjPY343/Z+G+drxMQBv4hjm0X
-         tk1Iw/bk4JPMsi7G0ynWCHkzQ5GpuZAWowLTDkIyOr4PqmprcUA6mrePEgJVl/Kj6eO+
-         N7iLl4wgDkWLbFY1xE9QXWFjgpp9iu4XilpVVxyxfefofIwv3RIJthNV6L6deu2nSDuz
-         4FI8VjZi62igxAgKbNsO4bUnh+AzuuSk7mcRFfjiFSKmBWtsA3BzIYRgQ4QOkCigdVm2
-         7d4Um1mBHSmWG8x2FJf/NA7cYFpMkxjc2rpyhu5/WZyU7FEu9I7cmLm3ts21tNco2LAr
-         tfqQ==
-X-Gm-Message-State: AGi0PuYrWlqG8fmsJlqosyf2TPKGc0m+yaFbycehs1S5zayoDqRhD6sm
-        i1zkfQ+uKIvaJ+Bvga6oib8K9g==
-X-Google-Smtp-Source: APiQypIBZTUzwyZq0r81vrVDEDqOQr7MdwHx8+Rw0PY51qr+jvbJbKi9RyKjx6xy4f28h/W0tfEzhA==
-X-Received: by 2002:a7b:c190:: with SMTP id y16mr4694417wmi.50.1588769736672;
-        Wed, 06 May 2020 05:55:36 -0700 (PDT)
+        bh=VqCDXocDO5i14k8cYRHa8RKCuTANFN6tDGlDkASkrpE=;
+        b=d9tsHfYWqMvsU6cmOjXUGQS/bF8hWHP6Yc3n1PzxQ6zy8X1nYHSu/XAIak9zaSWUB1
+         Or5I0+jHQ+cfXS371GkfjH7cYux9S7gGoyBVen3WbjFP6mzkzCgEjR094ilMlyMh+aIH
+         0sapkcMqTVmrJI5wZBc7E2+NnKH091LNkfK7L5+pQj4Q1O/Q6ftyuSwimzA/WhwFzbyy
+         E8RV/3+MpS0dOySU17P7mD3XaCFwP76hJYkmjjgtRd+JCa6NU0zpRjWQacRAyVbc/K9y
+         2xyOqUNWe4/aYjOEVi6PobQ5I5MRwBuAXly0lVJ8Qa8meiV++ENMQ+EMySFw8/Qy1Qru
+         ETdA==
+X-Gm-Message-State: AGi0PubzzC8cbuB90kve/x3J/Uk95CulHSXP8W7OOHx41lq1Ro0eMprC
+        UWdZ18FLzPakdrchVik9WJH9sw==
+X-Google-Smtp-Source: APiQypLP80LeXjHnXzijysBUf2zzud342z/LdlI0pcTzjFIdpP767ZgBHvcBHF/MJHTUiPgm3eQ6Cw==
+X-Received: by 2002:a5d:614b:: with SMTP id y11mr10106526wrt.77.1588769738143;
+        Wed, 06 May 2020 05:55:38 -0700 (PDT)
 Received: from cloudflare.com ([2a02:a310:c262:aa00:b35e:8938:2c2a:ba8b])
-        by smtp.gmail.com with ESMTPSA id a15sm2700717wrw.56.2020.05.06.05.55.35
+        by smtp.gmail.com with ESMTPSA id w9sm3013664wrc.27.2020.05.06.05.55.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2020 05:55:36 -0700 (PDT)
+        Wed, 06 May 2020 05:55:37 -0700 (PDT)
 From:   Jakub Sitnicki <jakub@cloudflare.com>
 To:     netdev@vger.kernel.org, bpf@vger.kernel.org
 Cc:     dccp@vger.kernel.org, kernel-team@cloudflare.com,
@@ -53,9 +53,9 @@ Cc:     dccp@vger.kernel.org, kernel-team@cloudflare.com,
         Eric Dumazet <edumazet@google.com>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH bpf-next 14/17] libbpf: Add support for SK_LOOKUP program type
-Date:   Wed,  6 May 2020 14:55:10 +0200
-Message-Id: <20200506125514.1020829-15-jakub@cloudflare.com>
+Subject: [PATCH bpf-next 15/17] selftests/bpf: Add verifier tests for bpf_sk_lookup context access
+Date:   Wed,  6 May 2020 14:55:11 +0200
+Message-Id: <20200506125514.1020829-16-jakub@cloudflare.com>
 X-Mailer: git-send-email 2.25.3
 In-Reply-To: <20200506125514.1020829-1-jakub@cloudflare.com>
 References: <20200506125514.1020829-1-jakub@cloudflare.com>
@@ -66,83 +66,716 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Make libbpf aware of the newly added program type, and assign it a
-section name.
+Exercise verifier access checks for bpf_sk_lookup context fields.
 
 Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
 ---
- tools/lib/bpf/libbpf.c        | 3 +++
- tools/lib/bpf/libbpf.h        | 2 ++
- tools/lib/bpf/libbpf.map      | 2 ++
- tools/lib/bpf/libbpf_probes.c | 1 +
- 4 files changed, 8 insertions(+)
+ .../selftests/bpf/verifier/ctx_sk_lookup.c    | 696 ++++++++++++++++++
+ 1 file changed, 696 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/verifier/ctx_sk_lookup.c
 
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index 977add1b73e2..74f4a15dc19e 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -6524,6 +6524,7 @@ BPF_PROG_TYPE_FNS(perf_event, BPF_PROG_TYPE_PERF_EVENT);
- BPF_PROG_TYPE_FNS(tracing, BPF_PROG_TYPE_TRACING);
- BPF_PROG_TYPE_FNS(struct_ops, BPF_PROG_TYPE_STRUCT_OPS);
- BPF_PROG_TYPE_FNS(extension, BPF_PROG_TYPE_EXT);
-+BPF_PROG_TYPE_FNS(sk_lookup, BPF_PROG_TYPE_SK_LOOKUP);
- 
- enum bpf_attach_type
- bpf_program__get_expected_attach_type(struct bpf_program *prog)
-@@ -6684,6 +6685,8 @@ static const struct bpf_sec_def section_defs[] = {
- 	BPF_EAPROG_SEC("cgroup/setsockopt",	BPF_PROG_TYPE_CGROUP_SOCKOPT,
- 						BPF_CGROUP_SETSOCKOPT),
- 	BPF_PROG_SEC("struct_ops",		BPF_PROG_TYPE_STRUCT_OPS),
-+	BPF_EAPROG_SEC("sk_lookup",		BPF_PROG_TYPE_SK_LOOKUP,
-+						BPF_SK_LOOKUP),
- };
- 
- #undef BPF_PROG_SEC_IMPL
-diff --git a/tools/lib/bpf/libbpf.h b/tools/lib/bpf/libbpf.h
-index f1dacecb1619..8373fbacbba3 100644
---- a/tools/lib/bpf/libbpf.h
-+++ b/tools/lib/bpf/libbpf.h
-@@ -337,6 +337,7 @@ LIBBPF_API int bpf_program__set_perf_event(struct bpf_program *prog);
- LIBBPF_API int bpf_program__set_tracing(struct bpf_program *prog);
- LIBBPF_API int bpf_program__set_struct_ops(struct bpf_program *prog);
- LIBBPF_API int bpf_program__set_extension(struct bpf_program *prog);
-+LIBBPF_API int bpf_program__set_sk_lookup(struct bpf_program *prog);
- 
- LIBBPF_API enum bpf_prog_type bpf_program__get_type(struct bpf_program *prog);
- LIBBPF_API void bpf_program__set_type(struct bpf_program *prog,
-@@ -364,6 +365,7 @@ LIBBPF_API bool bpf_program__is_perf_event(const struct bpf_program *prog);
- LIBBPF_API bool bpf_program__is_tracing(const struct bpf_program *prog);
- LIBBPF_API bool bpf_program__is_struct_ops(const struct bpf_program *prog);
- LIBBPF_API bool bpf_program__is_extension(const struct bpf_program *prog);
-+LIBBPF_API bool bpf_program__is_sk_lookup(const struct bpf_program *prog);
- 
- /*
-  * No need for __attribute__((packed)), all members of 'bpf_map_def'
-diff --git a/tools/lib/bpf/libbpf.map b/tools/lib/bpf/libbpf.map
-index e03bd4db827e..113ac0a669c2 100644
---- a/tools/lib/bpf/libbpf.map
-+++ b/tools/lib/bpf/libbpf.map
-@@ -253,6 +253,8 @@ LIBBPF_0.0.8 {
- 		bpf_program__set_attach_target;
- 		bpf_program__set_lsm;
- 		bpf_set_link_xdp_fd_opts;
-+		bpf_program__is_sk_lookup;
-+		bpf_program__set_sk_lookup;
- } LIBBPF_0.0.7;
- 
- LIBBPF_0.0.9 {
-diff --git a/tools/lib/bpf/libbpf_probes.c b/tools/lib/bpf/libbpf_probes.c
-index 2c92059c0c90..5c6d3e49f254 100644
---- a/tools/lib/bpf/libbpf_probes.c
-+++ b/tools/lib/bpf/libbpf_probes.c
-@@ -109,6 +109,7 @@ probe_load(enum bpf_prog_type prog_type, const struct bpf_insn *insns,
- 	case BPF_PROG_TYPE_STRUCT_OPS:
- 	case BPF_PROG_TYPE_EXT:
- 	case BPF_PROG_TYPE_LSM:
-+	case BPF_PROG_TYPE_SK_LOOKUP:
- 	default:
- 		break;
- 	}
+diff --git a/tools/testing/selftests/bpf/verifier/ctx_sk_lookup.c b/tools/testing/selftests/bpf/verifier/ctx_sk_lookup.c
+new file mode 100644
+index 000000000000..167cc3da6502
+--- /dev/null
++++ b/tools/testing/selftests/bpf/verifier/ctx_sk_lookup.c
+@@ -0,0 +1,696 @@
++{
++	"valid 1,2,4-byte read bpf_sk_lookup src_ip4",
++	.insns = {
++		/* 4-byte read */
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		/* 2-byte read */
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip4) + 2),
++		/* 1-byte read */
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip4) + 3),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup src_ip4",
++	.insns = {
++		/* 8-byte read */
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup src_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		/* 4-byte write */
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup src_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		/* 4-byte write */
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup src_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		/* 2-byte write */
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup src_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		/* 1-byte write */
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 1,2,4-byte read bpf_sk_lookup dst_ip4",
++	.insns = {
++		/* 4-byte read */
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		/* 2-byte read */
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip4) + 2),
++		/* 1-byte read */
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip4) + 3),
++		BPF_MOV64_IMM(BPF_REG_0, 0),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup dst_ip4",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup dst_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup dst_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup dst_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup dst_ip4",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x7f000001U),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip4)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 1,2,4-byte read bpf_sk_lookup src_ip6",
++	.insns = {
++		/* 4-byte read */
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip6[3])),
++		/* 2-byte read */
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup,
++				     src_ip6[3]) + 2),
++		/* 1-byte read */
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup,
++				     src_ip6[3]) + 3),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup src_ip6",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup src_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup src_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup src_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup src_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 1,2,4-byte read bpf_sk_lookup dst_ip6",
++	.insns = {
++		/* 4-byte read */
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[3])),
++		/* 2-byte read */
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[3]) + 2),
++		/* 1-byte read */
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[3]) + 3),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup dst_ip6",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup dst_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup dst_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup dst_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup dst_ip6",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 0x00000001U),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_ip6[0])),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 4-byte read bpf_sk_lookup src_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup src_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte read bpf_sk_lookup src_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte read bpf_sk_lookup src_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup src_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup src_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup src_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup src_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, src_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 4-byte read bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte read bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte read bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup dst_port",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, dst_port)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 4-byte read bpf_sk_lookup family",
++	.insns = {
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup family",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte read bpf_sk_lookup family",
++	.insns = {
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte read bpf_sk_lookup family",
++	.insns = {
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup family",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup family",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup family",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup family",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, family)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"valid 4-byte read bpf_sk_lookup protocol",
++	.insns = {
++		BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.result = ACCEPT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte read bpf_sk_lookup protocol",
++	.insns = {
++		BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte read bpf_sk_lookup protocol",
++	.insns = {
++		BPF_LDX_MEM(BPF_H, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte read bpf_sk_lookup protocol",
++	.insns = {
++		BPF_LDX_MEM(BPF_B, BPF_REG_0, BPF_REG_1,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 8-byte write bpf_sk_lookup protocol",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 4-byte write bpf_sk_lookup protocol",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 2-byte write bpf_sk_lookup protocol",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_H, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
++{
++	"invalid 1-byte write bpf_sk_lookup protocol",
++	.insns = {
++		BPF_MOV64_IMM(BPF_REG_0, 1234),
++		BPF_STX_MEM(BPF_B, BPF_REG_1, BPF_REG_0,
++			    offsetof(struct bpf_sk_lookup, protocol)),
++		BPF_EXIT_INSN(),
++	},
++	.errstr = "invalid bpf_context access",
++	.result = REJECT,
++	.prog_type = BPF_PROG_TYPE_SK_LOOKUP,
++},
 -- 
 2.25.3
 

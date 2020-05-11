@@ -2,67 +2,65 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EEEB91CE38F
-	for <lists+dccp@lfdr.de>; Mon, 11 May 2020 21:06:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C73E11CE45F
+	for <lists+dccp@lfdr.de>; Mon, 11 May 2020 21:27:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731164AbgEKTG0 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 11 May 2020 15:06:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54536 "EHLO
+        id S1731621AbgEKT0G (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 11 May 2020 15:26:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57604 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728613AbgEKTGZ (ORCPT
-        <rfc822;dccp@vger.kernel.org>); Mon, 11 May 2020 15:06:25 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B401C061A0C
-        for <dccp@vger.kernel.org>; Mon, 11 May 2020 12:06:24 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id 50so11825128wrc.11
-        for <dccp@vger.kernel.org>; Mon, 11 May 2020 12:06:23 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1731616AbgEKT0G (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Mon, 11 May 2020 15:26:06 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8721C05BD09
+        for <dccp@vger.kernel.org>; Mon, 11 May 2020 12:26:05 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id m24so9662153wml.2
+        for <dccp@vger.kernel.org>; Mon, 11 May 2020 12:26:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloudflare.com; s=google;
         h=references:user-agent:from:to:cc:subject:in-reply-to:date
          :message-id:mime-version;
-        bh=QZEthipVzVjMeKxHpjAKSEM3ksmG1aLvz13r/CgdtzI=;
-        b=F7M6GHvDBD0Dy9yb/TCTMOgThiMwv6EnAazuIF0KlP9eJwTau1TvINq+9FmwmyuTg1
-         oZO7srSSVj7j0BgfqtXitVJYQ/jPrE1/ekYAi4d8ZZrf2upsoM/YS1uKsy1LGLudQdx3
-         Ehwmv4wOEat5kIDbFshog0X4EQ9denYri3IRQ=
+        bh=VnlGODx8zKx0jNEgXnN8NaGm9XOxSct1OSoBMXmlJ2o=;
+        b=iOH4zL7BJiCQUgR8mo61pMkH2ZTVJs0hh/A5/PYhmIq/1+8mxLODJhnT4fJ+CgHC4H
+         IRb4gOU9ldifKiMnDL5VIxTVfdcuW7roYaC/dLfTxu0hvEBc25j3p1oK67HUl9YbPDqF
+         TiwKkjuVTRj602CtAlRtsqXwph4vATzcFWAx8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:references:user-agent:from:to:cc:subject
          :in-reply-to:date:message-id:mime-version;
-        bh=QZEthipVzVjMeKxHpjAKSEM3ksmG1aLvz13r/CgdtzI=;
-        b=G2jZDLNXNiiOz/w5rdphF/Pxr+j8f2lcsdPbRlhXhxgnXWtNayyik+VHNIK9cOZb9x
-         rB/Te/Lw0pkb4a2yHdniKXNMdZK9FwzrFi7eN9hqMOLiC4QRbE5tDV9xdf5Hag+4j+Z0
-         7e1BHEO76JnBtiFrl+3hAQtkW5dp6YmLeDZ/JpIrQR5X4W76/IzLS0VyxSIjrIGftx9z
-         dqz/wMRVa+rjir4sPZYNsHvzMC/AftFOCyeERX6hQyRwfcfzf18NweU33pD+a8JuAlae
-         bzXCq4nGN9oz7ADJQZrXbii+LnHFydkilUFTYgD/0bf8rUV6MgxQNRfsyezCjls6pF/A
-         NIsw==
-X-Gm-Message-State: AGi0PuYF3GdfwjaERfM7hw42i+v7GQjKQEyDI9pcyITrCAqC4iUKDBCt
-        UCU/R8lzdHp5/CUc7DzIcljdoQ==
-X-Google-Smtp-Source: APiQypKsnYNoRfI9lWAIqqCYoV5QKs3dC1DDBLJgfyMTQyzwdNKfzX/6hX3HHmJftuZl0sR5SM50aA==
-X-Received: by 2002:a5d:6283:: with SMTP id k3mr20192276wru.62.1589223982638;
-        Mon, 11 May 2020 12:06:22 -0700 (PDT)
+        bh=VnlGODx8zKx0jNEgXnN8NaGm9XOxSct1OSoBMXmlJ2o=;
+        b=oivMxsNqR7teiq5/JyaKinjIDNBAVfjySKDBv/B+0JnHfyDqiAeOcZoAIGxijs7Ack
+         X5p9EDlxBvjgVaOVBnT8geu5yn4/D8WS3YpO5RycFHBJ2T6cY+lyH/I2W8sGGUih0Iev
+         CjTzEy9Mq9iEClug0JzT3xvyDI6jiSJ8nstTEM8yphVh38ZvTn4t4qYASFAV66uZsWh5
+         ZctVyZVO+I/3p4gyHkcFrS8aBg7f5M0ELR3CEkqbOb6knCRH1QDdt4U9kzNBxe4duZy4
+         E356XxEYqpGHJw3qqpaY3iR5ve+kDMGbgRDPvbM1uQb0d6H32v/8FvyTHF4IPs/dRWum
+         T9dg==
+X-Gm-Message-State: AGi0PuZyHgzgtPYcmXyhYOBzmYQ9OZiNF/ijlAh0ERNrmYYUfjHkxru3
+        OpzR9PwN5IsqOy4MgJuShj8zkA==
+X-Google-Smtp-Source: APiQypLdHIhBr6/ZX4/UaHb00LdhOGXT/D9KRnwdAKunEDrecNikCJMQcW/vf6S/yVqOQ9Tezcn5pg==
+X-Received: by 2002:a05:600c:224a:: with SMTP id a10mr34689890wmm.174.1589225164459;
+        Mon, 11 May 2020 12:26:04 -0700 (PDT)
 Received: from cloudflare.com ([2a02:a310:c262:aa00:b35e:8938:2c2a:ba8b])
-        by smtp.gmail.com with ESMTPSA id i1sm18799199wrx.22.2020.05.11.12.06.21
+        by smtp.gmail.com with ESMTPSA id j2sm19333010wrp.47.2020.05.11.12.26.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2020 12:06:22 -0700 (PDT)
-References: <20200511185218.1422406-1-jakub@cloudflare.com> <20200511185218.1422406-3-jakub@cloudflare.com>
+        Mon, 11 May 2020 12:26:03 -0700 (PDT)
+References: <20200506125514.1020829-1-jakub@cloudflare.com> <20200506125514.1020829-3-jakub@cloudflare.com> <20200508070638.pqe73q4v3paxpkq5@kafai-mbp.dhcp.thefacebook.com> <87a72ivh6t.fsf@cloudflare.com> <20200508183928.ofudkphlb3vgpute@kafai-mbp.dhcp.thefacebook.com> <877dxivny8.fsf@cloudflare.com> <20200511185914.4oma2wbia4ukpfdr@kafai-mbp.dhcp.thefacebook.com>
 User-agent: mu4e 1.1.0; emacs 26.3
 From:   Jakub Sitnicki <jakub@cloudflare.com>
-To:     netdev@vger.kernel.org, bpf@vger.kernel.org
-Cc:     dccp@vger.kernel.org, kernel-team@cloudflare.com,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
+To:     Martin KaFai Lau <kafai@fb.com>
+Cc:     netdev@vger.kernel.org, bpf@vger.kernel.org, dccp@vger.kernel.org,
+        kernel-team@cloudflare.com, Alexei Starovoitov <ast@kernel.org>,
+        "Daniel Borkmann" <daniel@iogearbox.net>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@google.com>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Jakub Kicinski <kuba@kernel.org>,
-        Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-        Martin KaFai Lau <kafai@fb.com>,
         Marek Majkowski <marek@cloudflare.com>,
         Lorenz Bauer <lmb@cloudflare.com>
-Subject: Re: [PATCH bpf-next v2 02/17] bpf: Introduce SK_LOOKUP program type with a dedicated attach point
-In-reply-to: <20200511185218.1422406-3-jakub@cloudflare.com>
-Date:   Mon, 11 May 2020 21:06:21 +0200
-Message-ID: <875zd2uw9e.fsf@cloudflare.com>
+Subject: Re: [PATCH bpf-next 02/17] bpf: Introduce SK_LOOKUP program type with a dedicated attach point
+In-reply-to: <20200511185914.4oma2wbia4ukpfdr@kafai-mbp.dhcp.thefacebook.com>
+Date:   Mon, 11 May 2020 21:26:02 +0200
+Message-ID: <874ksmuvcl.fsf@cloudflare.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 Sender: dccp-owner@vger.kernel.org
@@ -70,52 +68,81 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Mon, May 11, 2020 at 08:52 PM CEST, Jakub Sitnicki wrote:
-> Add a new program type BPF_PROG_TYPE_SK_LOOKUP and a dedicated attach type
-> called BPF_SK_LOOKUP. The new program kind is to be invoked by the
-> transport layer when looking up a socket for a received packet.
->
-> When called, SK_LOOKUP program can select a socket that will receive the
-> packet. This serves as a mechanism to overcome the limits of what bind()
-> API allows to express. Two use-cases driving this work are:
->
->  (1) steer packets destined to an IP range, fixed port to a socket
->
->      192.0.2.0/24, port 80 -> NGINX socket
->
->  (2) steer packets destined to an IP address, any port to a socket
->
->      198.51.100.1, any port -> L7 proxy socket
->
-> In its run-time context, program receives information about the packet that
-> triggered the socket lookup. Namely IP version, L4 protocol identifier, and
-> address 4-tuple. Context can be further extended to include ingress
-> interface identifier.
->
-> To select a socket BPF program fetches it from a map holding socket
-> references, like SOCKMAP or SOCKHASH, and calls bpf_sk_assign(ctx, sk, ...)
-> helper to record the selection. Transport layer then uses the selected
-> socket as a result of socket lookup.
->
-> This patch only enables the user to attach an SK_LOOKUP program to a
-> network namespace. Subsequent patches hook it up to run on local delivery
-> path in ipv4 and ipv6 stacks.
->
-> Suggested-by: Marek Majkowski <marek@cloudflare.com>
-> Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
-> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
-> ---
->
-> Notes:
->     v2:
->     - Make bpf_sk_assign reject sockets that don't use RCU freeing.
->       Update bpf_sk_assign docs accordingly. (Martin)
->     - Change bpf_sk_assign proto to take PTR_TO_SOCKET as argument. (Martin)
->     - Fix broken build when CONFIG_INET is not selected. (Martin)
->     - Rename bpf_sk_lookup{} src_/dst_* fields remote_/local_*. (Martin)
+On Mon, May 11, 2020 at 08:59 PM CEST, Martin KaFai Lau wrote:
+> On Mon, May 11, 2020 at 11:08:15AM +0200, Jakub Sitnicki wrote:
+>> On Fri, May 08, 2020 at 08:39 PM CEST, Martin KaFai Lau wrote:
+>> > On Fri, May 08, 2020 at 12:45:14PM +0200, Jakub Sitnicki wrote:
+>> >> On Fri, May 08, 2020 at 09:06 AM CEST, Martin KaFai Lau wrote:
+>> >> > On Wed, May 06, 2020 at 02:54:58PM +0200, Jakub Sitnicki wrote:
+>>
+>> [...]
+>>
+>> >> >> +		return -ESOCKTNOSUPPORT;
+>> >> >> +
+>> >> >> +	/* Check if socket is suitable for packet L3/L4 protocol */
+>> >> >> +	if (sk->sk_protocol != ctx->protocol)
+>> >> >> +		return -EPROTOTYPE;
+>> >> >> +	if (sk->sk_family != ctx->family &&
+>> >> >> +	    (sk->sk_family == AF_INET || ipv6_only_sock(sk)))
+>> >> >> +		return -EAFNOSUPPORT;
+>> >> >> +
+>> >> >> +	/* Select socket as lookup result */
+>> >> >> +	ctx->selected_sk = sk;
+>> >> > Could sk be a TCP_ESTABLISHED sk?
+>> >>
+>> >> Yes, and what's worse, it could be ref-counted. This is a bug. I should
+>> >> be rejecting ref counted sockets here.
+>> > Agree. ref-counted (i.e. checking rcu protected or not) is the right check
+>> > here.
+>> >
+>> > An unrelated quick thought, it may still be fine for the
+>> > TCP_ESTABLISHED tcp_sk returned from sock_map because of the
+>> > "call_rcu(&psock->rcu, sk_psock_destroy);" in sk_psock_drop().
+>> > I was more thinking about in the future, what if this helper can take
+>> > other sk not coming from sock_map.
+>>
+>> I see, psock holds a sock reference and will not release it until a full
+>> grace period has elapsed.
+>>
+>> Even if holding a ref wasn't a problem, I'm not sure if returning a
+>> TCP_ESTABLISHED socket wouldn't trip up callers of inet_lookup_listener
+>> (tcp_v4_rcv and nf_tproxy_handle_time_wait4), that look for a listener
+>> when processing a SYN to TIME_WAIT socket.
+> Not suggesting the sk_assign helper has to support TCP_ESTABLISHED in TCP
+> if there is no use case for it.
 
-I forgot to call out one more change in v2 to this patch:
+Ack, I didn't think you were. Just explored the consequences.
 
-      - Enforce BPF_SK_LOOKUP attach point on load & attach. (Martin)
+> Do you have a use case on supporting TCP_ESTABLISHED sk in UDP?
+> From the cover letter use cases, it is not clear to me it is
+> required.
+>
+> or both should only support unconnected sk?
 
-[...]
+No, we don't have a use case for selecting a connected UDP socket.
+
+I left it as a possiblity because __udp[46]_lib_lookup, where BPF
+sk_lookup is invoked from, can return one.
+
+Perhaps the user would like to connect the selected receiving socket
+(for instance to itself) to ensure its not used for TX?
+
+I've pulled this scenario out of the hat. Happy to limit bpf_sk_assign
+to select only unconnected UDP sockets, if returning a connected one
+doesn't make sense.
+
+> Regardless, this details will be useful in the helper's doc.
+
+I've reworded the helper doc in v2 to say:
+
+        Description
+                ...
+
+                Only TCP listeners and UDP sockets, that is sockets
+                which have *SOCK_RCU_FREE* flag set, can be selected.
+
+                ...
+        Return
+                ...
+
+                **-ESOCKTNOSUPPORT** if socket does not use RCU freeing.

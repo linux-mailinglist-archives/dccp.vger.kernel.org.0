@@ -2,48 +2,48 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A5E281CE33C
-	for <lists+dccp@lfdr.de>; Mon, 11 May 2020 20:53:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E995C1CE317
+	for <lists+dccp@lfdr.de>; Mon, 11 May 2020 20:52:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731210AbgEKSwb (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 11 May 2020 14:52:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52338 "EHLO
+        id S1731230AbgEKSwe (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 11 May 2020 14:52:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52342 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1731200AbgEKSwa (ORCPT
-        <rfc822;dccp@vger.kernel.org>); Mon, 11 May 2020 14:52:30 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 285C4C05BD0B
-        for <dccp@vger.kernel.org>; Mon, 11 May 2020 11:52:30 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id h4so19155203wmb.4
-        for <dccp@vger.kernel.org>; Mon, 11 May 2020 11:52:30 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1731226AbgEKSwd (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Mon, 11 May 2020 14:52:33 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62849C061A0E
+        for <dccp@vger.kernel.org>; Mon, 11 May 2020 11:52:31 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id m24so9554602wml.2
+        for <dccp@vger.kernel.org>; Mon, 11 May 2020 11:52:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloudflare.com; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=oLe4Rujwy2vUFJip5GQFe5EbeF/yzhx7q0Dlr8Akcec=;
-        b=iRv4xqbhlRZaNWm3frQiCQH/9PbaAYTbYhTb5t5+fvoWJzQb6BjxP1QPxJW3H38r9/
-         ZPlUBWVTaAzoPgYuemVqxP7gzWystVKSqN8+veHTTFkyNFMKAHNRsxXX+3hz5KOs9RSm
-         vpNdH/3aoePPRLRXBbd9keKRGfWbnOI00wKbs=
+        bh=M0vCBt1D4iC0eNJSSMfqS7W0wA2E5Kan2xeXfsA3ILU=;
+        b=vGtK6+5IMQq2lXuqJCle4VpwFMNrCzuQ45bkU70sjzrX0aB/IzvNSrCP/uyR0uEDH4
+         J++9ehUEcJy1GI6K4InFE9cWncot0Gmu9gs81y6G98x5NkCnN6Yw1PcL/9tofskOFj5k
+         k0JdFguYx9bWxDmHE9oUwr4bzh1R3moJ0A6Bg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=oLe4Rujwy2vUFJip5GQFe5EbeF/yzhx7q0Dlr8Akcec=;
-        b=uK/+87aFZ/jNUymft0B0CA43+fDBrHSksuPIWNjIXshhrnc3k+FZX3hTdAsRbRt5LR
-         byFfw15d2LUhV7WonYpcHhqAWeHdvvz0b70K8YVo1vkdND11djpE3ICyd4hMV6OnG+kY
-         A56bkorpL3xQzWzcjsSML9/jkpDz3bj2fVG0lUgoC5rkBIEwc8kBzlwCXLjtNBeXIu4i
-         W9Kx/qfUzhwARa2Bs22sGqy+h0JJULOpZ9Ar/DG7V2X19bwIo7gSTLCmb3jJKO3Y9YMR
-         X35a5GeCkZzxKYY2aAhJ6nuAPDoArZDCpjXlXKWe8D70cGsLIWkdEO4tXQBKe3SL+8Mi
-         tuHA==
-X-Gm-Message-State: AGi0PuZSF++wSb5bGeVLlIXPAwnuNaRIF5zJZQ/QjX7sIyNPFsmYyKLQ
-        xnoEhJ7LB6J27qix/Dp2PXhqcw==
-X-Google-Smtp-Source: APiQypLFY4AdjmVvllJ1/76llLGBli57vnUK/bLXV5S0uRYHTyDU3yYlIdVYlHyqRN2gOxGkRCSH3g==
-X-Received: by 2002:a1c:f606:: with SMTP id w6mr32572887wmc.59.1589223148740;
-        Mon, 11 May 2020 11:52:28 -0700 (PDT)
+        bh=M0vCBt1D4iC0eNJSSMfqS7W0wA2E5Kan2xeXfsA3ILU=;
+        b=NsAFy8CXi0KQ7QKvDtpq9PkrzIxqVcj92bHLjjReARy05/MXoK84qZ5OzEowG7bvk0
+         hcJnlKnFkqTtdPpCHQblBRdixAchVcenn7RA2jPZhyo9/CE9SvqEA1khjNW4+TlDZmSJ
+         G4jwMGmK7bqLvbmzBoBWPV4ow0BXvvN15Z6C77V2kNK3Tm/I8h4/jH6j99L0MSAQLVWV
+         ouZ3k9pGwzkFdF0aDHxY3xc+1jcUfIgt8qfGtyudOzFFpc6BXc4pAcpFaCuDZe/Ivj05
+         GQuIJZJRHdWrtADiA3FviY3cY01bs8el7lBHQBh1IsoYIXNii3Z6PBa+/VJCVe1UUKVx
+         CeYQ==
+X-Gm-Message-State: AGi0PuawyEoUL+/ExKZffxdeeY20wwhAP15aTfZMpOSsHx1VD0DdR9no
+        LgRl8EkK6e7lFaSyK/M6sb8jvw==
+X-Google-Smtp-Source: APiQypKw+cunp3PJFKZ9BE3HaSOt/lJ2FAuAJGIRZ2whrxILB22+1PKRkJk8LWco5pqyuzI75b1iEA==
+X-Received: by 2002:a1c:6042:: with SMTP id u63mr18978565wmb.65.1589223150101;
+        Mon, 11 May 2020 11:52:30 -0700 (PDT)
 Received: from cloudflare.com ([2a02:a310:c262:aa00:b35e:8938:2c2a:ba8b])
-        by smtp.gmail.com with ESMTPSA id a14sm1620234wme.21.2020.05.11.11.52.28
+        by smtp.gmail.com with ESMTPSA id b2sm15346343wrm.30.2020.05.11.11.52.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2020 11:52:28 -0700 (PDT)
+        Mon, 11 May 2020 11:52:29 -0700 (PDT)
 From:   Jakub Sitnicki <jakub@cloudflare.com>
 To:     netdev@vger.kernel.org, bpf@vger.kernel.org
 Cc:     dccp@vger.kernel.org, kernel-team@cloudflare.com,
@@ -54,12 +54,10 @@ Cc:     dccp@vger.kernel.org, kernel-team@cloudflare.com,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Jakub Kicinski <kuba@kernel.org>,
         Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-        Martin KaFai Lau <kafai@fb.com>,
-        Marek Majkowski <marek@cloudflare.com>,
-        Lorenz Bauer <lmb@cloudflare.com>
-Subject: [PATCH bpf-next v2 05/17] inet: Run SK_LOOKUP BPF program on socket lookup
-Date:   Mon, 11 May 2020 20:52:06 +0200
-Message-Id: <20200511185218.1422406-6-jakub@cloudflare.com>
+        Martin KaFai Lau <kafai@fb.com>
+Subject: [PATCH bpf-next v2 06/17] inet6: Extract helper for selecting socket from reuseport group
+Date:   Mon, 11 May 2020 20:52:07 +0200
+Message-Id: <20200511185218.1422406-7-jakub@cloudflare.com>
 X-Mailer: git-send-email 2.25.3
 In-Reply-To: <20200511185218.1422406-1-jakub@cloudflare.com>
 References: <20200511185218.1422406-1-jakub@cloudflare.com>
@@ -70,101 +68,68 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Run a BPF program before looking up a listening socket on the receive path.
-Program selects a listening socket to yield as result of socket lookup by
-calling bpf_sk_assign() helper and returning BPF_REDIRECT code.
+Prepare for calling into reuseport from inet6_lookup_listener as well.
 
-Alternatively, program can also fail the lookup by returning with BPF_DROP,
-or let the lookup continue as usual with BPF_OK on return.
-
-This lets the user match packets with listening sockets freely at the last
-possible point on the receive path, where we know that packets are destined
-for local delivery after undergoing policing, filtering, and routing.
-
-With BPF code selecting the socket, directing packets destined to an IP
-range or to a port range to a single socket becomes possible.
-
-Suggested-by: Marek Majkowski <marek@cloudflare.com>
-Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
 Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
 ---
- include/net/inet_hashtables.h | 36 +++++++++++++++++++++++++++++++++++
- net/ipv4/inet_hashtables.c    | 15 ++++++++++++++-
- 2 files changed, 50 insertions(+), 1 deletion(-)
+ net/ipv6/inet6_hashtables.c | 31 ++++++++++++++++++++++---------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
-index 6072dfbd1078..3fcbc8f66f88 100644
---- a/include/net/inet_hashtables.h
-+++ b/include/net/inet_hashtables.h
-@@ -422,4 +422,40 @@ int __inet_hash_connect(struct inet_timewait_death_row *death_row,
+diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
+index fbe9d4295eac..03942eef8ab6 100644
+--- a/net/ipv6/inet6_hashtables.c
++++ b/net/ipv6/inet6_hashtables.c
+@@ -111,6 +111,23 @@ static inline int compute_score(struct sock *sk, struct net *net,
+ 	return score;
+ }
  
- int inet_hash_connect(struct inet_timewait_death_row *death_row,
- 		      struct sock *sk);
-+
-+static inline struct sock *bpf_sk_lookup_run(struct net *net,
-+					     struct bpf_sk_lookup_kern *ctx)
++static inline struct sock *lookup_reuseport(struct net *net, struct sock *sk,
++					    struct sk_buff *skb, int doff,
++					    const struct in6_addr *saddr,
++					    __be16 sport,
++					    const struct in6_addr *daddr,
++					    unsigned short hnum)
 +{
-+	struct bpf_prog *prog;
-+	int ret = BPF_OK;
++	struct sock *reuse_sk = NULL;
++	u32 phash;
 +
-+	rcu_read_lock();
-+	prog = rcu_dereference(net->sk_lookup_prog);
-+	if (prog)
-+		ret = BPF_PROG_RUN(prog, ctx);
-+	rcu_read_unlock();
-+
-+	if (ret == BPF_DROP)
-+		return ERR_PTR(-ECONNREFUSED);
-+	if (ret == BPF_REDIRECT)
-+		return ctx->selected_sk;
-+	return NULL;
-+}
-+
-+static inline struct sock *inet_lookup_run_bpf(struct net *net, u8 protocol,
-+					       __be32 saddr, __be16 sport,
-+					       __be32 daddr, u16 dport)
-+{
-+	struct bpf_sk_lookup_kern ctx = {
-+		.family		= AF_INET,
-+		.protocol	= protocol,
-+		.v4.saddr	= saddr,
-+		.v4.daddr	= daddr,
-+		.sport		= sport,
-+		.dport		= dport,
-+	};
-+
-+	return bpf_sk_lookup_run(net, &ctx);
-+}
-+
- #endif /* _INET_HASHTABLES_H */
-diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-index ab64834837c8..f4d07285591a 100644
---- a/net/ipv4/inet_hashtables.c
-+++ b/net/ipv4/inet_hashtables.c
-@@ -307,9 +307,22 @@ struct sock *__inet_lookup_listener(struct net *net,
- 				    const int dif, const int sdif)
- {
- 	struct inet_listen_hashbucket *ilb2;
--	struct sock *result = NULL;
-+	struct sock *result, *reuse_sk;
- 	unsigned int hash2;
- 
-+	/* Lookup redirect from BPF */
-+	result = inet_lookup_run_bpf(net, hashinfo->protocol,
-+				     saddr, sport, daddr, hnum);
-+	if (IS_ERR(result))
-+		return NULL;
-+	if (result) {
-+		reuse_sk = lookup_reuseport(net, result, skb, doff,
-+					    saddr, sport, daddr, hnum);
-+		if (reuse_sk)
-+			result = reuse_sk;
-+		goto done;
++	if (sk->sk_reuseport) {
++		phash = inet6_ehashfn(net, daddr, hnum, saddr, sport);
++		reuse_sk = reuseport_select_sock(sk, phash, skb, doff);
 +	}
++	return reuse_sk;
++}
 +
- 	hash2 = ipv4_portaddr_hash(net, daddr, hnum);
- 	ilb2 = inet_lhash2_bucket(hashinfo, hash2);
+ /* called with rcu_read_lock() */
+ static struct sock *inet6_lhash2_lookup(struct net *net,
+ 		struct inet_listen_hashbucket *ilb2,
+@@ -123,21 +140,17 @@ static struct sock *inet6_lhash2_lookup(struct net *net,
+ 	struct inet_connection_sock *icsk;
+ 	struct sock *sk, *result = NULL;
+ 	int score, hiscore = 0;
+-	u32 phash = 0;
  
+ 	inet_lhash2_for_each_icsk_rcu(icsk, &ilb2->head) {
+ 		sk = (struct sock *)icsk;
+ 		score = compute_score(sk, net, hnum, daddr, dif, sdif,
+ 				      exact_dif);
+ 		if (score > hiscore) {
+-			if (sk->sk_reuseport) {
+-				phash = inet6_ehashfn(net, daddr, hnum,
+-						      saddr, sport);
+-				result = reuseport_select_sock(sk, phash,
+-							       skb, doff);
+-				if (result)
+-					return result;
+-			}
++			result = lookup_reuseport(net, sk, skb, doff,
++						  saddr, sport, daddr, hnum);
++			if (result)
++				return result;
++
+ 			result = sk;
+ 			hiscore = score;
+ 		}
 -- 
 2.25.3
 

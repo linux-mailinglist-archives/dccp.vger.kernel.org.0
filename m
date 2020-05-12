@@ -2,236 +2,232 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 09E961CF3E1
-	for <lists+dccp@lfdr.de>; Tue, 12 May 2020 13:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 271AE1CF630
+	for <lists+dccp@lfdr.de>; Tue, 12 May 2020 15:52:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729229AbgELL5t (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 12 May 2020 07:57:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42668 "EHLO
+        id S1730081AbgELNw5 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 12 May 2020 09:52:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60702 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726187AbgELL5t (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 12 May 2020 07:57:49 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9AB1C061A0C
-        for <dccp@vger.kernel.org>; Tue, 12 May 2020 04:57:48 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id 50so14475520wrc.11
-        for <dccp@vger.kernel.org>; Tue, 12 May 2020 04:57:48 -0700 (PDT)
+        with ESMTP id S1730063AbgELNw5 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 12 May 2020 09:52:57 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C5439C061A0C
+        for <dccp@vger.kernel.org>; Tue, 12 May 2020 06:52:55 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id g12so23387041wmh.3
+        for <dccp@vger.kernel.org>; Tue, 12 May 2020 06:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloudflare.com; s=google;
         h=references:user-agent:from:to:cc:subject:in-reply-to:date
-         :message-id:mime-version:content-transfer-encoding;
-        bh=3+1UCndI9AXECNjAszE65h8ymzBGEnwP0Tn3NvmhVbM=;
-        b=hMshJeAipdM0jP2BQh5thdVg0AnuDfmz7Wkybc9ckxXSzdyl62xm5aaWkdbR64zn7a
-         0XPJOVJ5kAmPHTtJnCqfejZgfzLZI5GpyBHADub/n5XvLC64DHT1Oo8rq+NKH/1x+EH7
-         q3fvF0rJ70gcWagx/EP+ISGrGzyLsHZFCGeJA=
+         :message-id:mime-version;
+        bh=Zq55omEuEvgB9vlSmywwcqU/9eUwhdaCINvvFlYpd7E=;
+        b=EscL7hFLj3hSJ0yVelftgSOk+dLKEz8ujOtrGZt82du5ydK12x0HLwgQ1seiNhZlQj
+         G4/hllre3xV+iTH2jbQYAzOKgTNhhrGFOL5C0MNfKXXmxcsNXEEbOyi87HI/Juh7wxV9
+         25+paHW711mNGDu/qwlz/0JhtlO0R9XCcjPHk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:references:user-agent:from:to:cc:subject
-         :in-reply-to:date:message-id:mime-version:content-transfer-encoding;
-        bh=3+1UCndI9AXECNjAszE65h8ymzBGEnwP0Tn3NvmhVbM=;
-        b=a/33ByxSlujzAPYAuPBVWuyF1s2DtVLCXdv3MZGjy5Huu4Xcb/tWNDJdv3bokNo9bV
-         e+bJ+pf0ttYj0/5n3qnNiqM7mjGqQiLw0LAbm2NOOH53roKHLyQW0QguwZnYXipFvjcG
-         L5d+7K7BZk9klXBzwa7yHx15o2Wgkm/RUVoyRsiaXlnLjc/a1JJEUy9ByZs5NsHVGu7P
-         M84uwdXeKk/1xMlH7PGwHJp/6VsN4nVRJkE9hamiHe6jjT+ZD6jRtdGjb9+lek+01MCm
-         Sl5VUCwnMV9+EdKhos6IGHR2589RlIzzpGCsS1jPLVQ+1G7KacaXPXXM51Zx0QNSwpyM
-         Ikiw==
-X-Gm-Message-State: AGi0PuaU7hxtJMKfotclQ9ZO/bbLJiy6Xi9sLSLhx62gwhpkHQnauniU
-        3PZD1BbxyJGhJNKVnhPfIZIecA==
-X-Google-Smtp-Source: APiQypIiieCVQbqmIPE4X2PTSsXEHDaKz6VBIRYLAVcW3jOS3STlVT4jJihvEo7MLcz3fU0TVxip2g==
-X-Received: by 2002:adf:e511:: with SMTP id j17mr26735518wrm.204.1589284667329;
-        Tue, 12 May 2020 04:57:47 -0700 (PDT)
+         :in-reply-to:date:message-id:mime-version;
+        bh=Zq55omEuEvgB9vlSmywwcqU/9eUwhdaCINvvFlYpd7E=;
+        b=YWs9TluuVsTjL2KDAUkFWuFWARUbhctXkGttUg7S96VHNwoP7hpkqV2CEHb8gBi/M/
+         /m39wAzbJlYQrwtUtaOnbyrCcfAvkJQfd2b3xgSsvRyVqHUoo+SY9M2H1+9/+MMI4Bmg
+         TBHCkU1ZlJc2ov8lOCsVq7ZbFDlXaQH41HxsWBGfc7/8CWMdSSucfO0+XmDeeMUeWm7c
+         4+lsS149OhLTZwlVSvqCc0UBDsgOnrj9+2XXmysomPIb4a7tfpDYEmPhAv8g3cWhB+GB
+         ZzM7dhAjXj5N/4CVlMTcoVDV0QoRFiZfxvQWNItAR0JYmh4vJIf2TPZ/FDWjhVMIIwKl
+         fpeg==
+X-Gm-Message-State: AGi0PuYE2NtoZZko9Ze5P0wEV9tREZiQ+EtzVzms+Koa7/yW6Eo4DHtY
+        TPJpKCQpdIpRaMaeEdyL68zG9w==
+X-Google-Smtp-Source: APiQypIhYlNCB706JpgHSgcF3mhOAfg+a2V0Z+Bq56eJiqRl08HhFazBmDZM8CGGj0okCR8+qdPEUA==
+X-Received: by 2002:a1c:2702:: with SMTP id n2mr12984805wmn.107.1589291574318;
+        Tue, 12 May 2020 06:52:54 -0700 (PDT)
 Received: from cloudflare.com ([2a02:a310:c262:aa00:b35e:8938:2c2a:ba8b])
-        by smtp.gmail.com with ESMTPSA id g184sm16978351wmg.1.2020.05.12.04.57.46
+        by smtp.gmail.com with ESMTPSA id s2sm326571wme.33.2020.05.12.06.52.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2020 04:57:46 -0700 (PDT)
-References: <20200511185218.1422406-1-jakub@cloudflare.com> <20200511194520.pr5d74ao34jigvof@kafai-mbp.dhcp.thefacebook.com>
+        Tue, 12 May 2020 06:52:53 -0700 (PDT)
+References: <20200511185218.1422406-1-jakub@cloudflare.com> <20200511185218.1422406-6-jakub@cloudflare.com> <20200511204445.i7sessmtszox36xd@ast-mbp>
 User-agent: mu4e 1.1.0; emacs 26.3
 From:   Jakub Sitnicki <jakub@cloudflare.com>
-To:     Martin KaFai Lau <kafai@fb.com>
+To:     Alexei Starovoitov <alexei.starovoitov@gmail.com>
 Cc:     netdev@vger.kernel.org, bpf@vger.kernel.org, dccp@vger.kernel.org,
         kernel-team@cloudflare.com, Alexei Starovoitov <ast@kernel.org>,
-        "Daniel Borkmann" <daniel@iogearbox.net>,
+        Daniel Borkmann <daniel@iogearbox.net>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@google.com>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Jakub Kicinski <kuba@kernel.org>,
-        Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Subject: Re: [PATCH bpf-next v2 00/17] Run a BPF program on socket lookup
-In-reply-to: <20200511194520.pr5d74ao34jigvof@kafai-mbp.dhcp.thefacebook.com>
-Date:   Tue, 12 May 2020 13:57:45 +0200
-Message-ID: <873685v006.fsf@cloudflare.com>
+        Andrii Nakryiko <andrii.nakryiko@gmail.com>,
+        Martin KaFai Lau <kafai@fb.com>,
+        Marek Majkowski <marek@cloudflare.com>,
+        Lorenz Bauer <lmb@cloudflare.com>
+Subject: Re: [PATCH bpf-next v2 05/17] inet: Run SK_LOOKUP BPF program on socket lookup
+In-reply-to: <20200511204445.i7sessmtszox36xd@ast-mbp>
+Date:   Tue, 12 May 2020 15:52:52 +0200
+Message-ID: <871rnpuuob.fsf@cloudflare.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Mon, May 11, 2020 at 09:45 PM CEST, Martin KaFai Lau wrote:
-> On Mon, May 11, 2020 at 08:52:01PM +0200, Jakub Sitnicki wrote:
+On Mon, May 11, 2020 at 10:44 PM CEST, Alexei Starovoitov wrote:
+> On Mon, May 11, 2020 at 08:52:06PM +0200, Jakub Sitnicki wrote:
+>> Run a BPF program before looking up a listening socket on the receive path.
+>> Program selects a listening socket to yield as result of socket lookup by
+>> calling bpf_sk_assign() helper and returning BPF_REDIRECT code.
+>>
+>> Alternatively, program can also fail the lookup by returning with BPF_DROP,
+>> or let the lookup continue as usual with BPF_OK on return.
+>>
+>> This lets the user match packets with listening sockets freely at the last
+>> possible point on the receive path, where we know that packets are destined
+>> for local delivery after undergoing policing, filtering, and routing.
+>>
+>> With BPF code selecting the socket, directing packets destined to an IP
+>> range or to a port range to a single socket becomes possible.
+>>
+>> Suggested-by: Marek Majkowski <marek@cloudflare.com>
+>> Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
+>> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
+>> ---
+>>  include/net/inet_hashtables.h | 36 +++++++++++++++++++++++++++++++++++
+>>  net/ipv4/inet_hashtables.c    | 15 ++++++++++++++-
+>>  2 files changed, 50 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
+>> index 6072dfbd1078..3fcbc8f66f88 100644
+>> --- a/include/net/inet_hashtables.h
+>> +++ b/include/net/inet_hashtables.h
+>> @@ -422,4 +422,40 @@ int __inet_hash_connect(struct inet_timewait_death_row *death_row,
+>>
+>>  int inet_hash_connect(struct inet_timewait_death_row *death_row,
+>>  		      struct sock *sk);
+>> +
+>> +static inline struct sock *bpf_sk_lookup_run(struct net *net,
+>> +					     struct bpf_sk_lookup_kern *ctx)
+>> +{
+>> +	struct bpf_prog *prog;
+>> +	int ret = BPF_OK;
+>> +
+>> +	rcu_read_lock();
+>> +	prog = rcu_dereference(net->sk_lookup_prog);
+>> +	if (prog)
+>> +		ret = BPF_PROG_RUN(prog, ctx);
+>> +	rcu_read_unlock();
+>> +
+>> +	if (ret == BPF_DROP)
+>> +		return ERR_PTR(-ECONNREFUSED);
+>> +	if (ret == BPF_REDIRECT)
+>> +		return ctx->selected_sk;
+>> +	return NULL;
+>> +}
+>> +
+>> +static inline struct sock *inet_lookup_run_bpf(struct net *net, u8 protocol,
+>> +					       __be32 saddr, __be16 sport,
+>> +					       __be32 daddr, u16 dport)
+>> +{
+>> +	struct bpf_sk_lookup_kern ctx = {
+>> +		.family		= AF_INET,
+>> +		.protocol	= protocol,
+>> +		.v4.saddr	= saddr,
+>> +		.v4.daddr	= daddr,
+>> +		.sport		= sport,
+>> +		.dport		= dport,
+>> +	};
+>> +
+>> +	return bpf_sk_lookup_run(net, &ctx);
+>> +}
+>> +
+>>  #endif /* _INET_HASHTABLES_H */
+>> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+>> index ab64834837c8..f4d07285591a 100644
+>> --- a/net/ipv4/inet_hashtables.c
+>> +++ b/net/ipv4/inet_hashtables.c
+>> @@ -307,9 +307,22 @@ struct sock *__inet_lookup_listener(struct net *net,
+>>  				    const int dif, const int sdif)
+>>  {
+>>  	struct inet_listen_hashbucket *ilb2;
+>> -	struct sock *result = NULL;
+>> +	struct sock *result, *reuse_sk;
+>>  	unsigned int hash2;
+>>
+>> +	/* Lookup redirect from BPF */
+>> +	result = inet_lookup_run_bpf(net, hashinfo->protocol,
+>> +				     saddr, sport, daddr, hnum);
+>> +	if (IS_ERR(result))
+>> +		return NULL;
+>> +	if (result) {
+>> +		reuse_sk = lookup_reuseport(net, result, skb, doff,
+>> +					    saddr, sport, daddr, hnum);
+>> +		if (reuse_sk)
+>> +			result = reuse_sk;
+>> +		goto done;
+>> +	}
+>> +
 >
-> [ ... ]
->
->> Performance considerations
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
->>
->> Patch set adds new code on receive hot path. This comes with a cost,
->> especially in a scenario of a SYN flood or small UDP packet flood.
->>
->> Measuring the performance penalty turned out to be harder than expected
->> because socket lookup is fast. For CPUs to spend >=3D 1% of time in sock=
-et
->> lookup we had to modify our setup by unloading iptables and reducing the
->> number of routes.
->>
->> The receiver machine is a Cloudflare Gen 9 server covered in detail at [=
-0].
->> In short:
->>
->>  - 24 core Intel custom off-roadmap 1.9Ghz 150W (Skylake) CPU
->>  - dual-port 25G Mellanox ConnectX-4 NIC
->>  - 256G DDR4 2666Mhz RAM
->>
->> Flood traffic pattern:
->>
->>  - source: 1 IP, 10k ports
->>  - destination: 1 IP, 1 port
->>  - TCP - SYN packet
->>  - UDP - Len=3D0 packet
->>
->> Receiver setup:
->>
->>  - ingress traffic spread over 4 RX queues,
->>  - RX/TX pause and autoneg disabled,
->>  - Intel Turbo Boost disabled,
->>  - TCP SYN cookies always on.
->>
->> For TCP test there is a receiver process with single listening socket
->> open. Receiver is not accept()'ing connections.
->>
->> For UDP the receiver process has a single UDP socket with a filter
->> installed, dropping the packets.
->>
->> With such setup in place, we record RX pps and cpu-cycles events under
->> flood for 60 seconds in 3 configurations:
->>
->>  1. 5.6.3 kernel w/o this patch series (baseline),
->>  2. 5.6.3 kernel with patches applied, but no SK_LOOKUP program attached,
->>  3. 5.6.3 kernel with patches applied, and SK_LOOKUP program attached;
->>     BPF program [1] is doing a lookup LPM_TRIE map with 200 entries.
-> Is the link in [1] up-to-date?  I don't see it calling bpf_sk_assign().
+> The overhead is too high to do this all the time.
+> The feature has to be static_key-ed.
 
-Yes, it is, or rather was.
+Static keys is something that Lorenz has also suggested internally, but
+we wanted to keep it simple at first.
 
-The reason why the inet-tool version you reviewed was not using
-bpf_sk_assign(), but the "old way" from RFCv2, is that the switch to
-map_lookup+sk_assign was done late in development, after changes to
-SOCKMAP landed in bpf-next.
+Introduction of static keys forces us to decide when non-init_net netns
+are allowed to attach to SK_LOOKUP, as attaching enabling SK_LOOKUP in
+isolated netns will affect the rx path in init_net.
 
-By that time performance tests were already in progress, and since they
-take a bit of time to set up, and the change affected just the scenario
-with program attached, I tested without this bit.
+I see two options, which seem sensible:
 
-Sorry, I should have explained that in the cover letter. The next round
-of benchmarks will be done against the now updated version of inet-tool
-that uses bpf_sk_assign:
+1) limit SK_LOOKUP to init_net, which makes testing setup harder, or
 
-https://github.com/majek/inet-tool/commit/6a619c3743aaae6d4882cbbf11b616e1e=
-468b436
+2) allow non-init_net netns to attach to SK_LOOKUP only if static key
+   has been already enabled (via sysctl?).
 
 >
->>
->> RX pps measured with `ifpps -d <dev> -t 1000 --csv --loop` for 60 second=
-s.
->>
->> | tcp4 SYN flood               | rx pps (mean =C2=B1 sstdev) | =CE=94 rx=
- pps |
->> |------------------------------+------------------------+----------|
->> | 5.6.3 vanilla (baseline)     | 939,616 =C2=B1 0.5%         |        - |
->> | no SK_LOOKUP prog attached   | 929,275 =C2=B1 1.2%         |    -1.1% |
->> | with SK_LOOKUP prog attached | 918,582 =C2=B1 0.4%         |    -2.2% |
->>
->> | tcp6 SYN flood               | rx pps (mean =C2=B1 sstdev) | =CE=94 rx=
- pps |
->> |------------------------------+------------------------+----------|
->> | 5.6.3 vanilla (baseline)     | 875,838 =C2=B1 0.5%         |        - |
->> | no SK_LOOKUP prog attached   | 872,005 =C2=B1 0.3%         |    -0.4% |
->> | with SK_LOOKUP prog attached | 856,250 =C2=B1 0.5%         |    -2.2% |
->>
->> | udp4 0-len flood             | rx pps (mean =C2=B1 sstdev) | =CE=94 rx=
- pps |
->> |------------------------------+------------------------+----------|
->> | 5.6.3 vanilla (baseline)     | 2,738,662 =C2=B1 1.5%       |        - |
->> | no SK_LOOKUP prog attached   | 2,576,893 =C2=B1 1.0%       |    -5.9% |
->> | with SK_LOOKUP prog attached | 2,530,698 =C2=B1 1.0%       |    -7.6% |
->>
->> | udp6 0-len flood             | rx pps (mean =C2=B1 sstdev) | =CE=94 rx=
- pps |
->> |------------------------------+------------------------+----------|
->> | 5.6.3 vanilla (baseline)     | 2,867,885 =C2=B1 1.4%       |        - |
->> | no SK_LOOKUP prog attached   | 2,646,875 =C2=B1 1.0%       |    -7.7% |
-> What is causing this regression?
+> Also please add multi-prog support. Adding it later will cause
+> all sorts of compatibility issues. The semantics of multi-prog
+> needs to be thought through right now.
+> For example BPF_DROP or BPF_REDIRECT could terminate the prog_run_array
+> sequence of progs while BPF_OK could continue.
+> It's not ideal, but better than nothing.
+
+I must say this approach is quite appealing because it's simple to
+explain. I would need a custom BPF_PROG_RUN_ARRAY, though.
+
+I'm curious what downside do you see here?
+Is overriding an earlier DROP/REDIRECT verdict useful?
+
+> Another option could be to execute all attached progs regardless
+> of return code, but don't let second prog override selected_sk blindly.
+> bpf_sk_assign() could get smarter.
+
+So if IIUC the rough idea here would be like below?
+
+- 1st program calls
+
+  bpf_sk_assign(ctx, sk1, 0 /*flags*/) -> 0 (OK)
+
+- 2nd program calls
+
+  bpf_sk_assign(ctx, sk2, 0) -> -EBUSY (already selected)
+  bpf_sk_assign(ctx, sk2, BPF_EXIST) -> 0 (OK, replace existing)
+
+In this case the last program to run has the final say, as opposed to
+the semantics where DROP/REDIRECT terminates.
+
+Also, 2nd and subsequent programs would probably need to know if and
+which socket has been already selected. I think the selection could be
+exposed in context as bpf_sock pointer.
+
+I admit, I can't quite see the benefit of running thru all programs in
+array, so I'm tempted to go with terminate of DROP/REDIRECT in v3.
+
 >
+> Also please switch to bpf_link way of attaching. All system wide attachments
+> should be visible and easily debuggable via 'bpftool link show'.
+> Currently we're converting tc and xdp hooks to bpf_link. This new hook
+> should have it from the beginning.
 
-I need to go back to archived perf.data and see if perf-annotate or
-perf-diff provide any clues that will help me tell where CPU cycles are
-going. Will get back to you on that.
+Will do in v3.
 
-Wild guess is that for udp6 we're loading and coping more data to
-populate v6 addresses in program context. See inet6_lookup_run_bpf
-(patch 7).
-
-This makes me realize the copy is unnecessary, I could just store the
-pointer to in6_addr{}. Will make this change in v3.
-
-As to why udp6 is taking a bigger hit than udp4 - comparing top 10 in
-`perf report --no-children` shows that in our test setup, socket lookup
-contributes less to CPU cycles on receive for udp4 than for udp6.
-
-* udp4 baseline (no children)
-
-# Overhead       Samples  Symbol
-# ........  ............  ......................................
-#
-     8.11%         19429  [k] fib_table_lookup
-     4.31%         10333  [k] udp_queue_rcv_one_skb
-     3.75%          8991  [k] fib4_rule_action
-     3.66%          8763  [k] __netif_receive_skb_core
-     3.42%          8198  [k] fib_rules_lookup
-     3.05%          7314  [k] fib4_rule_match
-     2.71%          6507  [k] mlx5e_skb_from_cqe_linear
-     2.58%          6192  [k] inet_gro_receive
-     2.49%          5981  [k] __x86_indirect_thunk_rax
-     2.36%          5656  [k] udp4_lib_lookup2
-
-* udp6 baseline (no children)
-
-# Overhead       Samples  Symbol
-# ........  ............  ......................................
-#
-     4.63%         11100  [k] udpv6_queue_rcv_one_skb
-     3.88%          9308  [k] __netif_receive_skb_core
-     3.54%          8480  [k] udp6_lib_lookup2
-     2.69%          6442  [k] mlx5e_skb_from_cqe_linear
-     2.56%          6137  [k] ipv6_gro_receive
-     2.31%          5540  [k] dev_gro_receive
-     2.20%          5264  [k] do_csum
-     2.02%          4835  [k] ip6_pol_route
-     1.94%          4639  [k] __udp6_lib_lookup
-     1.89%          4540  [k] selinux_socket_sock_rcv_skb
-
-Notice that __udp4_lib_lookup didn't even make the cut. That could
-explain why adding instructions to __udp6_lib_lookup has more effect on
-RX PPS.
-
-Frankly, that is something that suprised us, but we didn't have time to
-investigate further, yet.
-
->> | with SK_LOOKUP prog attached | 2,520,474 =C2=B1 0.7%       |   -12.1% |
-> This also looks very different from udp4.
->
-
-Thanks for the questions,
+Thanks for feedback,
 Jakub

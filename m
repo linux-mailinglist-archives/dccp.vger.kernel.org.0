@@ -2,67 +2,65 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 271AE1CF630
-	for <lists+dccp@lfdr.de>; Tue, 12 May 2020 15:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C56051CF6D3
+	for <lists+dccp@lfdr.de>; Tue, 12 May 2020 16:16:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730081AbgELNw5 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 12 May 2020 09:52:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60702 "EHLO
+        id S1728085AbgELOQX (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 12 May 2020 10:16:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36178 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730063AbgELNw5 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 12 May 2020 09:52:57 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C5439C061A0C
-        for <dccp@vger.kernel.org>; Tue, 12 May 2020 06:52:55 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id g12so23387041wmh.3
-        for <dccp@vger.kernel.org>; Tue, 12 May 2020 06:52:55 -0700 (PDT)
+        with ESMTP id S1730405AbgELOQU (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 12 May 2020 10:16:20 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 576F4C061A0E
+        for <dccp@vger.kernel.org>; Tue, 12 May 2020 07:16:19 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id g14so9489507wme.1
+        for <dccp@vger.kernel.org>; Tue, 12 May 2020 07:16:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloudflare.com; s=google;
         h=references:user-agent:from:to:cc:subject:in-reply-to:date
          :message-id:mime-version;
-        bh=Zq55omEuEvgB9vlSmywwcqU/9eUwhdaCINvvFlYpd7E=;
-        b=EscL7hFLj3hSJ0yVelftgSOk+dLKEz8ujOtrGZt82du5ydK12x0HLwgQ1seiNhZlQj
-         G4/hllre3xV+iTH2jbQYAzOKgTNhhrGFOL5C0MNfKXXmxcsNXEEbOyi87HI/Juh7wxV9
-         25+paHW711mNGDu/qwlz/0JhtlO0R9XCcjPHk=
+        bh=00m82nDOdB7w4DfvWFlh1hGcYgkyp7ab4WeJRauL9Sk=;
+        b=hKb1HPi4/i81LebncV5YcAQkLuE1ffnkJaHONoN5XhBrkRvaePWz9db0TV1D2ffRv/
+         9+eLMqMHyFrC7DG8HWig8gYwalhgnrrY2AzyiM6LuK8E8FWSDAJtR3rLilcHqE81Qnh8
+         CqvUDW1X2PnWrpEV6Kh+PnYqpSbIZFw2iBsEQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:references:user-agent:from:to:cc:subject
          :in-reply-to:date:message-id:mime-version;
-        bh=Zq55omEuEvgB9vlSmywwcqU/9eUwhdaCINvvFlYpd7E=;
-        b=YWs9TluuVsTjL2KDAUkFWuFWARUbhctXkGttUg7S96VHNwoP7hpkqV2CEHb8gBi/M/
-         /m39wAzbJlYQrwtUtaOnbyrCcfAvkJQfd2b3xgSsvRyVqHUoo+SY9M2H1+9/+MMI4Bmg
-         TBHCkU1ZlJc2ov8lOCsVq7ZbFDlXaQH41HxsWBGfc7/8CWMdSSucfO0+XmDeeMUeWm7c
-         4+lsS149OhLTZwlVSvqCc0UBDsgOnrj9+2XXmysomPIb4a7tfpDYEmPhAv8g3cWhB+GB
-         ZzM7dhAjXj5N/4CVlMTcoVDV0QoRFiZfxvQWNItAR0JYmh4vJIf2TPZ/FDWjhVMIIwKl
-         fpeg==
-X-Gm-Message-State: AGi0PuYE2NtoZZko9Ze5P0wEV9tREZiQ+EtzVzms+Koa7/yW6Eo4DHtY
-        TPJpKCQpdIpRaMaeEdyL68zG9w==
-X-Google-Smtp-Source: APiQypIhYlNCB706JpgHSgcF3mhOAfg+a2V0Z+Bq56eJiqRl08HhFazBmDZM8CGGj0okCR8+qdPEUA==
-X-Received: by 2002:a1c:2702:: with SMTP id n2mr12984805wmn.107.1589291574318;
-        Tue, 12 May 2020 06:52:54 -0700 (PDT)
+        bh=00m82nDOdB7w4DfvWFlh1hGcYgkyp7ab4WeJRauL9Sk=;
+        b=H6IQPvMtn6MgOfgcaoZ/ZCXVnxkaCGP21/ShGujKnIIJIU/+7uoRASqsJkDfzd+k0z
+         AjSSLMS+lwyZCqMSQZ9nxRWn+/RV68I3RlJAsQjLoq0M4UtEcnjNxkJ6b98ZRpHUa3LM
+         CG4x+4Vo+PbrbBdAFCZbnSZkZf79M1EBR+R7LSlWX6L8OWx7JxLI+hrgpsNp1VjNPy+u
+         MFW003LkOVRbJsTUVdwfFKpmtzhdk3mv741evg30GnTQZK23H+KjwbtXorsSLdJ/OgSD
+         va+hzb9QcNy5ER9UF+fkkWY7DEzbWHvJaLoG33uOCNtv0giqfOXqOzSUNW9BDb6YYrrZ
+         /SEA==
+X-Gm-Message-State: AOAM531BQrzYkTZbcvPRK2vERbwydn2LXTqaWBATdqHeEMq6DOdR1pkd
+        zZEVS28Sn4ZFZ91WNBlb9ktcSQ==
+X-Google-Smtp-Source: ABdhPJzjdvrksXRpK2eWRlCFxWkk4xHHtZpeFUKesV87sor5NePaLxncbLN9MTMJiXmQjIGYYbH15w==
+X-Received: by 2002:a7b:c005:: with SMTP id c5mr2424914wmb.22.1589292977867;
+        Tue, 12 May 2020 07:16:17 -0700 (PDT)
 Received: from cloudflare.com ([2a02:a310:c262:aa00:b35e:8938:2c2a:ba8b])
-        by smtp.gmail.com with ESMTPSA id s2sm326571wme.33.2020.05.12.06.52.53
+        by smtp.gmail.com with ESMTPSA id o2sm24394275wmc.21.2020.05.12.07.16.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2020 06:52:53 -0700 (PDT)
-References: <20200511185218.1422406-1-jakub@cloudflare.com> <20200511185218.1422406-6-jakub@cloudflare.com> <20200511204445.i7sessmtszox36xd@ast-mbp>
+        Tue, 12 May 2020 07:16:17 -0700 (PDT)
+References: <20200506125514.1020829-1-jakub@cloudflare.com> <20200506125514.1020829-3-jakub@cloudflare.com> <20200508070638.pqe73q4v3paxpkq5@kafai-mbp.dhcp.thefacebook.com> <87a72ivh6t.fsf@cloudflare.com> <20200508183928.ofudkphlb3vgpute@kafai-mbp.dhcp.thefacebook.com> <877dxivny8.fsf@cloudflare.com> <20200511185914.4oma2wbia4ukpfdr@kafai-mbp.dhcp.thefacebook.com> <874ksmuvcl.fsf@cloudflare.com> <20200511205435.mgjbkfndpi2sds6z@kafai-mbp.dhcp.thefacebook.com>
 User-agent: mu4e 1.1.0; emacs 26.3
 From:   Jakub Sitnicki <jakub@cloudflare.com>
-To:     Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To:     Martin KaFai Lau <kafai@fb.com>
 Cc:     netdev@vger.kernel.org, bpf@vger.kernel.org, dccp@vger.kernel.org,
         kernel-team@cloudflare.com, Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
+        "Daniel Borkmann" <daniel@iogearbox.net>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@google.com>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Jakub Kicinski <kuba@kernel.org>,
-        Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-        Martin KaFai Lau <kafai@fb.com>,
         Marek Majkowski <marek@cloudflare.com>,
         Lorenz Bauer <lmb@cloudflare.com>
-Subject: Re: [PATCH bpf-next v2 05/17] inet: Run SK_LOOKUP BPF program on socket lookup
-In-reply-to: <20200511204445.i7sessmtszox36xd@ast-mbp>
-Date:   Tue, 12 May 2020 15:52:52 +0200
-Message-ID: <871rnpuuob.fsf@cloudflare.com>
+Subject: Re: [PATCH bpf-next 02/17] bpf: Introduce SK_LOOKUP program type with a dedicated attach point
+In-reply-to: <20200511205435.mgjbkfndpi2sds6z@kafai-mbp.dhcp.thefacebook.com>
+Date:   Tue, 12 May 2020 16:16:16 +0200
+Message-ID: <87zhadtf0v.fsf@cloudflare.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 Sender: dccp-owner@vger.kernel.org
@@ -70,164 +68,85 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Mon, May 11, 2020 at 10:44 PM CEST, Alexei Starovoitov wrote:
-> On Mon, May 11, 2020 at 08:52:06PM +0200, Jakub Sitnicki wrote:
->> Run a BPF program before looking up a listening socket on the receive path.
->> Program selects a listening socket to yield as result of socket lookup by
->> calling bpf_sk_assign() helper and returning BPF_REDIRECT code.
+On Mon, May 11, 2020 at 10:54 PM CEST, Martin KaFai Lau wrote:
+> On Mon, May 11, 2020 at 09:26:02PM +0200, Jakub Sitnicki wrote:
+>> On Mon, May 11, 2020 at 08:59 PM CEST, Martin KaFai Lau wrote:
+>> > On Mon, May 11, 2020 at 11:08:15AM +0200, Jakub Sitnicki wrote:
+>> >> On Fri, May 08, 2020 at 08:39 PM CEST, Martin KaFai Lau wrote:
+>> >> > On Fri, May 08, 2020 at 12:45:14PM +0200, Jakub Sitnicki wrote:
+>> >> >> On Fri, May 08, 2020 at 09:06 AM CEST, Martin KaFai Lau wrote:
+>> >> >> > On Wed, May 06, 2020 at 02:54:58PM +0200, Jakub Sitnicki wrote:
+>> >>
+>> >> [...]
+>> >>
+>> >> >> >> +		return -ESOCKTNOSUPPORT;
+>> >> >> >> +
+>> >> >> >> +	/* Check if socket is suitable for packet L3/L4 protocol */
+>> >> >> >> +	if (sk->sk_protocol != ctx->protocol)
+>> >> >> >> +		return -EPROTOTYPE;
+>> >> >> >> +	if (sk->sk_family != ctx->family &&
+>> >> >> >> +	    (sk->sk_family == AF_INET || ipv6_only_sock(sk)))
+>> >> >> >> +		return -EAFNOSUPPORT;
+>> >> >> >> +
+>> >> >> >> +	/* Select socket as lookup result */
+>> >> >> >> +	ctx->selected_sk = sk;
+>> >> >> > Could sk be a TCP_ESTABLISHED sk?
+>> >> >>
+>> >> >> Yes, and what's worse, it could be ref-counted. This is a bug. I should
+>> >> >> be rejecting ref counted sockets here.
+>> >> > Agree. ref-counted (i.e. checking rcu protected or not) is the right check
+>> >> > here.
+>> >> >
+>> >> > An unrelated quick thought, it may still be fine for the
+>> >> > TCP_ESTABLISHED tcp_sk returned from sock_map because of the
+>> >> > "call_rcu(&psock->rcu, sk_psock_destroy);" in sk_psock_drop().
+>> >> > I was more thinking about in the future, what if this helper can take
+>> >> > other sk not coming from sock_map.
+>> >>
+>> >> I see, psock holds a sock reference and will not release it until a full
+>> >> grace period has elapsed.
+>> >>
+>> >> Even if holding a ref wasn't a problem, I'm not sure if returning a
+>> >> TCP_ESTABLISHED socket wouldn't trip up callers of inet_lookup_listener
+>> >> (tcp_v4_rcv and nf_tproxy_handle_time_wait4), that look for a listener
+>> >> when processing a SYN to TIME_WAIT socket.
+>> > Not suggesting the sk_assign helper has to support TCP_ESTABLISHED in TCP
+>> > if there is no use case for it.
 >>
->> Alternatively, program can also fail the lookup by returning with BPF_DROP,
->> or let the lookup continue as usual with BPF_OK on return.
+>> Ack, I didn't think you were. Just explored the consequences.
 >>
->> This lets the user match packets with listening sockets freely at the last
->> possible point on the receive path, where we know that packets are destined
->> for local delivery after undergoing policing, filtering, and routing.
+>> > Do you have a use case on supporting TCP_ESTABLISHED sk in UDP?
+>> > From the cover letter use cases, it is not clear to me it is
+>> > required.
+>> >
+>> > or both should only support unconnected sk?
 >>
->> With BPF code selecting the socket, directing packets destined to an IP
->> range or to a port range to a single socket becomes possible.
+>> No, we don't have a use case for selecting a connected UDP socket.
 >>
->> Suggested-by: Marek Majkowski <marek@cloudflare.com>
->> Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
->> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
->> ---
->>  include/net/inet_hashtables.h | 36 +++++++++++++++++++++++++++++++++++
->>  net/ipv4/inet_hashtables.c    | 15 ++++++++++++++-
->>  2 files changed, 50 insertions(+), 1 deletion(-)
+>> I left it as a possiblity because __udp[46]_lib_lookup, where BPF
+>> sk_lookup is invoked from, can return one.
 >>
->> diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
->> index 6072dfbd1078..3fcbc8f66f88 100644
->> --- a/include/net/inet_hashtables.h
->> +++ b/include/net/inet_hashtables.h
->> @@ -422,4 +422,40 @@ int __inet_hash_connect(struct inet_timewait_death_row *death_row,
+>> Perhaps the user would like to connect the selected receiving socket
+>> (for instance to itself) to ensure its not used for TX?
 >>
->>  int inet_hash_connect(struct inet_timewait_death_row *death_row,
->>  		      struct sock *sk);
->> +
->> +static inline struct sock *bpf_sk_lookup_run(struct net *net,
->> +					     struct bpf_sk_lookup_kern *ctx)
->> +{
->> +	struct bpf_prog *prog;
->> +	int ret = BPF_OK;
->> +
->> +	rcu_read_lock();
->> +	prog = rcu_dereference(net->sk_lookup_prog);
->> +	if (prog)
->> +		ret = BPF_PROG_RUN(prog, ctx);
->> +	rcu_read_unlock();
->> +
->> +	if (ret == BPF_DROP)
->> +		return ERR_PTR(-ECONNREFUSED);
->> +	if (ret == BPF_REDIRECT)
->> +		return ctx->selected_sk;
->> +	return NULL;
->> +}
->> +
->> +static inline struct sock *inet_lookup_run_bpf(struct net *net, u8 protocol,
->> +					       __be32 saddr, __be16 sport,
->> +					       __be32 daddr, u16 dport)
->> +{
->> +	struct bpf_sk_lookup_kern ctx = {
->> +		.family		= AF_INET,
->> +		.protocol	= protocol,
->> +		.v4.saddr	= saddr,
->> +		.v4.daddr	= daddr,
->> +		.sport		= sport,
->> +		.dport		= dport,
->> +	};
->> +
->> +	return bpf_sk_lookup_run(net, &ctx);
->> +}
->> +
->>  #endif /* _INET_HASHTABLES_H */
->> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
->> index ab64834837c8..f4d07285591a 100644
->> --- a/net/ipv4/inet_hashtables.c
->> +++ b/net/ipv4/inet_hashtables.c
->> @@ -307,9 +307,22 @@ struct sock *__inet_lookup_listener(struct net *net,
->>  				    const int dif, const int sdif)
->>  {
->>  	struct inet_listen_hashbucket *ilb2;
->> -	struct sock *result = NULL;
->> +	struct sock *result, *reuse_sk;
->>  	unsigned int hash2;
->>
->> +	/* Lookup redirect from BPF */
->> +	result = inet_lookup_run_bpf(net, hashinfo->protocol,
->> +				     saddr, sport, daddr, hnum);
->> +	if (IS_ERR(result))
->> +		return NULL;
->> +	if (result) {
->> +		reuse_sk = lookup_reuseport(net, result, skb, doff,
->> +					    saddr, sport, daddr, hnum);
->> +		if (reuse_sk)
->> +			result = reuse_sk;
->> +		goto done;
->> +	}
->> +
+>> I've pulled this scenario out of the hat. Happy to limit bpf_sk_assign
+>> to select only unconnected UDP sockets, if returning a connected one
+>> doesn't make sense.
+> OTOH, my concern is:
+> TCP's SK_LOOKUP can override the kernel choice on TCP_LISTEN sk.
+> UDP's SK_LOOKUP can override the kernel choice on unconnected sk but
+> not the connected sk.
 >
-> The overhead is too high to do this all the time.
-> The feature has to be static_key-ed.
-
-Static keys is something that Lorenz has also suggested internally, but
-we wanted to keep it simple at first.
-
-Introduction of static keys forces us to decide when non-init_net netns
-are allowed to attach to SK_LOOKUP, as attaching enabling SK_LOOKUP in
-isolated netns will affect the rx path in init_net.
-
-I see two options, which seem sensible:
-
-1) limit SK_LOOKUP to init_net, which makes testing setup harder, or
-
-2) allow non-init_net netns to attach to SK_LOOKUP only if static key
-   has been already enabled (via sysctl?).
-
+> It could be quite confusing to bpf user if a bpf_prog was written to return
+> both connected and unconnected UDP sk and logically expect both
+> will be done before the kernel's choice.
 >
-> Also please add multi-prog support. Adding it later will cause
-> all sorts of compatibility issues. The semantics of multi-prog
-> needs to be thought through right now.
-> For example BPF_DROP or BPF_REDIRECT could terminate the prog_run_array
-> sequence of progs while BPF_OK could continue.
-> It's not ideal, but better than nothing.
 
-I must say this approach is quite appealing because it's simple to
-explain. I would need a custom BPF_PROG_RUN_ARRAY, though.
+That's a fair point. I've been looking at this from the PoV of in-kernel
+callers of udp socket lookup, which now seems wrong.
 
-I'm curious what downside do you see here?
-Is overriding an earlier DROP/REDIRECT verdict useful?
+I agree it would a be surprising if not confusing UAPI. Will limit it to
+just unconnected UDP in v3.
 
-> Another option could be to execute all attached progs regardless
-> of return code, but don't let second prog override selected_sk blindly.
-> bpf_sk_assign() could get smarter.
-
-So if IIUC the rough idea here would be like below?
-
-- 1st program calls
-
-  bpf_sk_assign(ctx, sk1, 0 /*flags*/) -> 0 (OK)
-
-- 2nd program calls
-
-  bpf_sk_assign(ctx, sk2, 0) -> -EBUSY (already selected)
-  bpf_sk_assign(ctx, sk2, BPF_EXIST) -> 0 (OK, replace existing)
-
-In this case the last program to run has the final say, as opposed to
-the semantics where DROP/REDIRECT terminates.
-
-Also, 2nd and subsequent programs would probably need to know if and
-which socket has been already selected. I think the selection could be
-exposed in context as bpf_sock pointer.
-
-I admit, I can't quite see the benefit of running thru all programs in
-array, so I'm tempted to go with terminate of DROP/REDIRECT in v3.
-
->
-> Also please switch to bpf_link way of attaching. All system wide attachments
-> should be visible and easily debuggable via 'bpftool link show'.
-> Currently we're converting tc and xdp hooks to bpf_link. This new hook
-> should have it from the beginning.
-
-Will do in v3.
-
-Thanks for feedback,
+Thanks for raising the concern,
 Jakub

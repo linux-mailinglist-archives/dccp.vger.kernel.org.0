@@ -2,249 +2,154 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 69A2D1D034D
-	for <lists+dccp@lfdr.de>; Wed, 13 May 2020 01:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2958A1D0672
+	for <lists+dccp@lfdr.de>; Wed, 13 May 2020 07:41:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731660AbgELX6p (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 12 May 2020 19:58:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42216 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731656AbgELX6p (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 12 May 2020 19:58:45 -0400
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com [IPv6:2607:f8b0:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08103C061A0C;
-        Tue, 12 May 2020 16:58:45 -0700 (PDT)
-Received: by mail-pf1-x444.google.com with SMTP id r14so7177457pfg.2;
-        Tue, 12 May 2020 16:58:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=Ytaj7DiB30ZSlilj6bqXdkU3ACSN90Kod/LLqsnKkrc=;
-        b=GPxJUsQuHazQJIQ9W2uI9+pzkIlBsDcSuo0MwlzlSBrh7iEBR80W7ftUabj4wMqUbg
-         FG7FaivSZ6lisufHxBphbxkDUutwVwGNETjagJQuhHwcpM5Y3fSMiJANuDcexXtkG7dJ
-         CRWw58buCTUz2v8hLZJBe8si2o0zuAEN0MyaTL7kTKb2mnjnB88mqeLMl5YtY/+lW6JY
-         JVg3R8GqSLybgv+wg33TVQ3XrfrHh2/FEw8CNNHxFwuY0oPSWdxulImiKpCbU2fZsG83
-         HeKJ4uJiPtM/jEZHk8ZVInxlTLK8S7UK6y6F/hWFObFWsX4v4BKDrfz8SioZOyCGXzIa
-         jbYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=Ytaj7DiB30ZSlilj6bqXdkU3ACSN90Kod/LLqsnKkrc=;
-        b=NQuySrFeL0WzjOadVLXNRCZJO82S9UgnMIYzDHL/hnJK6Gv/8GAo8sbg9CpKy5TIV9
-         q3K5AZbeX3CKVu42G5NMSS+aBfhZ1yzq8cxcXJ7hfjhLx5y7g4Jhp/hB9dmf198hgHJU
-         gV4ny0i6muF7Qi8zhCVerpMsTiVwgp8RPdgwAIC01Jz4lYi5llR4rAK0cM+lD8IcQLTO
-         APSpB8XABNLygN0l5KwD6U/0I07iBCzOyRLPRGbiLYvLKaKmwJzzfit5Nzw2XqYNgrdn
-         vAeq2UDMonx0SD4QmD/hrx8cHJErbC4qJyGf5atye6JSi8SHRqOFfulDGVfSTwoXXoWo
-         Ah7g==
-X-Gm-Message-State: AGi0PuZpPP4t0GGz7p4tF218lQSwfxY2bbByPw4RaBxc2rpXUd7tiIk3
-        5D7YM+6tw0TrKZ1XMQ7QL2s=
-X-Google-Smtp-Source: APiQypKNrcLPlxCge2F4DuTnoJm/QI2K9m5RdQ54ubla2Dn7RBn6nG99rnC8jBfLfK22uKm9LY/d3Q==
-X-Received: by 2002:a63:e118:: with SMTP id z24mr20948624pgh.414.1589327924262;
-        Tue, 12 May 2020 16:58:44 -0700 (PDT)
-Received: from ast-mbp ([2620:10d:c090:400::5:68dc])
-        by smtp.gmail.com with ESMTPSA id j32sm11403981pgb.55.2020.05.12.16.58.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2020 16:58:43 -0700 (PDT)
-Date:   Tue, 12 May 2020 16:58:40 -0700
-From:   Alexei Starovoitov <alexei.starovoitov@gmail.com>
+        id S1728498AbgEMFls (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 13 May 2020 01:41:48 -0400
+Received: from mx0b-00082601.pphosted.com ([67.231.153.30]:45004 "EHLO
+        mx0b-00082601.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728097AbgEMFls (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Wed, 13 May 2020 01:41:48 -0400
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+        by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 04D5cxqC010618;
+        Tue, 12 May 2020 22:41:25 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=date : from : to : cc :
+ subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=facebook; bh=a6pwy2EQzzDQ8kvkNCZfM5xS+LovCArF21TiDbsqC2c=;
+ b=OKbKIG4YWLzs0DG4kphYcSRoPY4uYvE56bLgg6FzKOU/sLeNgEVKUtINp/Pn5XWtejfk
+ r65+6k2diKk8AqAqMfEey3JQysKnwFIclnB8RzRh2zlvCLoh1j9pQf4L93GNq1JEhjOC
+ c16OwfnM397KljbrNpAmBwACdePNIbcyrro= 
+Received: from maileast.thefacebook.com ([163.114.130.16])
+        by mx0a-00082601.pphosted.com with ESMTP id 3100x22wkv-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+        Tue, 12 May 2020 22:41:25 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.31.183)
+ by o365-in.thefacebook.com (100.104.35.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1847.3; Tue, 12 May 2020 22:41:24 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a3aYqgdMwIutBdiS6UK1xsIPyzDOPB+I/1OJ4Fvn4QwzJZdBDEpYoWZv22zEmk5sOem33jrs1RbGwoQWbdc+4cW7yU/5l6JQCgRlrR0RhtJE2IywcXDj/79K8QT8qWd6AwlAaGL46/8W8hS4wRDVGIJE5JBYqU37PbKq5gmoqX4mdEIn2TDA3v77TurkgYEEIbxpIB8CwXITbMyusGk+FstTFehyOfWxQoFCB81OYIOmSteYJiIevI6mSbQYQ7aaQIoiXStHR8eXgTAbRVjEtWRVlGO3dqPVJfpYSAFVGu5JqdWDhFKmkZN1HsaMH7uaFKY3gGd5Y/sWNAa806h5eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a6pwy2EQzzDQ8kvkNCZfM5xS+LovCArF21TiDbsqC2c=;
+ b=RSavTdXm24VxHZhnHXVSD/L/hhe6apJCIMFDrClPekDBQwyR2ngdGopBzQxnEerLWLF355BjXLmqwOQ98eExU2qlEzQ+dZTzykiTrboHRliLMLCYxner5K0S1ziRTbsSYJCMp3bRY7rye8lI+G/p60nbc0rEYZ4WgPBchoUEBO2ZAuYY2fhaRnMPObtv4QpNzOqoSRGaZJkiAEFHkY5dbQlHZXVMWtrbl2oD/bukWt3zMXwOKdcWWYUxp0w5kJkmcJYojukaGomJ1U9eFj2lk+Wk+MGwqVQSzV1cuHcZKannAoxnWy14/wFUTkJ9GmwtlNlTCxbIIKHkK9WcE+LQ1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
+ header.d=fb.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector2-fb-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a6pwy2EQzzDQ8kvkNCZfM5xS+LovCArF21TiDbsqC2c=;
+ b=K5zorTjyt2ss3/yOz/8Qm0/RUU3w++ZAg8lgTTcuGItOkKURmCckDHRwi+fmoxgKii1uPQG1LcoR46Xg+3OwaMdp2GBeOAeXr2l+GOdkNBDGttGsyOVeWLl3gDW38/pzH6zhcGJTdaFwNiOppzcTPywB5cNut2dIk0rfV8k5OjA=
+Authentication-Results: cloudflare.com; dkim=none (message not signed)
+ header.d=none;cloudflare.com; dmarc=none action=none header.from=fb.com;
+Received: from BY5PR15MB3571.namprd15.prod.outlook.com (2603:10b6:a03:1f6::32)
+ by BY5PR15MB3522.namprd15.prod.outlook.com (2603:10b6:a03:1b5::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.33; Wed, 13 May
+ 2020 05:41:23 +0000
+Received: from BY5PR15MB3571.namprd15.prod.outlook.com
+ ([fe80::71cb:7c2e:b016:77b6]) by BY5PR15MB3571.namprd15.prod.outlook.com
+ ([fe80::71cb:7c2e:b016:77b6%7]) with mapi id 15.20.2979.033; Wed, 13 May 2020
+ 05:41:23 +0000
+Date:   Tue, 12 May 2020 22:41:21 -0700
+From:   Martin KaFai Lau <kafai@fb.com>
 To:     Jakub Sitnicki <jakub@cloudflare.com>
-Cc:     netdev@vger.kernel.org, bpf@vger.kernel.org, dccp@vger.kernel.org,
-        kernel-team@cloudflare.com, Alexei Starovoitov <ast@kernel.org>,
+CC:     <netdev@vger.kernel.org>, <bpf@vger.kernel.org>,
+        <dccp@vger.kernel.org>, <kernel-team@cloudflare.com>,
+        Alexei Starovoitov <ast@kernel.org>,
         Daniel Borkmann <daniel@iogearbox.net>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@google.com>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Jakub Kicinski <kuba@kernel.org>,
         Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-        Martin KaFai Lau <kafai@fb.com>,
         Marek Majkowski <marek@cloudflare.com>,
         Lorenz Bauer <lmb@cloudflare.com>
-Subject: Re: [PATCH bpf-next v2 05/17] inet: Run SK_LOOKUP BPF program on
- socket lookup
-Message-ID: <20200512235840.znwcyu3gpxemucwh@ast-mbp>
+Subject: Re: [PATCH bpf-next v2 02/17] bpf: Introduce SK_LOOKUP program type
+ with a dedicated attach point
+Message-ID: <20200513054121.qztevjyfkc2ltcvp@kafai-mbp.dhcp.thefacebook.com>
 References: <20200511185218.1422406-1-jakub@cloudflare.com>
- <20200511185218.1422406-6-jakub@cloudflare.com>
- <20200511204445.i7sessmtszox36xd@ast-mbp>
- <871rnpuuob.fsf@cloudflare.com>
-MIME-Version: 1.0
+ <20200511185218.1422406-3-jakub@cloudflare.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <871rnpuuob.fsf@cloudflare.com>
+In-Reply-To: <20200511185218.1422406-3-jakub@cloudflare.com>
+User-Agent: NeoMutt/20180716
+X-ClientProxiedBy: BY3PR05CA0001.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::6) To BY5PR15MB3571.namprd15.prod.outlook.com
+ (2603:10b6:a03:1f6::32)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from kafai-mbp.dhcp.thefacebook.com (2620:10d:c090:400::5:f3b6) by BY3PR05CA0001.namprd05.prod.outlook.com (2603:10b6:a03:254::6) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.11 via Frontend Transport; Wed, 13 May 2020 05:41:22 +0000
+X-Originating-IP: [2620:10d:c090:400::5:f3b6]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 955f1934-1ed9-4017-c90e-08d7f700453e
+X-MS-TrafficTypeDiagnostic: BY5PR15MB3522:
+X-Microsoft-Antispam-PRVS: <BY5PR15MB3522DED05F3270739CA77FE9D5BF0@BY5PR15MB3522.namprd15.prod.outlook.com>
+X-FB-Source: Internal
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Forefront-PRVS: 0402872DA1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Sn9xv2I2LnvbUi6FwHIRKffqqoMhV3szjCplwxACPIYJQ+z7BR+dmccoIqBZnDm2UIMwIysDm/aB0TleQdMLKn7Dxbck/pltox/7RL8e4vKyRFbS18dHj2dRHnAxoLod/koOZJywPuTVnB0urGu0g/37nH6ElnyLWJBplV4iPvdZ/hYd47hQ4mccH/pdGVarO9LY+gOiKL01H0mN5s7vb1vlSF8JMXi/t/dCm6Dj4S6g35IGm22W7auaxXV5ZiIlZC7gPia1HJa1jyQgbzEEwybru7xiJ2WIz6uPx/NQj0GHXdiBHZdT9xuNdIMIjwyGQh9k0qENt2P+lZvg3mzQ8Lff7fdaKTlT/KG9V6JoIQAJurcP7dT36Sc3PdMT5LUfoQgcYvXh9LHF/tQS2Rt9l4KKGVxCvb78dXQF0qp0s4Rh3EiBe+Dr4Wseu6hh6YQ4IfxRSrW139REhxqUqXe5A3UkpywG4EPW0nxd2sZJsYaGVboEwJR7d3wQN6R41ylUbXCC+1C686BiuT6LctxyMg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR15MB3571.namprd15.prod.outlook.com;PTR:;CAT:NONE;SFTY:;SFS:(39860400002)(366004)(136003)(346002)(376002)(396003)(33430700001)(2906002)(55016002)(33440700001)(54906003)(7416002)(316002)(66946007)(4326008)(66476007)(478600001)(8676002)(1076003)(66556008)(6916009)(86362001)(8936002)(6506007)(5660300002)(52116002)(7696005)(16526019)(9686003)(186003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData: lOERxOtIIqGh/fZcUfOrzEGI0YabomeAQmvxpZEJqCZgtzSNN9Lr3VFcLO1/a8LAwtz6Luz6GgY/n2VxNBOdWa343z5CS40XaCu6+405RpYiBiaVTG6HmDZ39iDOaWe8gZBlHAe0KP6IP3AQraVf/L62Cf94REXcd2Y5l18TmZH6RFygLKoQbcjNvtpZjZHRYobZf+mIK+YzovyMepzypIvkCArF9ypowXpAMpV/n1zI+6hXgJ5lHtebKoB+Lt9cbn58vwyea0JllwNINP1UnqpuipsR0GzbMuuyBk/rbwRDpL58YA/64Luv5obbbcSXlmkJpCGbKpRcfFNOZZRPD17fd354dOsEXBh5rwgnRGXy4+aFIrTL4f0KYV5wP3eRnnWWxrEACd8MFGaDFhsNFZqtcrgPKqkSeAh08xwnimfC5/z99h1WeC8m0CX0oCmBoxjLULFtzbhipQQXZ9Y2m4rvLcuDFt0fKkpzg3zE2VVptj56ZEbYZFxA+SVTWoYQKPyJEByt/47ygphYsKCQkA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 955f1934-1ed9-4017-c90e-08d7f700453e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2020 05:41:23.7573
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 72NAuXwGYEOapRsT+j3Zt6PFRlMCWBvxfvdTcpokDvWUYk3BvXalhW3WyVzPg7tC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR15MB3522
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216,18.0.676
+ definitions=2020-05-13_01:2020-05-11,2020-05-13 signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0 adultscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0
+ malwarescore=0 mlxscore=0 bulkscore=0 mlxlogscore=787 cotscore=-2147483648
+ lowpriorityscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2005130051
+X-FB-Internal: deliver
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Tue, May 12, 2020 at 03:52:52PM +0200, Jakub Sitnicki wrote:
-> On Mon, May 11, 2020 at 10:44 PM CEST, Alexei Starovoitov wrote:
-> > On Mon, May 11, 2020 at 08:52:06PM +0200, Jakub Sitnicki wrote:
-> >> Run a BPF program before looking up a listening socket on the receive path.
-> >> Program selects a listening socket to yield as result of socket lookup by
-> >> calling bpf_sk_assign() helper and returning BPF_REDIRECT code.
-> >>
-> >> Alternatively, program can also fail the lookup by returning with BPF_DROP,
-> >> or let the lookup continue as usual with BPF_OK on return.
-> >>
-> >> This lets the user match packets with listening sockets freely at the last
-> >> possible point on the receive path, where we know that packets are destined
-> >> for local delivery after undergoing policing, filtering, and routing.
-> >>
-> >> With BPF code selecting the socket, directing packets destined to an IP
-> >> range or to a port range to a single socket becomes possible.
-> >>
-> >> Suggested-by: Marek Majkowski <marek@cloudflare.com>
-> >> Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
-> >> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
-> >> ---
-> >>  include/net/inet_hashtables.h | 36 +++++++++++++++++++++++++++++++++++
-> >>  net/ipv4/inet_hashtables.c    | 15 ++++++++++++++-
-> >>  2 files changed, 50 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
-> >> index 6072dfbd1078..3fcbc8f66f88 100644
-> >> --- a/include/net/inet_hashtables.h
-> >> +++ b/include/net/inet_hashtables.h
-> >> @@ -422,4 +422,40 @@ int __inet_hash_connect(struct inet_timewait_death_row *death_row,
-> >>
-> >>  int inet_hash_connect(struct inet_timewait_death_row *death_row,
-> >>  		      struct sock *sk);
-> >> +
-> >> +static inline struct sock *bpf_sk_lookup_run(struct net *net,
-> >> +					     struct bpf_sk_lookup_kern *ctx)
-> >> +{
-> >> +	struct bpf_prog *prog;
-> >> +	int ret = BPF_OK;
-> >> +
-> >> +	rcu_read_lock();
-> >> +	prog = rcu_dereference(net->sk_lookup_prog);
-> >> +	if (prog)
-> >> +		ret = BPF_PROG_RUN(prog, ctx);
-> >> +	rcu_read_unlock();
-> >> +
-> >> +	if (ret == BPF_DROP)
-> >> +		return ERR_PTR(-ECONNREFUSED);
-> >> +	if (ret == BPF_REDIRECT)
-> >> +		return ctx->selected_sk;
-> >> +	return NULL;
-> >> +}
-> >> +
-> >> +static inline struct sock *inet_lookup_run_bpf(struct net *net, u8 protocol,
-> >> +					       __be32 saddr, __be16 sport,
-> >> +					       __be32 daddr, u16 dport)
-> >> +{
-> >> +	struct bpf_sk_lookup_kern ctx = {
-> >> +		.family		= AF_INET,
-> >> +		.protocol	= protocol,
-> >> +		.v4.saddr	= saddr,
-> >> +		.v4.daddr	= daddr,
-> >> +		.sport		= sport,
-> >> +		.dport		= dport,
-> >> +	};
-> >> +
-> >> +	return bpf_sk_lookup_run(net, &ctx);
-> >> +}
-> >> +
-> >>  #endif /* _INET_HASHTABLES_H */
-> >> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-> >> index ab64834837c8..f4d07285591a 100644
-> >> --- a/net/ipv4/inet_hashtables.c
-> >> +++ b/net/ipv4/inet_hashtables.c
-> >> @@ -307,9 +307,22 @@ struct sock *__inet_lookup_listener(struct net *net,
-> >>  				    const int dif, const int sdif)
-> >>  {
-> >>  	struct inet_listen_hashbucket *ilb2;
-> >> -	struct sock *result = NULL;
-> >> +	struct sock *result, *reuse_sk;
-> >>  	unsigned int hash2;
-> >>
-> >> +	/* Lookup redirect from BPF */
-> >> +	result = inet_lookup_run_bpf(net, hashinfo->protocol,
-> >> +				     saddr, sport, daddr, hnum);
-> >> +	if (IS_ERR(result))
-> >> +		return NULL;
-> >> +	if (result) {
-> >> +		reuse_sk = lookup_reuseport(net, result, skb, doff,
-> >> +					    saddr, sport, daddr, hnum);
-> >> +		if (reuse_sk)
-> >> +			result = reuse_sk;
-> >> +		goto done;
-> >> +	}
-> >> +
-> >
-> > The overhead is too high to do this all the time.
-> > The feature has to be static_key-ed.
-> 
-> Static keys is something that Lorenz has also suggested internally, but
-> we wanted to keep it simple at first.
-> 
-> Introduction of static keys forces us to decide when non-init_net netns
-> are allowed to attach to SK_LOOKUP, as attaching enabling SK_LOOKUP in
-> isolated netns will affect the rx path in init_net.
-> 
-> I see two options, which seem sensible:
-> 
-> 1) limit SK_LOOKUP to init_net, which makes testing setup harder, or
-> 
-> 2) allow non-init_net netns to attach to SK_LOOKUP only if static key
->    has been already enabled (via sysctl?).
+On Mon, May 11, 2020 at 08:52:03PM +0200, Jakub Sitnicki wrote:
 
-I think both are overkill.
-Just enable that static_key if any netns has progs.
-Loading this prog type will be privileged operation even after cap_bpf.
+[ ... ]
 
-> >
-> > Also please add multi-prog support. Adding it later will cause
-> > all sorts of compatibility issues. The semantics of multi-prog
-> > needs to be thought through right now.
-> > For example BPF_DROP or BPF_REDIRECT could terminate the prog_run_array
-> > sequence of progs while BPF_OK could continue.
-> > It's not ideal, but better than nothing.
-> 
-> I must say this approach is quite appealing because it's simple to
-> explain. I would need a custom BPF_PROG_RUN_ARRAY, though.
+> +BPF_CALL_3(bpf_sk_lookup_assign, struct bpf_sk_lookup_kern *, ctx,
+> +	   struct sock *, sk, u64, flags)
+The SK_LOOKUP bpf_prog may have already selected the proper reuseport sk.
+It is possible by looking up sk from sock_map.
 
-of course.
+Thus, it is not always desired to do lookup_reuseport() after sk_assign()
+in patch 5.  e.g. reuseport_select_sock() just uses a normal hash if
+there is no reuse->prog.
 
-> I'm curious what downside do you see here?
-> Is overriding an earlier DROP/REDIRECT verdict useful?
-> 
-> > Another option could be to execute all attached progs regardless
-> > of return code, but don't let second prog override selected_sk blindly.
-> > bpf_sk_assign() could get smarter.
-> 
-> So if IIUC the rough idea here would be like below?
-> 
-> - 1st program calls
-> 
->   bpf_sk_assign(ctx, sk1, 0 /*flags*/) -> 0 (OK)
-> 
-> - 2nd program calls
-> 
->   bpf_sk_assign(ctx, sk2, 0) -> -EBUSY (already selected)
->   bpf_sk_assign(ctx, sk2, BPF_EXIST) -> 0 (OK, replace existing)
-> 
-> In this case the last program to run has the final say, as opposed to
-> the semantics where DROP/REDIRECT terminates.
-> 
-> Also, 2nd and subsequent programs would probably need to know if and
-> which socket has been already selected. I think the selection could be
-> exposed in context as bpf_sock pointer.
+A flag (e.g. "BPF_F_REUSEPORT_SELECT") can be added here to
+specifically do the reuseport_select_sock() after sk_assign().
+If not set, reuseport_select_sock() should not be called.
 
-I think running all is better.
-The main down side of terminating early is predictability.
-Imagine first prog is doing the sock selection based on some map configuration.
-Then second prog gets loaded and doing its own selection.
-These two progs are managed by different user space processes.
-Now first map got changed and second prog stopped seeing the packets.
-No warning. Nothing. With "bpf_sk_assign(ctx, sk2, 0) -> -EBUSY"
-the second prog at least will see errors and will be able to log
-and alert humans to do something about it.
-The question of ordering come up, of course. But that ordering concerns
-we had for some time with cgroup-bpf run array and it wasn't horrible.
-We're still trying to solve it on cgroup-bpf side in a generic way,
-but simple first-to-attach -> first-to-run was good enough there
-and I think will be here as well. The whole dispatcher project
-and managing policy, priority, ordering in user space better to solve
-it generically for all cases. But the kernel should do simple basics.
+> +{
+> +	if (unlikely(flags != 0))
+> +		return -EINVAL;
+> +	if (unlikely(sk_is_refcounted(sk)))
+> +		return -ESOCKTNOSUPPORT;
+> +
+> +	/* Check if socket is suitable for packet L3/L4 protocol */
+> +	if (sk->sk_protocol != ctx->protocol)
+> +		return -EPROTOTYPE;
+> +	if (sk->sk_family != ctx->family &&
+> +	    (sk->sk_family == AF_INET || ipv6_only_sock(sk)))
+> +		return -EAFNOSUPPORT;
+> +
+> +	/* Select socket as lookup result */
+> +	ctx->selected_sk = sk;
+> +	return 0;
+> +}
+> +

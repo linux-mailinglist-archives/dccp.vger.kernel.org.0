@@ -2,52 +2,54 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6833A1D4DAB
-	for <lists+dccp@lfdr.de>; Fri, 15 May 2020 14:28:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D1BF51D5329
+	for <lists+dccp@lfdr.de>; Fri, 15 May 2020 17:07:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726177AbgEOM2h (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 15 May 2020 08:28:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43684 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726183AbgEOM2f (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 15 May 2020 08:28:35 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC8C3C05BD09
-        for <dccp@vger.kernel.org>; Fri, 15 May 2020 05:28:33 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id l18so3330643wrn.6
-        for <dccp@vger.kernel.org>; Fri, 15 May 2020 05:28:33 -0700 (PDT)
+        id S1726261AbgEOPHv (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 15 May 2020 11:07:51 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40466 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726174AbgEOPHu (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Fri, 15 May 2020 11:07:50 -0400
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com [IPv6:2607:f8b0:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA34CC061A0C;
+        Fri, 15 May 2020 08:07:50 -0700 (PDT)
+Received: by mail-pg1-x542.google.com with SMTP id u5so1074419pgn.5;
+        Fri, 15 May 2020 08:07:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google;
-        h=references:user-agent:from:to:cc:subject:in-reply-to:date
-         :message-id:mime-version;
-        bh=8CBmhx9ui3qJxYivj5qzMWxfms8vf7DMdx7vVNSjA8c=;
-        b=vGGnjcDhIBopZLFVLn2T3uR4fy/h1Jea54IFYPCJ4/m/2BQ7vKoRoVRyf+9bTtKuS8
-         /OKsdJoy2rFrug9YW2g/pXktJUu3g+HWFPnf5mdLSm+eGo0y6qB7jQI+oDya51Umb5Qo
-         SN3ZEFgFbvACJhXyWd0CHVSEdQ17bb87p+q2k=
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=xkPZgbRyoXj8VgKHhN72c04Ed4oZhZQXxzUIYhF5Dm0=;
+        b=dUZ7BnOmpGSvC7Z0FaCtXXr6VD4kjhC58W567jEPdN3Iyz5uyhH0/EFIakTj1UZ3w+
+         w9k89SUtJk4CVOctr5kJmGeAXQlSXWtLVx+u3I0a6Tf5CViC1Mu9NXQvT4MN7hIesW7J
+         Ffl/4B0Fj//Hj1W24c9qNe/4hN8x0c/MQjoSr1CJlCphOZibHvqCF2e+7nLhDCpmlHuE
+         ekf0D57PWmjmGzH/ZUWf4zjHVH8q+TdpFdQlZlIjtOErWjZr9ZvjrXB/D/VAMYQdR+va
+         oIqPmyqWDwtn6m7EU0kncBJM7CquK+n6/7y7xIx+/cni0KJRHqj108Df+9JnHTwjxdrI
+         PCZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject
-         :in-reply-to:date:message-id:mime-version;
-        bh=8CBmhx9ui3qJxYivj5qzMWxfms8vf7DMdx7vVNSjA8c=;
-        b=q3p9lnOdATo8eNhnzFws0x4HJ05/ZKVV52GSoPeD2pQmaab5h9OtrlwHRq7BpMEsCc
-         HTTHU+j0ns39LTUC6aNC+0ly5t6roTgjQYhAJjFOC6H+gmIA2ayAj4pj5oKOD/+aRzkC
-         abpPfoZVhDbwb50BBpNii5Wy3mIlk9NeNjCtwpdFC23K8s2F++urc3cPSV3ghaNvErHx
-         PQykn3KsBZv8PcctoDz3Vb2IZ1Bn71jPWmIFSj4uwdneUNCyZCMeEQ5OZ5oN2/MM+JrO
-         tNefKVj/CyclqDuy51SW2hAMFAu6VL1vXEFbDX6uX4YMl/sN/oYUtUY+W7ZvhzWeezFP
-         eF+A==
-X-Gm-Message-State: AOAM532FU5kLy1dOkB3CsJK6B2VulxmTD4PTdNvtZM2+bbgGewcYZ7Jo
-        Pan60RHvcmdhWyIFINK1ItybFw==
-X-Google-Smtp-Source: ABdhPJzuJO3h9wm9P+HDKn4bQyUeRVRQ2oDHXcFbX7IhBImY1lx/94mnSy7aM8awmKA1Hpau8zRqXA==
-X-Received: by 2002:adf:decb:: with SMTP id i11mr4341029wrn.172.1589545712448;
-        Fri, 15 May 2020 05:28:32 -0700 (PDT)
-Received: from cloudflare.com ([2a02:a310:c262:aa00:b35e:8938:2c2a:ba8b])
-        by smtp.gmail.com with ESMTPSA id b12sm3663696wmj.0.2020.05.15.05.28.31
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=xkPZgbRyoXj8VgKHhN72c04Ed4oZhZQXxzUIYhF5Dm0=;
+        b=PeNahV0+7vhsvbQoGmrTuKol70Fxs3Skt+aQkqRDU7+miCQqDaKjhifCS/ExCgOGno
+         6sMSIbxa6qKFQtV4VffcFb8qkoZ2OqSXVeby1boP4jy+dlqgLDhkzAWAPMshs7KJFzk7
+         ZJBwTU7BpC4FNBn6/ugz8yoGanZvs4ZlIwPimdSXuRqq5UzQjuh0WfgFnS49TzrC6FkP
+         0BvPmtaAc0HMTBjDC1AGu5bSMtcrESX3HHGSpbTaIkG7op8Tff+r9wEJcIz9PbLn6S02
+         GqE7+EW4v/t2hO+/YmXP2VHsHLhfU0xx/qpNFRgoRkO6zV0Aq3jtZzgIMdYdbwF6AtkT
+         4ZPQ==
+X-Gm-Message-State: AOAM531O7x5PpMVEtZeMz8gT4Y2LvTHkMPwxiwQpuolV8WCFWH9wvNG7
+        8z8DSSelJAH5JVILISCGlhmqsQJB
+X-Google-Smtp-Source: ABdhPJx8pHG0A+/S60CIk3UTKuVVYMOSYiluSnebUoU+6sgqtB2gciuqOOqpIyt61M638XI+FGlT4g==
+X-Received: by 2002:a65:6810:: with SMTP id l16mr3436636pgt.390.1589555270151;
+        Fri, 15 May 2020 08:07:50 -0700 (PDT)
+Received: from ast-mbp ([2620:10d:c090:400::5:6ccd])
+        by smtp.gmail.com with ESMTPSA id k6sm2194209pfp.111.2020.05.15.08.07.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2020 05:28:31 -0700 (PDT)
-References: <20200511185218.1422406-1-jakub@cloudflare.com> <20200511185218.1422406-6-jakub@cloudflare.com> <20200511204445.i7sessmtszox36xd@ast-mbp>
-User-agent: mu4e 1.1.0; emacs 26.3
-From:   Jakub Sitnicki <jakub@cloudflare.com>
-To:     Alexei Starovoitov <alexei.starovoitov@gmail.com>
+        Fri, 15 May 2020 08:07:49 -0700 (PDT)
+Date:   Fri, 15 May 2020 08:07:42 -0700
+From:   Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To:     Jakub Sitnicki <jakub@cloudflare.com>
 Cc:     netdev@vger.kernel.org, bpf@vger.kernel.org, dccp@vger.kernel.org,
         kernel-team@cloudflare.com, Alexei Starovoitov <ast@kernel.org>,
         Daniel Borkmann <daniel@iogearbox.net>,
@@ -59,46 +61,52 @@ Cc:     netdev@vger.kernel.org, bpf@vger.kernel.org, dccp@vger.kernel.org,
         Martin KaFai Lau <kafai@fb.com>,
         Marek Majkowski <marek@cloudflare.com>,
         Lorenz Bauer <lmb@cloudflare.com>
-Subject: Re: [PATCH bpf-next v2 05/17] inet: Run SK_LOOKUP BPF program on socket lookup
-In-reply-to: <20200511204445.i7sessmtszox36xd@ast-mbp>
-Date:   Fri, 15 May 2020 14:28:30 +0200
-Message-ID: <87wo5d2xht.fsf@cloudflare.com>
+Subject: Re: [PATCH bpf-next v2 05/17] inet: Run SK_LOOKUP BPF program on
+ socket lookup
+Message-ID: <20200515150742.obhv4sdps5chduay@ast-mbp>
+References: <20200511185218.1422406-1-jakub@cloudflare.com>
+ <20200511185218.1422406-6-jakub@cloudflare.com>
+ <20200511204445.i7sessmtszox36xd@ast-mbp>
+ <87wo5d2xht.fsf@cloudflare.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87wo5d2xht.fsf@cloudflare.com>
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Mon, May 11, 2020 at 10:44 PM CEST, Alexei Starovoitov wrote:
-> On Mon, May 11, 2020 at 08:52:06PM +0200, Jakub Sitnicki wrote:
->> Run a BPF program before looking up a listening socket on the receive path.
->> Program selects a listening socket to yield as result of socket lookup by
->> calling bpf_sk_assign() helper and returning BPF_REDIRECT code.
->>
->> Alternatively, program can also fail the lookup by returning with BPF_DROP,
->> or let the lookup continue as usual with BPF_OK on return.
->>
->> This lets the user match packets with listening sockets freely at the last
->> possible point on the receive path, where we know that packets are destined
->> for local delivery after undergoing policing, filtering, and routing.
->>
->> With BPF code selecting the socket, directing packets destined to an IP
->> range or to a port range to a single socket becomes possible.
->>
->> Suggested-by: Marek Majkowski <marek@cloudflare.com>
->> Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
->> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
->> ---
+On Fri, May 15, 2020 at 02:28:30PM +0200, Jakub Sitnicki wrote:
+> On Mon, May 11, 2020 at 10:44 PM CEST, Alexei Starovoitov wrote:
+> > On Mon, May 11, 2020 at 08:52:06PM +0200, Jakub Sitnicki wrote:
+> >> Run a BPF program before looking up a listening socket on the receive path.
+> >> Program selects a listening socket to yield as result of socket lookup by
+> >> calling bpf_sk_assign() helper and returning BPF_REDIRECT code.
+> >>
+> >> Alternatively, program can also fail the lookup by returning with BPF_DROP,
+> >> or let the lookup continue as usual with BPF_OK on return.
+> >>
+> >> This lets the user match packets with listening sockets freely at the last
+> >> possible point on the receive path, where we know that packets are destined
+> >> for local delivery after undergoing policing, filtering, and routing.
+> >>
+> >> With BPF code selecting the socket, directing packets destined to an IP
+> >> range or to a port range to a single socket becomes possible.
+> >>
+> >> Suggested-by: Marek Majkowski <marek@cloudflare.com>
+> >> Reviewed-by: Lorenz Bauer <lmb@cloudflare.com>
+> >> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
+> >> ---
+> 
+> [...]
+> 
+> > Also please switch to bpf_link way of attaching. All system wide attachments
+> > should be visible and easily debuggable via 'bpftool link show'.
+> > Currently we're converting tc and xdp hooks to bpf_link. This new hook
+> > should have it from the beginning.
+> 
+> Just to clarify, I understood that bpf(BPF_PROG_ATTACH/DETACH) doesn't
+> have to be supported for new hooks.
 
-[...]
-
-> Also please switch to bpf_link way of attaching. All system wide attachments
-> should be visible and easily debuggable via 'bpftool link show'.
-> Currently we're converting tc and xdp hooks to bpf_link. This new hook
-> should have it from the beginning.
-
-Just to clarify, I understood that bpf(BPF_PROG_ATTACH/DETACH) doesn't
-have to be supported for new hooks.
-
-Please correct me if I misunderstood.
+Yes. Not only no need. I don't think attach/detach fits.

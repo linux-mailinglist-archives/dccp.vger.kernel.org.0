@@ -2,54 +2,44 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 050B31E4501
-	for <lists+dccp@lfdr.de>; Wed, 27 May 2020 15:59:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 755D31E6F41
+	for <lists+dccp@lfdr.de>; Fri, 29 May 2020 00:38:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389048AbgE0N7y (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 27 May 2020 09:59:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39804 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388899AbgE0N7y (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 27 May 2020 09:59:54 -0400
-Received: from msa12.plala.or.jp (msa12.plala.or.jp [IPv6:2400:7800:0:502e::12])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 203F4C08C5C2
-        for <dccp@vger.kernel.org>; Wed, 27 May 2020 06:59:54 -0700 (PDT)
-Received: from mwebp13 ([172.23.13.133]) by msa12.plala.or.jp with ESMTP
-          id <20200527135953.MXZU4246.msa12.plala.or.jp@mwebp13>;
-          Wed, 27 May 2020 22:59:53 +0900
-Date:   Wed, 27 May 2020 22:59:53 +0900
-From:   "Mrs.Judith Rice" <hamurafujimi@tmail.plala.or.jp>
-Reply-To: jonesevansje@gmail.com
-Message-ID: <20200527225953.LM7D6.1032.root@mwebp13>
-Subject: Spende
+        id S2437227AbgE1WiT convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+dccp@lfdr.de>); Thu, 28 May 2020 18:38:19 -0400
+Received: from mail.bnv.gob.ve ([201.249.200.115]:46024 "EHLO
+        correo.bnv.gob.ve" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S2437219AbgE1WiS (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 28 May 2020 18:38:18 -0400
+Received: from localhost (localhost.bnv.gob.ve [127.0.0.1])
+        by correo.bnv.gob.ve (Postfix) with ESMTP id EA03E38E2330;
+        Thu, 28 May 2020 13:57:39 -0400 (-04)
+Received: from correo.bnv.gob.ve ([127.0.0.1])
+        by localhost (correo.bnv.gob.ve [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id 9mMVV-1I1vMv; Thu, 28 May 2020 13:57:39 -0400 (-04)
+Received: from localhost (localhost.bnv.gob.ve [127.0.0.1])
+        by correo.bnv.gob.ve (Postfix) with ESMTP id 7AF2338E1D39;
+        Thu, 28 May 2020 13:24:26 -0400 (-04)
+X-Virus-Scanned: amavisd-new at bnv.gob.ve
+Received: from correo.bnv.gob.ve ([127.0.0.1])
+        by localhost (correo.bnv.gob.ve [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id 2E3040pMf0bM; Thu, 28 May 2020 13:24:26 -0400 (-04)
+Received: from [10.19.23.127] (unknown [105.0.4.230])
+        by correo.bnv.gob.ve (Postfix) with ESMTPSA id 63CC538AA7C5;
+        Thu, 28 May 2020 12:22:54 -0400 (-04)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-2022-jp
-Content-Transfer-Encoding: 7bit
-X-Priority: 3 (Normal)
-Sensitivity: Normal
-X-VirusScan: Outbound; mvir-ac12; Wed, 27 May 2020 22:59:53 +0900
-To:     unlisted-recipients:; (no To-header on input)
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: Spende von 2.000.000,00 Euro
+To:     Recipients <manuel@info.com>
+From:   "manuel franco" <manuel@info.com>
+Date:   Thu, 28 May 2020 18:22:45 +0200
+Reply-To: manuelfrancospende11@gmail.com
+Message-Id: <20200528162255.63CC538AA7C5@correo.bnv.gob.ve>
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Attn:
-
-Es tut uns leid, dass wir Sie aufgrund eines Mismanagent of Beneficaries-Fonds von unseren ernannten Zonal Managern versp&#228;tet kontaktiert haben. Bitte beachten Sie, dass Sie qualifiziert sind, die Zahlung von 900.000,00 USD an der ATM-Karte mit neunhunderttausend Dollar zu erhalten.
-
-Als Entsch&#228;digung von WORLD BANK / IWF (Internationaler W&#228;hrungsfonds) f&#252;r die automatisch &#252;ber einen E-Mail-Wahlautomaten gezogenen, die in der Vergangenheit noch nicht abgeschlossene Transaktionen hatten.
-
-F&#252;r weitere Informationen kontaktieren Sie bitte Rev.EVANS JONES ( jonesevansje@gmail.com )
-
-Bitte senden Sie ihm Ihre pers&#246;nlichen Daten wie:
-
-Vollst&#228;ndiger Name:
-Wohnanschrift:
-Telefonnummer:
-Herkunftsland:
-
-Gr&#252;&#223;e,
-Mrs. Judith Rice
-
-Spende
+Ich bin Manuel Franco, ich spende Ihnen 2.000.000,00 Euro. Nehmen Sie jetzt Kontakt mit mir auf, damit wir fortfahren können.

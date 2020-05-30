@@ -2,35 +2,34 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2ACAC1E9271
-	for <lists+dccp@lfdr.de>; Sat, 30 May 2020 18:05:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D4A2A1E92A1
+	for <lists+dccp@lfdr.de>; Sat, 30 May 2020 18:32:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729026AbgE3QFV (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 30 May 2020 12:05:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53718 "EHLO
+        id S1729090AbgE3Qce (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 30 May 2020 12:32:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57960 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728927AbgE3QFU (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 30 May 2020 12:05:20 -0400
-X-Greylist: delayed 340 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 30 May 2020 09:05:20 PDT
+        with ESMTP id S1728797AbgE3Qce (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 30 May 2020 12:32:34 -0400
 Received: from mail1.systemli.org (mail1.systemli.org [IPv6:2c0f:f930:0:5::214])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9740CC03E969;
-        Sat, 30 May 2020 09:05:20 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B370C03E969;
+        Sat, 30 May 2020 09:32:33 -0700 (PDT)
 From:   Richard Sailer <richard_siegfried@systemli.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
-        s=default; t=1590854376;
-        bh=PSCFebsclWLpMlJ88YilwWY9YlLfR4NbLCDCYYd/tpw=;
+        s=default; t=1590856351;
+        bh=GwxEBYKjdurL28A5qj78AaAAHwwAsPprqlObqqEBNwg=;
         h=From:To:Cc:Subject:Date:From;
-        b=4zAUrrc8cpbp+paOQlfqwneRwWpHLtUTS0yAUOeah81bvGbw7CxZ10sXwZvtZbkwC
-         8EU9QIIe6rLlPbMYWvWSfcXEikg164JY0hFQPQH+N2abrl2q2dppNpWy1Pqn4d9VTy
-         d/AOlJRusmokchHN6z9boqZM/ZmBMvSQ42mwiRYqa+hwJs0hzATGXbx9788IvRNaEI
-         PthZocb5jDfKSUmlhq7uph5mGo2p5h1L4b7e9wc7xh2/VRvbXNWv4rpFG1LS4AX2J7
-         +yTKOU9SX9cWFvjx+0+XNxmq/l7khNx1WAVV6LCKB0XnaMo/ZifjNhYMB0sOWuPYkn
-         sof26Osx7NGMA==
+        b=Komy0b4lNNGg0YgpCQoVIf+/fem2pAQf6CGBC6Cd6XqElgLLmHeXolRCh8f7sDzyB
+         yhwhpQLPNVG7swJrctmP1CoxqVaYb2HiauhiB4kX+hYFOlPOAXeqa5gMzv7amHQVG1
+         tojVG1K5ZfCq6Xdb7doIIEQFuLwdpIbfYDK6NjaWFEBZGTlm93sXGaQw6t7OghqJ6+
+         ydrJjG9rK1T0aem9epD3GX2PQxv+skSZrQwlgq4WfzL3IioH55HZxCAA9LtuuD2AUC
+         okrzINLEpXc++11ek0/sBNXHAFj4j1HXePrLkCaxsYMZYG0AyM+sO5+GQbw4948VV/
+         Yw8e7Ls7c0xDA==
 To:     gerrit@erg.abdn.ac.uk, davem@davemloft.net, dccp@vger.kernel.org
 Cc:     netdev@vger.kernel.org
-Subject: [PATCH] net: dccp: Add SIOCOUTQ IOCTL support (send buffer fill)
-Date:   Sat, 30 May 2020 17:59:00 +0200
-Message-Id: <20200530155900.930808-1-richard_siegfried@systemli.org>
+Subject: [PATCH v2] net: dccp: Add SIOCOUTQ IOCTL support (send buffer fill)
+Date:   Sat, 30 May 2020 18:31:59 +0200
+Message-Id: <20200530163159.932749-1-richard_siegfried@systemli.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: dccp-owner@vger.kernel.org
@@ -47,6 +46,11 @@ Regarding the used data field. DCCP uses per packet sequence numbers,
 not per byte, so sequence numbers can't be used like in TCP. sk_wmem_queued
 is not used by DCCP and always 0, even in test on highly congested paths.
 Therefore this uses sk_wmem_alloc like in UDP.
+
+Signed-off-by: Richard Sailer <richard_siegfried@systemli.org>
+---
+v2: Add Signed-off-by line and fix tab-vs-space error produced by badly
+configuerd emacs
 ---
  Documentation/networking/dccp.txt | 2 ++
  net/dccp/proto.c                  | 8 ++++++++
@@ -66,7 +70,7 @@ index 55c575fcaf17d..682ecf8288827 100644
  Other tunables
  ==============
 diff --git a/net/dccp/proto.c b/net/dccp/proto.c
-index 4af8a98fe7846..b286346a8c626 100644
+index 4af8a98fe7846..53ed36705b820 100644
 --- a/net/dccp/proto.c
 +++ b/net/dccp/proto.c
 @@ -375,6 +375,14 @@ int dccp_ioctl(struct sock *sk, int cmd, unsigned long arg)
@@ -75,7 +79,7 @@ index 4af8a98fe7846..b286346a8c626 100644
  	switch (cmd) {
 +	case SIOCOUTQ: {
 +		/* Using sk_wmem_alloc here because sk_wmem_queued is not used by DCCP and
-+     * always 0, comparably to UDP.
++		 * always 0, comparably to UDP.
 +		 */
 +		int amount = sk_wmem_alloc_get(sk);
 +		rc = put_user(amount, (int __user *)arg);

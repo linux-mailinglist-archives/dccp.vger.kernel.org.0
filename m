@@ -2,116 +2,87 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 452BC1ED574
-	for <lists+dccp@lfdr.de>; Wed,  3 Jun 2020 19:56:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CE9921F093F
+	for <lists+dccp@lfdr.de>; Sun,  7 Jun 2020 03:28:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726221AbgFCR4R (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 3 Jun 2020 13:56:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60332 "EHLO
+        id S1728879AbgFGB2W (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 6 Jun 2020 21:28:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36894 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726103AbgFCR4Q (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 3 Jun 2020 13:56:16 -0400
-Received: from mail1.systemli.org (mail1.systemli.org [IPv6:2c0f:f930:0:5::214])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BDC34C08C5C0;
-        Wed,  3 Jun 2020 10:56:16 -0700 (PDT)
-Subject: Re: [PATCH v3] net: dccp: Add SIOCOUTQ IOCTL support (send buffer
- fill)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
-        s=default; t=1591206970;
-        bh=R4UTnGlRdgQcgtTv61Z45KO1u0qKIntnh7ReDoaJjjI=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
-        b=b01pRUdRtSDkVOmBBgLTwH7W+XJoql/gb3sBvYNzzpx7qXMmsBHWyAnLb8t7L/ZO8
-         xjug+zqXkSV3eAdRjEUp9jaad4gX+BxH7g2kw4YkzjLY1Hv/TR5MuvfC0ojfkW2LZK
-         ptn+Pg7ZGKVAaqljU+FHpcoypUDDIzS6CEyYriU14QmXD2hHjXVclSFfdlB49c/eYp
-         UwKmZiDsTvb415/Evfc/Hw9Xzesku7AZhObSejE/e2aM10qe7u2A5CjEDLTB/iaHKK
-         BEVa3RsHLWmQTI3b36qze/QBtK9gKlx4lfs1QlUu2mPz+IfC7hWPcp2C6L+cvXNZ+O
-         KdorfIzBk3EaA==
-To:     David Miller <davem@davemloft.net>
-Cc:     gerrit@erg.abdn.ac.uk, dccp@vger.kernel.org, netdev@vger.kernel.org
-References: <20200603111051.12224-1-richard_siegfried@systemli.org>
- <20200603.104725.187287052578354245.davem@davemloft.net>
-From:   Richard Siegfried <richard_siegfried@systemli.org>
-Openpgp: preference=signencrypt
-Autocrypt: addr=richard_siegfried@systemli.org; prefer-encrypt=mutual;
- keydata=
- mQENBE3hr2UBCACos1E12camcYIlpe25jaqwu+ATrfuFcCIPsLmff7whzxClsaC78lsxQ3jD
- 4MIlOpkIBWJvc4sziai1P/CrafvM0DTuUasCv+mQpup6cFMWy1JmDtJ8X0Ccy/PH83e9Yjnv
- xJu0NhoQAqMZrVmXx4Q7DKcgpvkk9Oyd5u6ocfdb2GhF0Bxa7GySZyYOc4rQvduRLOdNMbnS
- 6SM+cTAhMOHtoqKWCP4EogXKALg6LDFcx8yUoMzLRy/YXsnWa1/WayG8Zr6kX84VKhTGUrdG
- Pw4Zg1cQ6vqwMZ4RwaR/9RWK2WnYr7XyOTDBgmCix5c5lu+GeLqUYUIPTvdQ7Xgwx0UhABEB
- AAG0OVJpY2hhcmQgU2llZ2ZyaWVkIFNhaWxlciA8cmljaGFyZF9zaWVnZnJpZWRAc3lzdGVt
- bGkub3JnPokBVwQTAQgAQQIbIwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAIZARYhBAYAIbmK
- zp5fVAuyN/ZBOcwFm+HhBQJanueLBQkSYNKmAAoJEPZBOcwFm+Hh+ugH/2P0yClrZkkMK5y2
- L389qNPlF8i1H77S4NE9zxiHI38jnIFLqjD4F+KzGAXNmOXCw+QYqLL+TmsuGY+5LOLtp/M4
- lG6ajVC1JCcF2+bQrDc11g7AG7A+rySX5JpqSFO7ARfLTs3iW1DoyLN7lBUtL9dV+yx9mRUv
- fx/TcB9ItPhK4rtJuWy3yg6SNBZzkgc0zsCyIkJ4dEtdEW6IgW6Qk242kMVya8fytM02EwEM
- vBTdca/duCO2tEComPeF+8WExM+BfQ+6o3kpqRsOR6Ek6wDsnalFHy8NHaicbEy7qjybGOKZ
- IdvzAyAhsmpu+5ltOfQWViNBseqRk1H9ikuTKTq5AQ0ETeGvZQEIANRmPSJX9qVU+Hi74uvD
- /LYC3wPm5kCAS0Q5jT3AC5cisu8z92b/Bt8DRKwwpu4esZisQu3RSFvnmkrllkuokSAVKxXo
- bZG2yTq+qecrvKtVH99lA0leiy5TdcJdmhJvkcQv7kvIgKYdXSW1BAhUbtX827IGAW1LCvJL
- gKqox3Ftxpi5pf/gVh7NFXU/7n6Nr3NGi5havoReeIy8iVKGFjyCFN67vlyzaTV6yTUIdrko
- StTJJ8c7ECjJSkCW34lj8mR0y9qCRK5gIZURf3jjMQBDuDvHO0XQ4mog6/oOov4vJRyNMhWT
- 2b0LG5CFJeOQTQVgfaT1MckluRBvYMZAOmkAEQEAAYkBPAQYAQIAJgIbDBYhBAYAIbmKzp5f
- VAuyN/ZBOcwFm+HhBQJanueQBQkSYNKrAAoJEPZBOcwFm+HhrCAH/2doMkTKWrIzKmBidxOR
- +hvqJfBB4GvoHBsQoqWj85DtgvE5jKc11FYzSDzQjmMKIIBwaOjjrQ8QyXm2CYJlx7/GiEJc
- F3QNa5q3GBgiyZ0h78b2Lbu/sBhaCFSXHfnriRGvIXqsxyPMllqb+LBRy56ed97OQBQX8nFI
- umdUMtt8EFK2SM0KYY1V0COcYqGHMRUiVosTV1aVwoLm2SXsB9jicPUaQbRgsPfglTn00wnl
- fhJ8bAO800MtG+LW6pzP+6EZPvnHhKBS7Xbl6bn6r2OW32T7TeFg0RJbpE/MW1gY0NjgmtWj
- vdhuvK9nHCRL2O/xLofm9aoELUaXGHoxMn4=
-Message-ID: <258679e7-9bce-1759-b33f-bdbe8efbcfe5@systemli.org>
-Date:   Wed, 3 Jun 2020 19:56:03 +0200
+        with ESMTP id S1728723AbgFGB2W (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 6 Jun 2020 21:28:22 -0400
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com [IPv6:2607:f8b0:4864:20::841])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7744C08C5C2
+        for <dccp@vger.kernel.org>; Sat,  6 Jun 2020 18:28:21 -0700 (PDT)
+Received: by mail-qt1-x841.google.com with SMTP id i16so11937617qtr.7
+        for <dccp@vger.kernel.org>; Sat, 06 Jun 2020 18:28:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:sender:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=vj4MHgQufk0k/ABhme3Q21xZj7ZH77xuPdYCwgIfcaI=;
+        b=m3tCaBhOCwAZC6UNq6u6uqm2HfuP/UYNbQ//kX/gjVDdtKVGnGkZhgM6+Jm0j/RfKX
+         krSVZtTuLvrd449ftFapK+sg3RGobyXQenaEUz5NquRA8X6ciV2aCim2mKSaXZYKBf1D
+         o6c9nuSHBWsroAajF43cqd6lWjJhE6HMl3RIC9GqCTUPApcik84I/4hzK7se5M+Xkpxj
+         yCW/MIEO3Gf4WKjDP0jtNkPjR0paD4kWQIiSTukGPEPGPVJMOTPu6Jk2xBxwC2ayWv8x
+         trSNA47USuaLAcY2v75Tai3XRN+yyKBMW1pwWafVCz6I6fWbgxzTy0X/0xrOw0OfpsTA
+         Fffg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:sender:from:date
+         :message-id:subject:to:content-transfer-encoding;
+        bh=vj4MHgQufk0k/ABhme3Q21xZj7ZH77xuPdYCwgIfcaI=;
+        b=Q/Vy5+RQ7zf6oA0gEx6drdCAxnjX6pcfoBW7Thkrkc9Xb0O9buSGODC/XpsWmkPtWS
+         ytEQ46xINSnqlMQifgZqkTaWbW4haauLaf6EwTQHs7kKaEHWxzhHuUDKawUOOnEXBnUZ
+         6sBtdhEUuZfcmuLKup2soSDVy4Ou7f+9lmkzuDZm8alxDWkYfXdWH06Tee613Z9B1kD6
+         RxPqYGkN9YAnAKwfh31KnmTqlQOJFDsKgRzOMlt1W2xZa57H9yvo2+rTSAWPz84VFRSz
+         MRPWnTOIiVHSe42FuzGuqJW3+RlUmmDQRfe5+My6yl1patee5aW3uhBRpzsgkYeMZxXX
+         VrNw==
+X-Gm-Message-State: AOAM5335uEsLuLos2CoH9TXVTu6RMB8GLX1Un1Np2S/lwd7aclpYN+bq
+        uN/qY9zu8uyUDxxmi93iznzMVchjQ+CpEA3s6w==
+X-Google-Smtp-Source: ABdhPJwdvlIJoOq0nG4VmBNUt9MwziUuuRPfLB/jjpbzLeV+KTcoO4avS6M8lUGjTyUQSeEYTnrjS87dPlp1RVaJFGk=
+X-Received: by 2002:ac8:724c:: with SMTP id l12mr17482729qtp.259.1591493300912;
+ Sat, 06 Jun 2020 18:28:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200603.104725.187287052578354245.davem@davemloft.net>
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="vQHYZDnDX6Y1IiS59lCMdX5ANX74K6vqL"
+Reply-To: mrkarimzongoz@gmail.com
+Received: by 2002:aed:2488:0:0:0:0:0 with HTTP; Sat, 6 Jun 2020 18:28:20 -0700 (PDT)
+From:   "Mr. Karim Zongo" <karimzongo78@gmail.com>
+Date:   Sun, 7 Jun 2020 03:28:20 +0200
+X-Google-Sender-Auth: xrRCoW2QKi_0P6JI0zKI25UycaA
+Message-ID: <CAK1Uw-Qs0UWKknnKAEz8YAhhWsAMxU3Xmvh=-ZnRuXfunmQoew@mail.gmail.com>
+Subject: WITH DUE RESPECT
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---vQHYZDnDX6Y1IiS59lCMdX5ANX74K6vqL
-Content-Type: multipart/mixed; boundary="89ZoFm6EpSA8mjs7yRDFiFipwN8OfdQUl";
- protected-headers="v1"
-From: Richard Siegfried <richard_siegfried@systemli.org>
-To: David Miller <davem@davemloft.net>
-Cc: gerrit@erg.abdn.ac.uk, dccp@vger.kernel.org, netdev@vger.kernel.org
-Message-ID: <258679e7-9bce-1759-b33f-bdbe8efbcfe5@systemli.org>
-Subject: Re: [PATCH v3] net: dccp: Add SIOCOUTQ IOCTL support (send buffer
- fill)
-References: <20200603111051.12224-1-richard_siegfried@systemli.org>
- <20200603.104725.187287052578354245.davem@davemloft.net>
-In-Reply-To: <20200603.104725.187287052578354245.davem@davemloft.net>
+Compliment of the day,
 
---89ZoFm6EpSA8mjs7yRDFiFipwN8OfdQUl
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+I am Mr. Karim Zongo  Have a Business Proposal of $10.3 million For
+You. I am aware of the unsafe nature of the internet, and was
+compelled to use this medium due to the nature of this project.
 
->=20
-> net-next is CLOSED
->=20
-Okay, I will resend in next merge window
+I have access to very vital information that can be used to transfer
+this huge amount of money, which may culminate into the investment of
+the said funds into your company or any lucrative venture in your
+country.
 
+If you will like to assist me as a partner then indicate your
+interest, after which we shall both discuss the modalities and the
+sharing percentage.
 
---89ZoFm6EpSA8mjs7yRDFiFipwN8OfdQUl--
+Upon receipt of your reply on your expression of Interest I will give
+you full details,
+on how the business will be executed I am open for negotiation. You
+should forward your reply to this private email id
+(mrkarimzongoz@gmail.com) Thanks for your anticipated cooperation.
 
---vQHYZDnDX6Y1IiS59lCMdX5ANX74K6vqL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+Note you might receive this message in your inbox or spam or junk
+folder, depends on your web host or server network.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEBgAhuYrOnl9UC7I39kE5zAWb4eEFAl7X5DgACgkQ9kE5zAWb
-4eH+3gf8CsELBtW00HNITSoI2eYgKFKRVMK56gAjj6wcS0BUCZaGjoDHWRGoUFF0
-8tqzXr17VQhQKVWhpdl7kpXMhTHhkjxk2OyaMPHiOp8qHt0VrcFvyAk2qgMT9Kww
-oj0vsxYfzhdhcv+zx7sR/FqC/NUoQRp1NYj0LlzR67+7lH09n0WZz0xKZdXmSOCS
-JHV9xAg/PSJCNTxPbTSShOoENN85C8KxZaWJDQx3SJfmoroI5vGkvpRB/XiWZ+yh
-zEC+iej9PoBl1pkYLX+n09xgc6A+CY8pN/14m8aNTA+Ddu+FBFnZjy96vgl5B8/M
-+z1BFCEB8NGEPL75BnkCTrI8E+fqoA==
-=GAL6
------END PGP SIGNATURE-----
-
---vQHYZDnDX6Y1IiS59lCMdX5ANX74K6vqL--
+Thanks=E2=80=99
+Best Regards
+Mr. Karim Zongo

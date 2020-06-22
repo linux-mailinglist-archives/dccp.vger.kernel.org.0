@@ -2,115 +2,65 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 14C8D1FFBAF
-	for <lists+dccp@lfdr.de>; Thu, 18 Jun 2020 21:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 71991203BAC
+	for <lists+dccp@lfdr.de>; Mon, 22 Jun 2020 17:58:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726940AbgFRTUt (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 18 Jun 2020 15:20:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43760 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726925AbgFRTUs (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 18 Jun 2020 15:20:48 -0400
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61397C06174E
-        for <dccp@vger.kernel.org>; Thu, 18 Jun 2020 12:20:47 -0700 (PDT)
-Received: by mail-io1-xd43.google.com with SMTP id r77so8452739ior.3
-        for <dccp@vger.kernel.org>; Thu, 18 Jun 2020 12:20:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:sender:from:date:message-id:subject:to;
-        bh=ldZEk6GZkwUuy2Js9SWtf3nbeJAEXnm6tR2ZTKBqXvg=;
-        b=tSP66a3UA3Y+MGMc57kRTRrJThTjcKOTyrUshOZ3OK79X8/J+U7sQ3Icf/w8QO1N2j
-         lMjwly/xaQhSX6a9o7IndrCYmI/roIuKssNhn/pPYMjGEc/X9oIzp3TMVsC2QggdKeS2
-         xKBwXcx6EwD6/rCEo2ZD9YkARlx4XKC80JPXR2Yh2547C8bo/KibWZ5Es469t7SqvjBx
-         GDpEgURhP/zhJqjkh06cKFGqcuyE+gNSytjRsUbVZvSAMTtn2NwRLpCWNHFubnTVxuBz
-         1JJy1uXDsrukoSq03u/B3rXkrF409PJEVepl16z5SCM72hzYkPuhRFhI9wKkOiD8JMAZ
-         BfqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
-         :to;
-        bh=ldZEk6GZkwUuy2Js9SWtf3nbeJAEXnm6tR2ZTKBqXvg=;
-        b=GvkPUrVJkZ8upOwWf4fw7Iai0K/Td4aDkjNFf/SOB7blmziuGXgM7XsegFQQst20hO
-         p2je2wOP36ovxRmNrxfIXXjYN4fWc2tmmq8AymmfZpJ+TLLYhdpUIIDrlj7mmSuqIgXp
-         Lbhp4cYCikZgcpUjyimbA4oTm215OmTDt4Cz5OVwNY3MWJcO5jJLwkQjP7aHmZ5U4iCS
-         hNV278ewLA5PR84btanm55qUKZIKsZLuDLbmYz06aNoqBtN62o/p8xjryxHUWzuKEKMQ
-         d1R8+yOsl8B9WtxzmTU2dOkNsNjIvPEyYB8EdS6fhsX1ow+Oaq92SEFQCuAGHOyzFmqh
-         OVMA==
-X-Gm-Message-State: AOAM530dCpEiIprcwoCZyHtUoeZ5WYmCrbFDMEIz9sY+QKFUkJIfjUU8
-        MXiAoPwAre3RFXbQnm2s04B+zVzfyynz7extXIQ=
-X-Google-Smtp-Source: ABdhPJwC5LWw5qb2gKshLHM64dHvA9waYIzeNayasrAqHdMFvdJUxDB6m0B+twJT4rouWVEtJs28Em0j/KOGDsFeRvk=
-X-Received: by 2002:a05:6602:2427:: with SMTP id g7mr217248iob.209.1592508046628;
- Thu, 18 Jun 2020 12:20:46 -0700 (PDT)
+        id S1729250AbgFVP6g (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 22 Jun 2020 11:58:36 -0400
+Received: from sonic302-21.consmr.mail.ne1.yahoo.com ([66.163.186.147]:33965
+        "EHLO sonic302-21.consmr.mail.ne1.yahoo.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729298AbgFVP6g (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Mon, 22 Jun 2020 11:58:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1592841515; bh=ac0sCjJUI93cXt8Ne4UV+BUmdTO8c8UeaDLEdPti3zY=; h=Date:From:Reply-To:Subject:References:From:Subject; b=scCB+Q6Gjf0KzflGkUiiHnirxZPhUadIbQy4yqWUwgd55dcbqJHRgQGLKmTmzqJRp9B2jypnIKM0+UPee5Qdin17acYTeNSrZNUWc6b8oFHl1JV6YKexGdFVS+/g68rZoDDx9kHpElPAxiEVNlQC8DiI6l9b0bVmEziivC8tnStES7wQyJe+E5PdVac/SOi9fBmvp+eAJtQBd8y/Fgr2PCNau4wnbAY64iunL4XaQjLCqJ139Y7RY8FW2N+MyDAiVOai0ceUcO2kUiFo4FiBwCBNMJq9ytN3HTe7p8faMG9+6vDMjF/bPQnwGRC3YsYHGGXB+LMYsdqWdmJRLW/Axw==
+X-YMail-OSG: Dx4DwhEVM1nMKsfl753AL1pa_1MAl8PfB8S1hTI6fa0HXgcVGSu063xlTclFjGM
+ Tws5nt5YK7rscRG_1mkppPcX.Erbobn8VyUscr9DzjmOdR1UzLYgvXUvwhaZ7ryd1WNLUxbzGTWZ
+ KbS4DctdPNI3mv1hwwM_UZnyBQvKFBybprZU35c3IxT4Lyw41JmhXjAi784Nn2ypycxtE8eKgoW1
+ L41NbW6aZHZvtjCd5OZ1YuuIsrybZOWnlx2YD9JufWql.U0.H4v8oIuuL5ePMzn8ubBi49QDnv.k
+ YWliC2QYR8SeTaHA1giR.cczaM4SDsn.6AG2OqP38l4y.ANQ3RhADP6n3fsDMIgVAqwC4lQFXuH4
+ 8mslR4RB8TxntYo8eTAVJj_yMmLP7hEkTBa.ovdicFbV00z4EfmVLkHPi971cPA59HIf1fTiu5EY
+ hkoJhl2Ss1sDmzehldZhUO_zbjfWoO0J_ar5mrHAdQrZl8XBanSCqVUAUj13U88AjW3UthilWyZB
+ gdhHlDgfsV6hdx51ZsdEgrNGnND41QNriAPwC2X4LADhjlssDD0ll2zrYI8xS0_uRi3rgaNXa_qx
+ .qhLlOqvP5BlTMHWYE_A6aka2RWQ9Ge6dfqtZfecpiBoI684jYmkMa4s7SIJ6Xie.RCfp4s82uJa
+ a7ah.2fuCxJnxTVL8g9.uCLWZjhj_l7sZzzc99TTa0_U5r5Iu_MIK7midAJA27doj1Mh3gECuy_u
+ EUwWWBkn6PsZMHiFM9DtKhLHunaHNxtIJYqynw6_V8nJOMKaFJc6lUxXPbGZzolNX3R5My4wimNw
+ 3zCYTc1boqkUzSaUoKws_OgOHDPCd7p_T0pME_PS.gkwTdScv.ZvvUviqwp4ZXwW8Gv8HvdzK_3T
+ RgctJIfLBUlvQd94oTCmBfbQjgtMK8iDI2fG0tGIqt54fchCYNZWvsjm2p1_zsqIoCzVCuIhQRxP
+ IPUIc45AD_PHDPYsVAf2WbjRu2z4bM_yPsp3z28AcqdCSGZZg0bCPVWWyRdwnyymN9GJFlBarMeC
+ bimltNJ2B5bQG36hI9AyJDXtfqoK89rSiGL_HdR.kfXEb88dpSQ3tA8rrw5mnWKH6l_UR8kZcYav
+ N1lVsOwcwlkyi4sjcUs9P4AYeu.TBh1WZuj89heu5qvwpFQSOsjpoKN5u.y0QEpabN9EnLs_kiaL
+ OUVmoS1GwABBJSEmGcKs0iRrnpw55fDV1OvEmMwWjEz6pkcOoxSaAtsUPwlpKW9KohCdEOZqTedT
+ 3mLuj4Wab9.aQVB8jP_uJLcIpaZbaGBDIKk9ZuTtW8zpp9lm8y5PcigeF3iSLLUJXXixKbJDhRw-
+ -
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.ne1.yahoo.com with HTTP; Mon, 22 Jun 2020 15:58:35 +0000
+Date:   Mon, 22 Jun 2020 15:58:31 +0000 (UTC)
+From:   Karim Zakari <kariim1960z@gmail.com>
+Reply-To: kzakari04@gmail.com
+Message-ID: <823920628.1857692.1592841511779@mail.yahoo.com>
+Subject: URGENT REPLY.
 MIME-Version: 1.0
-Received: by 2002:a02:44f:0:0:0:0:0 with HTTP; Thu, 18 Jun 2020 12:20:45 -0700 (PDT)
-From:   Mrs Kim Hong Yeoh <mrs.kimhongyeoh55@gmail.com>
-Date:   Thu, 18 Jun 2020 19:20:45 +0000
-X-Google-Sender-Auth: UTG4bVJbBfFMK4T0Pp3_7432SSg
-Message-ID: <CAPAVGmxm3X=RUT5FiJLZaY4nwt5QdJ3sx60Zo6nc7vMszvUMMQ@mail.gmail.com>
-Subject: MAY THE PEACE OF GOD BE UPON YOU
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+References: <823920628.1857692.1592841511779.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.16138 YMailNodin Mozilla/5.0 (Windows NT 6.1; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36
+To:     unlisted-recipients:; (no To-header on input)
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Greetings Beloved in Christ,
-
-I had previously sent you an email with no feedback from you.I suppose
-it went to your junk folder.I anticipate that you read this mail
-quickly and let me know your opinion or willingness on this classified
-information that I will release to you.  therefore I would not want to
-jeopardize this opportunity to Save lives of Less Privileged ones and
-also change our financial status and give Less Privileged a secured
-future.
-
-I am Mrs. Kim Hong Yeoh, Working at MAYBANK (Malaysia) as the
-Non-Independent Non-Executive Director and Chairman of Maybank. During
-our last banking Audits we discovered an abandoned account belongs to
-one of our Foreign Deceased Customer, Late Mr. Wang Jian, The
-Co-founder and Co-chairman of HNA Group, a Chinese conglomerate with
-significant real estate ownerships across the U.S., died in an
-accident while on a business trip in France on Tuesday.
-
-Please go through this link:
-https://observer.com/2018/07/wang-jian-hna-founder-dies-tragic-fall/
-
-I am writing to request your assistance in transferring the sum of
-$17.000.000.00 (Seventeen Million United States Dollars) into your
-account as the Late Mr. Wang Jian Foreign Business Partner, which I am
-planning to use the fund to invest for public benefit as follows;
-
-1. Establish An Orphanage Home To Help The Orphanages Children.
-2. Build A Hospital To Help The Poor.
-3. Build A Nursing Home For Elderly People Need Care & Meal.
-
-Meanwhile, before I contacted you I have done personal investigation
-in locating any of Late Mr. Wang Jian relatives who knows about the
-account, but I came out unsuccessful. However, I took this decision to
-use this fund in supporting the Orphanages Children, Less Privileged
-and Elderly People Need Care & Meal Support, because i don't want this
-fund to be transfer into our Government Treasury Account as unclaimed
-fund as the law of my country abiding.
-
-As an officer of the Bank I cannot be directly connected to this
-money, so this is why I have to contact you for us to work so that you
-can assist to claim/receive this money into your bank account for us
-start a charity project, Meanwhile you will have 40% of the total fund
-and 60% for charity project, Note there are practically no risk
-involved, it will be bank to bank transfer, all I need from you is to
-stand and claim $17. Million without any problem with the information
-am going to provide to you.
 
 
-Please for the sake of god accept this offer to work with me and let
-us save lives of those Orphanages Children, Less Privileged and
-Elderly People Need Care, I will appreciate it very much. As soon as I
-receive your kind response, I will give you details on how we can
-achieve it successfully i will explain more on how the fund will be
-transfer to you.
+Good-Day=C2=A0Friend,
 
-Waiting for your urgent response now.
-best regards
-Mrs. Kim Hong Yeoh.
+=C2=A0Hope=C2=A0you=C2=A0are=C2=A0doing=C2=A0great=C2=A0Today.=C2=A0I=C2=A0=
+have=C2=A0a=C2=A0proposed=C2=A0business=C2=A0deal=C2=A0worthy=C2=A0(US$16.5=
+=C2=A0Million=C2=A0Dollars)=C2=A0that=C2=A0will=C2=A0benefit=C2=A0both=C2=
+=A0parties.=C2=A0This=C2=A0is=C2=A0legitimate'=C2=A0legal=C2=A0and=C2=A0you=
+r=C2=A0personality=C2=A0will=C2=A0not=C2=A0be=C2=A0compromised.
+
+Waiting=C2=A0for=C2=A0your=C2=A0response=C2=A0for=C2=A0more=C2=A0details,=
+=C2=A0As=C2=A0you=C2=A0are=C2=A0willing=C2=A0to=C2=A0execute=C2=A0this=C2=
+=A0business=C2=A0opportunity=C2=A0with=C2=A0me.
+
+Sincerely=C2=A0Yours,
+Mr.=C2=A0Karim=C2=A0Zakari.

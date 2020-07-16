@@ -2,68 +2,103 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C5BB21E03F
-	for <lists+dccp@lfdr.de>; Mon, 13 Jul 2020 20:55:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 166A9222C64
+	for <lists+dccp@lfdr.de>; Thu, 16 Jul 2020 21:56:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726771AbgGMSzE (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 13 Jul 2020 14:55:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42566 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726338AbgGMSzD (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 13 Jul 2020 14:55:03 -0400
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [IPv6:2620:137:e000::1:9])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 13014C061755;
-        Mon, 13 Jul 2020 11:55:03 -0700 (PDT)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
-        (using TLSv1 with cipher AES256-SHA (256/256 bits))
-        (Client did not present a certificate)
-        (Authenticated sender: davem-davemloft)
-        by shards.monkeyblade.net (Postfix) with ESMTPSA id 7A2FA1295A400;
-        Mon, 13 Jul 2020 11:55:02 -0700 (PDT)
-Date:   Mon, 13 Jul 2020 11:55:01 -0700 (PDT)
-Message-Id: <20200713.115501.208223024761834676.davem@davemloft.net>
-To:     grandmaster@al2klimov.de
-Cc:     gerrit@erg.abdn.ac.uk, kuba@kernel.org, masahiroy@kernel.org,
-        dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] [DCCP]: Replace HTTP links with HTTPS ones
-From:   David Miller <davem@davemloft.net>
-In-Reply-To: <20200713075108.32143-1-grandmaster@al2klimov.de>
-References: <20200713075108.32143-1-grandmaster@al2klimov.de>
-X-Mailer: Mew version 6.8 on Emacs 26.3
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
+        id S1729136AbgGPT4U (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 16 Jul 2020 15:56:20 -0400
+Received: from mail.kernel.org ([198.145.29.99]:54634 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728907AbgGPT4T (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 16 Jul 2020 15:56:19 -0400
+Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown [163.114.132.3])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 3025F206F4;
+        Thu, 16 Jul 2020 19:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1594929378;
+        bh=JjBPhIoa79Zma+LzMThTiFC14BwMYtBkouPOhNxhtDs=;
+        h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+        b=KBQ7ebVI5k5PqRkMBZ8oqhwqIDoLjLNOEjIGv/NdlIO/DRkwJpvWPrMui5ttCKmB9
+         mN1r5WM/e6QJrT0mu++THqa9bXsgBtb1bTPcvRbJoe76bOx8TuR5LnuthcR5AZ+FV5
+         VwgwJg57XyRURGq9cpkaq3iCwepHQbPIEN6/BaWQ=
+Date:   Thu, 16 Jul 2020 12:56:08 -0700
+From:   Jakub Kicinski <kuba@kernel.org>
+To:     Richard Sailer <richard_siegfried@systemli.org>
+Cc:     gerrit@erg.abdn.ac.uk, davem@davemloft.net, dccp@vger.kernel.org,
+        netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v4] net: dccp: Add SIOCOUTQ IOCTL support (send
+ buffer fill)
+Message-ID: <20200716125608.33a0589b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20200712225520.269542-1-richard_siegfried@systemli.org>
+References: <20200712225520.269542-1-richard_siegfried@systemli.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12 (shards.monkeyblade.net [149.20.54.216]); Mon, 13 Jul 2020 11:55:02 -0700 (PDT)
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
-Date: Mon, 13 Jul 2020 09:51:08 +0200
-
-> Rationale:
-> Reduces attack surface on kernel devs opening the links for MITM
-> as HTTPS traffic is much harder to manipulate.
+On Mon, 13 Jul 2020 00:55:20 +0200 Richard Sailer wrote:
+> This adds support for the SIOCOUTQ IOCTL to get the send buffer fill
+> of a DCCP socket, like UDP and TCP sockets already have.
 > 
-> Deterministic algorithm:
-> For each file:
->   If not .svg:
->     For each line:
->       If doesn't contain `\bxmlns\b`:
->         For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
-> 	  If neither `\bgnu\.org/license`, nor `\bmozilla\.org/MPL\b`:
->             If both the HTTP and HTTPS versions
->             return 200 OK and serve the same content:
->               Replace HTTP with HTTPS.
+> Regarding the used data field: DCCP uses per packet sequence numbers,
+> not per byte, so sequence numbers can't be used like in TCP. sk_wmem_queued
+> is not used by DCCP and always 0, even in test on highly congested paths.
+> Therefore this uses sk_wmem_alloc like in UDP.
 > 
-> Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
+> Signed-off-by: Richard Sailer <richard_siegfried@systemli.org>
 
-Git will remove everything inside of [] brackets, so "[DCCP]" is
-not appropriate.
+Sorry for the late review
 
-I changed it to use "dccp: " which is consistent with other recent
-changes to this code when I applied your patch.
+> diff --git a/Documentation/networking/dccp.rst b/Documentation/networking/dccp.rst
+> index dde16be044562..74659da107f6b 100644
+> --- a/Documentation/networking/dccp.rst
+> +++ b/Documentation/networking/dccp.rst
+> @@ -192,6 +192,8 @@ FIONREAD
+>  	Works as in udp(7): returns in the ``int`` argument pointer the size of
+>  	the next pending datagram in bytes, or 0 when no datagram is pending.
+>  
+> +SIOCOUTQ
+> +  Returns the number of data bytes in the local send queue.
 
-Thank you.
+FIONREAD uses tabs for indentation, it seems like a good idea to
+document the size of the argument (i.e. "returns in the ``int`` ...").
+
+>  Other tunables
+>  ==============
+> diff --git a/net/dccp/proto.c b/net/dccp/proto.c
+> index c13b6609474b6..dab74e8a8a69b 100644
+> --- a/net/dccp/proto.c
+> +++ b/net/dccp/proto.c
+> @@ -375,6 +375,14 @@ int dccp_ioctl(struct sock *sk, int cmd, unsigned long arg)
+>  		goto out;
+>  
+>  	switch (cmd) {
+> +	case SIOCOUTQ: {
+> +		/* Using sk_wmem_alloc here because sk_wmem_queued is not used by DCCP and
+> +		 * always 0, comparably to UDP.
+> +		 */
+> +		int amount = sk_wmem_alloc_get(sk);
+> +		rc = put_user(amount, (int __user *)arg);
+
+checkpatch warns:
+
+WARNING: Missing a blank line after declarations
+#48: FILE: net/dccp/proto.c:383:
++		int amount = sk_wmem_alloc_get(sk);
++		rc = put_user(amount, (int __user *)arg);
+
+Could you please address that, and better still move the declaration of
+"int amount" up to the function level and avoid the funky bracket around
+the case statement altogether?
+
+> +	}
+> +		break;
+>  	case SIOCINQ: {
+>  		struct sk_buff *skb;
+>  		unsigned long amount = 0;
+

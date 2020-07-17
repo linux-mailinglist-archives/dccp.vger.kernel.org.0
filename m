@@ -2,195 +2,162 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2928C223022
-	for <lists+dccp@lfdr.de>; Fri, 17 Jul 2020 02:57:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EDAC3223462
+	for <lists+dccp@lfdr.de>; Fri, 17 Jul 2020 08:27:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726394AbgGQA5P (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 16 Jul 2020 20:57:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60138 "EHLO
+        id S1727908AbgGQG1E (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 17 Jul 2020 02:27:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53892 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726296AbgGQA5O (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 16 Jul 2020 20:57:14 -0400
-Received: from mail1.systemli.org (mail1.systemli.org [IPv6:2c0f:f930:0:5::214])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 81DE8C061755;
-        Thu, 16 Jul 2020 17:57:14 -0700 (PDT)
-To:     Jakub Kicinski <kuba@kernel.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
-        s=default; t=1594947425;
-        bh=1+qQAd5vXtgxBAMVEs9m5q9rlmBN1vD54J71OpLPTKE=;
-        h=To:Cc:References:From:Subject:Date:In-Reply-To:From;
-        b=sXDuvDctnaq9FBQl18D8vZGkAkcsP9+pmninar20/miTlUqx4J7jjiAqOjKmRaaH3
-         or7OUYHmScH9PH9m9yr9a+b/UsoVLZEjgA73IG39mR+CXbHHIFYBbe+DBa6JhD3iYw
-         3vrAEb6ev6rCixOnP4dPU1Vc3/dcirWE2GT1M6yhp2Yks/lvV2HMW0qiIeez70xg4K
-         sdI8bPowbXRDQTDAX9n2ogS6eR0laS4ervTYK2W/s5IJ5EpBVvKhJXbtJnNFBM6eqU
-         FR5fNCLFkqH1weDL/Ho0+uePAzVeLng7pIRwJP/Gy/rNXjGQDPqPyQxEY+Lg160UA5
-         f7e97dEfKG+IQ==
-Cc:     gerrit@erg.abdn.ac.uk, davem@davemloft.net, dccp@vger.kernel.org,
-        netdev@vger.kernel.org
-References: <20200712225520.269542-1-richard_siegfried@systemli.org>
- <20200716125608.33a0589b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-From:   Richard Sailer <richard_siegfried@systemli.org>
-Autocrypt: addr=richard_siegfried@systemli.org; prefer-encrypt=mutual;
- keydata=
- mQENBE3hr2UBCACos1E12camcYIlpe25jaqwu+ATrfuFcCIPsLmff7whzxClsaC78lsxQ3jD
- 4MIlOpkIBWJvc4sziai1P/CrafvM0DTuUasCv+mQpup6cFMWy1JmDtJ8X0Ccy/PH83e9Yjnv
- xJu0NhoQAqMZrVmXx4Q7DKcgpvkk9Oyd5u6ocfdb2GhF0Bxa7GySZyYOc4rQvduRLOdNMbnS
- 6SM+cTAhMOHtoqKWCP4EogXKALg6LDFcx8yUoMzLRy/YXsnWa1/WayG8Zr6kX84VKhTGUrdG
- Pw4Zg1cQ6vqwMZ4RwaR/9RWK2WnYr7XyOTDBgmCix5c5lu+GeLqUYUIPTvdQ7Xgwx0UhABEB
- AAG0OVJpY2hhcmQgU2llZ2ZyaWVkIFNhaWxlciA8cmljaGFyZF9zaWVnZnJpZWRAc3lzdGVt
- bGkub3JnPokBVwQTAQgAQQIbIwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAIZARYhBAYAIbmK
- zp5fVAuyN/ZBOcwFm+HhBQJanueLBQkSYNKmAAoJEPZBOcwFm+Hh+ugH/2P0yClrZkkMK5y2
- L389qNPlF8i1H77S4NE9zxiHI38jnIFLqjD4F+KzGAXNmOXCw+QYqLL+TmsuGY+5LOLtp/M4
- lG6ajVC1JCcF2+bQrDc11g7AG7A+rySX5JpqSFO7ARfLTs3iW1DoyLN7lBUtL9dV+yx9mRUv
- fx/TcB9ItPhK4rtJuWy3yg6SNBZzkgc0zsCyIkJ4dEtdEW6IgW6Qk242kMVya8fytM02EwEM
- vBTdca/duCO2tEComPeF+8WExM+BfQ+6o3kpqRsOR6Ek6wDsnalFHy8NHaicbEy7qjybGOKZ
- IdvzAyAhsmpu+5ltOfQWViNBseqRk1H9ikuTKTq5AQ0ETeGvZQEIANRmPSJX9qVU+Hi74uvD
- /LYC3wPm5kCAS0Q5jT3AC5cisu8z92b/Bt8DRKwwpu4esZisQu3RSFvnmkrllkuokSAVKxXo
- bZG2yTq+qecrvKtVH99lA0leiy5TdcJdmhJvkcQv7kvIgKYdXSW1BAhUbtX827IGAW1LCvJL
- gKqox3Ftxpi5pf/gVh7NFXU/7n6Nr3NGi5havoReeIy8iVKGFjyCFN67vlyzaTV6yTUIdrko
- StTJJ8c7ECjJSkCW34lj8mR0y9qCRK5gIZURf3jjMQBDuDvHO0XQ4mog6/oOov4vJRyNMhWT
- 2b0LG5CFJeOQTQVgfaT1MckluRBvYMZAOmkAEQEAAYkBPAQYAQIAJgIbDBYhBAYAIbmKzp5f
- VAuyN/ZBOcwFm+HhBQJanueQBQkSYNKrAAoJEPZBOcwFm+HhrCAH/2doMkTKWrIzKmBidxOR
- +hvqJfBB4GvoHBsQoqWj85DtgvE5jKc11FYzSDzQjmMKIIBwaOjjrQ8QyXm2CYJlx7/GiEJc
- F3QNa5q3GBgiyZ0h78b2Lbu/sBhaCFSXHfnriRGvIXqsxyPMllqb+LBRy56ed97OQBQX8nFI
- umdUMtt8EFK2SM0KYY1V0COcYqGHMRUiVosTV1aVwoLm2SXsB9jicPUaQbRgsPfglTn00wnl
- fhJ8bAO800MtG+LW6pzP+6EZPvnHhKBS7Xbl6bn6r2OW32T7TeFg0RJbpE/MW1gY0NjgmtWj
- vdhuvK9nHCRL2O/xLofm9aoELUaXGHoxMn4=
-Subject: Re: [PATCH net-next v4] net: dccp: Add SIOCOUTQ IOCTL support (send
- buffer fill)
-Message-ID: <a0b896e3-e422-4901-bfba-8634c0fe6f5e@systemli.org>
-Date:   Fri, 17 Jul 2020 02:56:59 +0200
+        with ESMTP id S1726635AbgGQGYK (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 17 Jul 2020 02:24:10 -0400
+Received: from casper.infradead.org (casper.infradead.org [IPv6:2001:8b0:10b:1236::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B515C08C5CE;
+        Thu, 16 Jul 2020 23:24:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+        Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+        Content-Description:In-Reply-To:References;
+        bh=51LUd0SvoR+n6SohN5Sodlx7y79ij0S/XRUh9Hk9k/E=; b=nvZ6F7vo++iceOmLkAGswI4yK1
+        dN/jJBIgk1kmqjzbzRQLYzB00lmetgml707o/ROIFgH8ThKG9kfWAbnxcSbHVegAZ+fkXfzOP2ciD
+        HJ7ZmAMX/Wj3aubE/GXDFzkCnGQQgD7rgHE14n/7A82ro+ME6LubXjKOC1Q0x68iaWMz19OK4jaUb
+        gLt2uTJFiLtDbUibTI+HQZ+r+9Y1iraHIOSW2gdgleYLY1D5OQl3+HF3xddqnxQcenZZ9sCZz7h5T
+        DgKbvNL6/5PgAng3xBJXnBv43b5eNyWINxeRPdgjL16ddqssTf+g3zKmNRQ5v6Hnr0TaedUOHle9b
+        1jGLhcEQ==;
+Received: from [2001:4bb8:105:4a81:3772:912d:640:e6c6] (helo=localhost)
+        by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+        id 1jwJmO-00050u-Ag; Fri, 17 Jul 2020 06:23:42 +0000
+From:   Christoph Hellwig <hch@lst.de>
+To:     "David S. Miller" <davem@davemloft.net>
+Cc:     Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Chas Williams <3chas3@gmail.com>,
+        Pablo Neira Ayuso <pablo@netfilter.org>,
+        Jozsef Kadlecsik <kadlec@netfilter.org>,
+        Florian Westphal <fw@strlen.de>,
+        Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
+        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        bpf@vger.kernel.org, netfilter-devel@vger.kernel.org,
+        linux-sctp@vger.kernel.org, linux-arch@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, bridge@lists.linux-foundation.org,
+        linux-can@vger.kernel.org, dccp@vger.kernel.org,
+        linux-wpan@vger.kernel.org, mptcp@lists.01.org
+Subject: sockopt cleanups
+Date:   Fri, 17 Jul 2020 08:23:09 +0200
+Message-Id: <20200717062331.691152-1-hch@lst.de>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <20200716125608.33a0589b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="iwNExoDH9BubZexnCqmw2B1b8dd8T0v3w"
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---iwNExoDH9BubZexnCqmw2B1b8dd8T0v3w
-Content-Type: multipart/mixed; boundary="tw1Sih1WHter9AROfY8v0CNwvu19ynKkd";
- protected-headers="v1"
-From: Richard Sailer <richard_siegfried@systemli.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: gerrit@erg.abdn.ac.uk, davem@davemloft.net, dccp@vger.kernel.org,
- netdev@vger.kernel.org
-Message-ID: <a0b896e3-e422-4901-bfba-8634c0fe6f5e@systemli.org>
-Subject: Re: [PATCH net-next v4] net: dccp: Add SIOCOUTQ IOCTL support (send
- buffer fill)
-References: <20200712225520.269542-1-richard_siegfried@systemli.org>
- <20200716125608.33a0589b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20200716125608.33a0589b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+Hi Dave,
 
---tw1Sih1WHter9AROfY8v0CNwvu19ynKkd
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+this series cleans up various lose ends in the sockopt code, most
+importantly removing the compat_{get,set}sockopt infrastructure in favor
+of just using in_compat_syscall() in the few places that care.
 
-
-
-On 16/07/2020 21:56, Jakub Kicinski wrote:
-> On Mon, 13 Jul 2020 00:55:20 +0200 Richard Sailer wrote:
->> This adds support for the SIOCOUTQ IOCTL to get the send buffer fill
->> of a DCCP socket, like UDP and TCP sockets already have.
->>
->> Regarding the used data field: DCCP uses per packet sequence numbers,
->> not per byte, so sequence numbers can't be used like in TCP. sk_wmem_q=
-ueued
->> is not used by DCCP and always 0, even in test on highly congested pat=
-hs.
->> Therefore this uses sk_wmem_alloc like in UDP.
->>
->> Signed-off-by: Richard Sailer <richard_siegfried@systemli.org>
->=20
-> Sorry for the late review
-No problem, nothing compared to the information delays at university^^
-
->=20
->> diff --git a/Documentation/networking/dccp.rst b/Documentation/network=
-ing/dccp.rst
->> index dde16be044562..74659da107f6b 100644
->> --- a/Documentation/networking/dccp.rst
->> +++ b/Documentation/networking/dccp.rst
->> @@ -192,6 +192,8 @@ FIONREAD
->>  	Works as in udp(7): returns in the ``int`` argument pointer the size=
- of
->>  	the next pending datagram in bytes, or 0 when no datagram is pending=
-=2E
->> =20
->> +SIOCOUTQ
->> +  Returns the number of data bytes in the local send queue.
->=20
-> FIONREAD uses tabs for indentation, it seems like a good idea to
-> document the size of the argument (i.e. "returns in the ``int`` ...").
-
-Agreed
->=20
->>  Other tunables
->>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> diff --git a/net/dccp/proto.c b/net/dccp/proto.c
->> index c13b6609474b6..dab74e8a8a69b 100644
->> --- a/net/dccp/proto.c
->> +++ b/net/dccp/proto.c
->> @@ -375,6 +375,14 @@ int dccp_ioctl(struct sock *sk, int cmd, unsigned=
- long arg)
->>  		goto out;
->> =20
->>  	switch (cmd) {
->> +	case SIOCOUTQ: {
->> +		/* Using sk_wmem_alloc here because sk_wmem_queued is not used by D=
-CCP and
->> +		 * always 0, comparably to UDP.
->> +		 */
->> +		int amount =3D sk_wmem_alloc_get(sk);
->> +		rc =3D put_user(amount, (int __user *)arg);
->=20
-> checkpatch warns:
->=20
-> WARNING: Missing a blank line after declarations
-> #48: FILE: net/dccp/proto.c:383:
-> +		int amount =3D sk_wmem_alloc_get(sk);
-> +		rc =3D put_user(amount, (int __user *)arg);
->=20
-> Could you please address that, and better still move the declaration of=
-
-> "int amount" up to the function level and avoid the funky bracket aroun=
-d
-> the case statement altogether?
-
-I found the funky braces disturbing too, but thought they were
-convention, so happy to delete them.
-
-Regarding "putting int amount at function level": well the problem is in
-the other case statement is a unsigned long (and the pointer in
-put_user() is (int __user *) ). I don't yet know if I can make that all
-a simple int without losing correctness/security. I will send a v5 when
-I figured that out.
-
-Thanks,
--- Richard
-
-
---tw1Sih1WHter9AROfY8v0CNwvu19ynKkd--
-
---iwNExoDH9BubZexnCqmw2B1b8dd8T0v3w
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEBgAhuYrOnl9UC7I39kE5zAWb4eEFAl8Q91sACgkQ9kE5zAWb
-4eGCSwgAnCO+7iLPMRj1aJsj/wQPjZiBQVNW0Jn7RfWiLeaDre8cAdZVSbwGnGw9
-+elrnxBq2BMJCHlYiop/YyAMGKQVNIdLyp2qhJpgu4O5yNlUi5aKt3WE1HXvpsA5
-jJeYFt8Gs6MCx3vgJ4COVZbmjdAuxD342okaFCRholRJGiMMLtoW8a4+YoDKcqmt
-NyH6qNll4w9D+mT6/2ZlvgeuYrJPtv10gXhx3Q+LM55y+T6kFFDDJoS+67CfrNHv
-w7CzcBJDvFlweKin9elCytRD4Gn2b6JFJUZLbWEUwXGxGoCo01C61yyV6zZh14qc
-yAfhAQWPRLKLDezvJa+AIs5o7wM/ag==
-=KCXz
------END PGP SIGNATURE-----
-
---iwNExoDH9BubZexnCqmw2B1b8dd8T0v3w--
+Diffstat:
+ arch/arm64/include/asm/unistd32.h                  |    4 
+ arch/mips/kernel/syscalls/syscall_n32.tbl          |    4 
+ arch/mips/kernel/syscalls/syscall_o32.tbl          |    4 
+ arch/parisc/kernel/syscalls/syscall.tbl            |    4 
+ arch/powerpc/kernel/syscalls/syscall.tbl           |    4 
+ arch/s390/kernel/syscalls/syscall.tbl              |    4 
+ arch/sparc/kernel/sys32.S                          |   12 
+ arch/sparc/kernel/syscalls/syscall.tbl             |    4 
+ arch/x86/entry/syscall_x32.c                       |    7 
+ arch/x86/entry/syscalls/syscall_32.tbl             |    4 
+ arch/x86/entry/syscalls/syscall_64.tbl             |    4 
+ crypto/af_alg.c                                    |    1 
+ crypto/algif_aead.c                                |    4 
+ crypto/algif_hash.c                                |    4 
+ crypto/algif_rng.c                                 |    2 
+ crypto/algif_skcipher.c                            |    4 
+ drivers/atm/eni.c                                  |   17 
+ drivers/atm/firestream.c                           |    2 
+ drivers/atm/fore200e.c                             |   27 -
+ drivers/atm/horizon.c                              |   40 -
+ drivers/atm/iphase.c                               |   16 
+ drivers/atm/lanai.c                                |    2 
+ drivers/atm/solos-pci.c                            |    2 
+ drivers/atm/zatm.c                                 |   16 
+ drivers/isdn/mISDN/socket.c                        |    2 
+ drivers/net/ppp/pppoe.c                            |    2 
+ drivers/net/ppp/pptp.c                             |    2 
+ include/linux/atmdev.h                             |    9 
+ include/linux/compat.h                             |    4 
+ include/linux/filter.h                             |    4 
+ include/linux/net.h                                |    6 
+ include/linux/netfilter.h                          |   14 
+ include/linux/netfilter/x_tables.h                 |    2 
+ include/linux/syscalls.h                           |    4 
+ include/net/compat.h                               |    1 
+ include/net/inet_connection_sock.h                 |   13 
+ include/net/ip.h                                   |    4 
+ include/net/ipv6.h                                 |    4 
+ include/net/sctp/structs.h                         |   10 
+ include/net/sock.h                                 |   14 
+ include/net/tcp.h                                  |    4 
+ include/uapi/asm-generic/unistd.h                  |    4 
+ net/appletalk/ddp.c                                |    2 
+ net/atm/common.c                                   |   14 
+ net/bluetooth/bnep/sock.c                          |    2 
+ net/bluetooth/cmtp/sock.c                          |    2 
+ net/bluetooth/hidp/sock.c                          |    2 
+ net/bridge/netfilter/ebtables.c                    |  214 +++-----
+ net/caif/caif_socket.c                             |    2 
+ net/can/bcm.c                                      |    2 
+ net/compat.c                                       |  122 ----
+ net/core/filter.c                                  |   23 
+ net/core/sock.c                                    |   72 --
+ net/dccp/dccp.h                                    |    6 
+ net/dccp/ipv4.c                                    |   12 
+ net/dccp/ipv6.c                                    |   14 
+ net/dccp/proto.c                                   |   26 -
+ net/ieee802154/socket.c                            |    8 
+ net/ipv4/af_inet.c                                 |    6 
+ net/ipv4/inet_connection_sock.c                    |   28 -
+ net/ipv4/ip_sockglue.c                             |  541 +++++++++------------
+ net/ipv4/netfilter/arp_tables.c                    |   84 ---
+ net/ipv4/netfilter/ip_tables.c                     |   85 ---
+ net/ipv4/raw.c                                     |   22 
+ net/ipv4/tcp.c                                     |   24 
+ net/ipv4/tcp_ipv4.c                                |    8 
+ net/ipv4/udp.c                                     |   24 
+ net/ipv4/udp_impl.h                                |    6 
+ net/ipv4/udplite.c                                 |    4 
+ net/ipv6/af_inet6.c                                |    4 
+ net/ipv6/ipv6_sockglue.c                           |  537 +++++++++-----------
+ net/ipv6/netfilter/ip6_tables.c                    |   86 ---
+ net/ipv6/raw.c                                     |   52 --
+ net/ipv6/tcp_ipv6.c                                |   12 
+ net/ipv6/udp.c                                     |   25 
+ net/ipv6/udp_impl.h                                |    6 
+ net/ipv6/udplite.c                                 |    4 
+ net/key/af_key.c                                   |    2 
+ net/l2tp/l2tp_ip.c                                 |    8 
+ net/l2tp/l2tp_ip6.c                                |    6 
+ net/mptcp/protocol.c                               |    6 
+ net/netfilter/nf_sockopt.c                         |   60 --
+ net/netfilter/x_tables.c                           |    9 
+ net/nfc/llcp_sock.c                                |    2 
+ net/nfc/rawsock.c                                  |    4 
+ net/packet/af_packet.c                             |   35 -
+ net/phonet/socket.c                                |   10 
+ net/qrtr/qrtr.c                                    |    2 
+ net/sctp/ipv6.c                                    |    6 
+ net/sctp/protocol.c                                |    8 
+ net/smc/af_smc.c                                   |    9 
+ net/socket.c                                       |  103 ++-
+ net/unix/af_unix.c                                 |    6 
+ net/vmw_vsock/af_vsock.c                           |    2 
+ tools/include/uapi/asm-generic/unistd.h            |    4 
+ tools/perf/arch/powerpc/entry/syscalls/syscall.tbl |    4 
+ tools/perf/arch/s390/entry/syscalls/syscall.tbl    |    4 
+ tools/perf/arch/x86/entry/syscalls/syscall_64.tbl  |    4 
+ 98 files changed, 786 insertions(+), 1884 deletions(-)

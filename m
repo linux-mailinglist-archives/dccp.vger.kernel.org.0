@@ -2,91 +2,151 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F03DB2268E5
-	for <lists+dccp@lfdr.de>; Mon, 20 Jul 2020 18:24:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 013A3226AEE
+	for <lists+dccp@lfdr.de>; Mon, 20 Jul 2020 18:40:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731708AbgGTQWe (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 20 Jul 2020 12:22:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43152 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1733065AbgGTQGd (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 20 Jul 2020 12:06:33 -0400
-Received: from mail1.systemli.org (mail1.systemli.org [IPv6:2c0f:f930:0:5::214])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D25D7C061794;
-        Mon, 20 Jul 2020 09:06:32 -0700 (PDT)
-From:   Richard Sailer <richard_siegfried@systemli.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
-        s=default; t=1595261185;
-        bh=fSmUacZ5Dg91YFOQgxAFUtEfdxmnPPb1AjKxh6rk76U=;
-        h=From:To:Cc:Subject:Date:From;
-        b=VJL/qrnycOuj9TZAR0VLmkLaWRbpqX1qip8Mgafa9KKO99pLy0tsHPoJgdBynb5r8
-         QAq2dl86nk2Jwvk1dMr7zT4CZep7sh5NYLMwsd0ouEo6+nm16c6OK4YZRhJyL6TuFZ
-         R5vKK4lkpDatsnAsKYx2LuP7RyGil7Ml5sREs0jSvQttSC320yEiADYtp1jeOCxAlF
-         RtFmZ9YM4WfghTf761/G/uH/1hfPwJxtXUwo2qrCx4wwyF/Fbv7ImSyYzqmjiPwyLL
-         PC7cVT3J89hIDYOH9zwtKLQmMFHQNrZ4+GHMRZpKFytZYCAnplpTjB6+T67QjNv8I7
-         x5hWGcfU2CXyw==
-To:     gerrit@erg.abdn.ac.uk, davem@davemloft.net, dccp@vger.kernel.org
-Cc:     netdev@vger.kernel.org
-Subject: [PATCH net-next v5] net: dccp: Add SIOCOUTQ IOCTL support (send buffer fill)
-Date:   Mon, 20 Jul 2020 18:06:14 +0200
-Message-Id: <20200720160614.117090-1-richard_siegfried@systemli.org>
+        id S1732394AbgGTQhw (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 20 Jul 2020 12:37:52 -0400
+Received: from mail.kernel.org ([198.145.29.99]:50816 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1730889AbgGTQhv (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 20 Jul 2020 12:37:51 -0400
+Received: from gmail.com (unknown [104.132.1.76])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 9248320734;
+        Mon, 20 Jul 2020 16:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1595263070;
+        bh=smDDaCk04kMr6EUzVkdVBl94CFmKvpleITLelmvA8+8=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=JJC8sbphJDydEPEmQ9bsAOdVV0pki83XX29vWiTOyf6AsmPXVOTyRrnnrci7D6Bhd
+         g+Lq7h/M7GIp2Q3yjvb33D7hXLYV7+QkF/cJUlgxrp5Jsp6dTPG3ALVp7AD8PFZTTR
+         fVVidPSEdf7dnCSggZDPP0jvSNjJIbQpG4SHFy4k=
+Date:   Mon, 20 Jul 2020 09:37:48 -0700
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     Christoph Hellwig <hch@lst.de>
+Cc:     "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
+        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+        Eric Dumazet <edumazet@google.com>,
+        linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, bpf@vger.kernel.org,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        linux-sctp@vger.kernel.org, linux-hams@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, bridge@lists.linux-foundation.org,
+        linux-can@vger.kernel.org, dccp@vger.kernel.org,
+        linux-decnet-user@lists.sourceforge.net,
+        linux-wpan@vger.kernel.org, linux-s390@vger.kernel.org,
+        mptcp@lists.01.org, lvs-devel@vger.kernel.org,
+        rds-devel@oss.oracle.com, linux-afs@lists.infradead.org,
+        tipc-discussion@lists.sourceforge.net, linux-x25@vger.kernel.org
+Subject: Re: [PATCH 03/24] net: add a new sockptr_t type
+Message-ID: <20200720163748.GA1292162@gmail.com>
+References: <20200720124737.118617-1-hch@lst.de>
+ <20200720124737.118617-4-hch@lst.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200720124737.118617-4-hch@lst.de>
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-This adds support for the SIOCOUTQ IOCTL to get the send buffer fill
-of a DCCP socket, like UDP and TCP sockets already have.
+On Mon, Jul 20, 2020 at 02:47:16PM +0200, Christoph Hellwig wrote:
+> Add a uptr_t type that can hold a pointer to either a user or kernel
+> memory region, and simply helpers to copy to and from it.  For
+> architectures like x86 that have non-overlapping user and kernel
+> address space it just is a union and uses a TASK_SIZE check to
+> select the proper copy routine.  For architectures with overlapping
+> address spaces a flag to indicate the address space is used instead.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  include/linux/sockptr.h | 121 ++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 121 insertions(+)
+>  create mode 100644 include/linux/sockptr.h
+> 
+> diff --git a/include/linux/sockptr.h b/include/linux/sockptr.h
+> new file mode 100644
+> index 00000000000000..e41dfa52555dec
+> --- /dev/null
+> +++ b/include/linux/sockptr.h
+> @@ -0,0 +1,121 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2020 Christoph Hellwig.
+> + *
+> + * Support for "universal" pointers that can point to either kernel or userspace
+> + * memory.
+> + */
+> +#ifndef _LINUX_SOCKPTR_H
+> +#define _LINUX_SOCKPTR_H
+> +
+> +#include <linux/slab.h>
+> +#include <linux/uaccess.h>
+> +
+> +#ifdef CONFIG_ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+> +typedef union {
+> +	void		*kernel;
+> +	void __user	*user;
+> +} sockptr_t;
+> +
+> +static inline bool sockptr_is_kernel(sockptr_t sockptr)
+> +{
+> +	return (unsigned long)sockptr.kernel >= TASK_SIZE;
+> +}
+> +
+> +static inline sockptr_t KERNEL_SOCKPTR(void *p)
+> +{
+> +	return (sockptr_t) { .kernel = p };
+> +}
+> +#else /* CONFIG_ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE */
+> +typedef struct {
+> +	union {
+> +		void		*kernel;
+> +		void __user	*user;
+> +	};
+> +	bool		is_kernel : 1;
+> +} sockptr_t;
+> +
+> +static inline bool sockptr_is_kernel(sockptr_t sockptr)
+> +{
+> +	return sockptr.is_kernel;
+> +}
+> +
+> +static inline sockptr_t KERNEL_SOCKPTR(void *p)
+> +{
+> +	return (sockptr_t) { .kernel = p, .is_kernel = true };
+> +}
+> +#endif /* CONFIG_ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE */
+> +
+> +static inline sockptr_t USER_SOCKPTR(void __user *p)
+> +{
+> +	return (sockptr_t) { .user = p };
+> +}
+> +
+> +static inline bool sockptr_is_null(sockptr_t sockptr)
+> +{
+> +	return !sockptr.user && !sockptr.kernel;
+> +}
+> +
+> +static inline int copy_from_sockptr(void *dst, sockptr_t src, size_t size)
+> +{
+> +	if (!sockptr_is_kernel(src))
+> +		return copy_from_user(dst, src.user, size);
+> +	memcpy(dst, src.kernel, size);
+> +	return 0;
+> +}
 
-Regarding the used data field: DCCP uses per packet sequence numbers,
-not per byte, so sequence numbers can't be used like in TCP. sk_wmem_queued
-is not used by DCCP and always 0, even in test on highly congested paths.
-Therefore this uses sk_wmem_alloc like in UDP.
+How does this not introduce a massive security hole when
+CONFIG_ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE?
 
-Signed-off-by: Richard Sailer <richard_siegfried@systemli.org>
----
-v5: More infos into dccp.rst, +empty line after declarations
----
- Documentation/networking/dccp.rst | 3 +++
- net/dccp/proto.c                  | 9 +++++++++
- 2 files changed, 12 insertions(+)
+AFAICS, userspace can pass in a pointer >= TASK_SIZE,
+and this code makes it be treated as a kernel pointer.
 
-diff --git a/Documentation/networking/dccp.rst b/Documentation/networking/dccp.rst
-index dde16be044562..91e5c33ba3ff5 100644
---- a/Documentation/networking/dccp.rst
-+++ b/Documentation/networking/dccp.rst
-@@ -192,6 +192,9 @@ FIONREAD
- 	Works as in udp(7): returns in the ``int`` argument pointer the size of
- 	the next pending datagram in bytes, or 0 when no datagram is pending.
- 
-+SIOCOUTQ
-+	Returns the number of unsent data bytes in the socket send queue as ``int``
-+	into the buffer specified by the argument pointer.
- 
- Other tunables
- ==============
-diff --git a/net/dccp/proto.c b/net/dccp/proto.c
-index fd92d3fe321f0..9e453611107f1 100644
---- a/net/dccp/proto.c
-+++ b/net/dccp/proto.c
-@@ -375,6 +375,15 @@ int dccp_ioctl(struct sock *sk, int cmd, unsigned long arg)
- 		goto out;
- 
- 	switch (cmd) {
-+	case SIOCOUTQ: {
-+		int amount = sk_wmem_alloc_get(sk);
-+		/* Using sk_wmem_alloc here because sk_wmem_queued is not used by DCCP and
-+		 * always 0, comparably to UDP.
-+		 */
-+
-+		rc = put_user(amount, (int __user *)arg);
-+	}
-+		break;
- 	case SIOCINQ: {
- 		struct sk_buff *skb;
- 		unsigned long amount = 0;
--- 
-2.27.0
-
+- Eric

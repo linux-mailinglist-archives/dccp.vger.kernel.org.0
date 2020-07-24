@@ -2,64 +2,51 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 59B4E22B3E3
-	for <lists+dccp@lfdr.de>; Thu, 23 Jul 2020 18:44:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3AF6822C144
+	for <lists+dccp@lfdr.de>; Fri, 24 Jul 2020 10:51:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729622AbgGWQoi (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 23 Jul 2020 12:44:38 -0400
-Received: from verein.lst.de ([213.95.11.211]:60887 "EHLO verein.lst.de"
+        id S1726753AbgGXIvu convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+dccp@lfdr.de>); Fri, 24 Jul 2020 04:51:50 -0400
+Received: from mx2.itam.mx ([148.205.229.36]:56952 "EHLO mx2.itam.mx"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726621AbgGWQoi (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 23 Jul 2020 12:44:38 -0400
-Received: by verein.lst.de (Postfix, from userid 2407)
-        id 8C74368AFE; Thu, 23 Jul 2020 18:44:32 +0200 (CEST)
-Date:   Thu, 23 Jul 2020 18:44:32 +0200
-From:   Christoph Hellwig <hch@lst.de>
-To:     Eric Dumazet <edumazet@google.com>
-Cc:     Christoph Hellwig <hch@lst.de>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
-        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
-        "open list:HARDWARE RANDOM NUMBER GENERATOR CORE" 
-        <linux-crypto@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        netdev <netdev@vger.kernel.org>, bpf <bpf@vger.kernel.org>,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        linux-sctp@vger.kernel.org, linux-hams@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, bridge@lists.linux-foundation.org,
-        linux-can@vger.kernel.org, dccp@vger.kernel.org,
-        linux-decnet-user@lists.sourceforge.net,
-        linux-wpan@vger.kernel.org, linux-s390@vger.kernel.org,
-        mptcp@lists.01.org, lvs-devel@vger.kernel.org,
-        rds-devel@oss.oracle.com, linux-afs@lists.infradead.org,
-        tipc-discussion@lists.sourceforge.net, linux-x25@vger.kernel.org
-Subject: Re: [PATCH 04/26] net: add a new sockptr_t type
-Message-ID: <20200723164432.GA20917@lst.de>
-References: <20200723060908.50081-1-hch@lst.de> <20200723060908.50081-5-hch@lst.de> <CANn89iJ3LKth-iWwh0+P3D3RqtDNv4AyXkkzhXr0oSEvE_JoRQ@mail.gmail.com>
+        id S1726692AbgGXIvu (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 24 Jul 2020 04:51:50 -0400
+Received: from cronos2.itam.mx (cronos2.itam.mx [148.205.148.141])
+        by mx2.itam.mx  with ESMTP id 06O8oUpV020969-06O8oUpa020969
+        (version=TLSv1.0 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
+        Fri, 24 Jul 2020 03:50:30 -0500
+Received: from [10.28.175.153] (105.0.7.102) by cronos2.itam.mx
+ (148.205.148.141) with Microsoft SMTP Server (TLS) id 14.3.468.0; Fri, 24 Jul
+ 2020 03:50:29 -0500
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANn89iJ3LKth-iWwh0+P3D3RqtDNv4AyXkkzhXr0oSEvE_JoRQ@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: =?utf-8?q?Covid_19_Wohlt=C3=A4tigkeitsfonds?=
+To:     Recipients@vger.kernel.org
+From:   ''Tayeb@vger.kernel.org, Souami''@vger.kernel.org
+Date:   Fri, 24 Jul 2020 10:50:14 +0200
+Reply-To: <charlesjacksonjr001@gmail.com>
+Message-ID: <9d640c62-48ad-483f-a6af-89035491996e@CRONOS2.itam.mx>
+X-Originating-IP: [105.0.7.102]
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Thu, Jul 23, 2020 at 09:40:27AM -0700, Eric Dumazet wrote:
-> I am not sure why you chose sockptr_t   for something that really seems generic.
-> 
-> Or is it really meant to be exclusive to setsockopt() and/or getsockopt() ?
-> 
-> If the first user of this had been futex code, we would have used
-> futexptr_t, I guess.
+Hallo
 
-It was originally intended to be generic and called uptr_t, based
-on me misunderstanding that Linus wanted a file operation for it,
-which he absolutely didn't and hate with passion.  So the plan is to
-only use it for setsockopt for now, although there are some arguments
-for also using it in sendmsg/recvmsg.  There is no need to use it for
-getsockopt.
+Ich bin Charles W. Jackson aus North Carolina, Vereinigte Staaten von Amerika, und ich bin der Gewinner des Mega-Millionen-Jackpots von 344 Millionen US-Dollar. Ich spende die Summe von 2.000.000 Millionen Euro als Teil der Hilfsgelder für das Corona-Virus.
+
+Dies ist Ihr Spendencode: [CJ530342019]
+
+www.youtube.com/watch?v=BSr8myiLPMQ
+
+Bitte antworten Sie auf diese E-Mail mit dem SPENDERCODE:
+
+charlesjacksonjr001@gmail.com
+
+Ich hoffe, dass Sie und Ihre Familie dies durchkommen
+
+
+Herr Charles Jackson

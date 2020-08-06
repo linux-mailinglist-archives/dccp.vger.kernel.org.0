@@ -2,65 +2,131 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D481A23B437
-	for <lists+dccp@lfdr.de>; Tue,  4 Aug 2020 06:37:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 736D623E3F2
+	for <lists+dccp@lfdr.de>; Fri,  7 Aug 2020 00:21:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728999AbgHDEhQ (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 4 Aug 2020 00:37:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50806 "EHLO
+        id S1726205AbgHFWVd (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 6 Aug 2020 18:21:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38130 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728881AbgHDEhQ (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 4 Aug 2020 00:37:16 -0400
-X-Greylist: delayed 30014 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 03 Aug 2020 21:37:16 PDT
-Received: from dockerbox (unknown [IPv6:2001:4800:7817:101:be76:4eff:fe04:a215])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 195DDC06174A
-        for <dccp@vger.kernel.org>; Mon,  3 Aug 2020 21:37:16 -0700 (PDT)
-Received: from 127.0.0.1 (localhost [127.0.0.1])
-        by dockerbox (Postfix) with SMTP id 9E1DB77891;
-        Wed,  9 Oct 2019 23:23:29 -0500 (CDT)
-Received: from [189.192.153.110] by 127.0.0.1 id <4439076-28392>; Thu, 10 Oct 2019 06:15:34 +0200
-Message-ID: <y$$52qth67ud3mipev8ot-2-90l@ftsn5>
-From:   "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
-Reply-To: "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
-To:     daynadelite@yahoo.com
-Subject: RE:PERSONAL LETTER FROM MRS RASHIA AMIRA
-Date:   Thu, 10 Oct 19 06:15:34 GMT
-X-Mailer: Microsoft Outlook, Build 10.0.2627
+        with ESMTP id S1726167AbgHFWVc (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 6 Aug 2020 18:21:32 -0400
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com [IPv6:2607:f8b0:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 54080C061574;
+        Thu,  6 Aug 2020 15:21:32 -0700 (PDT)
+Received: by mail-pl1-x642.google.com with SMTP id p1so111079pls.4;
+        Thu, 06 Aug 2020 15:21:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=t1TN4T3jQ2jrlk3a/d7SaKfk2DJyftZUv6bXnlt6NPQ=;
+        b=GyumodkGmYKsGSwVnzxjXGz3Hc6dDp/7EX3r4spkycDyPVNN0ciFP2qEtF0XPhrBf4
+         +cCI0OWrH6x101NHuYUTOaXPwuCecyhxfEvjJRna72hDnNI+bib+8AzwceW3eJdE75Gn
+         SeIJKEi14my/hEJw+qU/KCE5RSHazXH9KHIfKLNltLm7ADcruE5/tGFOBJjd/g0Mnrl5
+         TD9+5yjblEpGaVz4M1LHrXLmcdWRpP5c2NV1JaW3i6df06bY03MlPUl3EghFXAFM5iLk
+         Ox9KU5vu5QYQH83zkF+ICm8Q2r+16LLLSd84hY8z6dVmhZCgoIg7vDd5Gd8rg9nvzxvN
+         9EXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=t1TN4T3jQ2jrlk3a/d7SaKfk2DJyftZUv6bXnlt6NPQ=;
+        b=e1lzyzb0IUfIRzudWXCJ1cnSbrZG3OU8EoVQ0p+kJDkZ1tnLXS6o966fc2KdC6EHeL
+         3SrIF0a5mXVw76vBuseFHDBVjkkqkjlSiZ4ovEVfQAjHNwieeA9kQTFnWW2rC5ZbPf9O
+         XCVz7HUemkpVnapitCxqsMEN6h+Q28m+bBbKFOppxvOEkVHfUzGS1ldj+fNmo5m0qPl1
+         ED2axOJ1D3LUxfVoNB0CC1/auI0H9efPJaH6IlviqbYNd5RQTwLOmmWz2ftkLDDCIrhJ
+         Wdyw2sb/kvUexW2wviff3HtcudiqYhWO/eNEvVHcZJMxGZcVkKXQc7LPLka0fe1Ye8m0
+         FC6w==
+X-Gm-Message-State: AOAM533QHJUjqnXMz8lHoCE9mfaVnnvTe76eDAuB5RQDhG7tKwWbhiP6
+        q6J7leABOdw2O3ozloO5s2k=
+X-Google-Smtp-Source: ABdhPJwdY4ryrXf97t2P6yPCseaEpoaitTdHlZtd60UHAYlnINemi0RFvJHHjsz9ZaSHJyy7n+NjVw==
+X-Received: by 2002:a17:902:45:: with SMTP id 63mr9766294pla.179.1596752491350;
+        Thu, 06 Aug 2020 15:21:31 -0700 (PDT)
+Received: from [10.1.10.11] (c-73-241-150-58.hsd1.ca.comcast.net. [73.241.150.58])
+        by smtp.gmail.com with ESMTPSA id w82sm9912017pff.7.2020.08.06.15.21.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2020 15:21:30 -0700 (PDT)
+Subject: Re: [PATCH 25/26] net: pass a sockptr_t into ->setsockopt
+To:     Christoph Hellwig <hch@lst.de>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>,
+        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+        Eric Dumazet <edumazet@google.com>
+Cc:     linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, bpf@vger.kernel.org,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        linux-sctp@vger.kernel.org, linux-hams@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, bridge@lists.linux-foundation.org,
+        linux-can@vger.kernel.org, dccp@vger.kernel.org,
+        linux-decnet-user@lists.sourceforge.net,
+        linux-wpan@vger.kernel.org, linux-s390@vger.kernel.org,
+        mptcp@lists.01.org, lvs-devel@vger.kernel.org,
+        rds-devel@oss.oracle.com, linux-afs@lists.infradead.org,
+        tipc-discussion@lists.sourceforge.net, linux-x25@vger.kernel.org,
+        Stefan Schmidt <stefan@datenfreihafen.org>
+References: <20200723060908.50081-1-hch@lst.de>
+ <20200723060908.50081-26-hch@lst.de>
+From:   Eric Dumazet <eric.dumazet@gmail.com>
+Message-ID: <6357942b-0b6e-1901-7dce-e308c9fac347@gmail.com>
+Date:   Thu, 6 Aug 2020 15:21:25 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="7FE33.7_8EAEF6982F"
-X-Priority: 3
-X-MSMail-Priority: Normal
+In-Reply-To: <20200723060908.50081-26-hch@lst.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
 
---7FE33.7_8EAEF6982F
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
 
-Greetings
-
-My name is Barrister Hans Erich.
-
-I have a client who is interested to invest in your country, she is a well=
- known politician in her country and deserve a lucrative investment partne=
-rship with you outside her country without any delay   Please can you mana=
-ge such investment please Kindly reply for further details.
-
-Your full nameS -----------
+On 7/22/20 11:09 PM, Christoph Hellwig wrote:
+> Rework the remaining setsockopt code to pass a sockptr_t instead of a
+> plain user pointer.  This removes the last remaining set_fs(KERNEL_DS)
+> outside of architecture specific code.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Acked-by: Stefan Schmidt <stefan@datenfreihafen.org> [ieee802154]
+> ---
 
 
-Your urgent response will be appreciated
+...
 
-Thank you and God bless you.
+> diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+> index 594e01ad670aa6..874f01cd7aec42 100644
+> --- a/net/ipv6/raw.c
+> +++ b/net/ipv6/raw.c
+> @@ -972,13 +972,13 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+>  }
+>  
 
-Barrister Hans Erich
+...
 
-Yours sincerely,
-Barrister Hans Erich
+>  static int do_rawv6_setsockopt(struct sock *sk, int level, int optname,
+> -			    char __user *optval, unsigned int optlen)
+> +			       sockptr_t optval, unsigned int optlen)
+>  {
+>  	struct raw6_sock *rp = raw6_sk(sk);
+>  	int val;
+>  
+> -	if (get_user(val, (int __user *)optval))
+> +	if (copy_from_sockptr(&val, optval, sizeof(val)))
+>  		return -EFAULT;
+>  
 
---7FE33.7_8EAEF6982F--
+converting get_user(...)   to  copy_from_sockptr(...) really assumed the optlen
+has been validated to be >= sizeof(int) earlier.
+
+Which is not always the case, for example here.
+
+User application can fool us passing optlen=0, and a user pointer of exactly TASK_SIZE-1
+
 

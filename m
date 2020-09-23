@@ -2,52 +2,32 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 38D302735BC
-	for <lists+dccp@lfdr.de>; Tue, 22 Sep 2020 00:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 83A23275F46
+	for <lists+dccp@lfdr.de>; Wed, 23 Sep 2020 20:01:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726467AbgIUW0W (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 21 Sep 2020 18:26:22 -0400
-Received: from mail.rusoil.net ([188.128.114.25]:45411 "EHLO mail.rusoil.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726457AbgIUW0W (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 21 Sep 2020 18:26:22 -0400
-X-Greylist: delayed 517 seconds by postgrey-1.27 at vger.kernel.org; Mon, 21 Sep 2020 18:26:21 EDT
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.rusoil.net (Postfix) with ESMTP id 9ABCA408DB;
-        Tue, 22 Sep 2020 03:20:50 +0500 (YEKT)
-Received: from mail.rusoil.net ([127.0.0.1])
-        by localhost (mail.rusoil.net [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id WpflGhkC8aOO; Tue, 22 Sep 2020 03:20:50 +0500 (YEKT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.rusoil.net (Postfix) with ESMTP id A47A3407AF;
-        Tue, 22 Sep 2020 03:20:49 +0500 (YEKT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rusoil.net A47A3407AF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rusoil.net;
-        s=maildkim; t=1600726849;
-        bh=6R3BgBYiA7fkqGiiNDuwPskBnpH9JXyNAW/l3ZEA+wY=;
-        h=Date:From:Message-ID:MIME-Version;
-        b=Aq5RISPz9nIff/AWgdXvTNJS3dOMYbol7P1mXo6Cn9jxSJM6sNFz5qjF8ldkB5ukH
-         s7I7fThxfWWe/18OoCTtIEGr3BcACYn3p4L1u280ugXZ3cvO/VCWP8kHIuP0rYYGyB
-         ohxTKrgVe/a/Dm9JGBnVZCGumfbxN8VaJ/OvWK5M=
-X-Virus-Scanned: amavisd-new at mail.rusoil.net
-Received: from mail.rusoil.net ([127.0.0.1])
-        by localhost (mail.rusoil.net [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id CoizGK1JhqhY; Tue, 22 Sep 2020 03:20:49 +0500 (YEKT)
-Received: from mail.rusoil.net (mail.rusoil.net [172.16.7.34])
-        by mail.rusoil.net (Postfix) with ESMTP id 712814074C;
-        Tue, 22 Sep 2020 03:20:47 +0500 (YEKT)
-Date:   Tue, 22 Sep 2020 03:20:47 +0500 (YEKT)
-From:   Blue Oak Mortgage and Loans <em@rusoil.net>
-Reply-To: Blue Oak Mortgage and Loans <info@bluelmtg.net>
-Message-ID: <1899046635.904686.1600726847402.JavaMail.zimbra@rusoil.net>
-Subject: Wir finanzieren Projekte und Unternehmen
+        id S1726460AbgIWSBX (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 23 Sep 2020 14:01:23 -0400
+Received: from [125.140.134.231] ([125.140.134.231]:51281 "EHLO
+        WIN-DAONO245HJF" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726234AbgIWSBX (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 23 Sep 2020 14:01:23 -0400
+X-Greylist: delayed 409 seconds by postgrey-1.27 at vger.kernel.org; Wed, 23 Sep 2020 14:01:22 EDT
+Received: from User ([185.191.231.247]) by WIN-DAONO245HJF with Microsoft SMTPSVC(8.5.9600.16384);
+         Thu, 24 Sep 2020 02:51:35 +0900
+Reply-To: <samthong5555@yahoo.com>
+From:   "SAM THONG" <samthong5555@gmail.com>
+Subject: Business Acquisition 1
+Date:   Wed, 23 Sep 2020 10:51:34 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [192.210.183.69]
-X-Mailer: Zimbra 8.8.12_GA_3803 (ZimbraWebClient - FF79 (Win)/8.8.12_GA_3794)
-Thread-Index: psIH5uBbBEafC0LV7XbehPSF1fMIbg==
-Thread-Topic: Wir finanzieren Projekte und Unternehmen
+Content-Type: text/plain;
+        charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+Message-ID: <WIN-DAONO245HJFGXnw00e584b9@WIN-DAONO245HJF>
+X-OriginalArrivalTime: 23 Sep 2020 17:51:36.0376 (UTC) FILETIME=[2E86E380:01D691D2]
 To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
@@ -55,42 +35,56 @@ X-Mailing-List: dccp@vger.kernel.org
 
 
 
-Dies ist ein Newsletter von Blue Oak Mortgage and Loans. Bitte melden Sie s=
-ich ab, wenn Sie keine E-Mail mehr von uns erhalten m=C3=B6chten.
+Dear sir
+
+Our underwriter company is seeking the attention of genuine and reliable persons, companies
+
+who are indeed in need of funds as investment capital or business expansion in form of a
+
+direct loan to partner with us and benefit in our new Loan and Project funding programs.
 
 
-Eine kurze Einf=C3=BChrung.
 
-Wir sind ein f=C3=BChrendes Finanzierungsunternehmen in Europa. Wir finanzi=
-eren Startups / etablierte Unternehmen, finanzieren Gro=C3=9Fprojekte (Bau,=
- Landwirtschaft, Immobilien und dergleichen) zu einem niedrigen Zinssatz vo=
-n 2% pro Jahr.
+We offer flexible loans and funding for various projects at very affordable low interest
+
+rate of 3% annually for a period of 1-15 years on Non collateral loan/funding . We offer
+
+loan/funding from a minimum of Euro ? / USD$ 1 Million to Euro ? / USD$ 1 Billion. Max,
+
+depending on the nature of business/project.
+
+We are currently funding for:-
 
 
-Darlehensverfahren
 
-1. Sie m=C3=BCssen das Online-Bewerbungsformular ausf=C3=BCllen und eine or=
-dnungsgem=C3=A4=C3=9F unterschriebene Kopie an uns zur=C3=BCcksenden.
+* Starting up a Franchise
 
-2. M=C3=B6glicherweise m=C3=BCssen Sie Finanzdokumente als unterst=C3=BCtze=
-nden Nachweis f=C3=BCr die F=C3=A4higkeit zur R=C3=BCckzahlung von Krediten=
- vorlegen.
+* Business Acquisition
 
-3. Wenn Ihr Darlehen genehmigt wurde, m=C3=BCssen Sie eine Versicherungsgar=
-antie f=C3=BCr die Darlehenssicherheit vorlegen. Wir empfehlen eine Versich=
-erungsgesellschaft. Sie sind allein verantwortlich f=C3=BCr die Zahlung und=
- den Erwerb der Anleihe, die als Sicherheit dienen. Die H=C3=B6he der Anlei=
-he h=C3=A4ngt von Ihrem Darlehensbetrag ab. Die Versicherungsgesellschaft w=
-ird Sie durch den Prozess f=C3=BChren. (F=C3=BCr Gro=C3=9Fprojekte)
+* Business Expansion
 
-4. Ihr =C3=9Cberweisungsprozess wird eingeleitet, sobald die Versicherungsa=
-nleihe =C3=BCberpr=C3=BCft wurde. Ihr Darlehensr=C3=BCckzahlungsplan wird i=
-m NC-Darlehensvertragsformular aufgef=C3=BChrt.
+* Commercial Real Estate purchase
 
-Wenn die Bedingungen Sie beruhigen, k=C3=B6nnen Sie uns =C3=BCber die Whats=
-App-Nummer / E-Mail kontaktieren und auch unsere Website besuchen, um weite=
-re Informationen zu erhalten. Wir freuen uns darauf, von Ihnen zu h=C3=B6re=
-n.
+* Consultancy and Contract Execution, Marine , ETC.
 
-WhatsApp: + 90-552-365-3483
-E-Mail: info@bluelmtg.net
+
+
+Kindly get in touch for further details and procedure. samthong5555@yahoo.com 
+
+
+
+Respectfully,
+
+
+SAM THONG
+
+
+
+
+
+
+
+	
+
+
+

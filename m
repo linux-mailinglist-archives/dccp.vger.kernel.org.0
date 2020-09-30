@@ -2,23 +2,25 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F56127DA3B
-	for <lists+dccp@lfdr.de>; Tue, 29 Sep 2020 23:38:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9A46027F09E
+	for <lists+dccp@lfdr.de>; Wed, 30 Sep 2020 19:37:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727922AbgI2ViV (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 29 Sep 2020 17:38:21 -0400
-Received: from [110.74.151.213] ([110.74.151.213]:53325 "EHLO
-        mail.bless.gov.my" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1727740AbgI2ViV (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 29 Sep 2020 17:38:21 -0400
-X-Greylist: delayed 13972 seconds by postgrey-1.27 at vger.kernel.org; Tue, 29 Sep 2020 17:38:21 EDT
-Received: from User (unknown [172.20.84.1])
-        by mail.bless.gov.my (Postfix) with SMTP id 1DAAB43EAF52;
-        Tue, 29 Sep 2020 23:00:58 +0800 (MYT)
-Reply-To: <iinfo446@gmail.com>
-From:   "Mrs. Susan Carter" <test@mail.bless.gov.my>
-Subject: Good day,    
-Date:   Tue, 29 Sep 2020 16:01:33 +0100
+        id S1725385AbgI3RhF (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 30 Sep 2020 13:37:05 -0400
+Received: from mail2.grupovidela.com ([212.31.54.87]:56276 "EHLO
+        grupovidela.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1725355AbgI3RhE (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 30 Sep 2020 13:37:04 -0400
+X-Greylist: delayed 12916 seconds by postgrey-1.27 at vger.kernel.org; Wed, 30 Sep 2020 13:37:04 EDT
+Received: from User ([94.102.54.226])
+        (user=varios@grupovidela.com mech=LOGIN bits=0)
+        by fortimail.grupovidela.com  with ESMTP id 08UDvjZq024925-08UDvjZs024925;
+        Wed, 30 Sep 2020 15:57:46 +0200
+Message-Id: <202009301357.08UDvjZq024925-08UDvjZs024925@fortimail.grupovidela.com>
+Reply-To: <fulanlan28@gmail.com>
+From:   "Mr. Fu Lan" <aitor@coacan.es>
+Subject: YOUR EARLY REPLY
+Date:   Tue, 29 Sep 2020 21:27:16 -0700
 MIME-Version: 1.0
 Content-Type: text/plain;
         charset="Windows-1251"
@@ -27,20 +29,18 @@ X-Priority: 3
 X-MSMail-Priority: Normal
 X-Mailer: Microsoft Outlook Express 6.00.2600.0000
 X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-Id: <20200929150100.1DAAB43EAF52@mail.bless.gov.my>
-To:     undisclosed-recipients:;
+X-FEAS-AUTH-USER: varios@grupovidela.com
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Good day,
+YOUR EARLY REPLY 
 
-My name are Mrs. Susan Carter an America but a United Kingdom Citizen, I???m 57 years old, widow, married to late Eng Martins Carter who is a British, who until his death worked with Dutch Filtration for Twenty-Six years before he died in the year 2015 after a brief illness that lasted only five days.
-
-When my late husband was alive he deposited the sum of US$50 Million in bank USA through his Financial Lawyer in the United State of America and we all agreed as a couple to donate all of that to charity. Following my health (Lung Cancer), my Doctor told me that I may not live longer than required due to my health condition.
-
-Looking forward to seeing someone who can use the money for charitable work.
-
-Best Regards
-Yours sincerely
-Mrs. Susan Carter
+It is understandable that you might be a little bit apprehensive because
+you do not know me but I have a lucrative business proposal of mutual
+interest to share with you.$222,695.415.00 million United States dollars
+your earliest response will be appreciated.
+Email: fulanlan28@gmail.com
+Kind Regards,
+Mr. Fu Lan

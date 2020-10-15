@@ -2,52 +2,76 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 79D8028F057
-	for <lists+dccp@lfdr.de>; Thu, 15 Oct 2020 12:48:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2260128F069
+	for <lists+dccp@lfdr.de>; Thu, 15 Oct 2020 12:54:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726121AbgJOKsy (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 15 Oct 2020 06:48:54 -0400
-Received: from edge.kilargo.pl ([77.252.52.110]:11497 "EHLO edge.kilargo.pl"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726019AbgJOKsy (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 15 Oct 2020 06:48:54 -0400
-X-Greylist: delayed 328 seconds by postgrey-1.27 at vger.kernel.org; Thu, 15 Oct 2020 06:48:52 EDT
-Received: from mail.kilargo.pl (77.252.52.107) by edge.kilargo.pl
- (77.252.52.109) with Microsoft SMTP Server (TLS) id 8.3.485.1; Thu, 15 Oct
- 2020 12:43:23 +0200
-Received: from User (185.248.12.71) by MAIL.kilargo.pl (172.22.0.36) with
- Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Oct 2020 12:43:17 +0200
-Reply-To: <kim.leang2011@yahoo.com>
-From:   Kim Leang <mechanik@kilargo.pl>
-Subject: Greeting! !!
-Date:   Thu, 15 Oct 2020 13:43:21 +0300
+        id S1728674AbgJOKyK (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 15 Oct 2020 06:54:10 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:32992 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727123AbgJOKyK (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 15 Oct 2020 06:54:10 -0400
+Received: from 187-26-179-30.3g.claro.net.br ([187.26.179.30] helo=mussarela)
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <cascardo@canonical.com>)
+        id 1kT0ta-00072z-2p; Thu, 15 Oct 2020 10:54:06 +0000
+Date:   Thu, 15 Oct 2020 07:53:58 -0300
+From:   Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
+To:     Jakub Kicinski <kuba@kernel.org>
+Cc:     Kleber Sacilotto de Souza <kleber.souza@canonical.com>,
+        netdev@vger.kernel.org, Gerrit Renker <gerrit@erg.abdn.ac.uk>,
+        "David S. Miller" <davem@davemloft.net>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        "Alexander A. Klimov" <grandmaster@al2klimov.de>,
+        Kees Cook <keescook@chromium.org>,
+        Eric Dumazet <edumazet@google.com>,
+        Alexey Kodanev <alexey.kodanev@oracle.com>,
+        dccp@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dccp: ccid: move timers to struct dccp_sock
+Message-ID: <20201015105358.GA367246@mussarela>
+References: <20201013171849.236025-1-kleber.souza@canonical.com>
+ <20201013171849.236025-2-kleber.souza@canonical.com>
+ <20201014204322.7a51c375@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="Windows-1251"
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-ID: <7bea11e1c16548f69394605b98bc683a@mail.kilargo.pl>
-To:     Undisclosed recipients:;
-X-Originating-IP: [185.248.12.71]
-X-ClientProxiedBy: mail.kilargo.pl (172.22.0.36) To MAIL.kilargo.pl
- (172.22.0.36)
-X-EsetResult: clean, is OK
-X-EsetId: 37303A295AAB9B6B64766B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201014204322.7a51c375@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Greeting!
+On Wed, Oct 14, 2020 at 08:43:22PM -0700, Jakub Kicinski wrote:
+> On Tue, 13 Oct 2020 19:18:48 +0200 Kleber Sacilotto de Souza wrote:
+> > From: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
+> > 
+> > When dccps_hc_tx_ccid is freed, ccid timers may still trigger. The reason
+> > del_timer_sync can't be used is because this relies on keeping a reference
+> > to struct sock. But as we keep a pointer to dccps_hc_tx_ccid and free that
+> > during disconnect, the timer should really belong to struct dccp_sock.
+> > 
+> > This addresses CVE-2020-16119.
+> > 
+> > Fixes: 839a6094140a (net: dccp: Convert timers to use timer_setup())
+> 
+> Presumably you chose this commit because the fix won't apply beyond it?
+> But it really fixes 2677d2067731 (dccp: don't free.. right?
 
-I am contacting you to receive and share with me an abandoned fund ( $21,537.000.00 ) left in our bank by a deceased customer. I was going through the Internet search when I found your email address. My name is Mr. Kim Leang.
+Well, it should also fix cases where dccps_hc_tx_ccid{,_private} has been freed
+right after the timer is stopped.
 
-I want to utilize this opportunity and make use of this fund if I should present your name to the bank to stand as his business associate/ trustee for the fund to be released to you via Visa card for easy withdrawals in any VISA ATM machine anywhere in the World.
+So, we could add:
+Fixes: 2a91aa396739 ([DCCP] CCID2: Initial CCID2 (TCP-Like) implementation)
+Fixes: 7c657876b63c ([DCCP]: Initial implementation)
 
-The bank will also give you international online transfer options. With these you can transfer the funds without any risk.
+But I wouldn't say that this fixes 2677d2067731, unless there is argument to
+say that it fixes it because it claimed to fix what is being fixed here. But
+even the code that it removed was supposed to be stopping the timer, so how
+could it ever fix what it was claiming to fix?
 
-Should you be interested in working with me in this project? Please reply back and let's benefit from this golden opportunity.You are my first contact. I shall wait a few days and if I do not hear from you, I shall look for another person.
+Thanks.
+Cascardo.
 
-Thanks and have a nice day,
-Mr. Kim Leang.
+> 
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
+> > Signed-off-by: Kleber Sacilotto de Souza <kleber.souza@canonical.com>

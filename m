@@ -2,76 +2,64 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2260128F069
-	for <lists+dccp@lfdr.de>; Thu, 15 Oct 2020 12:54:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9BF1429023E
+	for <lists+dccp@lfdr.de>; Fri, 16 Oct 2020 11:53:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728674AbgJOKyK (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 15 Oct 2020 06:54:10 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:32992 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727123AbgJOKyK (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 15 Oct 2020 06:54:10 -0400
-Received: from 187-26-179-30.3g.claro.net.br ([187.26.179.30] helo=mussarela)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <cascardo@canonical.com>)
-        id 1kT0ta-00072z-2p; Thu, 15 Oct 2020 10:54:06 +0000
-Date:   Thu, 15 Oct 2020 07:53:58 -0300
-From:   Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-To:     Jakub Kicinski <kuba@kernel.org>
-Cc:     Kleber Sacilotto de Souza <kleber.souza@canonical.com>,
-        netdev@vger.kernel.org, Gerrit Renker <gerrit@erg.abdn.ac.uk>,
-        "David S. Miller" <davem@davemloft.net>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        "Alexander A. Klimov" <grandmaster@al2klimov.de>,
-        Kees Cook <keescook@chromium.org>,
-        Eric Dumazet <edumazet@google.com>,
-        Alexey Kodanev <alexey.kodanev@oracle.com>,
-        dccp@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dccp: ccid: move timers to struct dccp_sock
-Message-ID: <20201015105358.GA367246@mussarela>
-References: <20201013171849.236025-1-kleber.souza@canonical.com>
- <20201013171849.236025-2-kleber.souza@canonical.com>
- <20201014204322.7a51c375@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+        id S2406412AbgJPJxg (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 16 Oct 2020 05:53:36 -0400
+Received: from cpanel.giganet.cl ([190.96.78.139]:59354 "EHLO
+        cpanel.giganet.cl" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2405485AbgJPJxg (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 16 Oct 2020 05:53:36 -0400
+X-Greylist: delayed 13053 seconds by postgrey-1.27 at vger.kernel.org; Fri, 16 Oct 2020 05:53:34 EDT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=dplgrout.cl
+        ; s=default; h=Content-Transfer-Encoding:Content-Type:Message-ID:Reply-To:
+        Subject:To:From:Date:MIME-Version:Sender:Cc:Content-ID:Content-Description:
+        Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+        In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+        List-Post:List-Owner:List-Archive;
+        bh=fAA24DCNzcxd2rW6V/x2RpzvwUTDpj5k4CJDMsJM84M=; b=Ux6BxIT0nASCdw9lDy+jrkGawm
+        I5zi5yFPGDHDyvDtkfmzgydxcFCppD/8UEWwNgr0uwO1856vPap0vkgz4l3Km46KrifYCVkFIF1YO
+        MIXe7/TBuekzD+NSu4g3lQDSOvYPD8vCd0JU63f9zL6MqXaojs6pCwW/Ho3J2U6EKuQkeMCUqWoxI
+        z73dYuKQEDdik8RE1EX96KDi/hh3luSNE7hMT+aFigcy/VsE7/EFl+C1ezxYlZrDJhPrKtlhHRlOq
+        CpSj9XsUONd68K2s5HleVXHPe3E1s8PJMJx++UQWbfyYq8/MGjS06m/InTa0+IMUuzFHTfpEXyh6X
+        uTU9Oa6A==;
+Received: from [::1] (port=33348 helo=cpanel.giganet.cl)
+        by cpanel.giganet.cl with esmtpa (Exim 4.93)
+        (envelope-from <info@controlypotencia.com>)
+        id 1kTIpP-0007Jv-L1; Fri, 16 Oct 2020 03:02:59 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201014204322.7a51c375@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+Date:   Fri, 16 Oct 2020 03:02:58 -0300
+From:   Ying Chongan <info@controlypotencia.com>
+To:     undisclosed-recipients:;
+Subject: Investment opportunity
+Reply-To: yingchongan@zohomail.com
+User-Agent: Roundcube Webmail/1.4.8
+Message-ID: <1f2288a87f28dc8a6c8e4f3ff69e0f26@controlypotencia.com>
+X-Sender: info@controlypotencia.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cpanel.giganet.cl
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - controlypotencia.com
+X-Get-Message-Sender-Via: cpanel.giganet.cl: authenticated_id: mariapaz.lopez@dplgrout.cl
+X-Authenticated-Sender: cpanel.giganet.cl: mariapaz.lopez@dplgrout.cl
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Wed, Oct 14, 2020 at 08:43:22PM -0700, Jakub Kicinski wrote:
-> On Tue, 13 Oct 2020 19:18:48 +0200 Kleber Sacilotto de Souza wrote:
-> > From: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-> > 
-> > When dccps_hc_tx_ccid is freed, ccid timers may still trigger. The reason
-> > del_timer_sync can't be used is because this relies on keeping a reference
-> > to struct sock. But as we keep a pointer to dccps_hc_tx_ccid and free that
-> > during disconnect, the timer should really belong to struct dccp_sock.
-> > 
-> > This addresses CVE-2020-16119.
-> > 
-> > Fixes: 839a6094140a (net: dccp: Convert timers to use timer_setup())
-> 
-> Presumably you chose this commit because the fix won't apply beyond it?
-> But it really fixes 2677d2067731 (dccp: don't free.. right?
+Greetings,
 
-Well, it should also fix cases where dccps_hc_tx_ccid{,_private} has been freed
-right after the timer is stopped.
+I am contact you for an opportunity to invest in any lucrative business 
+in your country.
 
-So, we could add:
-Fixes: 2a91aa396739 ([DCCP] CCID2: Initial CCID2 (TCP-Like) implementation)
-Fixes: 7c657876b63c ([DCCP]: Initial implementation)
+We offer a quick loan at low interest rate, if you are interested, 
+please reply to yingchongan@gmail.com for more details.
 
-But I wouldn't say that this fixes 2677d2067731, unless there is argument to
-say that it fixes it because it claimed to fix what is being fixed here. But
-even the code that it removed was supposed to be stopping the timer, so how
-could it ever fix what it was claiming to fix?
-
-Thanks.
-Cascardo.
-
-> 
-> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-> > Signed-off-by: Kleber Sacilotto de Souza <kleber.souza@canonical.com>
+Sincerely: Ying Chongan

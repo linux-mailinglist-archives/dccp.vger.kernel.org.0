@@ -2,47 +2,61 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 361B42B776D
-	for <lists+dccp@lfdr.de>; Wed, 18 Nov 2020 08:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0C4CB2B8E82
+	for <lists+dccp@lfdr.de>; Thu, 19 Nov 2020 10:17:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726958AbgKRHvt convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Wed, 18 Nov 2020 02:51:49 -0500
-Received: from sw73-70-41.adsl.seed.net.tw ([203.73.70.41]:42929 "EHLO
-        oa.trendtek.com.tw" rhost-flags-OK-FAIL-OK-OK) by vger.kernel.org
-        with ESMTP id S1726964AbgKRHvt (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 18 Nov 2020 02:51:49 -0500
-Received: from [156.96.44.214] ([156.96.44.214])
-        (authenticated bits=0)
-        by oa.trendtek.com.tw (8.13.8/8.13.1) with ESMTP id 0AI7pZ5E021112
-        for <dccp@vger.kernel.org>; Wed, 18 Nov 2020 15:51:47 +0800
-Message-Id: <202011180751.0AI7pZ5E021112@oa.trendtek.com.tw>
-Content-Type: text/plain; charset="iso-8859-1"
+        id S1726485AbgKSJPz (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 19 Nov 2020 04:15:55 -0500
+Received: from mail.boldwhite24.com ([80.211.42.67]:44540 "EHLO
+        mail.boldwhite24.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726406AbgKSJPz (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 19 Nov 2020 04:15:55 -0500
+X-Greylist: delayed 564 seconds by postgrey-1.27 at vger.kernel.org; Thu, 19 Nov 2020 04:15:54 EST
+Received: by mail.boldwhite24.com (Postfix, from userid 1001)
+        id 442CBA3C99; Thu, 19 Nov 2020 09:06:19 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=boldwhite24.com;
+        s=mail; t=1605776788;
+        bh=hS3ibs4caZkahrzgcMN2TAJo2B2H5Muwb2NidDYlIzQ=;
+        h=Date:From:To:Subject:From;
+        b=gjkOeQ/Tw5mcMZ95v34wKR1BfoVI846dJD26Ccc0+RR7fzpvCu0zNH3k89CNLbHop
+         iDmjQfhrQtyNvtR9bEDmKb2TB/k9jdhev3rOGNZaGOlH1safcuaXegedqw5ZdoGPUx
+         MjLcjbIGULpRiykeB4bzCGMB9q8ro75qkPZNwRFkM8hfPBKJ8EUmqbjxuwX0Z5OzZy
+         nX7yYa+s2fMFFCWgTEA9qn5IbMHez8IFsoZv653Xg+BlYRV2IC6xKAzg8rU3+RV9Xl
+         WAVmv4+OePUdy1RRaJIQkpe0MQ3hAyPNJVJkzpvDIRb33AIFx1cHTYlTpT6PwonoXY
+         EPnoc2pPc1oUQ==
+Received: by mail.boldwhite24.com for <dccp@vger.kernel.org>; Thu, 19 Nov 2020 09:06:10 GMT
+Message-ID: <20201119074500-0.1.2c.8zg1.0.ygmx5ym2vn@boldwhite24.com>
+Date:   Thu, 19 Nov 2020 09:06:10 GMT
+From:   =?UTF-8?Q? "Diego_S=C3=A1nchez" ?= <diego.sanchez@boldwhite24.com>
+To:     <dccp@vger.kernel.org>
+Subject: Disinfection
+X-Mailer: mail.boldwhite24.com
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: Corporate and Personal Loan *
-To:     dccp@vger.kernel.org
-From:   "Investment  Corporate" <financialcapability6@gmail.com>
-Date:   Tue, 17 Nov 2020 23:51:28 -0800
-Reply-To: hmurrah39@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello dccp@vger.kernel.org
+Good morning,
 
+looking for companies interested in raising additional capital by diversi=
+fying their offer in soaps, liquids and gels for hand disinfection and co=
+smetics for body and hair care.
 
-We are Base Investment Company offering Corporate and Personal Loan at 3% Interest Rate for a duration of 10Years.
+The distribution of innovative products corresponding to the current pref=
+erences of customers in the field of hygiene and preventive healthcare al=
+lows our partners to gain new markets and achieve better economic results=
+=2E
 
+In addition to products with bactericidal action, our range includes show=
+er gels, shampoos and hair conditioners, as well as efficient, concentrat=
+ed detergents.
 
-We also pay 1% commission to brokers, who introduce project owners for finance or other opportunities.
+The versatility (suitable for all skin types) combined with an affordable=
+ price means that customers make an informed choice of a product among ot=
+hers available on the market.
 
+Are you interested in cooperation?
 
-Please get back to me if you are interested for more
-
-details.
-
-
-Yours faithfully,
-
-Hashim Murrah
+Diego S=C3=A1nchez

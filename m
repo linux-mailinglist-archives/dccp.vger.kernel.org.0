@@ -2,43 +2,53 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E35B2DF730
-	for <lists+dccp@lfdr.de>; Mon, 21 Dec 2020 01:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7C6F42E91A9
+	for <lists+dccp@lfdr.de>; Mon,  4 Jan 2021 09:21:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727107AbgLUATM convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Sun, 20 Dec 2020 19:19:12 -0500
-Received: from mail.univ-alger.dz ([193.194.83.97]:44814 "EHLO
-        mail.univ-alger.dz" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727106AbgLUATM (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sun, 20 Dec 2020 19:19:12 -0500
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.univ-alger.dz (Postfix) with ESMTP id F11334DE618A;
-        Sun, 20 Dec 2020 19:58:55 +0100 (CET)
-Received: from mail.univ-alger.dz ([127.0.0.1])
-        by localhost (mail.univ-alger.dz [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id EaEbivBgcavL; Sun, 20 Dec 2020 19:58:55 +0100 (CET)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.univ-alger.dz (Postfix) with ESMTP id 5E2A64EA756F;
-        Sun, 20 Dec 2020 17:55:25 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mail.univ-alger.dz
-Received: from mail.univ-alger.dz ([127.0.0.1])
-        by localhost (mail.univ-alger.dz [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id tyulyDG5k3hp; Sun, 20 Dec 2020 17:55:25 +0100 (CET)
-Received: from MACBOOK341C.localdomain (unknown [45.132.227.75])
-        by mail.univ-alger.dz (Postfix) with ESMTPSA id 87DBD4D07973;
-        Sat, 19 Dec 2020 16:14:58 +0100 (CET)
-Content-Type: text/plain; charset="utf-8"
+        id S1726178AbhADIVA convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+dccp@lfdr.de>); Mon, 4 Jan 2021 03:21:00 -0500
+Received: from post.dks.ru ([194.226.89.161]:37665 "EHLO post.dks.ru"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726026AbhADIVA (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 4 Jan 2021 03:21:00 -0500
+X-Greylist: delayed 1859 seconds by postgrey-1.27 at vger.kernel.org; Mon, 04 Jan 2021 03:20:59 EST
+Received: from ksmg.dks.lan (unknown [172.17.112.11])
+        by post.dks.ru (Postfix) with ESMTP id 0B585257C4F;
+        Mon,  4 Jan 2021 10:45:58 +0300 (MSK)
+Received: from [192.168.88.237] (unknown [212.154.23.124])
+        (Authenticated sender: zapros@dks.ru)
+        by post.dks.ru (Postfix) with ESMTP id 15F9025452C;
+        Mon,  4 Jan 2021 10:45:54 +0300 (MSK)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8BIT
 Content-Description: Mail message body
-Subject: =?utf-8?q?Sie_haben_eine_Spende_von_=E2=82=AC_5=2E800=2E000=2C00=2E?=
-To:     Recipients <z.benamor@univ-alger.dz>
-From:   "Mrs. Mavis" <z.benamor@univ-alger.dz>
-Date:   Sat, 19 Dec 2020 07:14:46 -0800
-Reply-To: wanczykm61@gmail.com
-Message-Id: <20201219151458.87DBD4D07973@mail.univ-alger.dz>
+Subject: YOUR URGENT RESPONSE !!!!
+To:     Recipients <zapros@dks.ru>
+From:   "Mr. Kim Leang" <zapros@dks.ru>
+Date:   Sun, 03 Jan 2021 23:46:21 -0800
+Reply-To: kimleang575@yahoo.com
+Message-Id: <20210104074555.15F9025452C@post.dks.ru>
+X-KLMS-Rule-ID: 7
+X-KLMS-Message-Action: clean
+X-KLMS-AntiSpam-Status: not scanned, disabled by settings
+X-KLMS-AntiSpam-Interceptor-Info: not scanned
+X-KLMS-AntiPhishing: Clean, bases: 2021/01/04 07:05:00
+X-KLMS-AntiVirus: Kaspersky Security for Linux Mail Server, version 8.0.3.30, bases: 2021/01/04 05:34:00 #16008269
+X-KLMS-AntiVirus-Status: Clean, skipped
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Sie haben eine Spende von € 5.800.000,00. von Mavis Wanczyk antworten Sie mit diesem Code [MW530342019], um die Spende zu erhalten
+Greeting!
+
+I am contacting you to receive and share with me an abandoned fund ( $21,537.000.00 ) left in our bank by a deceased customer. I was going through the Internet search when I found your email address. My name is Mr. Kim Leang.
+
+I want to utilize this opportunity and make use of this fund if I should present your name to the bank to stand as his business associate/ trustee for the fund to be released to you via Visa card for easy withdrawals in any VISA ATM machine anywhere in the World.
+
+The bank will also give you international online transfer options. With these you can transfer the funds without any risk.
+
+Should you be interested in working with me in this project? Please reply back and let's benefit from this golden opportunity.You are my first contact. I shall wait a few days and if I do not hear from you, I shall look for another person.
+
+Thanks and have a nice day,
+Mr. Kim Leang

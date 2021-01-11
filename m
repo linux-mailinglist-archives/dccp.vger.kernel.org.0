@@ -2,68 +2,96 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 65E4A2EA46B
-	for <lists+dccp@lfdr.de>; Tue,  5 Jan 2021 05:24:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2492D2F0C82
+	for <lists+dccp@lfdr.de>; Mon, 11 Jan 2021 06:30:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727783AbhAEEWJ (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 4 Jan 2021 23:22:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47214 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726477AbhAEEWI (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 4 Jan 2021 23:22:08 -0500
-Received: from mail-il1-x145.google.com (mail-il1-x145.google.com [IPv6:2607:f8b0:4864:20::145])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 84A09C061793
-        for <dccp@vger.kernel.org>; Mon,  4 Jan 2021 20:21:28 -0800 (PST)
-Received: by mail-il1-x145.google.com with SMTP id z8so29495577ilq.21
-        for <dccp@vger.kernel.org>; Mon, 04 Jan 2021 20:21:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:message-id:date:subject:from:to;
-        bh=ZVsWd2k0CNzUINjY0HkNHALt/zlimXW4XvZJ6lZluss=;
-        b=QkUr+Tvvv9fUEdYz0ozQoW9+l4ag/WvsOHVTAVHmPZBtaaS5/bPalkyMFPuzqdWoOQ
-         RJiML9m1bobcQ6TX7D55BxthegQLLwFyuDGzacK2GxdTmFimxzP8lMkcxbEHylhOpJ+U
-         iOlRpz4zBt79HvciU+4Rc3T03689MZGlMb8fKTxXx5SrkmaImWPtPxtD6FtN+1/fuDIE
-         wUOXilZrhwya+1jlGTD/7/K1dMDcDNxNfXtFTuIBDpHGekzjd/u3T3C/Fizwj+vXpjhr
-         +EtkB7ZPBsesnl5C1ZHw4cvaHhKIK+2jdu5TeL9naGUq3v67SRz8M39WA/qDA4aTWv9D
-         B54g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:message-id:date:subject
-         :from:to;
-        bh=ZVsWd2k0CNzUINjY0HkNHALt/zlimXW4XvZJ6lZluss=;
-        b=f56G4b3ijvdpYUsTLv3Oezid0xiz8dWGTtaKcw36kaCGnfmVGtQwvezZFTgHvbwePr
-         jJXZhJFbL5iPaRF8cFY42pXpgYrAUO87Wm7g3ROBSmUoDthMQ8yqQ+7D4mqb2kUG5mSp
-         ck/c4y0j+7WS8XyKkcw5PVWIghvYqXotFJjyWFja8zaMm71HE3qyz6YVSoruGwE/FS3k
-         eLEGpfos858uWd56TkIPrZcT35qplpGLwQtn8veOaDAJtWfj7RBKUz6knBszuVXrGZ9j
-         pNhLaiev64mJX5EiX16mzfSYQICJaDL0rQmIUqFV3IRIfNbVvo8HvQJlyZwn9EWDDCtZ
-         Ru8g==
-X-Gm-Message-State: AOAM532qb06Eh3l4CE+HNaK/SjNUMZ6GXaFz89DKJ2OtfpFjo+bf71kg
-        PUu4isFcuBw53AHXerwA7eufcw+uMQ==
-X-Google-Smtp-Source: ABdhPJz+Vp/fpCEeYhdbGhqx/mKBMnWofMf3uiJpD+2Wj/1htsy8ioUbmnxAa5VFnt1lCR1gCTNRaK6Lbg==
+        id S1727235AbhAKF3Y (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 11 Jan 2021 00:29:24 -0500
+Received: from mail.kernel.org ([198.145.29.99]:59790 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725379AbhAKF3Y (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 11 Jan 2021 00:29:24 -0500
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 19C5D22A84;
+        Mon, 11 Jan 2021 05:28:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1610342886;
+        bh=8n1buGqP5y0s2TCt4RW1zjkRRvXQwDf2s6jx4JQZH3U=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=YvYinCC0j41LAtpwH5OeDN4BkSZiHg44J2YCDO1fM45mxjGqoqMVC7PebgRASpijx
+         HgogGULqCoU6u13MXBhYsBl3OVr+TiVsf+55lHLHlp+FVNdOPEhxFlog6e9NDqcfP2
+         tmrjuepxHBogSXnlmyqJOcbED/9aJyroZsKrFLIl2kAKDz/43mPTfIccLuIp8LZ75K
+         f9QYCWXNqG9ylNWGTw4wHENwMYNtN1TqIW9xxyAXKHPBLtlesjoWAh9rlVyTjswTuF
+         NfV3HYh0ZCA5GF1Lf6mFxpjGEYQznTasLp70EbOKl6kdbA1/8mFZxuADoFHMoBBNYW
+         YpvJvSwbBG8kQ==
+From:   Jakub Kicinski <kuba@kernel.org>
+To:     davem@davemloft.net
+Cc:     netdev@vger.kernel.org, corbet@lwn.net,
+        Jakub Kicinski <kuba@kernel.org>,
+        Gerrit Renker <gerrit@erg.abdn.ac.uk>, dccp@vger.kernel.org
+Subject: [PATCH net 8/9] MAINTAINERS: dccp: move Gerrit Renker to CREDITS
+Date:   Sun, 10 Jan 2021 21:27:58 -0800
+Message-Id: <20210111052759.2144758-9-kuba@kernel.org>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20210111052759.2144758-1-kuba@kernel.org>
+References: <20210111052759.2144758-1-kuba@kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a92:c052:: with SMTP id o18mr73734360ilf.245.1609820487991;
- Mon, 04 Jan 2021 20:21:27 -0800 (PST)
-Reply-To: submitbmj@gmail.com
-Message-ID: <00000000000056c4bd05b81f8a3e@google.com>
-Date:   Tue, 05 Jan 2021 04:21:27 +0000
-Subject: Call for papers to UGC CARE Group - 2 Journal
-From:   ugcpublication37@gmail.com
-To:     dccp@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Publication in Web of Science Journal
+As far as I can tell we haven't heard from Gerrit for roughly
+5 years now. DCCP patch would really benefit from some review.
+Gerrit was the last maintainer so mark this entry as orphaned.
 
-Journal Name : BULLETIN MONUMENTAL JOURNAL
+Subsystem DCCP PROTOCOL
+  Changes 38 / 166 (22%)
+  (No activity)
+  Top reviewers:
+    [6]: kstewart@linuxfoundation.org
+    [6]: allison@lohutok.net
+    [5]: edumazet@google.com
+  INACTIVE MAINTAINER Gerrit Renker <gerrit@erg.abdn.ac.uk>
 
-ISSN / E-ISSN  0007-473X
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+CC: Gerrit Renker <gerrit@erg.abdn.ac.uk>
+CC: dccp@vger.kernel.org
+---
+ CREDITS     | 4 ++++
+ MAINTAINERS | 3 +--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-IMPACT FACTOR : 3.9
-
-Website : http://bulletinmonumental(dot)com/
-
-submit your paper to : submitbmj@gmail.com
-
+diff --git a/CREDITS b/CREDITS
+index ce8eae8c5aa4..9add7e6a4fa0 100644
+--- a/CREDITS
++++ b/CREDITS
+@@ -1288,6 +1288,10 @@ D: Major kbuild rework during the 2.5 cycle
+ D: ISDN Maintainer
+ S: USA
+ 
++N: Gerrit Renker
++E: gerrit@erg.abdn.ac.uk
++D: DCCP protocol support.
++
+ N: Philip Gladstone
+ E: philip@gladstonefamily.net
+ D: Kernel / timekeeping stuff
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a5d69857f85a..17736ec96ec4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4920,9 +4920,8 @@ F:	Documentation/scsi/dc395x.rst
+ F:	drivers/scsi/dc395x.*
+ 
+ DCCP PROTOCOL
+-M:	Gerrit Renker <gerrit@erg.abdn.ac.uk>
+ L:	dccp@vger.kernel.org
+-S:	Maintained
++S:	Orphan
+ W:	http://www.linuxfoundation.org/collaborate/workgroups/networking/dccp
+ F:	include/linux/dccp.h
+ F:	include/linux/tfrc.h
+-- 
+2.26.2
 

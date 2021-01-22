@@ -2,96 +2,57 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCAB92F56AB
-	for <lists+dccp@lfdr.de>; Thu, 14 Jan 2021 02:58:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9797F300DC8
+	for <lists+dccp@lfdr.de>; Fri, 22 Jan 2021 21:33:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727329AbhANBux (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 13 Jan 2021 20:50:53 -0500
-Received: from mail.kernel.org ([198.145.29.99]:38818 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727766AbhANBuv (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 13 Jan 2021 20:50:51 -0500
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F1127206C0;
-        Thu, 14 Jan 2021 01:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1610588968;
-        bh=9KInFi5fXxIERSI2PINj/9fkEZrMhgJ/+LUafo/G4kw=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=WKAa6mSHHtSSwS7UfMr2S2/CcOTiNHkiKFFcF3sf3/gCzE3GgTeIfARFGYwqlh8Gg
-         uqTntwg5I+UgL3lJ+QgAZHgUfz0mhS9JtwF43+xccUSZpdSpd0MYeN5Bhyjod5EVAL
-         KhNCTPIzZJ0KVACowgePASz7wfkrA93lY3BfWAWpLyd9Q2GF3QpM//j94mj7AoSMF7
-         9aIdiYGPGpmr8WpZPai/al0zfEtsCzwzSOwkole/VACZYOfb7wxV+XU6eAmePv2QqL
-         2zGQVc19uY8L4D5QbpoZ1DV0PTAWZor4em9oSXMXX7KoY1xCH7yt0Af78/5dondUdb
-         mJj1l7cDOIzdw==
-From:   Jakub Kicinski <kuba@kernel.org>
-To:     davem@davemloft.net
-Cc:     netdev@vger.kernel.org, corbet@lwn.net,
-        Jakub Kicinski <kuba@kernel.org>,
-        Gerrit Renker <gerrit@erg.abdn.ac.uk>, dccp@vger.kernel.org
-Subject: [PATCH net v2 7/7] MAINTAINERS: dccp: move Gerrit Renker to CREDITS
-Date:   Wed, 13 Jan 2021 17:49:12 -0800
-Message-Id: <20210114014912.2519931-8-kuba@kernel.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210114014912.2519931-1-kuba@kernel.org>
-References: <20210114014912.2519931-1-kuba@kernel.org>
+        id S1729750AbhAVUb5 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 22 Jan 2021 15:31:57 -0500
+Received: from mail.padangpariamankab.go.id ([103.94.3.123]:37900 "EHLO
+        mail.padangpariamankab.go.id" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1731037AbhAVU3u (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Fri, 22 Jan 2021 15:29:50 -0500
+X-Greylist: delayed 838 seconds by postgrey-1.27 at vger.kernel.org; Fri, 22 Jan 2021 15:29:49 EST
+Received: from localhost (localhost [127.0.0.1])
+        by mail.padangpariamankab.go.id (Postfix) with ESMTP id 820166E6380;
+        Sat, 23 Jan 2021 03:11:45 +0700 (WIB)
+Received: from mail.padangpariamankab.go.id ([127.0.0.1])
+        by localhost (mail.padangpariamankab.go.id [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id 0U1J4scRXTee; Sat, 23 Jan 2021 03:11:45 +0700 (WIB)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.padangpariamankab.go.id (Postfix) with ESMTP id 4944F6E6384;
+        Sat, 23 Jan 2021 03:11:44 +0700 (WIB)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.padangpariamankab.go.id 4944F6E6384
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=padangpariamankab.go.id; s=D2C6CDEC-3607-11EA-BC8A-EEDE4AB8B776;
+        t=1611346304; bh=4AhSoXRU63EAbbOwseUY/pxjidGey07DskAQ7pZ9AvE=;
+        h=Date:From:Message-ID:MIME-Version;
+        b=FH659otdcI9o+CW4QioQGNfK9ch9hbg7D/eBAtowd232dWrF08A15Ey3IUmuKVW/I
+         C3on270zsX5FhHKo84EqYz2WPFX33Kp8dfuMFY4VfGvJDvErAzlaJU95ab916t5Fvh
+         gkiK42CLSZbkjaffs3XeegP5vcOBSy5II7h60pak=
+X-Virus-Scanned: amavisd-new at padangpariamankab.go.id
+Received: from mail.padangpariamankab.go.id ([127.0.0.1])
+        by localhost (mail.padangpariamankab.go.id [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id luCc8M56KfnB; Sat, 23 Jan 2021 03:11:43 +0700 (WIB)
+Received: from mail.padangpariamankab.go.id (mail.padangpariamankab.go.id [103.94.3.123])
+        by mail.padangpariamankab.go.id (Postfix) with ESMTP id 939F36E6377;
+        Sat, 23 Jan 2021 03:11:41 +0700 (WIB)
+Date:   Sat, 23 Jan 2021 03:11:41 +0700 (WIB)
+From:   GREENLIGHT <rsud@padangpariamankab.go.id>
+Reply-To: "Greenlight Financial Services " <greenlightservices@usa.com>
+Message-ID: <39936987.14609.1611346301481.JavaMail.zimbra@padangpariamankab.go.id>
+Subject: Update
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [103.94.3.123]
+X-Mailer: Zimbra 8.8.15_GA_3895 (zclient/8.8.15_GA_3895)
+Thread-Index: 11Wua0VzJgVypXRvoSKmn9CuE4xrPQ==
+Thread-Topic: Update
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-As far as I can tell we haven't heard from Gerrit for roughly
-5 years now. DCCP patch would really benefit from some review.
-Gerrit was the last maintainer so mark this entry as orphaned.
 
-Subsystem DCCP PROTOCOL
-  Changes 38 / 166 (22%)
-  (No activity)
-  Top reviewers:
-    [6]: kstewart@linuxfoundation.org
-    [6]: allison@lohutok.net
-    [5]: edumazet@google.com
-  INACTIVE MAINTAINER Gerrit Renker <gerrit@erg.abdn.ac.uk>
 
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
----
-CC: Gerrit Renker <gerrit@erg.abdn.ac.uk>
-CC: dccp@vger.kernel.org
----
- CREDITS     | 4 ++++
- MAINTAINERS | 3 +--
- 2 files changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/CREDITS b/CREDITS
-index ce8eae8c5aa4..9add7e6a4fa0 100644
---- a/CREDITS
-+++ b/CREDITS
-@@ -1288,6 +1288,10 @@ D: Major kbuild rework during the 2.5 cycle
- D: ISDN Maintainer
- S: USA
- 
-+N: Gerrit Renker
-+E: gerrit@erg.abdn.ac.uk
-+D: DCCP protocol support.
-+
- N: Philip Gladstone
- E: philip@gladstonefamily.net
- D: Kernel / timekeeping stuff
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 18e75e29c672..2a6dc5bfa08c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4920,9 +4920,8 @@ F:	Documentation/scsi/dc395x.rst
- F:	drivers/scsi/dc395x.*
- 
- DCCP PROTOCOL
--M:	Gerrit Renker <gerrit@erg.abdn.ac.uk>
- L:	dccp@vger.kernel.org
--S:	Maintained
-+S:	Orphan
- W:	http://www.linuxfoundation.org/collaborate/workgroups/networking/dccp
- F:	include/linux/dccp.h
- F:	include/linux/tfrc.h
--- 
-2.26.2
-
+We offer Reliable/Low Interest Rate Financial Services to Companies & Individuals including; Start-Up Business, Loans & Mortgage ETC. Apply Now

@@ -2,59 +2,66 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E251C30ED55
-	for <lists+dccp@lfdr.de>; Thu,  4 Feb 2021 08:30:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B7BC6310B69
+	for <lists+dccp@lfdr.de>; Fri,  5 Feb 2021 13:54:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234517AbhBDH2R (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 4 Feb 2021 02:28:17 -0500
-Received: from szxga06-in.huawei.com ([45.249.212.32]:12416 "EHLO
-        szxga06-in.huawei.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234165AbhBDH2P (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 4 Feb 2021 02:28:15 -0500
-Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.59])
-        by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4DWVTv5Hb4zjHZh;
-        Thu,  4 Feb 2021 15:26:27 +0800 (CST)
-Received: from ubuntu.network (10.175.138.68) by
- DGGEMS407-HUB.china.huawei.com (10.3.19.207) with Microsoft SMTP Server id
- 14.3.498.0; Thu, 4 Feb 2021 15:27:23 +0800
-From:   Zheng Yongjun <zhengyongjun3@huawei.com>
-To:     <gerrit@erg.abdn.ac.uk>, <davem@davemloft.net>, <kuba@kernel.org>,
-        <dccp@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC:     Zheng Yongjun <zhengyongjun3@huawei.com>
-Subject: [PATCH net-next] dccp: Return the correct errno code
-Date:   Thu, 4 Feb 2021 15:28:20 +0800
-Message-ID: <20210204072820.17723-1-zhengyongjun3@huawei.com>
-X-Mailer: git-send-email 2.22.0
+        id S231377AbhBEMxl (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 5 Feb 2021 07:53:41 -0500
+Received: from smtp-18d.idc2.mandic.com.br ([177.70.124.135]:10575 "EHLO
+        smtp-18.idc2.mandic.com.br" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S231423AbhBEMv3 (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Fri, 5 Feb 2021 07:51:29 -0500
+X-Greylist: delayed 592 seconds by postgrey-1.27 at vger.kernel.org; Fri, 05 Feb 2021 07:51:28 EST
+Received: by smtp-18.smtp.mandic.prv (Postfix, from userid 491)
+        id 6DCE06015882; Fri,  5 Feb 2021 09:40:21 -0300 (-03)
+Received: from smtp-18.idc2.mandic.com.br (ifsmtp2 [192.168.1.38])
+        by smtp-18.smtp.mandic.prv (Postfix) with ESMTPS id AEB33600163E;
+        Fri,  5 Feb 2021 09:40:11 -0300 (-03)
+Received: from User (unknown [52.235.38.23])
+        by smtp-18.smtp.mandic.prv (Postfix) with ESMTPA id 2CBB84693E9B;
+        Fri,  5 Feb 2021 09:37:39 -0300 (-03)
+Reply-To: <ms.reem@yandex.com>
+From:   "Ms. Reem" <stefy@macrometrica.com.br>
+Subject: Re:reply
+Date:   Fri, 5 Feb 2021 12:40:09 -0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [10.175.138.68]
-X-CFilter-Loop: Reflected
+Content-Type: text/plain;
+        charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+X-Mandic-Auth: DYB6x5JcyVot9snxiAasWC73cfc93V+pC3vUrorm87+eXbqAUeEHL0ZNPgpM50IYQeUbiYx0PkMIK2oavHcOOA==
+X-Mandic-Sender: stefy@macrometrica.com.br
+Message-Id: <20210205124014.AEB33600163E@smtp-18.smtp.mandic.prv>
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-When kalloc or kmemdup failed, should return ENOMEM rather than ENOBUF.
+Hello,
 
-Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
----
- net/dccp/feat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
+and Petroleum" also "Minister of State for International Cooperation"
+in UAE. I write to you on behalf of my other "three (3) colleagues"
+who has approved me to solicit for your "partnership in claiming of
+{us$47=Million}" from a Financial Home in Cambodia on their behalf and
+for our "Mutual Benefits".
 
-diff --git a/net/dccp/feat.c b/net/dccp/feat.c
-index 788dd629c420..4cb813bee7b4 100644
---- a/net/dccp/feat.c
-+++ b/net/dccp/feat.c
-@@ -371,7 +371,7 @@ static int dccp_feat_clone_sp_val(dccp_feat_val *fval, u8 const *val, u8 len)
- 		fval->sp.vec = kmemdup(val, len, gfp_any());
- 		if (fval->sp.vec == NULL) {
- 			fval->sp.len = 0;
--			return -ENOBUFS;
-+			return -ENOMEM;
- 		}
- 	}
- 	return 0;
--- 
-2.22.0
+The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
+deal with Cambodian/Vietnam Government within 2013/2014, however, we
+don't want our government to know about the fund. If this proposal
+interests you, let me know, by sending me an email and I will send to
+you detailed information on how this business would be successfully
+transacted. Be informed that nobody knows about the secret of this
+fund except us, and we know how to carry out the entire transaction.
+So I am compelled to ask, that you will stand on our behalf and
+receive this fund into any account that is solely controlled by you.
 
+We will compensate you with 15% of the total amount involved as
+gratification for being our partner in this transaction. Reply to:
+ms.reem@yandex.com
+
+Regards,
+Ms. Reem.

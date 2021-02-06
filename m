@@ -2,68 +2,66 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2FA3D311DBB
-	for <lists+dccp@lfdr.de>; Sat,  6 Feb 2021 15:37:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DF2DB311FA0
+	for <lists+dccp@lfdr.de>; Sat,  6 Feb 2021 20:21:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229715AbhBFOho (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 6 Feb 2021 09:37:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51496 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230160AbhBFOhm (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 6 Feb 2021 09:37:42 -0500
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D873C06178B
-        for <dccp@vger.kernel.org>; Sat,  6 Feb 2021 06:36:56 -0800 (PST)
-Received: by mail-oi1-x22e.google.com with SMTP id h6so10792605oie.5
-        for <dccp@vger.kernel.org>; Sat, 06 Feb 2021 06:36:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=sY4fgq/DSyThalwU7QX+pWYKs/8sGH7ZznMUn5qQ1EY=;
-        b=PutVU1Yv81y1kS53LR9RZqrjG6EzeneIe4EOmzIRVPwaYgjKhi4ub7ofj8ER5+kHVt
-         GwvCbLH3QTQE7jDXFhq1VPMGEF9ewW+d3VBH4l+Z93zGSiObQQOr0c17Z8/x5afnrWnz
-         YPjedjjpcypEp1l8f0oN75di1IJQ4nelELEwYM6JGvpfApqyfhyUTJTUz18r09lFNqPs
-         jvT5MB5+VIrvQqlKwUrdItXlo9qbTyzUuEVcOsjjyptr5G47nbApCXpnFvIxnMDolkwX
-         qs1CWQnHxDJkerh7308+cz+OS6eOWIoRt34w++1nCa0wOn0c83+47zE+zT/KRJe9cO6A
-         edeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=sY4fgq/DSyThalwU7QX+pWYKs/8sGH7ZznMUn5qQ1EY=;
-        b=C6PFKBKBS1Xp/v+Dr+SUScgdR2Zeh/KgfuEPMqL4PWpIfMGrkceeATYzREv6hfNdmd
-         6NtFpMIUqZ0vzhfMCp+Bf4hnGbUlZK9MJloXCaCeDv+4DU7Gqzca3Tg48ns1ESD8rQ8P
-         RL9EaK2VXnSk/pIp4wo1v9IIhcAML/kAr/+FNTcfj2wYQ6kHm5bpwJAmwSOiwEZI+hSv
-         gSSBRkXVCnR4Iuw+SNDNKze9X/LeZ3upfmem1DUAQd31c/H8mBxak5ZOmzgJMWXO92XA
-         R2cBc/mm1Elg4f3ZA2w6l+MqdhkQikIqIsmDXzNEE4QhQ0132WOnoekeKOHElBkT4jaN
-         n72A==
-X-Gm-Message-State: AOAM530xZ7ACcfhlHF47SzrSlaHrOhzIiL6Zi3TRKo/sO3578HT4WD1n
-        oKoTgCJtOvMA8kpzNv1blUSDvuH5mSNLEBV93UM=
-X-Google-Smtp-Source: ABdhPJzyWcdeDL5el+yt/NqOxEwukQwNWR/9yQhVuIKoddPTVVQ5/hcEqEXo93vjU2Isk63ozcwhP4Z+KCIik/ZnQPU=
-X-Received: by 2002:aca:c545:: with SMTP id v66mr94056oif.116.1612622215469;
- Sat, 06 Feb 2021 06:36:55 -0800 (PST)
+        id S230192AbhBFTU4 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 6 Feb 2021 14:20:56 -0500
+Received: from mail.kernel.org ([198.145.29.99]:53746 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S230131AbhBFTUs (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 6 Feb 2021 14:20:48 -0500
+Received: by mail.kernel.org (Postfix) with ESMTPS id 9127D64E37;
+        Sat,  6 Feb 2021 19:20:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1612639207;
+        bh=BjZRiIakt7B56z4nBVLZY8vsaDDDEf7WLoPXoLb8VT0=;
+        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+        b=JaBMiHROrSR4a2cH3EzxLERxczUhbiVww9eMF4KaPwllCGIGb9Mf9A+GgWB85XHPt
+         D/7MXfsTNC/lt49uyfaRF3B491Uel1TWENhQg/aVKfJBs2Msdms1po1yREi40XrTV1
+         XTgcZbz+fHOM+ZoFbFjJgsZvXfdZkzNzYWK5wYeXYxJ2AWqItLLfid3PFglntrsRQf
+         bAZO+AM9B/WNNG+V27pPG/zKamqlkjVcNy9+ji6V23LOhas5PKLclt9rpWFuh+uq0O
+         mVaGPvR/KVt8FShgRaVRFT4GQD5LzFNkzK2jQtb2GUO8I+X0SLSVwQtcty3aE0d72V
+         wKbGOtn7uBinw==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
+        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 849A7609F7;
+        Sat,  6 Feb 2021 19:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Received: by 2002:a9d:3e4c:0:0:0:0:0 with HTTP; Sat, 6 Feb 2021 06:36:55 -0800 (PST)
-Reply-To: lawyer.nba@gmail.com
-From:   Barrister Daven Bango <stephennbada@gmail.com>
-Date:   Sat, 6 Feb 2021 15:36:55 +0100
-Message-ID: <CAO_fDi_1zUcF6J0pON223AKBah8g33qJcpy-uZK+OKZHDH_zMw@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] dccp: Return the correct errno code
+From:   patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161263920753.23851.11461572850833171527.git-patchwork-notify@kernel.org>
+Date:   Sat, 06 Feb 2021 19:20:07 +0000
+References: <20210204072820.17723-1-zhengyongjun3@huawei.com>
+In-Reply-To: <20210204072820.17723-1-zhengyongjun3@huawei.com>
+To:     Zheng Yongjun <zhengyongjun3@huawei.com>
+Cc:     gerrit@erg.abdn.ac.uk, davem@davemloft.net, kuba@kernel.org,
+        dccp@vger.kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
---=20
-Korisnik fonda =C4=8Destitanja, Va=C5=A1a sredstva za naknadu od 850.000,00
-ameri=C4=8Dkih dolara odobrila je Me=C4=91unarodna monetarna organizacija (=
-MMF)
-u suradnji s (FBI) nakon mnogo istraga. =C4=8Cekamo da se obratimo za
-dodatne informacije
+Hello:
 
-Advokat: Daven Bango
-Telefon: +22891667276
-(URED MMF-a LOME TOGO)
+This patch was applied to netdev/net-next.git (refs/heads/master):
+
+On Thu, 4 Feb 2021 15:28:20 +0800 you wrote:
+> When kalloc or kmemdup failed, should return ENOMEM rather than ENOBUF.
+> 
+> Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
+> ---
+>  net/dccp/feat.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+
+Here is the summary with links:
+  - [net-next] dccp: Return the correct errno code
+    https://git.kernel.org/netdev/net-next/c/247b557ee52a
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+

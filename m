@@ -2,65 +2,48 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F46C312DAE
-	for <lists+dccp@lfdr.de>; Mon,  8 Feb 2021 10:47:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8CE323158B6
+	for <lists+dccp@lfdr.de>; Tue,  9 Feb 2021 22:40:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231892AbhBHJqz (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 8 Feb 2021 04:46:55 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37782 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231665AbhBHJos (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 8 Feb 2021 04:44:48 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62784C06178B
-        for <dccp@vger.kernel.org>; Mon,  8 Feb 2021 01:42:38 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id t142so9812151wmt.1
-        for <dccp@vger.kernel.org>; Mon, 08 Feb 2021 01:42:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=z7Z/JdX0RhrlgqchmamXWMY47TIIKUp5Zm0+e0J1lMs=;
-        b=M7t1XnWkOFFCe0b72eSK17MK2UmyOMXX0Q5QU7VziRJAmMplZgC2NAQVBFyehX7WKX
-         3gtJwFjnK1GnOqdBCG49y0ih412qIGFg+UGIsOgw/MdHQEzhGEYCQ3c9WNugW8KAK3HP
-         794M37pX/vAx2APxrlD9GjpPtq73fYBPQRQw09fQuAJSXwDhgipq79CpONOFJZyMUAuz
-         tQS3yOsZR1cqXYneKZg99xo989ujxk2OAdlMGgQuXHq0qQ9eQ5vM2OwCNyWhr2zmSMeu
-         MN6Wl9r1ssl9GXjm5n5mnygM0ke4/5+VSD7VM9AA0v2pqqWgqN5LUYXp/K+6dr7pqnVc
-         gvrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=z7Z/JdX0RhrlgqchmamXWMY47TIIKUp5Zm0+e0J1lMs=;
-        b=FnrO0afh3hCxMX+Id9y4V437YqIio/7sBjYm6Q5v0U52LldGb6mxyQe1VQfeRgrDus
-         JQIBUUk0EdOI1wB9S/QZHso3llyhlLm3Fiqy2/l+4ja/PB3pvQlYMDehzIZ2fB+mvNHi
-         ClSCaM3kVEAi2TnPKo+jePEB5NCFv/OJJdFZREym7+0EpQRmoOHONeP/X5o8rrqLK7bk
-         ernBdTndLlR7U+MBZyxTX5z0txiF7ejAp78BS9oGonniwW3/Zl4ZVXk0fV8/mndbpqTy
-         YvAt7gHk1Pq7uTfuFBMOYiRFYK3CnnIBJkdMWM7nzNJ0xDLc6IDFwav3cUwTDiTn47ih
-         iPRw==
-X-Gm-Message-State: AOAM530ctFCA6bF00I/5wazFZ9LEZ68xwG3/pcnJXFrGwMknxMqnkdkN
-        EkKAo73929hwWwBuiJs/xJl6S44wh1nMF5tKwvE=
-X-Google-Smtp-Source: ABdhPJwHXjBFfHh6GUHeSU0pS6GtSZpKhr6izt183GE0wZjCV6ME1xUoXdYKmZ/WPvLMD4eEH2XCy/rVnbB+arEBSEo=
-X-Received: by 2002:a05:600c:3510:: with SMTP id h16mr13633566wmq.156.1612777357169;
- Mon, 08 Feb 2021 01:42:37 -0800 (PST)
+        id S233916AbhBIVgA (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 9 Feb 2021 16:36:00 -0500
+Received: from [125.140.134.231] ([125.140.134.231]:57923 "EHLO
+        WINDOWS-63LO558" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
+        with ESMTP id S233881AbhBIUvV (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 9 Feb 2021 15:51:21 -0500
+Received: from WIN-U2MN3QEVVH1 ([154.127.53.41]) by WINDOWS-63LO558 with Microsoft SMTPSVC(10.0.14393.2608);
+         Wed, 10 Feb 2021 05:50:42 +0900
+Reply-To: <mrs.verenich_ekmaterina@yahoo.com>
+From:   "erenich ekaterina" <verenichekaterinaekaterina@gmail.com>
+Subject: Dear Beloved
+Date:   Tue, 9 Feb 2021 12:50:41 -0800
 MIME-Version: 1.0
-Received: by 2002:a1c:2c82:0:0:0:0:0 with HTTP; Mon, 8 Feb 2021 01:42:36 -0800 (PST)
-Reply-To: infowebb@citromail.hu
-From:   "Mr. Richard Thomas" <rictthhomas@gmail.com>
-Date:   Mon, 8 Feb 2021 01:42:36 -0800
-Message-ID: <CAHG73zwh4turz5mhmqY-PaTpGF0HubufKLmrK2Fa8j0zcOFxUw@mail.gmail.com>
-Subject: Re Thanks.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+        charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+Message-ID: <WINDOWS-63LO558Q4hf0001f1b8@WINDOWS-63LO558>
+X-OriginalArrivalTime: 09 Feb 2021 20:50:42.0458 (UTC) FILETIME=[3B1C1FA0:01D6FF25]
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dear Friend,
-I will be pleased if you can allow me to invest $104M Dollars in
-Estate Management,in your company or any area you best that will be
-of good profit to both of us
+Dear Beloved
 
-Please do well to respond including your information for more details.
+Life is gradually passing away from me as a result of my present medical condition and my personal doctor confided in me yesterday that I have only but few more weeks to live.
 
-Thanks.
-Mr.Richard Thomas
+In view of this setback, I want to donate my estate for humanitarian assistance, since this has always been the plan of my late husband and besides I have no child.
+
+In an effort to compliment the good work of God almighty and the wish of my late Husband I donate the sum of $2,800,000.00 (Two Million Eight Hundred Thousand United States Dollars) to you.
+
+On your acknowledgment of this mail and informing me of your nationality and current place of resident, my Bank will facilitate due processes for transfer of this legacy to you.
+
+May God bless you as you use this money judiciously for the work of charity.
+
+Sincere regards,
+
+Mrs.verenich ekaterina

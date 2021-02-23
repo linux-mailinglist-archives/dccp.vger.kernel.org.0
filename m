@@ -2,60 +2,65 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AC86B322191
-	for <lists+dccp@lfdr.de>; Mon, 22 Feb 2021 22:38:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 05B573226DB
+	for <lists+dccp@lfdr.de>; Tue, 23 Feb 2021 09:08:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232018AbhBVVga (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 22 Feb 2021 16:36:30 -0500
-Received: from mail.jvpinto.com ([65.49.11.60]:7004 "EHLO mail.JVPinto.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S231976AbhBVVgZ (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 22 Feb 2021 16:36:25 -0500
-Received: from RW-EXC1.JVPinto.com (2002:ac20:10d::ac20:10d) by
- RW-EXC1.JVPinto.com (2002:ac20:10d::ac20:10d) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 22 Feb 2021 13:35:37 -0800
-Received: from User (52.231.198.195) by RW-EXC1.JVPinto.com (172.32.1.13) with
- Microsoft SMTP Server id 15.0.1497.2 via Frontend Transport; Mon, 22 Feb 2021
- 13:35:22 -0800
-Reply-To: <ms.reem@yandex.com>
-From:   "Ms. Reem" <johnpinto@jvpinto.com>
-Subject: Hello okay
-Date:   Mon, 22 Feb 2021 21:35:36 +0000
+        id S232164AbhBWIHV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 23 Feb 2021 03:07:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60006 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232165AbhBWIGq (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 23 Feb 2021 03:06:46 -0500
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com [IPv6:2607:f8b0:4864:20::102e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E9DAC0617A7
+        for <dccp@vger.kernel.org>; Tue, 23 Feb 2021 00:05:36 -0800 (PST)
+Received: by mail-pj1-x102e.google.com with SMTP id e9so1363718pjj.0
+        for <dccp@vger.kernel.org>; Tue, 23 Feb 2021 00:05:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=rjFLgW1OULBXQlh3JS0FsFrrUu6RfNW+e5SQFjA5Djs=;
+        b=uGoV/tmvPW0x1zTmRvQrMHXEcLR/exG7a7FtnEs29oNWjZWaSeSm4WGxQY4l28Dn+o
+         z15cf4DE/oHGb+fgxVjkDl/KTmul7wO9hCgDF3rwFRdeM3rm1sTRaz8Lwcn5b2tSHLNo
+         Y7MFqhzB2PduI2TWYc8fdZ7rzAT4fYLThXGf5eUaWVfmsbJgS6o9j1LErAH5KoOz4Qbo
+         M4eGFM3WtbuT884w4qCZ7g/JofPTnivW6ZbKwgCnXBdclDA4j2TSYaSW/9lV6PEJgChi
+         NQjjHCJF5quvYHKJUdxAIPP/Z06UJnYWcG9Uz14QkePHrLcA0YViNjidRld3UY5p9ifd
+         MAbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=rjFLgW1OULBXQlh3JS0FsFrrUu6RfNW+e5SQFjA5Djs=;
+        b=OT1lFUZLxQZC8KWht39Kt+BtmsfSENWm3UO8rlAae9A6fFm/VVJTdjywjbDyW6QRn8
+         B4NOLwc1yGp/B45bQ8SoVM62mQZ98WmMdSWKv8+uHU3eu1bOpkiDNttQ+eP7vnnC5NC2
+         1J2XxXige+xz4ZGpc48Ze2aW/kssIxecNmGuLSKttScxKiqXRLJdxfqLj6zEsfw80xVw
+         cZqNxQxInVr744KiqYHJdJAB30FsNBLjuc+z3UlJrchKH/kazOIUac3Z44kL4g1mEAcE
+         HXYGMVRVLLV359UWbTR4LrzvTnIFvlAOo2e151LDNhxeKsjxQBX/sRuWCoSGRQ+b2UXI
+         MkoA==
+X-Gm-Message-State: AOAM532/fbv1E48lGqyeXmHQo7f7ax5VyIrxDxCt/flcSwytv2e/1TSl
+        mx3ccj1PjfM0Qn9X1fGXWY6AoRL2qC6L7Wpxv4k=
+X-Google-Smtp-Source: ABdhPJwwbcJPwxsvXECU0byrlvL5e0D/QbvgHPgXzd6oh64t6h0sB76yDleT6I8ap8cG5+eszG9M9zhhWD6W2FKACuE=
+X-Received: by 2002:a17:902:70c1:b029:e3:fe73:f37 with SMTP id
+ l1-20020a17090270c1b02900e3fe730f37mr7445501plt.18.1614067536111; Tue, 23 Feb
+ 2021 00:05:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="Windows-1251"
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-ID: <94aeb013fc434a729a6b1f18c0099702@RW-EXC1.JVPinto.com>
-To:     Undisclosed recipients:;
+Received: by 2002:a05:6a10:4753:0:0:0:0 with HTTP; Tue, 23 Feb 2021 00:05:35
+ -0800 (PST)
+Reply-To: abdwabbomaddahm@gmail.com
+From:   AbdWabbo Maddah <ffoundationcoca@gmail.com>
+Date:   Tue, 23 Feb 2021 09:05:35 +0100
+Message-ID: <CAJHqv60JFY2fG6PzR=kaegSK6ptGpEV4PtWYa6uhhzf8nUK_uw@mail.gmail.com>
+Subject: DID YOU RECEIVE MY MAIL?
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello,
+-- 
+Dear,
+I had sent you a mail but i don't think you received it that's why am
+writing you again.It is important you get back to me as soon as you
+can.
 
-My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
-and Petroleum" also "Minister of State for International Cooperation"
-in UAE. I write to you on behalf of my other "three (3) colleagues"
-who has approved me to solicit for your "partnership in claiming of
-{us$47=Million}" from a Financial Home in Cambodia on their behalf and
-for our "Mutual Benefits".
-
-The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
-deal with Cambodian/Vietnam Government within 2013/2014, however, we
-don't want our government to know about the fund. If this proposal
-interests you, let me know, by sending me an email and I will send to
-you detailed information on how this business would be successfully
-transacted. Be informed that nobody knows about the secret of this
-fund except us, and we know how to carry out the entire transaction.
-So I am compelled to ask, that you will stand on our behalf and
-receive this fund into any account that is solely controlled by you.
-
-We will compensate you with 15% of the total amount involved as
-gratification for being our partner in this transaction. Reply to:
-ms.reem@yandex.com
-
-Regards,
-Ms. Reem.
+AbdWabbo Maddah

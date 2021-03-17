@@ -2,112 +2,148 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 778EC33A269
-	for <lists+dccp@lfdr.de>; Sun, 14 Mar 2021 03:34:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E990D33F619
+	for <lists+dccp@lfdr.de>; Wed, 17 Mar 2021 17:55:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233219AbhCNCeR convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Sat, 13 Mar 2021 21:34:17 -0500
-Received: from smtp.econet.co.zw ([77.246.51.158]:60247 "EHLO
-        ironportDMZ.econet.co.zw" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S233103AbhCNCdw (ORCPT
-        <rfc822;dccp@vger.kernel.org>); Sat, 13 Mar 2021 21:33:52 -0500
-IronPort-SDR: ut3ZDsXzWM4ZdZBxYk/U5iRUCKVoExODxAIZ3pJKNi+Z3mAGb7058CvxH0V5xB+nRJ0sPmPIC1
- BWcwcwkxObJGkVQaWDLz4ioreKhTzfvH3Pl6bvx6Qgo3fBFaOsNTKloi9+B8jQmiDYvxRAbqCK
- U2p+udvUkdVBbEXB7fPo3zi1UHgmoETId9CQ+Bx9519pydQvko6iR1JkRlioM9lyG+346HUN7V
- k8PNhXztBwF3YpkWCu5AFWDEjdESlJuO6f7JkpUEiApKIhkgKieQIBMvL56CujUPau5DDdwtD/
- rMI=
-IronPort-HdrOrdr: A9a23:LqXdyq4H4F6iCGnHjwPXwGjXdLJzesId70hD6mlaTxtJfsuE0/
- 20lPMA2hPuzBoXUncsmdePUZPwI0/035hz/IUXIPOeTBDr0VHYT71KwIP+z1TbehHW2fVa0c
- 5bHJRWLP3VIRxEgd3h4A++euxB/PCi/LqzjenTi1dBJDsaEp1I1AtyBgaFHkAefmAvbvBVKL
- Om6tNDt36cfx0sAviTPXUZQ/PF4+TCiZOOW298Ozcc9AKMgTm0gYSVLzGk2H4lIkty6IZn1V
- Lgmwz9opy5s/ehygLNvlWji6h+qZ/EwttHCNfksLlzFhzcziKpYIhGfpHqhkFSnMifrG8wkN
- /WowoxVv4Djk/sQg==
-X-IronPort-AV: E=Sophos;i="5.81,245,1610402400"; 
-   d="scan'208";a="3834180"
-Received: from unknown (HELO WVALE-MB-SVR-05.econetzw.local) ([192.168.101.173])
-  by ironportLAN.econet.co.zw with ESMTP; 14 Mar 2021 04:33:43 +0200
-Received: from WVALE-MB-SVR-10.econetzw.local (192.168.101.149) by
- WVALE-MB-SVR-05.econetzw.local (192.168.101.173) with Microsoft SMTP Server
- (TLS) id 15.0.1473.3; Sun, 14 Mar 2021 04:33:42 +0200
-Received: from WVALE-CAS-SVR-9.econetzw.local (192.168.101.184) by
- wvale-mb-svr-10.econetzw.local (192.168.101.149) with Microsoft SMTP Server
- (TLS) id 15.0.1473.3; Sun, 14 Mar 2021 04:33:14 +0200
-Received: from User (165.231.148.189) by WVALE-CAS-SVR-9.econetzw.local
- (10.10.11.230) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
- Transport; Sun, 14 Mar 2021 04:33:27 +0200
-Reply-To: <reem9999@naver.com>
-From:   "Reem E. A" <customercare@econet.co.zw>
-Subject: Very Important!!
-Date:   Sun, 14 Mar 2021 03:33:12 -0700
+        id S232000AbhCQQzR (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 17 Mar 2021 12:55:17 -0400
+Received: from mail.kernel.org ([198.145.29.99]:36244 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S232158AbhCQQzR (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 17 Mar 2021 12:55:17 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3B78C64F26;
+        Wed, 17 Mar 2021 16:55:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1616000116;
+        bh=MZwMz/N5wLTMam2Z9MoicKwqSevZ4QamU+GLUrSbUsI=;
+        h=From:To:Cc:Subject:Date:From;
+        b=fVZdLsUKf2zass/1NQroJblCSW4bhZkWMuwPgf5gmHg7IgYuNdB9C+O8s+GN43FPE
+         N4mW1u318lTi/VFP4cXzhJwf24VCdb4UvCnC/K08YiC5hnlbMRvFStk7Si96oySQ6H
+         ClM2Pfqv9NOmipR5A2zXQ069nNruIabO6pMYcfhx4FvxwrWrf+qiUXDuaGIiPT4V2t
+         zq2RpK+KhPlN1fBeIc9Ag8QGP6TUz+8ZDG2txClCZ9FpQOu9NPJHFvtrIGtPJU1x4k
+         n3UOmcVYPZqzpDoXkmyV1XBGVCn+dMfEo5IPzxHz0fUn3XKjM4OBfPYFb9sfSrrTrw
+         G5KTiFwKRndDQ==
+From:   Jakub Kicinski <kuba@kernel.org>
+To:     davem@davemloft.net
+Cc:     netdev@vger.kernel.org, yoshfuji@linux-ipv6.org,
+        dsahern@kernel.org, edumazet@google.com,
+        mathew.j.martineau@linux.intel.com, matthieu.baerts@tessares.net,
+        jamorris@linux.microsoft.com, paul@paul-moore.com,
+        rdias@singlestore.com, dccp@vger.kernel.org, mptcp@lists.01.org,
+        kuba@kernel.org
+Subject: [PATCH net] ipv6: weaken the v4mapped source check
+Date:   Wed, 17 Mar 2021 09:55:15 -0700
+Message-Id: <20210317165515.1914146-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="Windows-1251"
-Content-Transfer-Encoding: 8BIT
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-ID: <df0327d772e542e7822a5193d21f217f@WVALE-CAS-SVR-9.econetzw.local>
-To:     Undisclosed recipients:;
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dear Friend
+This reverts commit 6af1799aaf3f1bc8defedddfa00df3192445bbf3.
 
-My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
-for International Cooperation" in UAE. I write to you on behalf of
-my other "two (2) colleagues" who has Authorized me to solicit for
-your "partnership in claiming of {us$47=Million}" from a Financial
-Home on their behalf and for our "Mutual Benefits".
+Commit 6af1799aaf3f ("ipv6: drop incoming packets having a v4mapped
+source address") introduced an input check against v4mapped addresses.
+Use of such addresses on the wire is indeed questionable and not
+allowed on public Internet. As the commit pointed out
 
-The said Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
-deal with Turkish Government within 2013/2014. Because of the nature of the
-deal we don't want our government to know about the fund that is why we
-decided to contact you. If this proposal interests you, let me know, by
-sending me an email and I will send to you detailed information on how this
-business would be successfully transacted. Be informed that nobody knows about
-the secret of this fund except us, and we know how to carry out the entire
-transaction. So I am compelled to ask, that you will stand on our behalf and
-receive this fund into any account that is solely controlled by you.
+  https://tools.ietf.org/html/draft-itojun-v6ops-v4mapped-harmful-02
 
-We will compensate you with 15% of the total amount involved as
-gratification for being our partner in this transaction. Reply to:
-reem2744@yandex.com
+lists potential issues.
 
-Regards,
-Ms. Reem.
-This mail was sent through Econet Wireless, a Global telecoms leader.
+Unfortunately there are applications which use v4mapped addresses,
+and breaking them is a clear regression. For example v4mapped
+addresses (or any semi-valid addresses, really) may be used
+for uni-direction event streams or packet export.
 
-DISCLAIMER
+Since the issue which sparked the addition of the check was with
+TCP and request_socks in particular push the check down to TCPv6
+and DCCP. This restores the ability to receive UDPv6 packets with
+v4mapped address as the source.
 
-The information in this message is confidential and is legally privileged. It is intended solely for the addressee. Access to this message by anyone else is unauthorized. If received in error please accept our apologies and notify the sender immediately. You must also delete the original message from your machine. If you are not the intended recipient, any use, disclosure, copying, distribution or action taken in reliance of it, is prohibited and may be unlawful. The information, attachments, opinions or advice contained in this email are not the views or opinions of Econet Wireless, its subsidiaries or affiliates. Econet Wireless therefore accepts no liability for claims, losses, or damages arising from the inaccuracy, incorrectness, or lack of integrity of such information.
-[https://mail.econet.co.zw/OWA/auth/current/themes/resources/Agile/AgileBanner.png]
-WORK ISN'T A PLACE
-IT'S WHAT WE DO
-________________________________
+Keep using the IPSTATS_MIB_INHDRERRORS statistic to minimize the
+user-visible changes.
 
-Customercare
+Fixes: 6af1799aaf3f ("ipv6: drop incoming packets having a v4mapped source address")
+Reported-by: Sunyi Shao <sunyishao@fb.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+ net/dccp/ipv6.c      |  5 +++++
+ net/ipv6/ip6_input.c | 10 ----------
+ net/ipv6/tcp_ipv6.c  |  5 +++++
+ net/mptcp/subflow.c  |  5 +++++
+ 4 files changed, 15 insertions(+), 10 deletions(-)
 
+diff --git a/net/dccp/ipv6.c b/net/dccp/ipv6.c
+index 1f73603913f5..2be5c69824f9 100644
+--- a/net/dccp/ipv6.c
++++ b/net/dccp/ipv6.c
+@@ -319,6 +319,11 @@ static int dccp_v6_conn_request(struct sock *sk, struct sk_buff *skb)
+ 	if (!ipv6_unicast_destination(skb))
+ 		return 0;	/* discard, don't send a reset here */
+ 
++	if (ipv6_addr_v4mapped(&ipv6_hdr(skb)->saddr)) {
++		__IP6_INC_STATS(sock_net(sk), NULL, IPSTATS_MIB_INHDRERRORS);
++		return 0;
++	}
++
+ 	if (dccp_bad_service_code(sk, service)) {
+ 		dcb->dccpd_reset_code = DCCP_RESET_CODE_BAD_SERVICE_CODE;
+ 		goto drop;
+diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
+index e9d2a4a409aa..80256717868e 100644
+--- a/net/ipv6/ip6_input.c
++++ b/net/ipv6/ip6_input.c
+@@ -245,16 +245,6 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
+ 	if (ipv6_addr_is_multicast(&hdr->saddr))
+ 		goto err;
+ 
+-	/* While RFC4291 is not explicit about v4mapped addresses
+-	 * in IPv6 headers, it seems clear linux dual-stack
+-	 * model can not deal properly with these.
+-	 * Security models could be fooled by ::ffff:127.0.0.1 for example.
+-	 *
+-	 * https://tools.ietf.org/html/draft-itojun-v6ops-v4mapped-harmful-02
+-	 */
+-	if (ipv6_addr_v4mapped(&hdr->saddr))
+-		goto err;
+-
+ 	skb->transport_header = skb->network_header + sizeof(*hdr);
+ 	IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
+ 
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index bd44ded7e50c..d0f007741e8e 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -1175,6 +1175,11 @@ static int tcp_v6_conn_request(struct sock *sk, struct sk_buff *skb)
+ 	if (!ipv6_unicast_destination(skb))
+ 		goto drop;
+ 
++	if (ipv6_addr_v4mapped(&ipv6_hdr(skb)->saddr)) {
++		__IP6_INC_STATS(sock_net(sk), NULL, IPSTATS_MIB_INHDRERRORS);
++		return 0;
++	}
++
+ 	return tcp_conn_request(&tcp6_request_sock_ops,
+ 				&tcp_request_sock_ipv6_ops, sk, skb);
+ 
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index 3d47d670e665..d17d39ccdf34 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -477,6 +477,11 @@ static int subflow_v6_conn_request(struct sock *sk, struct sk_buff *skb)
+ 	if (!ipv6_unicast_destination(skb))
+ 		goto drop;
+ 
++	if (ipv6_addr_v4mapped(&ipv6_hdr(skb)->saddr)) {
++		__IP6_INC_STATS(sock_net(sk), NULL, IPSTATS_MIB_INHDRERRORS);
++		return 0;
++	}
++
+ 	return tcp_conn_request(&mptcp_subflow_request_sock_ops,
+ 				&subflow_request_sock_ipv6_ops, sk, skb);
+ 
+-- 
+2.30.2
 
-
-[https://mail.econet.co.zw/OWA/auth/current/themes/resources/Agile/telephone.png]
-
-
-
-
-[https://mail.econet.co.zw/OWA/auth/current/themes/resources/Agile/email.png]
-
-Customercare@econet.co.zw<mailto:Customercare@econet.co.zw>
-
-
-[https://mail.econet.co.zw/OWA/auth/current/themes/resources/Agile/location.png]
-
-No. 2 Old Mutare Road, Msasa, Harare, Zimbabwe.
-
-
-[https://mail.econet.co.zw/OWA/auth/current/themes/resources/Agile/website.png]
-
-www.econet.co.zw<https://www.econet.co.zw>
-
-
-[https://mail.econet.co.zw/OWA/auth/current/themes/resources/Agile/inspired.jpg]

@@ -2,70 +2,57 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 48C7518CC31
-	for <lists+dccp@lfdr.de>; Fri, 20 Mar 2020 12:06:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 33E6D18D4E6
+	for <lists+dccp@lfdr.de>; Fri, 20 Mar 2020 17:53:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726974AbgCTLGR (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 20 Mar 2020 07:06:17 -0400
-Received: from mail-oi1-f194.google.com ([209.85.167.194]:35672 "EHLO
-        mail-oi1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726951AbgCTLGR (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 20 Mar 2020 07:06:17 -0400
-Received: by mail-oi1-f194.google.com with SMTP id k8so6082118oik.2
-        for <dccp@vger.kernel.org>; Fri, 20 Mar 2020 04:06:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=kuhba0bbR9oJup1oQ7P5tNPZ9FqBHXE57QqcfHgaIHo=;
-        b=lGbdxdtfHMH1bdxL6+rDaq8rCWBtQLZIEklwy753/vlmYfl84DAdLqhl0bz1Xovn6Z
-         c17UdKvdkWjRqdAGDQRkOnXeTC+xCHtYKvfGfi44rO4yOxxnHSzJ4bl65hBz/QLQ9rSt
-         IXl8Ao+NGm9gBTVLqWuVZlAvU4Ngr/0IYvLW70A+7XYwTY+6W3fDiICK/pCqs7glKhm/
-         RZEl2iNbdQV3YQPcN6M66qdH7/zsqu4jC4RMBwKCttzrAnSJ72Cj4p26giYvJw+lZTIw
-         8SgPaFgUuKZRFTztgo6fhe5EvmUWjVYtHKxAavBKOOk9BXELpfQ4GkoTEO74LL32fHRE
-         V0SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=kuhba0bbR9oJup1oQ7P5tNPZ9FqBHXE57QqcfHgaIHo=;
-        b=ScUB1hZXkHZ8+aTK5sdHcwfAH5pO57fbK64wII5mb+TyH9td09zHXjqeHf8MYUmPAt
-         eOx57Qyn/vOiU0Cs+hgCXSkbE0qoXMHCM4LSYGwCjtWzYuCQSOXYChsYaMayv2oat1oV
-         Ul3pHP0nxJenZeTJLdQZQQ6zs4fqLO4YAyr/fX8VQKQgaXVcM+6noybGAnQG+ZE+cmdk
-         vTTVnKdjGedUCljQrzT+h39hdhO6yMy4Z/F/XxIFLINE07A2M25vLcCPdIt79RJYoKHG
-         4+YSPZbfwQd2ajL7qbd7hbtj9dspm4oG7WntLdgegsPUbtlDc1Gyd3PH7yr9uWLm0qe7
-         deGw==
-X-Gm-Message-State: ANhLgQ1VJSBmzh1pKqa63wObnWmSnW5/v5mVU4qeewB7oRxRrz/yBxBV
-        leXNm+hEOhIGqdsVsUX63X2LchWfMJUChwEOwaY=
-X-Google-Smtp-Source: ADFU+vsTHxzlZi8P2eKmSVIsOYYIDf8rI8BybGXh+/wiy+xq7amPuYigrq1NgvWcq7XgwjC2G2qOZeG+mJSYKsXKNME=
-X-Received: by 2002:aca:4bc5:: with SMTP id y188mr6024703oia.9.1584702376658;
- Fri, 20 Mar 2020 04:06:16 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a4a:c897:0:0:0:0:0 with HTTP; Fri, 20 Mar 2020 04:06:16
- -0700 (PDT)
-From:   federa bureau of inteligence <federabureauofinteligence@gmail.com>
-Date:   Fri, 20 Mar 2020 11:06:16 +0000
-Message-ID: <CAE9o6LCLC+GAA+1hM4-HjV_h688n_2PcSTUT9FMZeorRftidxA@mail.gmail.com>
-Subject: HAPPY SURVIVAL OF CORONAVIRUS
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+        id S1727232AbgCTQxG (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 20 Mar 2020 12:53:06 -0400
+Received: from [190.124.30.187] ([190.124.30.187]:26346 "EHLO [190.124.30.187]"
+        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1726983AbgCTQxG (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 20 Mar 2020 12:53:06 -0400
+Received: from ddytuoa ([124.165.3.224]) by 61630.com with MailEnable ESMTP; Sat, 20 Mar 2021 13:00:07 -0400
+Received: (qmail 76997 invoked by uid 769); 20 Mar 2021 13:00:05 -0400
+From:   dccp@vger.kernel.org
+To:     dccp@vger.kernel.org
+Subject: I GOT EVERYTHING!
+Date:   Sat, 20 Mar 2021 13:00:07 -0400
+Message-ID: <769972.769972@61630.com>
+Mime-Version: 1.0
+Content-type: text/plain; charset=utf-8;
 Sender: dccp-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dear Sir,
+Hey, check the sender of this email, I sent this email from your email account.
 
-HAPPY SURVIVAL OF CORONAVIRUS
+Some time ago your computer was infected with my private malware, RAT (Remote Administration Tool), your browser wasn't updated / patched, so you got automatically infected while browsing the website wich had my iframe placed in the background.
 
-We are reaching for a very interesting business transaction which we
-feel will of great benefit.We the FBI unit in the western subregion of
-Africa have a fund which we confiscated and lodge it in a bank
+My malware gave me access to all your accounts, to all your files and it was possible to spy on you over your webcam.
 
-This fund is worth of $12.5 million dollars.We will need your
-assistance to recieve this fund into your account for investment in
-your country.
+Google: Remote Administration Tool, to see the functions of it.
 
-We will need your urgent response for details
+I collected all your files and I recorded few nice moments of you through your webcam, haha!
 
-Inspector Greg Adams,
-For and on behalf of Cote D'Ivoire FBI
-Tel 00225 6716 6756
+After I collected everything, I removed my malware again.
+
+I can publish all your files and the video of you on the whole web, send it to your contacts, social network, hacking forums and the darknet.
+
+You can stop me, send exactly 900$ with the cryptocurrency Monero (XMR) to my Monero (XMR) wallet.
+
+It's very easy to buy Monero (XMR), for example here: www.binance.com , www.anycoindirect.eu , www.bitnovo.com , or Google for another exchanger.
+
+My Monero (XMR) wallet is: 49RD2byfAXfGU4BaZ5mgaQTH8zKowp6V7e88pPkiS1d1iPrJG9RVptDNU1NcHrm5hdKMZzjp2npNzS2CYwy4HjUU3CV52oX
+
+Yes that's a long wallet, copy and paste it, it's (CaSE-SEnSetiVE).
+
+Send the Monero (XMR) directly to my wallet, or create your wallet first with the software from: www.mymonero.com and then send to mine.
+
+I give you 2 days time to send the Monero (XMR).
+
+After that I remove everything and we forget everything.
+
+
+Mail-Client-ID: 7699729198
+

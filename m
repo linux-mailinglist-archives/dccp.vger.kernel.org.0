@@ -2,70 +2,103 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E7551340CFF
-	for <lists+dccp@lfdr.de>; Thu, 18 Mar 2021 19:31:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 88A4B343E39
+	for <lists+dccp@lfdr.de>; Mon, 22 Mar 2021 11:45:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229469AbhCRSav (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 18 Mar 2021 14:30:51 -0400
-Received: from mail.kernel.org ([198.145.29.99]:41772 "EHLO mail.kernel.org"
+        id S229904AbhCVKpG (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 22 Mar 2021 06:45:06 -0400
+Received: from mail.kernel.org ([198.145.29.99]:55236 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S232357AbhCRSaj (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 18 Mar 2021 14:30:39 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id 9652E64E81;
-        Thu, 18 Mar 2021 18:30:39 +0000 (UTC)
+        id S230285AbhCVKoi (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 22 Mar 2021 06:44:38 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4C6E561931;
+        Mon, 22 Mar 2021 10:44:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1616092239;
-        bh=MYcIOIV53tQfsnTo1PH/Q9I4grYowZHaaAJzGBbSRGY=;
-        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-        b=fqqAXKyiUqEtZ5vxyYnFWf5Tqpo/6U3grYe7JCDhLiONYdpuUew+afwijR5hd9SdC
-         AkWIXfHhr813R1/U8AUFqgUL6kHkhGTK2mm886TiaZYPMBCUm+IQMpLtu/VxIJExtk
-         qazuTIrRP/l93TcMf5nuMYffOuhrrGrm/pqBLHdlX7KEVVzAa1EsF22gcfAZ9ykGyO
-         g9i0nuPcd4mdxowgLym7J5R8UhDVFzUMYtSl5gCTHPZdptOKzPnKcGkYfH4W/jlw2w
-         wQtZNCdhLPBPgohB60wIwgS1EiB6a+b0ypabJjS2eG/FLygjdlFl2vSOFwN7Mt8i8W
-         EFd/KMoQNN5ZQ==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 85AAB60191;
-        Thu, 18 Mar 2021 18:30:39 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+        s=k20201202; t=1616409878;
+        bh=4DHr4ASfBHeq91iw3ENPpzdWKJXn5AZnZFrECFYNDQU=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=cPqdnpIc76Sfc4S0WxhticZnlpY46xJtVyxtipkLrFREoyJDHLvaO/JOmmYxuBWn2
+         Q0FCwxw6Vr4/fhlrJgzOVXrxEJh/QNygiAQyTlOcSVijlINs+eiK85+SosPEEv7Fxd
+         8oBK07+cbrYR03jU9PREWW2n1R/sW1vihSey94bPNz1rEkiqTuQQvCbV/pphwWOsUR
+         HTquMlF8zDU10yLDmixg4KhY+reClZyxOHPp9D85pRg/4e0TgeCXDdxEVTbUAbN/BL
+         uUTzQafLyU5Im+LELXwwuizxaAm0DYAjBRKAjYTUp2h940q/MYbRnKEK0i5TyK9AY6
+         bT5zKR5TkZb6g==
+From:   Arnd Bergmann <arnd@kernel.org>
+To:     netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>
+Cc:     Arnd Bergmann <arnd@arndb.de>, dccp@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH net-next 2/5] dccp: avoid Wempty-body warning
+Date:   Mon, 22 Mar 2021 11:43:32 +0100
+Message-Id: <20210322104343.948660-2-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210322104343.948660-1-arnd@kernel.org>
+References: <20210322104343.948660-1-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] ipv6: weaken the v4mapped source check
-From:   patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161609223954.5907.2664426590302968288.git-patchwork-notify@kernel.org>
-Date:   Thu, 18 Mar 2021 18:30:39 +0000
-References: <20210317165515.1914146-1-kuba@kernel.org>
-In-Reply-To: <20210317165515.1914146-1-kuba@kernel.org>
-To:     Jakub Kicinski <kuba@kernel.org>
-Cc:     davem@davemloft.net, netdev@vger.kernel.org,
-        yoshfuji@linux-ipv6.org, dsahern@kernel.org, edumazet@google.com,
-        mathew.j.martineau@linux.intel.com, matthieu.baerts@tessares.net,
-        jamorris@linux.microsoft.com, paul@paul-moore.com,
-        rdias@singlestore.com, dccp@vger.kernel.org, mptcp@lists.01.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello:
+From: Arnd Bergmann <arnd@arndb.de>
 
-This patch was applied to netdev/net.git (refs/heads/master):
+There are a couple of warnings in this driver when building with W=1:
 
-On Wed, 17 Mar 2021 09:55:15 -0700 you wrote:
-> This reverts commit 6af1799aaf3f1bc8defedddfa00df3192445bbf3.
-> 
-> Commit 6af1799aaf3f ("ipv6: drop incoming packets having a v4mapped
-> source address") introduced an input check against v4mapped addresses.
-> Use of such addresses on the wire is indeed questionable and not
-> allowed on public Internet. As the commit pointed out
-> 
-> [...]
+net/dccp/output.c: In function 'dccp_xmit_packet':
+net/dccp/output.c:283:71: error: suggest braces around empty body in an 'if' statement [-Werror=empty-body]
+  283 |                 dccp_pr_debug("transmit_skb() returned err=%d\n", err);
+      |                                                                       ^
+net/dccp/ackvec.c: In function 'dccp_ackvec_update_old':
+net/dccp/ackvec.c:163:80: error: suggest braces around empty body in an 'else' statement [-Werror=empty-body]
+  163 |                                               (unsigned long long)seqno, state);
+      |                                                                                ^
 
-Here is the summary with links:
-  - [net] ipv6: weaken the v4mapped source check
-    https://git.kernel.org/netdev/net/c/dcc32f4f183a
+Change the empty debug macros to no_printk(), which avoids the
+warnings and adds useful format string checks.
 
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ net/dccp/dccp.h  | 6 +++---
+ net/dccp/proto.c | 2 --
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
+diff --git a/net/dccp/dccp.h b/net/dccp/dccp.h
+index 9cc9d1ee6cdb..8a5163620bc3 100644
+--- a/net/dccp/dccp.h
++++ b/net/dccp/dccp.h
+@@ -41,9 +41,9 @@ extern bool dccp_debug;
+ #define dccp_pr_debug_cat(format, a...)   DCCP_PRINTK(dccp_debug, format, ##a)
+ #define dccp_debug(fmt, a...)		  dccp_pr_debug_cat(KERN_DEBUG fmt, ##a)
+ #else
+-#define dccp_pr_debug(format, a...)
+-#define dccp_pr_debug_cat(format, a...)
+-#define dccp_debug(format, a...)
++#define dccp_pr_debug(format, a...)	  no_printk(format, ##a)
++#define dccp_pr_debug_cat(format, a...)	  no_printk(format, ##a)
++#define dccp_debug(format, a...)	  no_printk(format, ##a)
+ #endif
+ 
+ extern struct inet_hashinfo dccp_hashinfo;
+diff --git a/net/dccp/proto.c b/net/dccp/proto.c
+index 6d705d90c614..97a175eaf247 100644
+--- a/net/dccp/proto.c
++++ b/net/dccp/proto.c
+@@ -51,7 +51,6 @@ EXPORT_SYMBOL_GPL(dccp_hashinfo);
+ /* the maximum queue length for tx in packets. 0 is no limit */
+ int sysctl_dccp_tx_qlen __read_mostly = 5;
+ 
+-#ifdef CONFIG_IP_DCCP_DEBUG
+ static const char *dccp_state_name(const int state)
+ {
+ 	static const char *const dccp_state_names[] = {
+@@ -73,7 +72,6 @@ static const char *dccp_state_name(const int state)
+ 	else
+ 		return dccp_state_names[state];
+ }
+-#endif
+ 
+ void dccp_set_state(struct sock *sk, const int state)
+ {
+-- 
+2.29.2
 

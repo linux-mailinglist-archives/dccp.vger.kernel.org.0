@@ -2,52 +2,33 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 57096353319
-	for <lists+dccp@lfdr.de>; Sat,  3 Apr 2021 10:18:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B848236063D
+	for <lists+dccp@lfdr.de>; Thu, 15 Apr 2021 11:53:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232146AbhDCISf convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Sat, 3 Apr 2021 04:18:35 -0400
-Received: from mgspf06.cybermail.jp ([27.121.5.245]:54994 "EHLO
-        mgspf06.cybermail.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231575AbhDCISe (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 3 Apr 2021 04:18:34 -0400
-X-Greylist: delayed 1309 seconds by postgrey-1.27 at vger.kernel.org; Sat, 03 Apr 2021 04:18:34 EDT
-X-MailGates: (compute_score:DELIVER,40,3)
-Received: from 202.17.141.27
-        by mgspf06.cybermail.jp with (30344:0:AUTH_RELAY)
-        (envelope-from <cqukesq6@gmail.com>); Sat, 03 Apr 2021 16:44:48 +0900 (JST)
-Received: from 193.56.28.106
-        by mails01.erca.go.jp with Mail2000 ESMTPA Server V7.00(22867:0:AUTH_LOGIN)
-        (envelope-from <cqukesq6@gmail.com>); Sat, 03 Apr 2021 16:44:40 +0900 (JST)
-Date:   Sat, 3 Apr 2021 00:44:39 -0700
-Mime-version: 1.0
-Subject: Compliments
-From:   Christopher Quinlan QC <cqukesq6@gmail.com>
-To:     Undisclosed-Recipients:;
-Message-Id: <20210403004439.GDGPUPCKJHXSAG@gmail.com>
-Reply-To: cqukesq6@gmail.com
-Content-type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-transfer-encoding: 8BIT
+        id S231590AbhDOJxt convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+dccp@lfdr.de>); Thu, 15 Apr 2021 05:53:49 -0400
+Received: from customer.clientshostname.com ([185.180.199.32]:39134 "EHLO
+        DS8420794.clientshostname.com" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S231309AbhDOJxt (ORCPT
+        <rfc822;dccp@vger.kernel.org>); Thu, 15 Apr 2021 05:53:49 -0400
+X-Greylist: delayed 737 seconds by postgrey-1.27 at vger.kernel.org; Thu, 15 Apr 2021 05:53:48 EDT
+Received: from gmail.com (localhost [IPv6:::1])
+        by DS8420794.clientshostname.com (Postfix) with ESMTP id 2B7881E17CC
+        for <dccp@vger.kernel.org>; Thu, 15 Apr 2021 05:34:43 -0400 (EDT)
+Reply-To: abdelkaderalsamman@gmail.com
+From:   <Info@DS8420794.clientshostname.com>, raichin48@gmail.com
+To:     dccp@vger.kernel.org
+Subject: Re-confirm
+Date:   15 Apr 2021 11:34:55 +0200
+Message-ID: <20210415105649.360F36CAC53E4383@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain;
+        charset="utf-8"
+Content-Transfer-Encoding: 8BIT
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-My name is Christopher Quinlan QC I am a solicitor at law / investment adviser to your late relative. Your late relative left behind Cash deposit in capital and investment security account along with properties, I will like to discuss with you regarding making this claim since he is related to you going by the lineage, surname and country of origin.
-
-Please get back to me on my private email cqukesq6@gmail.com for further details.
-
-To facilitate the process of this transaction, urgently forward to me
-Your full names,
-Telephone and fax numbers,
-Address,
-Age,
-Marital status,
-Occupation
-
-I will be expecting to hear from you.
-
-Regards
-
-Christopher Quinlan QC
-Private email cqukesq6@gmail.com
-
+Good day,I want to know if you have received the previous message 
+I sent to you concerning the project in your country.Waiting for 
+your confirmation for more elaboration.

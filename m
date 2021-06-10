@@ -2,73 +2,69 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 65FF33A3165
-	for <lists+dccp@lfdr.de>; Thu, 10 Jun 2021 18:52:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 620243A359D
+	for <lists+dccp@lfdr.de>; Thu, 10 Jun 2021 23:10:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231318AbhFJQyY (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 10 Jun 2021 12:54:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49590 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230272AbhFJQyW (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 10 Jun 2021 12:54:22 -0400
-X-Greylist: delayed 463 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 10 Jun 2021 09:52:25 PDT
-Received: from mail1.systemli.org (mail1.systemli.org [IPv6:2a00:c38:11e:ffff::a032])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D4313C061574;
-        Thu, 10 Jun 2021 09:52:25 -0700 (PDT)
-Subject: Re: [PATCH -next] dccp: tfrc: fix doc warnings in tfrc_equation.c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=systemli.org;
-        s=default; t=1623343478;
-        bh=uZE8Th48OJiDQ9WnoC2cT/ZZKeuF68wKkFGlFE6GfyM=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
-        b=kO1CMB4/qrYS5j+GDCiNhE6VsJiP4E+JGBINvxBsv1d4GlfpzbA9pJ+clT7wpu5fU
-         512fMEhyqGLNoXVbTkUJnZvibizz0505/A4ITz1NS9Lrg41Qp4TEhWJ8OFy6ZfGQ7a
-         ACysX5sS/gz8FHE+J1W+EwMLK76NlptyHRBLmdqvWAdl09BWvHt+WyUjt6T5KIZ3Ih
-         fRlF04R3HX5cfPJxtYY1iYzv1mX2sqgbX8Kue8LiBbCnMCBg7kf6fNAC6WuFta4fwE
-         QZduAHYrrhQdjJFxuBr5ptFtrDCO/QXXyKp2BVWQG7E8aVweZED4Sa6lDEGWqgDSU/
-         4Oon8JiheHTjA==
-To:     Baokun Li <libaokun1@huawei.com>, davem@davemloft.net,
-        kuba@kernel.org, dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc:     weiyongjun1@huawei.com, yuehaibing@huawei.com,
-        yangjihong1@huawei.com, yukuai3@huawei.com
-References: <20210610132603.597563-1-libaokun1@huawei.com>
-From:   Richard Sailer <richard_siegfried@systemli.org>
-Message-ID: <1ef2e838-5cf9-c121-624d-3c6e5d5f1649@systemli.org>
-Date:   Thu, 10 Jun 2021 18:44:35 +0200
+        id S231316AbhFJVMG (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 10 Jun 2021 17:12:06 -0400
+Received: from mail.kernel.org ([198.145.29.99]:47474 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S231268AbhFJVMB (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 10 Jun 2021 17:12:01 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id A547161425;
+        Thu, 10 Jun 2021 21:10:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1623359404;
+        bh=tepJxd2R/BsavcDBhc0HOMN+ui/IFgWclRdeD7RgmIk=;
+        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+        b=kK351N5VZceN9GrSFRUWBrpYRNeXWdq3PBDzUVwSZ3wE4LZO/aYxOGtsnbmANQLDX
+         PEmotEx1uH0wHSG64FgfnnuG5VL5jasyQUbHgpXpYU+PqNdOad/5D1zZWS0IBghBlE
+         XT+XtkO0NUQhKd7TIZKpdLTXHt0f25LqBZESfp9iI0Ib+INs9NzLA6ShsWUQ2T+pdB
+         c1eDGsQ6Q5qxkRcLEKarXNIuMuQz+WZ3uzwrnsmw0YS551w8Xy24rTEQe2wTNiWyn5
+         aJzMVhTtmK6Th1WuTPd9DGd+l8RQihaVSmJ6h3nDO16sSAyHFCLf3tJwopiJePNe0v
+         cID02TUOJOzaA==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
+        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 967E460D02;
+        Thu, 10 Jun 2021 21:10:04 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH -next] dccp: tfrc: fix doc warnings in tfrc_equation.c
+From:   patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162335940461.9889.13117955024428183893.git-patchwork-notify@kernel.org>
+Date:   Thu, 10 Jun 2021 21:10:04 +0000
+References: <20210610132603.597563-1-libaokun1@huawei.com>
 In-Reply-To: <20210610132603.597563-1-libaokun1@huawei.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+To:     Baokun Li <libaokun1@huawei.com>
+Cc:     davem@davemloft.net, kuba@kernel.org, dccp@vger.kernel.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        weiyongjun1@huawei.com, yuehaibing@huawei.com,
+        yangjihong1@huawei.com, yukuai3@huawei.com
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Just adds a correct comment. Looks fine to me.
+Hello:
 
-Reviewed-by: Richard Sailer <richard_siegfried@systemli.org>
+This patch was applied to netdev/net-next.git (refs/heads/master):
 
-On 10/06/2021 15:26, Baokun Li wrote:
+On Thu, 10 Jun 2021 21:26:03 +0800 you wrote:
 > Add description for `tfrc_invert_loss_event_rate` to fix the W=1 warnings:
 > 
->   net/dccp/ccids/lib/tfrc_equation.c:695: warning: Function parameter or
->    member 'loss_event_rate' not described in 'tfrc_invert_loss_event_rate'
+>  net/dccp/ccids/lib/tfrc_equation.c:695: warning: Function parameter or
+>   member 'loss_event_rate' not described in 'tfrc_invert_loss_event_rate'
 > 
 > Signed-off-by: Baokun Li <libaokun1@huawei.com>
-> ---
->   net/dccp/ccids/lib/tfrc_equation.c | 1 +
->   1 file changed, 1 insertion(+)
 > 
-> diff --git a/net/dccp/ccids/lib/tfrc_equation.c b/net/dccp/ccids/lib/tfrc_equation.c
-> index e2a337fa9ff7..92a8c6bea316 100644
-> --- a/net/dccp/ccids/lib/tfrc_equation.c
-> +++ b/net/dccp/ccids/lib/tfrc_equation.c
-> @@ -688,6 +688,7 @@ u32 tfrc_calc_x_reverse_lookup(u32 fvalue)
->   
->   /**
->    * tfrc_invert_loss_event_rate  -  Compute p so that 10^6 corresponds to 100%
-> + * @loss_event_rate: loss event rate to invert
->    * When @loss_event_rate is large, there is a chance that p is truncated to 0.
->    * To avoid re-entering slow-start in that case, we set p = TFRC_SMALLEST_P > 0.
->    */
-> 
+> [...]
+
+Here is the summary with links:
+  - [-next] dccp: tfrc: fix doc warnings in tfrc_equation.c
+    https://git.kernel.org/netdev/net-next/c/cb8e2e4300fc
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+

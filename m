@@ -2,82 +2,82 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D36B83E34DB
-	for <lists+dccp@lfdr.de>; Sat,  7 Aug 2021 12:37:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 111673E3D1D
+	for <lists+dccp@lfdr.de>; Mon,  9 Aug 2021 01:04:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231879AbhHGKiD (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 7 Aug 2021 06:38:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42438 "EHLO
+        id S230512AbhHHXFE (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 8 Aug 2021 19:05:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34752 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231834AbhHGKiA (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 7 Aug 2021 06:38:00 -0400
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com [IPv6:2a00:1450:4864:20::22b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DADAEC0613CF
-        for <dccp@vger.kernel.org>; Sat,  7 Aug 2021 03:37:41 -0700 (PDT)
-Received: by mail-lj1-x22b.google.com with SMTP id o10so197720ljp.0
-        for <dccp@vger.kernel.org>; Sat, 07 Aug 2021 03:37:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=5/wNolCnjv9Hsqj+btpu0OEa/DW1qIJ6+av/A/D4iOs=;
-        b=JZT4PfVstcMhJhibmlDsc4N+YoAbs983R7PhOxoWpyXwTVK5e9a+3oX4A2CkGteJ3/
-         SW/5CN4IvDv9zPG/e9VSVKFW1UegtQohCQijzQraNIweFPvnSNW+AglZflUtJb3v1gt3
-         NfesJlmRWyzPHMA3HYDC6cZGhxKFfoYfdn6MtTeD+b/bKebdHQbGbDyRaqX1gMQ2UsLB
-         fiyUufkoj9euS6SCJNhQt0ywoRqQ0oYuhGuJysao8isBSvYF45FA3gBmFRCed4yp61Yb
-         /JCs58VLXQFw7fDmR1SEafU2Jzx178VEUg6PmCnpflIjCmAFsmIaYVk0C5Y/Pny7PJ60
-         1qZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=5/wNolCnjv9Hsqj+btpu0OEa/DW1qIJ6+av/A/D4iOs=;
-        b=rQ27ZlVHgkQb4WqM5SU+L5j5+s0uLGPlOogJTr1j78WGPJ+jlABmJayinqbrdewAka
-         v0lEo+HpakmM69PhY/WTniBNUrq/xFGV7HcsRReAm5qES5yCTbNtcjq9Pys/l1OCUL5U
-         oMRPKBGwbDOeYv3VgJ7Mos0YigvzL5kUHmLrHDI1xaPDx2lKcByrt1QRZ9Xsq0s2qVi0
-         B6maKF65EKPlSPYaHIiEb84UME/52PoMHl12OxVATR8twcgCxdxGK50VV7QdzBqgDASM
-         UqEO8mDqUR3OkijOIflV/8BVzPZsqMfL/LOGn7QExyN31TxK2akohbnc/nqZ3GPAuATO
-         fZtw==
-X-Gm-Message-State: AOAM530MjXXTc5IKk+Puuf+bp+GFmFw7m4VePI3bvZa1SGXlzhSRlqlM
-        TULpfmH+ve09GPvGJzydpQ8Rk6vJqUR28bqaOxg=
-X-Google-Smtp-Source: ABdhPJyanP4Kf/FOjrip3OlE8HtRW317Lsvxzf/95Tu2lq9ekpVHvCq0cfk+R1Ly1fmR/Y9rUYrkUjfeDSQ3Ip8epB4=
-X-Received: by 2002:a2e:9e48:: with SMTP id g8mr8892652ljk.182.1628332660222;
- Sat, 07 Aug 2021 03:37:40 -0700 (PDT)
+        with ESMTP id S230024AbhHHXFE (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 8 Aug 2021 19:05:04 -0400
+Received: from bombadil.infradead.org (bombadil.infradead.org [IPv6:2607:7c80:54:e::133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DEA46C061760;
+        Sun,  8 Aug 2021 16:04:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+        MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+        Content-ID:Content-Description:In-Reply-To:References;
+        bh=C/1IRvAYJBsaYvy+rvH1W2Ek7uoYE0PQhNwYNDxHrGo=; b=D53sizGKDESGiHk16q1wDCmfkf
+        UwM9k1ESrxX3a6a1ZY2gADhOQEjgGllKDHhavEwCQZXtb60uYzrCA3daa9WEbC4sHf97DcuNqhzDR
+        72HaTDDa6ZxbEY1tn52owsmesD7IRYesLsjU+x8C471yyTdx+rLz7YOSYpq+d7Bsdil6165DMpKLf
+        mRIdc6ktyw2wvOPBzJJoqWISjLaPeZmW19MFadws0xm//6ERIb2LAWJlQxksIZ2mU/kruCCnYwKgO
+        u4v8H+bPoaeEYOq9y4xbJLDKd2cXaH/qzFV6/ya9MCyZA0nfNOIxS9/0qaT7nl89MqJKWcq4KxbOb
+        LAhxK3Og==;
+Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
+        by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+        id 1mCrqT-00Gghh-3C; Sun, 08 Aug 2021 23:04:41 +0000
+From:   Randy Dunlap <rdunlap@infradead.org>
+To:     netdev@vger.kernel.org
+Cc:     Randy Dunlap <rdunlap@infradead.org>, dccp@vger.kernel.org,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Gerrit Renker <gerrit@erg.abdn.ac.uk>
+Subject: [PATCH -net] dccp: add do-while-0 stubs for dccp_pr_debug macros
+Date:   Sun,  8 Aug 2021 16:04:40 -0700
+Message-Id: <20210808230440.15784-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Received: by 2002:a05:6520:4e3:b029:132:70d8:86da with HTTP; Sat, 7 Aug 2021
- 03:37:39 -0700 (PDT)
-Reply-To: srbabdh@gmail.com
-From:   Medinat Sherrif <annamedinat@gmail.com>
-Date:   Sat, 7 Aug 2021 10:37:39 +0000
-Message-ID: <CAK51M-ECqnMGo5_55E0wy3VmQuO=boJmMRusNKGkSk5cKF2UBA@mail.gmail.com>
-Subject: Good morning,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dearest,
+GCC complains about empty macros in an 'if' statement, so convert
+them to 'do {} while (0)' macros.
 
-I am Medinat Sherrif , I am a widow. I am contacting you because I am
-dying, I am suffering from a long time cancer of the breast, and from
-all indication my condition is really deteriorating, and my doctors
-have courageously advised that I may not live beyond the next 2
-months; this is because the cancer stage has reached a critical stage.
-I am willing to allocate to you my funds worth (Two million United
-State dollars,) To help you establish a charitable foundation in my
-memory so that the grace of Allah will be with me to my final resting
-place for me to receive an honorable place (AlJannoh) with the Allah.
-I wish that this operation is done in utmost discretion without too
-much publicity because of my previous activities.
+Fixes these build warnings:
 
-I will like to have confirmation of your details such as: (Name,
-address, telephone, Occupation, marital status, age) and know what
-project you intend to achieve with these funds? I count on your
-goodwill and especially the proper use of these funds and I am waiting
-for your urgent respond, to enable me to put you in contact with my
-bank manager for immediately transfer of this money into your
-nominated account.
-When I get response from you, I will give you more details. Reply me:
+net/dccp/output.c: In function 'dccp_xmit_packet':
+../net/dccp/output.c:283:71: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+  283 |                 dccp_pr_debug("transmit_skb() returned err=%d\n", err);
+net/dccp/ackvec.c: In function 'dccp_ackvec_update_old':
+../net/dccp/ackvec.c:163:80: warning: suggest braces around empty body in an 'else' statement [-Wempty-body]
+  163 |                                               (unsigned long long)seqno, state);
 
-Yours Sister,
-Medinat Sherrif
+Fixes: dc841e30eaea ("dccp: Extend CCID packet dequeueing interface")
+Fixes: 380240864451 ("dccp ccid-2: Update code for the Ack Vector input/registration routine")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: dccp@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Gerrit Renker <gerrit@erg.abdn.ac.uk>
+---
+ net/dccp/dccp.h |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- linux-next-20210806.orig/net/dccp/dccp.h
++++ linux-next-20210806/net/dccp/dccp.h
+@@ -41,9 +41,9 @@ extern bool dccp_debug;
+ #define dccp_pr_debug_cat(format, a...)   DCCP_PRINTK(dccp_debug, format, ##a)
+ #define dccp_debug(fmt, a...)		  dccp_pr_debug_cat(KERN_DEBUG fmt, ##a)
+ #else
+-#define dccp_pr_debug(format, a...)
+-#define dccp_pr_debug_cat(format, a...)
+-#define dccp_debug(format, a...)
++#define dccp_pr_debug(format, a...)	  do {} while (0)
++#define dccp_pr_debug_cat(format, a...)	  do {} while (0)
++#define dccp_debug(format, a...)	  do {} while (0)
+ #endif
+ 
+ extern struct inet_hashinfo dccp_hashinfo;

@@ -2,82 +2,72 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 111673E3D1D
-	for <lists+dccp@lfdr.de>; Mon,  9 Aug 2021 01:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D2C053E4228
+	for <lists+dccp@lfdr.de>; Mon,  9 Aug 2021 11:10:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230512AbhHHXFE (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sun, 8 Aug 2021 19:05:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34752 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230024AbhHHXFE (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sun, 8 Aug 2021 19:05:04 -0400
-Received: from bombadil.infradead.org (bombadil.infradead.org [IPv6:2607:7c80:54:e::133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DEA46C061760;
-        Sun,  8 Aug 2021 16:04:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-        MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-        Content-ID:Content-Description:In-Reply-To:References;
-        bh=C/1IRvAYJBsaYvy+rvH1W2Ek7uoYE0PQhNwYNDxHrGo=; b=D53sizGKDESGiHk16q1wDCmfkf
-        UwM9k1ESrxX3a6a1ZY2gADhOQEjgGllKDHhavEwCQZXtb60uYzrCA3daa9WEbC4sHf97DcuNqhzDR
-        72HaTDDa6ZxbEY1tn52owsmesD7IRYesLsjU+x8C471yyTdx+rLz7YOSYpq+d7Bsdil6165DMpKLf
-        mRIdc6ktyw2wvOPBzJJoqWISjLaPeZmW19MFadws0xm//6ERIb2LAWJlQxksIZ2mU/kruCCnYwKgO
-        u4v8H+bPoaeEYOq9y4xbJLDKd2cXaH/qzFV6/ya9MCyZA0nfNOIxS9/0qaT7nl89MqJKWcq4KxbOb
-        LAhxK3Og==;
-Received: from [2601:1c0:6280:3f0::aa0b] (helo=bombadil.infradead.org)
-        by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-        id 1mCrqT-00Gghh-3C; Sun, 08 Aug 2021 23:04:41 +0000
-From:   Randy Dunlap <rdunlap@infradead.org>
-To:     netdev@vger.kernel.org
-Cc:     Randy Dunlap <rdunlap@infradead.org>, dccp@vger.kernel.org,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Gerrit Renker <gerrit@erg.abdn.ac.uk>
-Subject: [PATCH -net] dccp: add do-while-0 stubs for dccp_pr_debug macros
-Date:   Sun,  8 Aug 2021 16:04:40 -0700
-Message-Id: <20210808230440.15784-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.31.1
+        id S234225AbhHIJKc (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 9 Aug 2021 05:10:32 -0400
+Received: from mail.kernel.org ([198.145.29.99]:59062 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S234228AbhHIJKZ (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 9 Aug 2021 05:10:25 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id 9BE51610A1;
+        Mon,  9 Aug 2021 09:10:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1628500205;
+        bh=kOMjeOeuoHIp5vo536DSDYcDMzK4/C49kDFG/VxXCnk=;
+        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+        b=jbKQqvUA6HjQd1nXpEhBTwDM+OEprCEe/R0K6zo5o9q6wVWv4bibHpz6rrcvhg7IC
+         J0kvFVEGQGOO5huGLLWS8pbUGIgDHjCY2MTDeVlPBSQJT2us2sA5UWTpwcijpo/lQ5
+         5aQEWt4yRy10yXf83Ryjn1Wqt3c62Z14yU5wSOKXNvpkHEawsvOyvxqzFVMCHtJkTq
+         1mYdR911Q1lqDThgFoV+3l5HRzQeuD8qfry0kru99DEZZE6k6wRWif78Sl6zI4fHbS
+         OQfRMD3ys/ZXeetWwwnLssR8aisGJJseRnYTwA5sEyqq/knEJpoTD6UVvkx+xLq6qi
+         CkhBcYY/bq50g==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
+        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 89E4060A24;
+        Mon,  9 Aug 2021 09:10:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH -net] dccp: add do-while-0 stubs for dccp_pr_debug macros
+From:   patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162850020556.22991.14180369324728108258.git-patchwork-notify@kernel.org>
+Date:   Mon, 09 Aug 2021 09:10:05 +0000
+References: <20210808230440.15784-1-rdunlap@infradead.org>
+In-Reply-To: <20210808230440.15784-1-rdunlap@infradead.org>
+To:     Randy Dunlap <rdunlap@infradead.org>
+Cc:     netdev@vger.kernel.org, dccp@vger.kernel.org, davem@davemloft.net,
+        kuba@kernel.org, gerrit@erg.abdn.ac.uk
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-GCC complains about empty macros in an 'if' statement, so convert
-them to 'do {} while (0)' macros.
+Hello:
 
-Fixes these build warnings:
+This patch was applied to netdev/net.git (refs/heads/master):
 
-net/dccp/output.c: In function 'dccp_xmit_packet':
-../net/dccp/output.c:283:71: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
-  283 |                 dccp_pr_debug("transmit_skb() returned err=%d\n", err);
-net/dccp/ackvec.c: In function 'dccp_ackvec_update_old':
-../net/dccp/ackvec.c:163:80: warning: suggest braces around empty body in an 'else' statement [-Wempty-body]
-  163 |                                               (unsigned long long)seqno, state);
+On Sun,  8 Aug 2021 16:04:40 -0700 you wrote:
+> GCC complains about empty macros in an 'if' statement, so convert
+> them to 'do {} while (0)' macros.
+> 
+> Fixes these build warnings:
+> 
+> net/dccp/output.c: In function 'dccp_xmit_packet':
+> ../net/dccp/output.c:283:71: warning: suggest braces around empty body in an 'if' statement [-Wempty-body]
+>   283 |                 dccp_pr_debug("transmit_skb() returned err=%d\n", err);
+> net/dccp/ackvec.c: In function 'dccp_ackvec_update_old':
+> ../net/dccp/ackvec.c:163:80: warning: suggest braces around empty body in an 'else' statement [-Wempty-body]
+>   163 |                                               (unsigned long long)seqno, state);
+> 
+> [...]
 
-Fixes: dc841e30eaea ("dccp: Extend CCID packet dequeueing interface")
-Fixes: 380240864451 ("dccp ccid-2: Update code for the Ack Vector input/registration routine")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: dccp@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Gerrit Renker <gerrit@erg.abdn.ac.uk>
----
- net/dccp/dccp.h |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Here is the summary with links:
+  - [-net] dccp: add do-while-0 stubs for dccp_pr_debug macros
+    https://git.kernel.org/netdev/net/c/86aab09a4870
 
---- linux-next-20210806.orig/net/dccp/dccp.h
-+++ linux-next-20210806/net/dccp/dccp.h
-@@ -41,9 +41,9 @@ extern bool dccp_debug;
- #define dccp_pr_debug_cat(format, a...)   DCCP_PRINTK(dccp_debug, format, ##a)
- #define dccp_debug(fmt, a...)		  dccp_pr_debug_cat(KERN_DEBUG fmt, ##a)
- #else
--#define dccp_pr_debug(format, a...)
--#define dccp_pr_debug_cat(format, a...)
--#define dccp_debug(format, a...)
-+#define dccp_pr_debug(format, a...)	  do {} while (0)
-+#define dccp_pr_debug_cat(format, a...)	  do {} while (0)
-+#define dccp_debug(format, a...)	  do {} while (0)
- #endif
- 
- extern struct inet_hashinfo dccp_hashinfo;
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+

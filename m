@@ -2,27 +2,27 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7CF173F63BD
-	for <lists+dccp@lfdr.de>; Tue, 24 Aug 2021 18:57:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5724B3F64EB
+	for <lists+dccp@lfdr.de>; Tue, 24 Aug 2021 19:07:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234956AbhHXQ6F (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 24 Aug 2021 12:58:05 -0400
-Received: from mail.kernel.org ([198.145.29.99]:39206 "EHLO mail.kernel.org"
+        id S234007AbhHXRIZ (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 24 Aug 2021 13:08:25 -0400
+Received: from mail.kernel.org ([198.145.29.99]:46032 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S234936AbhHXQ5c (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 24 Aug 2021 12:57:32 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A3CD61411;
-        Tue, 24 Aug 2021 16:56:44 +0000 (UTC)
+        id S235277AbhHXRGc (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 24 Aug 2021 13:06:32 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 271CE619E4;
+        Tue, 24 Aug 2021 16:59:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1629824205;
+        s=k20201202; t=1629824389;
         bh=c1Gn0Qd0J8q38vZoZiZyLl/oKuQwchi9lzl4mHg3qZE=;
         h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=V2QGdUZdfcYA2LUONpM7mMATSdjAFOL/rZzKq24BudN0tJ3D9IQ2/Rspc+IhAIff9
-         jZOFL0FCnAwOoMiQ6eAvoutTe+QGSYcSmGeqnD5iisC0cy7t4kJIUflW/KLA3T9UvA
-         jqwrH433ra0YJOAd2LU934xNmbqM7z0fL0oJ+cdqmrHccoTGw+/0Qp3EHSz6UkcaZC
-         Pl9Cc3Wo61eK79cuOBpHeFanWS4ApO8baW+2QbYC4TWroPZSMqW5lEw+Nb/S8NyyuT
-         dzz6jNt8jQ2gPBN/brmDPA8xOzcPgqyNr/Zag3+eVCiJXS3I1ZEUzQQBVzaZtGDYJr
-         IstKq9/tF2qhw==
+        b=hvqD/Va00/mmDobbspv3rfcIfUnAjyK2XsAEOM+HgVo70rVCahPaeL90poCr7E98M
+         0AO3/TpHjqTY7G5P30JRklEyEaG92M5q8eYNwcq7Ul8dmEpgCLr9pk02SFBHpSUtsF
+         Wbagj1XCCU/YbzPNrLIx3biYYN47mm4ivkl1yI7FGle0iGRRWlekttQlPTxsEcEoCk
+         BEhPED2dKn/Un6nWMex4x+YtAZksNX1GMhwiikZSpYu4c/SC0B254pM8GenDoSUmtJ
+         bEqCoNca3myv4ChdAF7n5IbS1WwwMwkUL+5tBRNhJ8RFyzwZo7s1B1lMTcBjGFhgJ9
+         tVL2pHnJqBdqg==
 From:   Sasha Levin <sashal@kernel.org>
 To:     linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Cc:     Randy Dunlap <rdunlap@infradead.org>, dccp@vger.kernel.org,
@@ -30,19 +30,19 @@ Cc:     Randy Dunlap <rdunlap@infradead.org>, dccp@vger.kernel.org,
         Jakub Kicinski <kuba@kernel.org>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.13 038/127] dccp: add do-while-0 stubs for dccp_pr_debug macros
-Date:   Tue, 24 Aug 2021 12:54:38 -0400
-Message-Id: <20210824165607.709387-39-sashal@kernel.org>
+Subject: [PATCH 5.10 39/98] dccp: add do-while-0 stubs for dccp_pr_debug macros
+Date:   Tue, 24 Aug 2021 12:58:09 -0400
+Message-Id: <20210824165908.709932-40-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210824165607.709387-1-sashal@kernel.org>
-References: <20210824165607.709387-1-sashal@kernel.org>
+In-Reply-To: <20210824165908.709932-1-sashal@kernel.org>
+References: <20210824165908.709932-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.13.13-rc1.gz
+X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.61-rc1.gz
 X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-X-KernelTest-Branch: linux-5.13.y
+X-KernelTest-Branch: linux-5.10.y
 X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
-X-KernelTest-Version: 5.13.13-rc1
-X-KernelTest-Deadline: 2021-08-26T16:55+00:00
+X-KernelTest-Version: 5.10.61-rc1
+X-KernelTest-Deadline: 2021-08-26T16:58+00:00
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit

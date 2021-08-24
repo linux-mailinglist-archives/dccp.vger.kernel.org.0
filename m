@@ -2,27 +2,27 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 024FB3F67BF
-	for <lists+dccp@lfdr.de>; Tue, 24 Aug 2021 19:36:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0C3763F6809
+	for <lists+dccp@lfdr.de>; Tue, 24 Aug 2021 19:40:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242246AbhHXRhM (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 24 Aug 2021 13:37:12 -0400
-Received: from mail.kernel.org ([198.145.29.99]:41190 "EHLO mail.kernel.org"
+        id S233036AbhHXRkA (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 24 Aug 2021 13:40:00 -0400
+Received: from mail.kernel.org ([198.145.29.99]:42794 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S242352AbhHXRfJ (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 24 Aug 2021 13:35:09 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 142AA61BC0;
-        Tue, 24 Aug 2021 17:06:45 +0000 (UTC)
+        id S241573AbhHXRik (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 24 Aug 2021 13:38:40 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D94BC619E3;
+        Tue, 24 Aug 2021 17:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1629824806;
-        bh=hTyX5k762v8JM7eRFgseJO0Tti3D9/Wq7UaPT/jY2IE=;
+        s=k20201202; t=1629824885;
+        bh=qXcIOpkQrLHsD62/e/0RK4woLp3ZXYJFJ0JJVCSbMUA=;
         h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=NqwtazYd9mE0UsNkIR6p2LDZ/3GbVOV6bOcVQKPV8eL8IZ7O219OwsRu3wgE53QYN
-         1+c/LfzSqoNL0PQxD5QJFtMRzxjijuALAUYpr9GPOMa8alxxT4D8fHPOTJtMEtmSpQ
-         t756w+HK0ay5FXqPgoW15CcTgFQKWOmLnFve7cx7ztW696kRtg0mdRd0HViQEmzx5G
-         bRF4PivRYc90bP6T2JhTm8kqX+GUXgsXeq1+i4D/eZ+pazs2j9SiqgqcQUMOWoZfXk
-         Zpc9Q/kWoBGxdI42dLjnQOTs3EbD+OxxbODFQYtNa/c+SDKGsDKNsUXB0rEy4K3HET
-         pWFdH6McWt6JA==
+        b=fR/MBb/BA8IWI8h3QsHZo/aE4K+Zw73rqNqt3iq1c1Gp3Hr7GvKtyoH1ueR0p/P9W
+         HlNU2iVWO+QnMnA3KCuFSJphdYDbsKtfGiPGigARQLOBjemSIcbir0+p//9ND+9Yja
+         vtKG/8nweEsd53QfadMgRcM/OESJkrd9keeWfslvPe7ByVRtQrHhg/RvHmuz4PsrAF
+         Sjft2Tbh4vXJ9ZH/6jq0GLKj9bjWNdnDOuq3bJAnZY3383SsZyCDYn4OU9++hSXUfT
+         XuxpKGrue5DZqd9hPgz9BGtuxud4ltUJ3WiRNUZiFS8uBv8B04b1ViZRb8mUrO/t0g
+         A9o+/NaNnHpEQ==
 From:   Sasha Levin <sashal@kernel.org>
 To:     linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Cc:     Randy Dunlap <rdunlap@infradead.org>, dccp@vger.kernel.org,
@@ -30,19 +30,19 @@ Cc:     Randy Dunlap <rdunlap@infradead.org>, dccp@vger.kernel.org,
         Jakub Kicinski <kuba@kernel.org>,
         Gerrit Renker <gerrit@erg.abdn.ac.uk>,
         Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 4.9 31/43] dccp: add do-while-0 stubs for dccp_pr_debug macros
-Date:   Tue, 24 Aug 2021 13:06:02 -0400
-Message-Id: <20210824170614.710813-32-sashal@kernel.org>
+Subject: [PATCH 4.4 22/31] dccp: add do-while-0 stubs for dccp_pr_debug macros
+Date:   Tue, 24 Aug 2021 13:07:34 -0400
+Message-Id: <20210824170743.710957-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210824170614.710813-1-sashal@kernel.org>
-References: <20210824170614.710813-1-sashal@kernel.org>
+In-Reply-To: <20210824170743.710957-1-sashal@kernel.org>
+References: <20210824170743.710957-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v4.x/stable-review/patch-4.9.281-rc1.gz
+X-KernelTest-Patch: http://kernel.org/pub/linux/kernel/v4.x/stable-review/patch-4.4.282-rc1.gz
 X-KernelTest-Tree: git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-X-KernelTest-Branch: linux-4.9.y
+X-KernelTest-Branch: linux-4.4.y
 X-KernelTest-Patches: git://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git
-X-KernelTest-Version: 4.9.281-rc1
-X-KernelTest-Deadline: 2021-08-26T17:06+00:00
+X-KernelTest-Version: 4.4.282-rc1
+X-KernelTest-Deadline: 2021-08-26T17:07+00:00
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
@@ -80,7 +80,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/net/dccp/dccp.h b/net/dccp/dccp.h
-index 0c55ffb859bf..121aa71fcb5c 100644
+index b0e28d24e1a7..e50fc19690c8 100644
 --- a/net/dccp/dccp.h
 +++ b/net/dccp/dccp.h
 @@ -44,9 +44,9 @@ extern bool dccp_debug;

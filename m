@@ -2,108 +2,58 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D18FF3F8C2D
-	for <lists+dccp@lfdr.de>; Thu, 26 Aug 2021 18:29:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B79C3F9528
+	for <lists+dccp@lfdr.de>; Fri, 27 Aug 2021 09:33:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S243074AbhHZQaQ (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 26 Aug 2021 12:30:16 -0400
-Received: from mail-io1-f72.google.com ([209.85.166.72]:55959 "EHLO
-        mail-io1-f72.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242493AbhHZQaM (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 26 Aug 2021 12:30:12 -0400
-Received: by mail-io1-f72.google.com with SMTP id o128-20020a6bbe86000000b005bd06eaeca6so2025462iof.22
-        for <dccp@vger.kernel.org>; Thu, 26 Aug 2021 09:29:25 -0700 (PDT)
+        id S244198AbhH0Hdu (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 27 Aug 2021 03:33:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38062 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S244371AbhH0Hdu (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 27 Aug 2021 03:33:50 -0400
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1745EC061796
+        for <dccp@vger.kernel.org>; Fri, 27 Aug 2021 00:33:02 -0700 (PDT)
+Received: by mail-pl1-x62f.google.com with SMTP id n12so3389371plk.10
+        for <dccp@vger.kernel.org>; Fri, 27 Aug 2021 00:33:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=Y9WMVOKV2jMg9EEMF1Qrhk1JdAGUE6w+FwvD+kh1+lg=;
+        b=PG6AcHd8XLHmer4Xz+Xmj/qP8rt0SuNBYwcVVR9gagYoIkh76kVI6zo9jMQUOSgZrN
+         ywOdcYtJYRbXyzZ9Z1A4vFxRL5KnXtObs4npD6Lvu7dwH+KmQwxY4VYYycTUJeUhA+rY
+         yZ5k0WJ5enVhcA9YgKyfu65deSVhHNqszuoXp23tBatnCKYCg4oy4rLY1wOU0WoLg9l8
+         1Nf7hAUQipDkdf8eUFbJ6V5yx/ePqvqQseRVPB2TQ5G94+nq9VgItwWLRMwMdY29Cirk
+         eYQhNL6uHxfDrHYUMktF4BjItGeKYBs7s7o4C2R7gN5UpU0laVTwZcIhcoCMrnI9W14M
+         wGVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
-        bh=zgq0pv0+Yigczdn03yiYXF2cPH8aPynvUP+aMt5Zh0U=;
-        b=SQrHt4oMKCy5ZHfNMyLP5LhbCphNZujoMEkmLVqeMX0rfoBQqPqc4YGkvuCsHmfXq8
-         TE6DqG+iiPpNjpYjznxVXiqFpJ5gW0iqXanZMA/TMl7H+EL9QLRfLO1fNzObgfEyfVr9
-         G0khf55V/w9VTP8GwXODi/vkC4hHhGn+2/D4sIrsQCDmpPGfIwaPGsd9XPa3CipY8nup
-         uEpZtb3Cpgke0rCqmCKt881lE1D0sq19DdbuVwvJNWg2xEJYF0SSCSJYGVGghTFncWj9
-         4zcr6leIzYYbqakW12Mpqwyka32jfhZ1DZ0QTIK3yfCqhNLGABjkRUc2owaFzY98a07B
-         J4OQ==
-X-Gm-Message-State: AOAM533//fydifh5qhWiNLYWPP+oyfvSKga7vy/vHGc7GFCkaXW75WUy
-        12lGIJyFfyLq7V/LdP4uBlxE8g07BkNz/x4Ld/4kHVxRZ/dY
-X-Google-Smtp-Source: ABdhPJzqKuFT4WKixvqXWZZ0Q3b908WTYvlKCZ5m9V+CePhE/JmJV7h5ehEhAirVcG13fhIOfrdzA4CF5DpFLh0ilnaEE/wM2VXP
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=Y9WMVOKV2jMg9EEMF1Qrhk1JdAGUE6w+FwvD+kh1+lg=;
+        b=bnJVOjkilY7WtQz/wAZS6jd+t4VAMysWYo1QPRv7KsjiOI7q3Gw8nlADW+7D8NMaSH
+         IrS1W4DtZoYiVmv0Zww8C69BTC/YUjCpaD5AFh2F8q5TUncxN8XmJExWxvB03cpFmb0A
+         X/WJuB2OP6ka8yjCCjjDLvNZIJQikpJhInYQoVb94fZhjzwb832b5tuuAwsb5bMiYCGj
+         gs/ANzMz164WqCebJvZxZq08JTqwF28LKLQ2sbD9ihh2ZB+xliU7YoK1EyFT7ESLi9Xy
+         WNQKv7S2ZlONcNa/91kKZVeJEdmIvp87Bg2tJoQzcqDE250wlmKvugCUusuizGF1p4Uz
+         j8RA==
+X-Gm-Message-State: AOAM533xq/Y8UGC7C+p1k6QBC22M4FYjsissvL2cq6HrwVueI2JbKm0L
+        vSWWuZ8RNSWdFnGt0AeSlcDFYk3iovghQsROBxE=
+X-Google-Smtp-Source: ABdhPJz0DLgRa2rKtpM6glTsIoidkFUA1fNAZvk4z3nmPjXat49679SRgvnI+Pc22/K4Rv6x49PS+CfeK9fSKJc1tlk=
+X-Received: by 2002:a17:90a:8801:: with SMTP id s1mr9134362pjn.166.1630049581596;
+ Fri, 27 Aug 2021 00:33:01 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6e02:1294:: with SMTP id y20mr3160461ilq.42.1629995364930;
- Thu, 26 Aug 2021 09:29:24 -0700 (PDT)
-Date:   Thu, 26 Aug 2021 09:29:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000b6599705ca78de28@google.com>
-Subject: [syzbot] BUG: please report to dccp@vger.kernel.org => prev = NUM,
- last = NUM at net/dccp/ccids/lib/packet_history.c:LINE/tfrc_rx
-From:   syzbot <syzbot+d9bd66f8d352f7eb1955@syzkaller.appspotmail.com>
-To:     andrew@lunn.ch, davem@davemloft.net, dccp@vger.kernel.org,
-        kuba@kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Received: by 2002:a05:6a10:c7d2:0:0:0:0 with HTTP; Fri, 27 Aug 2021 00:33:01
+ -0700 (PDT)
+Reply-To: jam3vxbris@gmail.com
+From:   James <yi23xwk34@gmail.com>
+Date:   Fri, 27 Aug 2021 09:33:01 +0200
+Message-ID: <CAM-eB53g+cwRmOMsmPw53LLQZpGQjip606-xDPyObjCgOx4yfA@mail.gmail.com>
+Subject: Respond
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    e3f30ab28ac8 Merge branch 'pktgen-samples-next'
-git tree:       net-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=13a18a59300000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ef482942966bf763
-dashboard link: https://syzkaller.appspot.com/bug?extid=d9bd66f8d352f7eb1955
-compiler:       gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.1
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12bfe5d5300000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d9bd66f8d352f7eb1955@syzkaller.appspotmail.com
-
-BUG: please report to dccp@vger.kernel.org => prev = 0, last = 0 at net/dccp/ccids/lib/packet_history.c:414/tfrc_rx_hist_sample_rtt()
-CPU: 1 PID: 13730 Comm: syz-executor.2 Not tainted 5.14.0-rc6-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Call Trace:
- __dump_stack lib/dump_stack.c:88 [inline]
- dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:105
- tfrc_rx_hist_sample_rtt+0x4a5/0x4b0 net/dccp/ccids/lib/packet_history.c:414
- ccid3_hc_rx_packet_recv+0x5b8/0xe90 net/dccp/ccids/ccid3.c:760
- ccid_hc_rx_packet_recv net/dccp/ccid.h:182 [inline]
- dccp_deliver_input_to_ccids+0xd9/0x250 net/dccp/input.c:176
- dccp_rcv_established net/dccp/input.c:374 [inline]
- dccp_rcv_established+0x107/0x160 net/dccp/input.c:364
- dccp_v4_do_rcv+0x130/0x190 net/dccp/ipv4.c:667
- sk_backlog_rcv include/net/sock.h:1024 [inline]
- __release_sock+0x134/0x3b0 net/core/sock.c:2669
- release_sock+0x54/0x1b0 net/core/sock.c:3201
- dccp_sendmsg+0x67a/0xc90 net/dccp/proto.c:796
- inet_sendmsg+0x99/0xe0 net/ipv4/af_inet.c:821
- sock_sendmsg_nosec net/socket.c:704 [inline]
- sock_sendmsg+0xcf/0x120 net/socket.c:724
- ____sys_sendmsg+0x331/0x810 net/socket.c:2403
- ___sys_sendmsg+0xf3/0x170 net/socket.c:2457
- __sys_sendmmsg+0x195/0x470 net/socket.c:2543
- __do_sys_sendmmsg net/socket.c:2572 [inline]
- __se_sys_sendmmsg net/socket.c:2569 [inline]
- __x64_sys_sendmmsg+0x99/0x100 net/socket.c:2569
- do_syscall_x64 arch/x86/entry/common.c:50 [inline]
- do_syscall_64+0x35/0xb0 arch/x86/entry/common.c:80
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-RIP: 0033:0x4665e9
-Code: ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 bc ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f94cb63e188 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
-RAX: ffffffffffffffda RBX: 000000000056c0f0 RCX: 00000000004665e9
-RDX: 0000000000000002 RSI: 0000000020000240 RDI: 0000000000000004
-RBP: 00000000004bfcc4 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 000000000056c0f0
-R13: 00007ffd68749c0f R14: 00007f94cb63e300 R15: 0000000000022000
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-syzbot can test patches for this issue, for details see:
-https://goo.gl/tpsmEJ#testing-patches
+I would like to discuss business with you.

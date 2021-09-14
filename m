@@ -2,68 +2,63 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EB24F4037FE
-	for <lists+dccp@lfdr.de>; Wed,  8 Sep 2021 12:40:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3816240AD45
+	for <lists+dccp@lfdr.de>; Tue, 14 Sep 2021 14:14:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242347AbhIHKlR (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 8 Sep 2021 06:41:17 -0400
-Received: from mail.kernel.org ([198.145.29.99]:51510 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233077AbhIHKlP (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 8 Sep 2021 06:41:15 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id 1BDE561163;
-        Wed,  8 Sep 2021 10:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1631097608;
-        bh=JpJ+KCAjqsJnD4fAHueRPorRkCtY3n+wxVMuMO4+jbQ=;
-        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-        b=RphSLjLguBg1w6ajGcSR2Sweq+bCZDIvv4v5V7snqH5CyRn+RGsElV1A5E0UyDNF/
-         x/3wDC3dDL1HiANbEVGYvX3oc+M6v3WCttsrWtByTt8RGK1nW9O24Kn3tGC52DDN2n
-         vqPdzwMAAi7jt/tEnA3e5Gn5B1RmBChu3/YXGOptzYYhkVmaRU5pKbmmz1kE2UEO16
-         Grm+PtfgbXWIHwSGCcI9udbNhcZC+L3W2j8N7NvAdQl6y2+f+t6fcPLXDp31d9fZJe
-         Ya17SA3+WsuQFKAXTGpCp+ixwQL2hTy1SsSF20MUGvMMXtqqRQH1Xw/jmVtVXtG19F
-         QBFfYctLRtH0Q==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 1105F60A24;
-        Wed,  8 Sep 2021 10:40:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+        id S232357AbhINMQI (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 14 Sep 2021 08:16:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33862 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232804AbhINMOG (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 14 Sep 2021 08:14:06 -0400
+Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com [IPv6:2607:f8b0:4864:20::d2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E188C0613D8
+        for <dccp@vger.kernel.org>; Tue, 14 Sep 2021 05:12:48 -0700 (PDT)
+Received: by mail-io1-xd2a.google.com with SMTP id j18so16627739ioj.8
+        for <dccp@vger.kernel.org>; Tue, 14 Sep 2021 05:12:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=H3bGT1ZyGPu3PRQJlJHyQI9TvTjBPuNSyHjFOzNfiP0=;
+        b=nxnwnaJylLgdoPubPrloJz7yVnI4L+4Ux5ega8Efiw+XI5kW5Ck33GWVgcW/TRkt0u
+         trKFBAgt8xQij/MuG/JD+hD41KzKqzahxrztv7rQbVK6mkebGV1W/qez5Lz7NqNIch7u
+         lSjMHcsVoY8ZNKewP8GE+1sEVD4Lb2NpVquj9k3lMY5/ttxp7wzJ0yJHXI80a+kJRm4y
+         TXb4HSK23eaEfK4nj87p/clKTaL7anEq+0SmpwpXPJsIOc+pOJ+UyhfVQzO9yOjx7FTy
+         XFoXdcNiPngooEGANH0XnBRVgNajXy/67wCQHSK5H/QfSGA8myWN+TW2etYfcAjuau4p
+         HkKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=H3bGT1ZyGPu3PRQJlJHyQI9TvTjBPuNSyHjFOzNfiP0=;
+        b=PP5eCZlTm6AfTbFRFIfkQ/hJIq8/+K2vaV4OOZO9u1v4FP3Un7rl8V9WINmKyMFEMc
+         B9vVKznR2pE3mmy0qc6hpE3Sse7kQfhcTJGl34fU1eO+Rzh5cK1Uflk7QHiYl6AI9JHO
+         DXTmp8CMPAK3XTS8KxhI7WIiS65OXHVOHDZL+lnkNNtYtad2YdaV8PKf3A2I+iIywKHd
+         BdmvftnwupbNtkEaJn7FdKYEw2LDCVnw2nHMreLCB7tvZj6QhNTGZL4VEv6T7aWfS9G1
+         xzPIl7aHT8KNZ5RrIAJStSK2E0j//nsCdmVAd6qB/oW/vO6pzA9PGJYTPMvpEDOrW4Nn
+         GhgQ==
+X-Gm-Message-State: AOAM530rR+spSKhLDeYAb4hgyh0Lc/fADExIuLPIU92kDU7yX9041VpP
+        u+EXRsUGzaeOihZe6ruENVsKEZFsVHP0HfUPYUc=
+X-Google-Smtp-Source: ABdhPJzzBcfhOOGbPMgQcDAQYwOeJMgwyg4TLg8kDoZ+Razz56/5okH91HBXxoMjTCkDzbXcFUWV+PUscACANclOEOE=
+X-Received: by 2002:a6b:f214:: with SMTP id q20mr13359954ioh.84.1631621567177;
+ Tue, 14 Sep 2021 05:12:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] dccp: don't duplicate ccid when cloning dccp sock
-From:   patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163109760806.16056.10288524962758514205.git-patchwork-notify@kernel.org>
-Date:   Wed, 08 Sep 2021 10:40:08 +0000
-References: <F3E0B9C9-14F1-43F5-AC6C-E5DB346A8090@psu.edu>
-In-Reply-To: <F3E0B9C9-14F1-43F5-AC6C-E5DB346A8090@psu.edu>
-To:     Lin@ci.codeaurora.org, Zhenpeng <zplin@psu.edu>
-Cc:     dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
-        alexey.kodanev@oracle.com
+Received: by 2002:a92:cd8f:0:0:0:0:0 with HTTP; Tue, 14 Sep 2021 05:12:46
+ -0700 (PDT)
+Reply-To: abdwabbomaddah91@gmail.com
+From:   Abdwabbo Maddah <klimowiczd0@gmail.com>
+Date:   Tue, 14 Sep 2021 13:12:46 +0100
+Message-ID: <CA+ARbHSO5-Md3Yf++vh73XC907pQDfbs4wYQsHooLta2dCsGmg@mail.gmail.com>
+Subject: DID YOU RECEIVE MY MAIL?
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello:
-
-This patch was applied to netdev/net.git (refs/heads/master):
-
-On Wed, 8 Sep 2021 03:40:59 +0000 you wrote:
-> Commit 2677d2067731 ("dccp: don't free ccid2_hc_tx_sock ...") fixed
-> a UAF but reintroduced CVE-2017-6074.
-> 
-> When the sock is cloned, two dccps_hc_tx_ccid will reference to the
-> same ccid. So one can free the ccid object twice from two socks after
-> cloning.
-> 
-> [...]
-
-Here is the summary with links:
-  - dccp: don't duplicate ccid when cloning dccp sock
-    https://git.kernel.org/netdev/net/c/d9ea761fdd19
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+-- 
+Dear,
+I had sent you a mail but i don't think you received it that's why am
+writing you again.It is important you get back to me as soon as you
+can.
+Abd-Wabbo Maddah

@@ -2,71 +2,78 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F5E7438223
-	for <lists+dccp@lfdr.de>; Sat, 23 Oct 2021 09:08:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 237A743A619
+	for <lists+dccp@lfdr.de>; Mon, 25 Oct 2021 23:46:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229935AbhJWHKy (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 23 Oct 2021 03:10:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48430 "EHLO
+        id S233179AbhJYVtB (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 25 Oct 2021 17:49:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56400 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229446AbhJWHKx (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 23 Oct 2021 03:10:53 -0400
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com [IPv6:2607:f8b0:4864:20::82a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F149C061764
-        for <dccp@vger.kernel.org>; Sat, 23 Oct 2021 00:08:35 -0700 (PDT)
-Received: by mail-qt1-x82a.google.com with SMTP id c28so5539234qtv.11
-        for <dccp@vger.kernel.org>; Sat, 23 Oct 2021 00:08:35 -0700 (PDT)
+        with ESMTP id S230201AbhJYVtB (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 25 Oct 2021 17:49:01 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A719CC061745
+        for <dccp@vger.kernel.org>; Mon, 25 Oct 2021 14:46:38 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id u18so11936984wrg.5
+        for <dccp@vger.kernel.org>; Mon, 25 Oct 2021 14:46:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=YsUQUPBNadnBRuCjjA3BBvm+6m7NW6Jyp1G0wg0osAY=;
-        b=px/hHLZOP8VuZOoRyn+rTFFZUBhXvtb4HWgW5+CJ5VBliOcfYgPD+LsECO7qNUKpX7
-         YqUF/dHR4KOpQBcc9j55mp5FSnoMuM0rvH542clDKItMB7xmnHSMevwq4wCNY9OSHeaQ
-         8ou5kKPjalC7VxFo1/YtJHde5drGD4YpxkSmShkyoJgm0JuJwgF9IjuNyNZmuWz7Aaj+
-         xE5M3I5o54oUUgb4F7kh5L1X4fwh1XHEOEB6EfgiFfSDqLFSVYWE2RZo4arPpL3K57Ip
-         1tO+tcmgGB7I+A4a++346Rz1bliHW8gdhi5xAyqX2Ww/phwElfRcnkdT3HYUSx6huVIe
-         6hog==
+        h=mime-version:sender:from:date:message-id:subject:to;
+        bh=+OhYyTKGmAf5Y61RBhMkXMlQv+hOjswu4u5NSWPSjMI=;
+        b=DlP3DVIL1MXhHDa0mys7iO6Ovc1/rD7JlmRe1StkLgRtyITJdtmeZFnM8sb6LpaTeW
+         i2bpFJI94nFAqHRXjokpuam5nF/9El3wy+Zt5lQX0TXl5qdiwkaLfj6h99c6p8tJOvo/
+         Wv3/zNZMEFwPturvKinl9bkjYKUMjK3HiKXW5xFKIhX2TwQdO2gwT30++lZunmxyeNcT
+         lRxFIS57PlKrGQGRTMBiOX5BIeGycGnDquzbowgPB0otjRQ9XsZjKGto+7+wpgpH1dRa
+         UhgiqRaQm+h05bEisNSSWRCwhB8sw7ZLFBX9OWoeUOtarePY9sv4C4f8UW/swZX4m9E5
+         uiQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=YsUQUPBNadnBRuCjjA3BBvm+6m7NW6Jyp1G0wg0osAY=;
-        b=dbpXI+HOPByWEs15GjD/WcIUpNRFgesQi5zZO3zRqKBaha19S2kmLSjDM7yCqwDs+l
-         fdftZChJnCSo8qtpF1RYwBkB2SDGPS2D3XbdqbgTQsCQQjIJWfTE69JHshVGOMynudwx
-         +bXjJ1Icoqj2EPS+CrAvGF6cfrc3JS0Kdh3C3O0tYeh3IdqwpjDf3N8ZmGmtEq3vtFC9
-         +DHCUavxXyU4sc5rVTUVJtGGhP/lwDOwHkqlnxMrJQk/npXvUIt6CM8wFW1J2jcEWA54
-         Fc+6FWX8AiXmCqX4wmD4n4ElTj+ROZZ45i85EQTxNBg7Lce4ZMiMHQc9K1l7pW5pCPbr
-         Yfkw==
-X-Gm-Message-State: AOAM531S6BhrAIsQMw0tVYviVtXr+4heQ+Qhymb4FKE84k0epXuH8Nz+
-        De7BNX+WgQiGs6TSQE62dD/QhY5IsihdrPIe5AI=
-X-Google-Smtp-Source: ABdhPJzWXX4BTO17gM8/jeBAvfmpNrMETCh8VbwCZYWxSRkVBTiCT5fWTZndZRX6OGMj7kYduXrw/CZ3/N7BrBduDvM=
-X-Received: by 2002:ac8:59ce:: with SMTP id f14mr4647743qtf.418.1634972913738;
- Sat, 23 Oct 2021 00:08:33 -0700 (PDT)
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to;
+        bh=+OhYyTKGmAf5Y61RBhMkXMlQv+hOjswu4u5NSWPSjMI=;
+        b=woph0VvxQhGlOg8AEnTL4gv2tMtwpKlAJjym/A8BsrSwbKKVD5u85j0i5hUt6aCxyN
+         bWrPEhTz4RWTjv7pSQT481gD/iexpCi7nQ++00iim1nGT2AJia8vY6/GDMJt/mk9Yq8J
+         +PbuPZKxCM0EkHsx1gbVkQ+vwUZNkm+lzaBjckFXxrznq0V5lxImG6u7iUplBDPo3n44
+         VNpLJhqsDSH4oofMsTvJxi6JIKm9yMr9hfntxtGd7Md8V9oyF6etj7yjLwyjUo5klPc+
+         p0JLVl9oGYf2npU8bpQWErcSI0oPc5FWMP18IgA+KWBR0y33KKAGPdDFItFON+7deXlh
+         SpKQ==
+X-Gm-Message-State: AOAM530q2j9rjKXt4JV2Awy4sF/xtM+zbkptl7VVccKQEz9A0Cudc+XR
+        WiFkbNODmmqgmgkhCsmQKki/oLbIsIdM6e+L/g==
+X-Google-Smtp-Source: ABdhPJwxqQrFFnGa+dLKPKmD/3ABVyiBnDrwtaCjN8UBxtYWtruLiAkkcibxAPGu2mAoShGTGthgM2eF0FvGsyQuVYQ=
+X-Received: by 2002:a5d:64a1:: with SMTP id m1mr15050710wrp.101.1635198397256;
+ Mon, 25 Oct 2021 14:46:37 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6214:508c:0:0:0:0 with HTTP; Sat, 23 Oct 2021 00:08:33
+Sender: ds8873959@gmail.com
+Received: by 2002:a7b:c381:0:0:0:0:0 with HTTP; Mon, 25 Oct 2021 14:46:36
  -0700 (PDT)
-Reply-To: mrdavidmorris103@gmail.com
-From:   MR DAVID MORRIS <nurudeenadamu3618@gmail.com>
-Date:   Sat, 23 Oct 2021 00:08:33 -0700
-Message-ID: <CAMYL5Dkm-z0=qQ0y6eXQQtYbnTQHeL-3YKfvTtf_B5QwbFCMog@mail.gmail.com>
-Subject: Good day,
+From:   "Mr. Mustafa Ali." <muafalia@gmail.com>
+Date:   Mon, 25 Oct 2021 22:46:36 +0100
+X-Google-Sender-Auth: MDLcctyI9gpG9UH1XK5M5f-kDjQ
+Message-ID: <CAJB8rUi1LNvJXEJkMgXDFbtRYqdqD_cYKA-4Tr=9YyhQ6FgQFA@mail.gmail.com>
+Subject: Greetings Dear Friend.
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
--- 
-I am MR DAVID MORRIS, Inspection Unit Manager United Nations
-Inspection Agency in Hartsfield Jackson International Airport Atlanta,
-Georgia.
+Hello Friend,
 
-During our investigation, I discovered An abandoned shipment through a
-Diplomat from United Kingdom which was transferred from JF Kennedy
-Airport to our facility here in Atlanta, The two  consignment boxes is
-worth $8 million,And I  Ascertain you that the consignment is in your
-name,you are advised to provide all detail for claim.
+This message might meet you in utmost surprise. However, It's just my
+urgent need for a foreign partner that made me contact you for this
+transaction. I assured you of honesty and reliability to champion this
+business opportunity. I am a banker by profession in Turkey, and
+currently holding the post of Auditor in Standard Chartered Bank.
 
-Sincerely,
-MR MORRIS
-CONTACT.......... mrdavidmorris103@gmail.com
+I have the opportunity of transferring the leftover funds ($15 Million
+Dollars) of one of my clients who died along with his entire family in
+a crisis in Myanmar Asia. I am inviting you for a business deal where
+this money can be shared between us if you agree to my business
+proposal.
+
+Further details of the transfer will be forwarded to you immediately
+after I receive your return letter.
+
+Best Regards,
+Mr. Mustafa Ali.
+mustafa.ali@rahroco.com

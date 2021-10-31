@@ -2,49 +2,57 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E448440858
-	for <lists+dccp@lfdr.de>; Sat, 30 Oct 2021 12:09:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A77E7441014
+	for <lists+dccp@lfdr.de>; Sun, 31 Oct 2021 19:16:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231772AbhJ3KLz (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 30 Oct 2021 06:11:55 -0400
-Received: from lit001.phy.lolipop.jp ([163.44.185.66]:43422 "EHLO
-        lit001.phy.lolipop.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231764AbhJ3KLz (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 30 Oct 2021 06:11:55 -0400
-X-Greylist: delayed 322 seconds by postgrey-1.27 at vger.kernel.org; Sat, 30 Oct 2021 06:11:54 EDT
-Received: by lit001.phy.lolipop.jp (Postfix, from userid 995)
-        id 0C7081C0B26CF; Sat, 30 Oct 2021 19:04:01 +0900 (JST)
-To:     dccp@vger.kernel.org
-Subject: =?UTF-8?B?44GK5ZWP44GE5ZCI44KP44Gb44GC44KK44GM44Go44GG44GU44GW44GE44G+?=  =?UTF-8?B?44GZ44CA6YGg5b+g6aOf5ZOB5qCq5byP5Lya56S+?=
-X-PHP-Originating-Script: 813508:PHPMailer.php
-Date:   Sat, 30 Oct 2021 10:04:00 +0000
-From:   =?UTF-8?B?6YGg5b+g6aOf5ZOB5qCq5byP5Lya56S+?= <info@enchu-food.com>
-Reply-To: info@enchu-food.com
-Message-ID: <B9bzQLqCFm38B4n1yiaM3436wfGhbwywDoeUAYTvN4@enchu-food.com>
-X-Mailer: PHPMailer 6.5.0 (https://github.com/PHPMailer/PHPMailer)
+        id S230041AbhJaSSh (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 31 Oct 2021 14:18:37 -0400
+Received: from mailgate.kemenperin.go.id ([202.47.80.142]:51760 "EHLO
+        mailgate.kemenperin.go.id" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229853AbhJaSSh (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 31 Oct 2021 14:18:37 -0400
+X-Greylist: delayed 1946 seconds by postgrey-1.27 at vger.kernel.org; Sun, 31 Oct 2021 14:18:25 EDT
+Received: from localhost (localhost [127.0.0.1])
+        by mailgate.kemenperin.go.id (Postfix) with ESMTP id 5C56C828694;
+        Mon,  1 Nov 2021 00:39:29 +0700 (WIB)
+Received: from mailgate.kemenperin.go.id ([127.0.0.1])
+        by localhost (mailgate.kemenperin.go.id [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id Tuljp_J1Cdlq; Mon,  1 Nov 2021 00:39:28 +0700 (WIB)
+Received: from localhost (localhost [127.0.0.1])
+        by mailgate.kemenperin.go.id (Postfix) with ESMTP id ADDE58286A9;
+        Mon,  1 Nov 2021 00:39:19 +0700 (WIB)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mailgate.kemenperin.go.id ADDE58286A9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kemenperin.go.id;
+        s=3298A942-BBC6-11E3-B333-483736368EC2; t=1635701959;
+        bh=+tje3x5yIAM91gcZZJ8xoRjx6IuR+B3ePoXPCKu2mgI=;
+        h=Date:From:Message-ID:MIME-Version;
+        b=I9X5S/EXkVkRluX+ZSit7NFR+OW43BqhWaImhHOVukb3qOg4mxQL0FOzHiQQ0QWtu
+         KQa7Ki4CUyShQL6tKlHQ2sju9QbGIAAqzmfnY9543e4CcsCf3fTpzVOzH7DFyJ+n2N
+         pbIsYLFs1Y2zkQa1+kK/NYR2sChScl7lzgpXIyKs=
+X-Virus-Scanned: amavisd-new at kemenperin.go.id
+Received: from mailgate.kemenperin.go.id ([127.0.0.1])
+        by localhost (mailgate.kemenperin.go.id [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id yX4BRpdxBRqw; Mon,  1 Nov 2021 00:39:19 +0700 (WIB)
+Received: from mailgate.kemenperin.go.id (mailgate.kemenperin.go.id [10.1.0.89])
+        by mailgate.kemenperin.go.id (Postfix) with ESMTP id 047EB8286A0;
+        Mon,  1 Nov 2021 00:39:10 +0700 (WIB)
+Date:   Mon, 1 Nov 2021 00:39:09 +0700 (WIB)
+From:   Manuel Franco <silitonga@kemenperin.go.id>
+Reply-To: Manuel Franco <manuelfrancospende1@gmail.com>
+Message-ID: <1813105855.326067.1635701949890.JavaMail.zimbra@kemenperin.go.id>
+Subject: 2,000,000.00 Euro
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.1.0.89]
+Thread-Index: Rc07z4zuj7w66chiYJCRC031ZEpyeA==
+Thread-Topic: 2,000,000.00 Euro
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-お問合せありがとうございます。
-改めて数日中にご返信させていただきます。
 
-ご用件：その他
-差出人: You Вitcоin trаnsаctiоn: https://crplight.page.link/crp?6r2hv ❤️ 様<dccp@vger.kernel.org>
-法人名: 6m5i4car
-E-mail：dccp@vger.kernel.org
-TEL：404477477676
 
-メッセージ本文:
-771qykc
-
-------------------------------------------
-遠忠食品株式会社
-〒103-0014
-東京都中央区日本橋蛎殻町1-30-10
-03-3666-3012
-info@enchu-food.com
-
+-- 
+You have a donation of 2,000,000.00 Euro.Get back to me now so we can proceed.

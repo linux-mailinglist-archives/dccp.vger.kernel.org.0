@@ -2,54 +2,55 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AA989441493
-	for <lists+dccp@lfdr.de>; Mon,  1 Nov 2021 09:02:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E7DB447414
+	for <lists+dccp@lfdr.de>; Sun,  7 Nov 2021 17:50:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231358AbhKAIFW (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 1 Nov 2021 04:05:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53194 "EHLO
+        id S235881AbhKGQxE (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 7 Nov 2021 11:53:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35586 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231320AbhKAIFV (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 1 Nov 2021 04:05:21 -0400
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86FFFC0613F5
-        for <dccp@vger.kernel.org>; Mon,  1 Nov 2021 01:02:48 -0700 (PDT)
-Received: by mail-lf1-x132.google.com with SMTP id x27so34775054lfu.5
-        for <dccp@vger.kernel.org>; Mon, 01 Nov 2021 01:02:48 -0700 (PDT)
+        with ESMTP id S235873AbhKGQxC (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 7 Nov 2021 11:53:02 -0500
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E7D4C061220
+        for <dccp@vger.kernel.org>; Sun,  7 Nov 2021 08:50:19 -0800 (PST)
+Received: by mail-pj1-x1036.google.com with SMTP id w33-20020a17090a6ba400b001a722a06212so2968283pjj.0
+        for <dccp@vger.kernel.org>; Sun, 07 Nov 2021 08:50:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=kTlPYaJ3qmdiuwil3bN4/5BGELxQxYaH2mDV2D/+NOc=;
-        b=Rn4Xye9gQJN35YM2l3yW8ZpEkEPLI3Eg2eHasjuR4Pv0xJ4sa0r5bqYZCJwXA2/AOA
-         A2BV27g9T+mnzwinAjZXHAkcbzcmBuoSnUqnv3Px+cPpApF9XF3jgYcyNr6x97dVJylQ
-         ch65jfrWfVFVMeOgBepDWOD6PngvRUX05BK4yNBgQ2ImhU2dKr4opZ9nrJBJ2oPoEdsp
-         JqEZF1s3cfLoSJ90yn/yG6yxzSDSVwEs8wJrqPJzNHQujTue0C7IlIn1ftflLPg+dZsD
-         oQIyOCHJO134U6dgLr1M0zkgRJ+QN5BVa4VFn6b8VrJ4i08ElNFtWqN7mIvDwmaZfh4K
-         cLcQ==
+        bh=3KhLtwCKP93j3EcWq+BGTsAWsp8Oi4eBuXX0Ov40ah8=;
+        b=CGgoC4BsgHelzytn+/VTrKwS3n0T68QEW7GeWdpL8zfErEA81MOI4RL138iNx/cHCC
+         3mOCWFKMwLBKqHyI1x8QZIxdZmn/T2z7wxCAL1QJSDwY+yMd/5vpY5vZsY6UEO3VfUIk
+         NmE02Lf+f1FnTMQjl4bIN7/MkullBrFIYleaUA1lhngjIcmWGropAefRtmKn85kF4AjF
+         9REnU8D8TvvsrxnzIdJuHntvDW0z4R21EhRUYYG9p+p2KSbQQtyOBLs4eMyycwEMv9DU
+         iYxtgVtsDfraOGEV3mHhUsdsFHn4Oc6mkCc25JbUs6k1jHra7jUoaikUuMgz3yZaGGWB
+         oWWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:reply-to:from:date:message-id
          :subject:to;
-        bh=kTlPYaJ3qmdiuwil3bN4/5BGELxQxYaH2mDV2D/+NOc=;
-        b=VDv9ZeuseX/Vei+5TEUS2qotjNWUARvI/5VUs67NYj52Cr8gY3D4LSAdwNOAhA3NH2
-         bT96MmyyXgf2Keb5PsPo57p8/0S5EFzf3WzZCzW9jNJVp9S9NlbqPL6iMvjlftCWThSZ
-         wWX/iby3epSoZeHGydH5xQMU65t5aRbFnKMYAE0sMQk0NvpOrBis5lPkF9uTtYZtmVnw
-         S+0cJfoMW4VdAAAJeV97HivEYcAeBUVYdG2bFZDrRHxkTZFYjLinHbOVsgAy36GpUxN0
-         lAivc/s5AdypzB05lwGoUmaUi6B3rXZt3mYT0Ky0bk3bebku/WEIXHvj2eDDbZef7aVJ
-         389Q==
-X-Gm-Message-State: AOAM532MHQX51hVbT6usg1sXn6RYoydD3cJwEalwGYicDOghNiV+4Ox2
-        2ffJzLibO88VAx+LleWJay5LBq7IZD0+qwnkNI4=
-X-Google-Smtp-Source: ABdhPJyDNY+2LIGZUdAxQvztuexLkZjQeeZoWeFfPaR6Ifa531vnf9Kibz6VtyrHOTtl8QERrcneq8W+bUzt4N4MK/U=
-X-Received: by 2002:a05:6512:318d:: with SMTP id i13mr5499442lfe.290.1635753766759;
- Mon, 01 Nov 2021 01:02:46 -0700 (PDT)
+        bh=3KhLtwCKP93j3EcWq+BGTsAWsp8Oi4eBuXX0Ov40ah8=;
+        b=2Eb/ilVHXHn3yc4nhqjbBb+mRhzbv7jLsfAUhWGNoJfgLqgvLvSluND5wC7xpf8yCG
+         WayIea1ejsH03NnOZNIHEj2k3p+6rDDAqA13Nyrl7QnqVdlCv0nRuHD7X4vUSkVyl/Wp
+         CNjQ56D5TrrShtdYaweB5CA0/hltaX/i5PWNOwepOU3i3u597Ex43vRGXvlplEXnQWPJ
+         Z9gQQ/w+fo6qhuljOMih3jz5TM2hN4OdRxhiXynozme+kmZALHwMbPxEQHUeIAYMnD8D
+         KfXSPhgxumZEV8jVNUXQ50/OrYoMoz2kdtJiIbzaddbTinZ8C0hO42uqy9X1Kkw244L0
+         ppdA==
+X-Gm-Message-State: AOAM531gbLv3Ury24rUYO3oBbygE5XrMlxRiR4F3cM79OtmazmKM+t70
+        0x/ufUqwiIBiWuOuxITNr0ChzG+AQZ/BGC00sJ0=
+X-Google-Smtp-Source: ABdhPJwRzqzdXmZqk+E0BGOtRSVuotVxv3vktjD61tF3yrYnFRN7LmPJ9X2Sktepu1Y4J0ZwltgXDIouReyvwFUOa3w=
+X-Received: by 2002:a17:902:d2ce:b0:141:f710:922 with SMTP id
+ n14-20020a170902d2ce00b00141f7100922mr42873278plc.7.1636303818711; Sun, 07
+ Nov 2021 08:50:18 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a05:6512:304b:0:0:0:0 with HTTP; Mon, 1 Nov 2021 01:02:46
- -0700 (PDT)
-Reply-To: aisha.7d@yahoo.com
-From:   Aisha AG <rbx17058@gmail.com>
-Date:   Mon, 1 Nov 2021 00:02:46 -0800
-Message-ID: <CA+Kbyyc-bwEikP6ZYuEG+SbpuKYD8LSy=iDvx0WgdXuWxf+xMg@mail.gmail.com>
-Subject: Hello Dear,
+Received: by 2002:a05:6a10:4a14:0:0:0:0 with HTTP; Sun, 7 Nov 2021 08:50:18
+ -0800 (PST)
+Reply-To: amabenchambers00@gmail.com
+From:   Amadou Benjamin <ousmanekarim54@gmail.com>
+Date:   Sun, 7 Nov 2021 08:50:18 -0800
+Message-ID: <CAJFAt4ZtDp1d-Lyr-uxqQ9skQkUswz-oAXSiT_oB13J29FH1QQ@mail.gmail.com>
+Subject: 
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
@@ -57,25 +58,15 @@ List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
 -- 
-Hello Dear,
+Hello good day.
 
-I came across your e-mail contact prior to a private search while in
-need of your assistance. I am Aisha Al-Qaddafi, the only biological
-Daughter of Former President of Libya Col.Muammar Al-Qaddafi.
-Am a Widow and a single Mother with three Children.
+I am Barrister Amadou Benjamin by name, with due respect, I am
+contacting you to help get the deposit 10.5 million Dollars, my late
+client Engineer Vasiliy left in his Bank before his sudden death on
+April 21, 2007, to avoid confiscation by Lloyds bank. Please write me
+back through this email (amabenchambers00@gmail.com)for more
+information about this transaction or send me your private email to
+Contact you myself.
 
-I have investment funds worth Twenty Seven Million Five Hundred
-Thousand United State Dollar $27.500.000.00, and i need a trusted
-investment Manager/Partner because of my current refugee status,
-however, I am interested in you for investment project assistance in
-your country, may be from there, we can build business relationship
-in the nearest future.
-
-I am willing to negotiate an investment/business profit sharing ratio
-with you based on the future investment earning profits.
-
-If you are willing to handle this project on my behalf kindly reply
-urgently to enable me to provide you more information about the
-investment funds.
-Best Regards
-Mrs Aisha Al-Qaddafi.
+Sincerely,
+Barrister Amadou Benjamin Esq

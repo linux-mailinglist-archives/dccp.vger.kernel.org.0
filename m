@@ -2,70 +2,68 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B9136456E76
-	for <lists+dccp@lfdr.de>; Fri, 19 Nov 2021 12:50:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D2209457DE3
+	for <lists+dccp@lfdr.de>; Sat, 20 Nov 2021 13:32:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232081AbhKSLxS (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 19 Nov 2021 06:53:18 -0500
-Received: from mail.kernel.org ([198.145.29.99]:47098 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233737AbhKSLxR (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 19 Nov 2021 06:53:17 -0500
-Received: by mail.kernel.org (Postfix) with ESMTPS id A6FE561A7D;
-        Fri, 19 Nov 2021 11:50:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1637322615;
-        bh=0Xj+pkY5u8qil++KPeBcBERvckxUD4+fzfE54LTplVQ=;
-        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-        b=W96b2Oq5Z5nsvHPdbX6arsRoReWdb2dk0ROqB3z+BHGk7SrqsiC1IBG1KGIOKmCCB
-         H9uXp+BvOMSncLqmGba7ElemORE+7JkKV59gKMdjCAR362bzvYxkoTJSLuKVTFay1t
-         tGhAQNmHvjyNx83UglwW4FNID2PyiO9rl6ckkeC0DKsoO4ipkutMCxoaT9io4Jal3N
-         sbnBWImwiBgB45p9J6janBUfwpqMtDUUgNFDqXE+c7JVSOmdY/3oBkh1qgMMJxnMXZ
-         gZeVhDqNrPYr23dlOtbBO1nhYI5rBjGrXKdvhyhcWF3Zf0xR2stG5pzN7+TJgCFQ6J
-         N6NCh/80y7OBg==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 9A05C60A0F;
-        Fri, 19 Nov 2021 11:50:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+        id S237501AbhKTMfN (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 20 Nov 2021 07:35:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42052 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237467AbhKTMfM (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 20 Nov 2021 07:35:12 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD501C061759
+        for <dccp@vger.kernel.org>; Sat, 20 Nov 2021 04:32:08 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id r8so23020504wra.7
+        for <dccp@vger.kernel.org>; Sat, 20 Nov 2021 04:32:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=w2dLnl5hsLVKZTBAdcVFnDnMtM7+guW1LU+8LG4nir0=;
+        b=dp08c78RK/cKdkLcEe5oTWVItQbA/mSBZUvcdNjKjoEonsOgmj+I3GKva3iaWNyMkt
+         CCIs2ktfIKSlFzCn5+8Hr9rfVlkW2xAcoXH1NXzpdeplBMm6CMUWlUfjratbW5VZHZi+
+         F9u0WOzvv98/gWky6NQmlXJ00LlZSkTFxJTib1hT7PzOpvi2Uj3UQhxu519lTe29nn3R
+         FGtT3XYT43FZo3BFQHxyg+mAUYc7bFOWL4Kk4ANIfllPu/Hp+Feij1RVqcZIqoH0rhBk
+         /Yyd0Iw0yxFXZsMEB4UxgpAwAMU/pU7UOhZoAIzibYPkn+XBxkoaEtLGL8Ldp5BwmYSC
+         xjJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=w2dLnl5hsLVKZTBAdcVFnDnMtM7+guW1LU+8LG4nir0=;
+        b=jjgaMhCZ5jAqCkpP6vM02KkZGfXjkOsBQGBRH+lIlxHqvimiGcf/Pzhg7Ob9U1IZ2z
+         uimqAsN7jtIqrSiG77J5WGgbn4ndI2hNQsli0vsKJhW/SCVKntNKHdijxCDqYqewkhjF
+         2+yt2d7I7VoRw57NyT2FtLjHMq7DGx+1hHPmbaKIctZwSqhaqDnXp57cW3U48ldP9iQm
+         Di0M6Gfx+/wtPD8y6gaHpkPGcp7O+DIiO2Y/vMAwopYzei4d4v1KDUmfEW+JHYe+dawh
+         jG6Zt2z8VPTC2Cck53Hd9ziLQx/bJMU5wjF9/thX/WWvzSSqqrEZ1a0l7azcTHlxw9Ym
+         NNbg==
+X-Gm-Message-State: AOAM531FjZMZfE9Xne1FojLofj3a89kGB6WDsY6s6U5YhOKDbX8LCenJ
+        RfCR11lXUA+SnmafMbdszgLapybva9sKOXzs2TQ=
+X-Google-Smtp-Source: ABdhPJzrwFa7TFTqFvwFs5k0Rdhif8Z7uuK1FAOvH+K0kUx2WcLdYM3cuBXUcAo32aObeRSjQ/+f3OHahwiwxApMIiU=
+X-Received: by 2002:adf:cd06:: with SMTP id w6mr16900697wrm.431.1637411526963;
+ Sat, 20 Nov 2021 04:32:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: dccp: Use memset_startat() for TP zeroing
-From:   patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163732261562.10547.7623991356352277593.git-patchwork-notify@kernel.org>
-Date:   Fri, 19 Nov 2021 11:50:15 +0000
-References: <20211118203019.1286474-1-keescook@chromium.org>
-In-Reply-To: <20211118203019.1286474-1-keescook@chromium.org>
-To:     Kees Cook <keescook@chromium.org>
-Cc:     davem@davemloft.net, kuba@kernel.org, linux-kernel@vger.kernel.org,
-        dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-hardening@vger.kernel.org
+Received: by 2002:adf:f989:0:0:0:0:0 with HTTP; Sat, 20 Nov 2021 04:32:05
+ -0800 (PST)
+Reply-To: mitchellvivian01@gamil.com
+From:   Mitchell Vivian <duplanmartine36@gmail.com>
+Date:   Sat, 20 Nov 2021 12:32:05 +0000
+Message-ID: <CAO-XXH4jKctBjrghKocs7TkK4=OXKnJketarRZEG9rUSFpG4Ng@mail.gmail.com>
+Subject: Hello
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello:
+Hello
 
-This patch was applied to netdev/net-next.git (master)
-by David S. Miller <davem@davemloft.net>:
+My name is Miss Vivian Mitchell. I want to donate my fund $ 4.5
+million USD to you on a charity name to help the poor People.
 
-On Thu, 18 Nov 2021 12:30:19 -0800 you wrote:
-> In preparation for FORTIFY_SOURCE performing compile-time and run-time
-> field bounds checking for memset(), avoid intentionally writing across
-> neighboring fields.
-> 
-> Use memset_startat() so memset() doesn't get confused about writing
-> beyond the destination member that is intended to be the starting point
-> of zeroing through the end of the struct.
-> 
-> [...]
+As soon as I read from you I will give you more details on how to
+achieve this goal and get this fund transferred into your bank
+account.
 
-Here is the summary with links:
-  - net: dccp: Use memset_startat() for TP zeroing
-    https://git.kernel.org/netdev/net-next/c/f5455a1d9d49
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks have a nice day,
+Miss.vivian

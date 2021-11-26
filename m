@@ -2,73 +2,54 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E902845B32B
-	for <lists+dccp@lfdr.de>; Wed, 24 Nov 2021 05:30:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6143345F4F1
+	for <lists+dccp@lfdr.de>; Fri, 26 Nov 2021 19:51:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238961AbhKXEdS (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 23 Nov 2021 23:33:18 -0500
-Received: from mail.kernel.org ([198.145.29.99]:35292 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233767AbhKXEdR (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 23 Nov 2021 23:33:17 -0500
-Received: by mail.kernel.org (Postfix) with ESMTPS id C95FD60FC1;
-        Wed, 24 Nov 2021 04:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1637728208;
-        bh=rzAyqTEUj+cqKC8foQFbMePXfZUOXQ+8nwzqDxEAwaM=;
-        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-        b=ifWem9QE0Ly9Q2hqh49su/ItBHL4HpLaMVvkJvtQD1UJW076d1x1LPfTUte9VxW55
-         B+2pQ6VGS8YaAgVEflssOcNt8QDGFvg8f3Zi9klcQla0LTHMvEvx1ztC9lF2lH46oE
-         nmX197VKaCR+UC2TJ6x94d/o1YpANss9RKZ+ideFU0Cjmgr2e4k+uRkDqoODg8rI3Z
-         df2UOsyfq8zzwaMtnsfFsf+MuEW1R8xZ6ij39VNMmvJiy52ggN3XG12B796yMaOOSI
-         6o5KAwd1PiOepGU5IO1+S+Xyoik5vjEyA0urQowetN5P2BLSOKFiByNqak61yjfBiK
-         0kpdMt6O0tteg==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-        by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id BCCF060A94;
-        Wed, 24 Nov 2021 04:30:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+        id S230490AbhKZSyV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 26 Nov 2021 13:54:21 -0500
+Received: from mailgw35-166.conoha.ne.jp ([118.27.100.166]:29034 "EHLO
+        mailgw35.conoha.ne.jp" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S239468AbhKZSwV (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 26 Nov 2021 13:52:21 -0500
+X-Greylist: delayed 580 seconds by postgrey-1.27 at vger.kernel.org; Fri, 26 Nov 2021 13:52:20 EST
+Received: from www175.conoha.ne.jp (unknown [172.16.43.94])
+        by mailgw35.conoha.ne.jp (Postfix) with ESMTP id 9E645280040727
+        for <dccp@vger.kernel.org>; Sat, 27 Nov 2021 03:39:25 +0900 (JST)
+Received: by www175.conoha.ne.jp (Postfix, from userid 10684)
+        id 9DD8B102F9B4F; Sat, 27 Nov 2021 03:39:25 +0900 (JST)
+To:     dccp@vger.kernel.org
+Subject: =?UTF-8?B?44Km44Kj44Oz44Ob44O844Kv44OX44Op44OzICJpd2JhbmdqdyI=?=
+X-PHP-Script: www.winforkplan.com/index.php for 54.36.108.162
+X-PHP-Filename: /home/c3529710/public_html/winforkplan.com/index.php REMOTE_ADDR: 54.36.108.162
+Date:   Fri, 26 Nov 2021 18:39:25 +0000
+From:   =?UTF-8?B?44Km44Kj44Oz44Ob44O844Kv44OX44Op44Oz?= 
+        <wordpress@winforkplan.com>
+Reply-To: winforkplan@gmail.com
+Message-ID: <iCZ0o4nIY4H3vuijVeUXHC3pKmdbG0znDNVhGbqw@www.winforkplan.com>
+X-Mailer: PHPMailer 6.5.0 (https://github.com/PHPMailer/PHPMailer)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next 0/2] dccp/tcp: Minor fixes for
- inet_csk_listen_start().
-From:   patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163772820876.18836.15309450997633192155.git-patchwork-notify@kernel.org>
-Date:   Wed, 24 Nov 2021 04:30:08 +0000
-References: <20211122101622.50572-1-kuniyu@amazon.co.jp>
-In-Reply-To: <20211122101622.50572-1-kuniyu@amazon.co.jp>
-To:     Kuniyuki Iwashima <kuniyu@amazon.co.jp>
-Cc:     davem@davemloft.net, kuba@kernel.org, edumazet@google.com,
-        laoar.shao@gmail.com, benh@amazon.com, kuni1840@gmail.com,
-        netdev@vger.kernel.org, dccp@vger.kernel.org
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello:
+※本メールは自動返信しています。返信はできません。
 
-This series was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
+お問い合わせいただき、ありがとうございました。
+以下の内容で受け付けましたので、近日中にご連絡させていただきます。
 
-On Mon, 22 Nov 2021 19:16:20 +0900 you wrote:
-> The first patch removes an unused argument, and the second removes a stale
-> comment.
-> 
-> 
-> Kuniyuki Iwashima (2):
->   dccp/tcp: Remove an unused argument in inet_csk_listen_start().
->   dccp: Inline dccp_listen_start().
-> 
-> [...]
+--------------------------------------------------------------
 
-Here is the summary with links:
-  - [net-next,1/2] dccp/tcp: Remove an unused argument in inet_csk_listen_start().
-    https://git.kernel.org/netdev/net-next/c/e7049395b1c3
-  - [net-next,2/2] dccp: Inline dccp_listen_start().
-    https://git.kernel.org/netdev/net-next/c/b4a8e7493d74
+会社名：❤️ Alice want to meet you! Click Here: http://bit.do/fSGXu?gx9bd ❤️
+部署名：aq2eiiz
+お名前：0kccaeiz
+メールアドレス：dccp@vger.kernel.org
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+タイトル：iwbangjw
+内容：
+szee06yh
 
+--------------------------------------------------------------
 
+有限会社ウィンホークプラン

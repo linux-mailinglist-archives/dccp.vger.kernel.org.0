@@ -2,56 +2,75 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5436049AAF9
-	for <lists+dccp@lfdr.de>; Tue, 25 Jan 2022 05:44:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 135DD49D119
+	for <lists+dccp@lfdr.de>; Wed, 26 Jan 2022 18:44:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1345876AbiAYDwQ convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Mon, 24 Jan 2022 22:52:16 -0500
-Received: from [103.153.79.64] ([103.153.79.64]:62101 "EHLO [103.153.79.64]"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1349513AbiAXTs3 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 24 Jan 2022 14:48:29 -0500
-Reply-To: Nasser Rashid <nasserrashid.uae@gmail.com>
-From:   Nasser Rashid <anice.fronteracapitalgroup@gmail.com>
+        id S237263AbiAZRo3 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 26 Jan 2022 12:44:29 -0500
+Received: from sv2306.xserver.jp ([183.90.238.7]:60124 "EHLO sv2306.xserver.jp"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S243923AbiAZRo3 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 26 Jan 2022 12:44:29 -0500
+X-Greylist: delayed 304 seconds by postgrey-1.27 at vger.kernel.org; Wed, 26 Jan 2022 12:44:28 EST
+Received: from virusgw2301.xserver.jp (virusgw2301.xserver.jp [183.90.238.243])
+        by sv2306.xserver.jp (Postfix) with ESMTP id 41A84102934EBC
+        for <dccp@vger.kernel.org>; Thu, 27 Jan 2022 02:39:24 +0900 (JST)
+Received: from sv2306.xserver.jp (183.90.238.7)
+ by virusgw2301.xserver.jp (F-Secure/fsigk_smtp/521/virusgw2301.xserver.jp);
+ Thu, 27 Jan 2022 02:39:23 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/521/virusgw2301.xserver.jp)
+Received: by sv2306.xserver.jp (Postfix, from userid 20313)
+        id 3F432100EE22B4; Thu, 27 Jan 2022 02:39:24 +0900 (JST)
 To:     dccp@vger.kernel.org
-Subject: EXPO 2020 BUSINESS PROPOSAL
-Date:   24 Jan 2022 11:48:31 -0800
-Message-ID: <20220124114831.8695BE0F80F6F93F@gmail.com>
+Subject: =?us-ascii?Q?=3D=3FISO-2022-JP=3FB=3FGyRCIVpNPUxzM05HJyFbJUg?=  =?us-ascii?Q?hPCU/JWslXCVHJSMhPCVhJXMlRiVKJXMlORsoQiAbJEIlVS?=  =?us-ascii?Q?UjJTclORsoQg=3D=3D=3F=3D?=
+Date:   Wed, 26 Jan 2022 17:39:24 +0000
+From:   =?ISO-2022-JP?B?GyRCJUghPCU/JWslXCVHJSMhPCVhJXMlRiVKJXMlORsoQiAbJEIlVSUjJTcbKEI/?= 
+        <noreply@physis-body.com>
+Reply-To: info@physis-tbm.jp
+Message-ID: <z2l08QaE3OtwXh0uoVyynI5KVxqIkrmNxhLMX79D9QI@physis-body.com>
+X-Mailer: PHPMailer 6.2.0 (https://github.com/PHPMailer/PHPMailer)
 MIME-Version: 1.0
-Content-Type: text/plain;
-        charset="utf-8"
-Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset=ISO-2022-JP
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Greetings!
+トータルボディーメンテナンス フィシスへのご予約ありがとうございます。
 
-I'm Nasser Rashid, a business financial specialist and investment 
-expert. consultant experienced in financial funding services. I 
-have a
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-I have a serious business investment opportunity to discuss with 
-you. Century Financial Dubai is the home of discerning investors.
-We
+以下の内容でメールを受け付けました。
 
-We offer independent financial advice and assist our clients in 
-making sound investment decisions from a variety of investment 
-options.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+※このメールは自動返信メールです。
 
-Opportunities are available.
 
-Our company is structured to provide personalized services to As 
-a result, capital security and adequate funding are ensured.
+受付番号: Cam13065
 
-returns on investment. Our investors are ready to provide funding 
-for your business expansion, such as debt and equity.
 
-financing. If you require funding, we would be able to partner 
-with you. We look forward to your response.
+お名前: ?? Patsy want to meet you! Click Here: https://clck.ru/apDU3?tgc2 ?? 
 
-Thank you and stay safe,
+メールアドレス: dccp@vger.kernel.org
 
-Nasser Rashid, CFA,
+電話番号: 702269836595
 
-Century Financial
+
+＜第1希望＞
+12月 31日　何時でもOK
+
+＜第2希望＞
+12月 31日　何時でもOK
+
+＜ご希望のメニュー＞
+美容整体
+
+＜ご連絡事項・メッセージ＞
+ml8qll0
+
+
+------------
+
+■トータルボディーメンテナンス フィシス
+□メール：info@physis-tbm.jp
+□お電話：03-5449-9076
+

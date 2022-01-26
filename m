@@ -2,75 +2,77 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 135DD49D119
-	for <lists+dccp@lfdr.de>; Wed, 26 Jan 2022 18:44:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 625F449D252
+	for <lists+dccp@lfdr.de>; Wed, 26 Jan 2022 20:11:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237263AbiAZRo3 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 26 Jan 2022 12:44:29 -0500
-Received: from sv2306.xserver.jp ([183.90.238.7]:60124 "EHLO sv2306.xserver.jp"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S243923AbiAZRo3 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 26 Jan 2022 12:44:29 -0500
-X-Greylist: delayed 304 seconds by postgrey-1.27 at vger.kernel.org; Wed, 26 Jan 2022 12:44:28 EST
-Received: from virusgw2301.xserver.jp (virusgw2301.xserver.jp [183.90.238.243])
-        by sv2306.xserver.jp (Postfix) with ESMTP id 41A84102934EBC
-        for <dccp@vger.kernel.org>; Thu, 27 Jan 2022 02:39:24 +0900 (JST)
-Received: from sv2306.xserver.jp (183.90.238.7)
- by virusgw2301.xserver.jp (F-Secure/fsigk_smtp/521/virusgw2301.xserver.jp);
- Thu, 27 Jan 2022 02:39:23 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/521/virusgw2301.xserver.jp)
-Received: by sv2306.xserver.jp (Postfix, from userid 20313)
-        id 3F432100EE22B4; Thu, 27 Jan 2022 02:39:24 +0900 (JST)
-To:     dccp@vger.kernel.org
-Subject: =?us-ascii?Q?=3D=3FISO-2022-JP=3FB=3FGyRCIVpNPUxzM05HJyFbJUg?=  =?us-ascii?Q?hPCU/JWslXCVHJSMhPCVhJXMlRiVKJXMlORsoQiAbJEIlVS?=  =?us-ascii?Q?UjJTclORsoQg=3D=3D=3F=3D?=
-Date:   Wed, 26 Jan 2022 17:39:24 +0000
-From:   =?ISO-2022-JP?B?GyRCJUghPCU/JWslXCVHJSMhPCVhJXMlRiVKJXMlORsoQiAbJEIlVSUjJTcbKEI/?= 
-        <noreply@physis-body.com>
-Reply-To: info@physis-tbm.jp
-Message-ID: <z2l08QaE3OtwXh0uoVyynI5KVxqIkrmNxhLMX79D9QI@physis-body.com>
-X-Mailer: PHPMailer 6.2.0 (https://github.com/PHPMailer/PHPMailer)
+        id S244357AbiAZTLV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 26 Jan 2022 14:11:21 -0500
+Received: from ams.source.kernel.org ([145.40.68.75]:53348 "EHLO
+        ams.source.kernel.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S244369AbiAZTLT (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 26 Jan 2022 14:11:19 -0500
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 05E9BB81FC7;
+        Wed, 26 Jan 2022 19:11:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914C4C36AE3;
+        Wed, 26 Jan 2022 19:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1643224276;
+        bh=mPA0v+iLUaBVg1CAzBV2P5fk3XilC/0DEg10ZKQb4MY=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=Tns1XTBHkn5j35tmIfuqg4ZpPquWJezHWaGJSgHkeU6bObH7jFZNloXcCHlWn88fe
+         oxpm1V6TOcd1XLjcEKnmczuYiz7EnjOm3/AytPBoxAKMceABJvb8ARz0gV8QK/QKZZ
+         VAnj8zt6FKslr5afKNCSWcnWR1BwgrFqf7TTSr7TRics/lqSQFXCNtayEo6rpQLRpF
+         AldUsQTfFc5bexaPszEhO7+g9PSwKjlMOY7Mh6OmJmH6c9l66UVclGxZvo07K/59ou
+         NHnm5Xx6oabNO1efdE1G7cgIo3lgyIL6akFiKM+PV9E3N5c4Br4F9SvSps+AL4jjbh
+         sFGTGV46tyBLw==
+From:   Jakub Kicinski <kuba@kernel.org>
+To:     davem@davemloft.net
+Cc:     netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+        rdunlap@infradead.org, ncardwell@google.com, edumazet@google.com,
+        dccp@vger.kernel.org
+Subject: [PATCH net-next 09/15] dccp: remove max48()
+Date:   Wed, 26 Jan 2022 11:11:03 -0800
+Message-Id: <20220126191109.2822706-10-kuba@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220126191109.2822706-1-kuba@kernel.org>
+References: <20220126191109.2822706-1-kuba@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-トータルボディーメンテナンス フィシスへのご予約ありがとうございます。
+Not used since v2.6.37.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+CC: rdunlap@infradead.org
+CC: ncardwell@google.com
+CC: edumazet@google.com
+CC: dccp@vger.kernel.org
+---
+ net/dccp/dccp.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-以下の内容でメールを受け付けました。
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-※このメールは自動返信メールです。
-
-
-受付番号: Cam13065
-
-
-お名前: ?? Patsy want to meet you! Click Here: https://clck.ru/apDU3?tgc2 ?? 
-
-メールアドレス: dccp@vger.kernel.org
-
-電話番号: 702269836595
-
-
-＜第1希望＞
-12月 31日　何時でもOK
-
-＜第2希望＞
-12月 31日　何時でもOK
-
-＜ご希望のメニュー＞
-美容整体
-
-＜ご連絡事項・メッセージ＞
-ml8qll0
-
-
-------------
-
-■トータルボディーメンテナンス フィシス
-□メール：info@physis-tbm.jp
-□お電話：03-5449-9076
+diff --git a/net/dccp/dccp.h b/net/dccp/dccp.h
+index 5183e627468d..671c377f0889 100644
+--- a/net/dccp/dccp.h
++++ b/net/dccp/dccp.h
+@@ -136,11 +136,6 @@ static inline int between48(const u64 seq1, const u64 seq2, const u64 seq3)
+ 	return (seq3 << 16) - (seq2 << 16) >= (seq1 << 16) - (seq2 << 16);
+ }
+ 
+-static inline u64 max48(const u64 seq1, const u64 seq2)
+-{
+-	return after48(seq1, seq2) ? seq1 : seq2;
+-}
+-
+ /**
+  * dccp_loss_count - Approximate the number of lost data packets in a burst loss
+  * @s1:  last known sequence number before the loss ('hole')
+-- 
+2.34.1
 

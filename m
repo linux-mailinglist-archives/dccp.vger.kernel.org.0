@@ -2,105 +2,90 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AB6474CE8CD
-	for <lists+dccp@lfdr.de>; Sun,  6 Mar 2022 05:57:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DA574CEDEC
+	for <lists+dccp@lfdr.de>; Sun,  6 Mar 2022 22:22:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232260AbiCFE6h (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 5 Mar 2022 23:58:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39872 "EHLO
+        id S233891AbiCFVXI (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 6 Mar 2022 16:23:08 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50512 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229481AbiCFE6g (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 5 Mar 2022 23:58:36 -0500
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C503AB7FC
-        for <dccp@vger.kernel.org>; Sat,  5 Mar 2022 20:57:44 -0800 (PST)
-Received: by mail-pl1-x636.google.com with SMTP id w4so749321ply.13
-        for <dccp@vger.kernel.org>; Sat, 05 Mar 2022 20:57:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:sender:from:date:message-id:subject:to;
-        bh=VaaSLAJ+hgNGNq49WyPsh3ndDLo+mnrYcswrOHpJSv8=;
-        b=Blh9fAM1JEkYnGuw4UHaOvE0GCL1ductKXz0A37M86Zya/hm3XcEmjmmbV05PKPSIa
-         u4NmqlOxlWinZbCMdT1SOP/IbwYIntSCKSpUQg9IYTr5wgSvvquxFILay8cKv5hGGjfG
-         CCLCPJm8Z3WD12lMd3jES0IO2/nVHN/0+3d626ymxLEkt1scGBqhaYP1u+OqDuIrA1d5
-         1ZkfITupYL/WNacaHfASyLje/N00SRW4URwEYs8QPttZNq3kO8gvmxyYUWdVTN4l8qGy
-         zb/J1ZXjzh+OqR50dijOLbKdcJW1QEWAr7/os8eOmADyv4jZfaNeTqL/9DytZmC4FLfO
-         v37A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:sender:from:date
-         :message-id:subject:to;
-        bh=VaaSLAJ+hgNGNq49WyPsh3ndDLo+mnrYcswrOHpJSv8=;
-        b=3DKBT8NcBHKM5N5O5H4W/bzxJduFluuarzVl7rQuSZaTtaqununDrrgglvQFYlf8vs
-         BOl+uwuPVYH1U9N3YseDeZjwflTA9qyVHviCyo9/Ejlm1fQMk4SHzPydl2GeaJvhKjpv
-         ihYuri+TeKo6taB+UP8VT6/fBwFKaOvBRneCM7jp6pCmoEks68vLPjqS8bhbA1cuhn75
-         WbJLzXLciSVHaRb3e2QoO8CmoIJAaj1X8Um8Jc+GayzbxhkeXuG5nNxpaKWhfuWVrKF3
-         bB6H90atVwtN+5HpNKMrkkq80+fJdAtO7/n/mN2VcKjuchLlub2tL+isdeB0JnQilzQ2
-         iJJg==
-X-Gm-Message-State: AOAM5320Kdm5HNFTlwUxgyJ4uHqSlxSPSZAWP2WnmGSoVujzFiI9JMwP
-        47XaYv3xbRbgnsTUZnjPgYV+glg9oWtv1kpF86A=
-X-Google-Smtp-Source: ABdhPJwY4u+VC/X3WDcNoWtbD7kHxsxctj7OaK5kVlCDsGVlx6qqdIltaroqala48hj/fpS4gQDABl+FGv13eImT/8A=
-X-Received: by 2002:a17:903:2ce:b0:150:4197:7cf4 with SMTP id
- s14-20020a17090302ce00b0015041977cf4mr6607890plk.132.1646542664372; Sat, 05
- Mar 2022 20:57:44 -0800 (PST)
+        with ESMTP id S230337AbiCFVXG (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 6 Mar 2022 16:23:06 -0500
+X-Greylist: delayed 91 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 06 Mar 2022 13:22:12 PST
+Received: from xtrwktht.outbound-mail.sendgrid.net (xtrwktht.outbound-mail.sendgrid.net [167.89.23.7])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 000CC39B9F
+        for <dccp@vger.kernel.org>; Sun,  6 Mar 2022 13:22:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fw-mail.com;
+        h=subject:from:mime-version:to:content-type:content-transfer-encoding;
+        s=s1; bh=C/l3+UB1GwPY++nkWvMEb2kCzH+jE+77EGjA4OaRVXI=;
+        b=sOmuuZ44mFEPbe4fKSEdDYZhOJZJK4Z8m0CmV+4A/cZaYthX8xsb+9CKImp6hl7QbQDB
+        KE8SOtII9s41TEKc1WvPoQJ1Ev8+Kz6g4Ut/HxgNYmrBzsotu3XExGpvuZVpM9dLqHhoe4
+        Ga86PyvHERhgmbENaXNIMpXcTIEvfxRnVBAJO8bPrr2j8pzWYzj41IHZud+5LDHDmfHexG
+        HPF/ZRdZ629ZEy8REyn0FtI4jMispoC3uXx5iV6u7PxvRM4d0u8sJ5dtzr7oR3A2eLaJBC
+        p6SRKokDOPZ02P3v/DWsLpCCSuodnZxeh0bG9rvwnI516MQtadkCz9VhJ5sOSr0A==
+Received: by filterdrecv-7bc86b958d-pcmn7 with SMTP id filterdrecv-7bc86b958d-pcmn7-1-622525A8-26
+        2022-03-06 21:20:40.530573821 +0000 UTC m=+16066820.927825757
+Received: from fw056908.localdomain (unknown)
+        by ismtpd0146p1mdw1.sendgrid.net (SG) with ESMTP id 1uWAtGLqRfC5pvwF22kpfQ
+        for <dccp@vger.kernel.org>; Sun, 06 Mar 2022 21:20:40.445 +0000 (UTC)
+Received: by fw056908.localdomain (Postfix, from userid 998)
+        id 3EB47592F; Sun,  6 Mar 2022 21:20:40 +0000 (UTC)
+X-Spam-Level: *****
+X-Spam-Status: Yes, score=5.3 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_EF,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_MSPIKE_H2,SCC_BODY_URI_ONLY,SHORT_SHORTNER,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLACK autolearn=no
+        autolearn_force=no version=3.4.6
+Received: from fw056908 (localhost [127.0.0.1])
+        by fw056908.localdomain (Postfix) with SMTP id 1CAEE17C0
+        for <dccp@vger.kernel.org>; Sun,  6 Mar 2022 21:20:40 +0000 (UTC)
+Subject: [your-subject]
+Date:   Sun, 06 Mar 2022 21:20:40 +0000 (UTC)
+From:   WordPress <info@apluslightingllc.com>
+Message-ID: <q0nvnrYOPBsbLPAr6HLwJ0rUICXLT3Gt2Em8xj6kZE@www.apluslightingllc.com>
+X-Mailer: PHPMailer 6.5.3 (https://github.com/PHPMailer/PHPMailer)
 MIME-Version: 1.0
-Reply-To: mrs.susanelwoodhara17@gmail.com
-Sender: mrs.arawayann04@gmail.com
-Received: by 2002:a05:7301:1d06:b0:57:bd4:f39c with HTTP; Sat, 5 Mar 2022
- 20:57:43 -0800 (PST)
-From:   Mrs Susan Elwood Hara <mrs.susanelwoodhara17@gmail.com>
-Date:   Sun, 6 Mar 2022 04:57:43 +0000
-X-Google-Sender-Auth: 35R9ILwYYLKI8Sv2WX379XF0ZuE
-Message-ID: <CAP-cSYA8eJUtNUhTR0jcAr5q9Q=Gu9fDVa-kpfeSeg5Xddm9sA@mail.gmail.com>
-Subject: GOD BLESS YOU AS YOU REPLY URGENTLY
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,SUBJ_ALL_CAPS,T_HK_NAME_FM_MR_MRS,
-        T_SCC_BODY_TEXT_LINE,UNDISC_MONEY autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Report: *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
+X-SG-EID: =?us-ascii?Q?IURrjpX5whNlHrDRENwQyd7qNHuJdbB5ZB6iiUBxBBUyofzFDGtOI0o0i2zcMH?=
+ =?us-ascii?Q?QlGz7GuTpchT68FK7voLJUK8qOGlekAXjwUE8hV?=
+ =?us-ascii?Q?ossWYeDL4rtwpDSIgVJI34ZKoj13hpMsv3=2Fv2Sy?=
+ =?us-ascii?Q?fCCZUgsLHErT3+gPQcvN8c6jF5fmMv7Z5SJO=2FBo?=
+ =?us-ascii?Q?90DRZpV9i=2FhldjpAgaYmogFPTUPouE2FR62uhF3?=
+ =?us-ascii?Q?QjL3vf4zv10PoUO+jCPoyfHEhCJarYj0XKb7xn?=
+X-SG-ID: =?us-ascii?Q?N2C25iY2uzGMFz6rgvQsb8raWjw0ZPf1VmjsCkspi=2FIVy1Wk0DfJfDJiWxWC7D?=
+ =?us-ascii?Q?XK+WPUvrXI=2FNrubyIh6a=2FF4I5FyI3CyAf7uLbVC?=
+ =?us-ascii?Q?p8=2FOPEYue++xGVn+C4jaQa9=2FvMuBFO0H1rSsXT0?=
+ =?us-ascii?Q?8e3ufnxduw=3D=3D?=
+To:     dccp@vger.kernel.org
+X-Entity-ID: LAu33spW/nu8H8AuvvuR5w==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Report: *  1.7 URIBL_BLACK Contains an URL listed in the URIBL blacklist
+        *      [URIs: clck.ru]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5010]
+        *  0.2 HEADER_FROM_DIFFERENT_DOMAINS From and EnvelopeFrom 2nd level
+        *      mail domains are different
         *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
-        *      digit
-        *      [mrs.susanelwoodhara17[at]gmail.com]
-        *  0.5 SUBJ_ALL_CAPS Subject is all capitals
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [mrs.arawayann04[at]gmail.com]
         * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [mrs.arawayann04[at]gmail.com]
-        * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:636 listed in]
-        [list.dnswl.org]
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
         * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
         *      envelope-from domain
         *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
         *       valid
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.0 RCVD_IN_MSPIKE_H2 RBL: Average reputation (+2)
+        *      [167.89.23.7 listed in wl.mailspike.net]
         * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  0.0 T_HK_NAME_FM_MR_MRS No description available.
-        *  3.6 UNDISC_MONEY Undisclosed recipients + money/fraud signs
-X-Spam-Level: *****
+        *  0.7 SCC_BODY_URI_ONLY No description available.
+        *  2.0 SHORT_SHORTNER Short body with little more than a link to a
+        *      shortener
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-GOD BLESS YOU AS YOU REPLY URGENTLY
-
- Hello Dear,
-Greetings, I am contacting you regarding an important information i
-have for you please reply to confirm your email address and for more
-details Thanks
-Regards
-Mrs Susan Elwood Hara.
+🍓 Martha want to meet you! Click here: https://clck.ru/dXZuJ?rs56 🍓
+mqwuxfdi
+dccp@vger.kernel.org
+173583260619
+b8v2sfa

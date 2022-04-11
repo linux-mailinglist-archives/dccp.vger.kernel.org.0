@@ -2,70 +2,68 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E3BB4F055C
-	for <lists+dccp@lfdr.de>; Sat,  2 Apr 2022 20:11:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 58BE64FBC79
+	for <lists+dccp@lfdr.de>; Mon, 11 Apr 2022 14:51:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244778AbiDBSNn (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 2 Apr 2022 14:13:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39792 "EHLO
+        id S1346163AbiDKMxe convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+dccp@lfdr.de>); Mon, 11 Apr 2022 08:53:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57244 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238416AbiDBSNm (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 2 Apr 2022 14:13:42 -0400
-X-Greylist: delayed 336 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 02 Apr 2022 11:11:50 PDT
-Received: from mta-out-04.alice.it (mta-out-04.alice.it [217.169.118.10])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 71873AA021
-        for <dccp@vger.kernel.org>; Sat,  2 Apr 2022 11:11:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alice.it; s=20211207; t=1648923110; 
-        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-        h=Reply-To:From:To:Date:Message-ID:MIME-Version;
-        b=bvaIWRCGm7TMw5adxkZMY7QhJYxr5AaXvhs1PzJOGCutSflWEAmfgE4tlwyuslKaSeoG9Hagnq0mcTGzQHkRa8O+n74iR+14zWZ5dIvdgVIvvh9IgSV53hM/y3xqMpLGVy2GbKdODznuUoaZHYcM9hVeGFzwz8fNJdZ9osutYeaFEDvQrj0SdyBIBFiL/qZ8X/WjnENfC+HGSJFY9I9vxgB9FzP3l6xW/fSjCohgw4ypxa3LuosY96svJDufsrHlKQGxVF3Nf3UPZFFUXoxi7LlqpHF/Ow7UqCrfnZb2twajN1V5aXcJIPdP8sjx1UwnsUue1xtvwJKizqAXkp11tQ==
-X-RazorGate-Vade: gggruggvucftvghtrhhoucdtuddrgedvvddrudeikedguddvvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfvgffngfevqffokffvtefnkfetpdfqfgfvnecuuegrihhlohhuthemuceftddunecugfhmphhthicushhusghjvggtthculddutddmnefgmhhpthihucgsohguhiculdehtddmnecujfgurheprhfhvfffkfggsedttdeftddttddtnecuhfhrohhmpeghvgcuhhgrvhgvucgrnhcuohhffhgvrhcuthhouchinhhvvghsthcuihhnucihohhurhcutghouhhnthhrhicuuhhnuggvrhcurgcujhhoihhnthcuvhgvnhhtuhhrvgcuphgrrhhtnhgvrhhshhhiphcuphhlvggrshgvuchrvghplhihuchfohhruchmohhrvgcuuggvthgrihhlshcuoegsihhrohhlohesrghlihgtvgdrihhtqeenucggtffrrghtthgvrhhnpeetffeulefhheffieeltefgvedtffejhedtheefhfevueeitdeiffeuhfehudffudenucfkphepudelkedrkedrkeehrddvhedtnecuvehluhhsthgvrhfuihiivgepudejgeenucfrrghrrghmpehhvghloheprghlihgtvgdrihhtpdhinhgvthepudelkedrkedrkeehrddvhedtpdhmrghilhhfrhhomhepsghirhholhhosegrlhhitggvrdhithdpnhgspghrtghpthhtohepuddprhgtphhtthhopegutggtphesvhhgvghrrdhkvghrnhgvlhdrohhrgh
-X-RazorGate-Vade-Verdict: clean 60
-X-RazorGate-Vade-Classification: clean
-Received: from alice.it (198.8.85.250) by mta-out-04.alice.it (5.8.807.04) (authenticated as birolo@alice.it)
-        id 623DC2DC00D9CEA5 for dccp@vger.kernel.org; Sat, 2 Apr 2022 20:06:12 +0200
-Reply-To: dougfied20@inbox.lv
-From:   We have an offer to invest in your country under a
-         joint venture partnership please reply for more
-         details <birolo@alice.it>
-To:     dccp@vger.kernel.org
-Date:   02 Apr 2022 11:06:09 -0700
-Message-ID: <20220402110609.E590481639B24C3C@alice.it>
+        with ESMTP id S237219AbiDKMxc (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 11 Apr 2022 08:53:32 -0400
+X-Greylist: delayed 22184 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 11 Apr 2022 05:51:18 PDT
+Received: from mail.argos.uz (mail.argos.uz [195.158.6.181])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FF8533374
+        for <dccp@vger.kernel.org>; Mon, 11 Apr 2022 05:51:18 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.argos.uz (Postfix) with ESMTP id C62FE1B11A6;
+        Mon, 11 Apr 2022 07:55:18 +0500 (+05)
+Received: from mail.argos.uz ([127.0.0.1])
+        by localhost (mail.argos.uz [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id 0A_4J-eeaNML; Mon, 11 Apr 2022 07:55:15 +0500 (+05)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.argos.uz (Postfix) with ESMTP id 1046D1B152F;
+        Mon, 11 Apr 2022 07:50:17 +0500 (+05)
+X-Virus-Scanned: amavisd-new at mail.argos.uz
+Received: from mail.argos.uz ([127.0.0.1])
+        by localhost (mail.argos.uz [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id LVQkFfzSK8ez; Mon, 11 Apr 2022 07:50:17 +0500 (+05)
+Received: from [10.246.255.246] (unknown [192.168.10.1])
+        by mail.argos.uz (Postfix) with ESMTPSA id 549CD1B0D8B;
+        Mon, 11 Apr 2022 07:40:35 +0500 (+05)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-X-Spam-Status: Yes, score=5.7 required=5.0 tests=BAYES_50,BODY_EMPTY,
-        DKIM_INVALID,DKIM_SIGNED,EMPTY_MESSAGE,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        FREEMAIL_REPLYTO_END_DIGIT,MISSING_SUBJECT,RCVD_IN_DNSWL_LOW,
-        RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L4,SPF_HELO_NONE,SPF_PASS
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
-        *       low trust
-        *      [217.169.118.10 listed in list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5499]
-        *  0.0 RCVD_IN_MSPIKE_L4 RBL: Bad reputation (-4)
-        *      [217.169.118.10 listed in bl.mailspike.net]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [birolo[at]alice.it]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
-        *      digit
-        *      [dougfied20[at]inbox.lv]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        *  2.3 EMPTY_MESSAGE Message appears to have no textual parts and no
-        *      Subject: text
-        *  1.8 MISSING_SUBJECT Missing Subject: header
-        *  0.1 DKIM_INVALID DKIM or DK signature exists, but is not valid
-        *  0.0 RCVD_IN_MSPIKE_BL Mailspike blacklisted
-        *  0.0 BODY_EMPTY No body text in message
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *****
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: Re
+To:     Recipients <info@zoho.com>
+From:   info@zoho.com
+Date:   Mon, 11 Apr 2022 03:40:28 +0100
+Reply-To: nipponsteel.sumitomometal@bkk-th.com
+Message-Id: <20220411024036.549CD1B0D8B@mail.argos.uz>
+X-Spam-Status: Yes, score=7.5 required=5.0 tests=BAYES_99,RCVD_IN_PSBL,
+        RCVD_IN_VALIDITY_RPBL,SPF_FAIL,SPF_HELO_PASS,TO_EQ_FM_DOM_SPF_FAIL,
+        TO_EQ_FM_SPF_FAIL,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Report: *  3.5 BAYES_99 BODY: Bayes spam probability is 99 to 100%
+        *      [score: 0.9907]
+        *  1.3 RCVD_IN_VALIDITY_RPBL RBL: Relay in Validity RPBL,
+        *      https://senderscore.org/blocklistlookup/
+        *      [195.158.6.181 listed in bl.score.senderscore.com]
+        *  0.0 SPF_FAIL SPF: sender does not match SPF record (fail)
+        *      [SPF failed: Please see http://www.openspf.org/Why?s=mfrom;id=info%40zoho.com;ip=195.158.6.181;r=lindbergh.monkeyblade.net]
+        *  2.7 RCVD_IN_PSBL RBL: Received via a relay in PSBL
+        *      [195.158.6.181 listed in psbl.surriel.com]
+        * -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  0.0 TO_EQ_FM_SPF_FAIL To == From and external SPF failed
+        *  0.0 TO_EQ_FM_DOM_SPF_FAIL To domain == From domain and external SPF
+        *       failed
+X-Spam-Level: *******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
+Did you receive my previous email about Nippon Steel & Sumitomo Metal Job Offer??

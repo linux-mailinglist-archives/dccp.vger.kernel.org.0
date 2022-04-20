@@ -2,106 +2,121 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AB9EF5006CC
-	for <lists+dccp@lfdr.de>; Thu, 14 Apr 2022 09:19:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E40B0509384
+	for <lists+dccp@lfdr.de>; Thu, 21 Apr 2022 01:21:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232609AbiDNHVp (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 14 Apr 2022 03:21:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44580 "EHLO
+        id S243488AbiDTXYO (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 20 Apr 2022 19:24:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59764 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239646AbiDNHVo (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 14 Apr 2022 03:21:44 -0400
-Received: from mail-yw1-x1141.google.com (mail-yw1-x1141.google.com [IPv6:2607:f8b0:4864:20::1141])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 662CBC19
-        for <dccp@vger.kernel.org>; Thu, 14 Apr 2022 00:19:20 -0700 (PDT)
-Received: by mail-yw1-x1141.google.com with SMTP id 00721157ae682-2ebf3746f87so46238117b3.6
-        for <dccp@vger.kernel.org>; Thu, 14 Apr 2022 00:19:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=H3DXGoFynX3YmgElWNuJKIN72A4F3e5KQaKvvj92+aU9BHRj1V7XzkVnJuJGimIaxl
-         QKaBzOdI1KwqDVXd2XGJ+fP8kG6Xrz85ZV3W6VJWOGT7etCpKyQGlT+KcM8hD9yePY0L
-         SqYUg6PHVSmZ5YM06+mrcdHpG11XrSIvUyxZXGcFMp8mFyDtFhpmfEeWucTXe/eJ65NR
-         QaWvgYVYMSyOFxXkHFPVbcghooIZlAqYnKCe8Pk0ERRWIkXj6eH+e6unO30cT3E4MpvJ
-         66djh98EqHWqLyPkjN8qiSqEHpaU21LM5jSIdoBu/UBIJpr59R3ixW7CILg5BJZl56cR
-         alvw==
+        with ESMTP id S232806AbiDTXYN (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 20 Apr 2022 19:24:13 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 194F01B7B4
+        for <dccp@vger.kernel.org>; Wed, 20 Apr 2022 16:21:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1650496885;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=hbJYGdvEOazrXlCtcoBfBwuX3abqIWg2vu1EtizrtC8=;
+        b=Nu4zWD+t5eftwCtNC9lZh3oX8cnk3+vBqtz/w42J2eTj+P4I+HbXN3tMxvduYkXxNvWEX8
+        r8p23JF2gAIocTy/17531uxrXGG9MA82oL6tcD+69tz35r5vy1Dz7DUZla1SDt12jJeVZH
+        WjqfC21Ihw14K0fNIXQTvbh/cbF5HI8=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-67-dsBvOBviNmiPz4G4Wn2c8A-1; Wed, 20 Apr 2022 19:21:23 -0400
+X-MC-Unique: dsBvOBviNmiPz4G4Wn2c8A-1
+Received: by mail-wm1-f69.google.com with SMTP id d6-20020a05600c34c600b0039296a2ac7cso1640344wmq.1
+        for <dccp@vger.kernel.org>; Wed, 20 Apr 2022 16:21:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=Xy38c2yu+eZ8WpcxtMojpLYlRs3j/Dd7n/Iaoyx0iza5dnnTOusB1ACDJJypIWvvte
-         4kO5tYtbAeagBiDiZlNfgkVnbPyKS3zlGseNvbBqlz55CE2TNV/XUganz+mqq5X14ETG
-         yEzSCgPl9ie2VtcxruCGt/V78cDohHAylqA7jlDtY5oTgDOPM6nvl0GBh2gszxt2k0Pt
-         oDa2wGmVFIRXdhP9f5mXg0JUIS1wNJhWA7MVdnb5zOvZenZsN7aCqPvxo4ESoKFJshzo
-         xyuv589964ww/SV5g6ECO25Mk8TTtifAdey8goaZffyNiqsM5xTmBvd+2A2SbtxI+ENw
-         yS4w==
-X-Gm-Message-State: AOAM533/mb2yZVwkDxyjAbW8gjStjx89/D+yAwdwwYEV/2/DqdleAxrx
-        TrmQkN2oyZHEX55av0BK1l5a30nMEhw/p9Hwt5c=
-X-Google-Smtp-Source: ABdhPJwBPN3ezBfPqevefaF/MZZWTeilEhFfcRVGc2e+r5Tlck8uMghDcd30kW6RodK9fJrLQ1kDRB5us7nSV+7Gfco=
-X-Received: by 2002:a05:690c:289:b0:2eb:e870:4f90 with SMTP id
- bf9-20020a05690c028900b002ebe8704f90mr950385ywb.250.1649920759168; Thu, 14
- Apr 2022 00:19:19 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition;
+        bh=hbJYGdvEOazrXlCtcoBfBwuX3abqIWg2vu1EtizrtC8=;
+        b=BJBbrg9ybYU5nApRoJ+JY8zO6v/JjIGgrcFKWcfUJVQU7PN61JJhOBYlFOMJ8Gx5yC
+         QnJr6gHtTfqDnYz+dQXf1lB08nog74iJZx+NqytHdbMYs/EzYUP5hxxOskaV+6fEwJdK
+         Bv9BTDPZXLAP05iWbYCImmJnGp6dLLZ8HKjVyhMOpgCSk131VzA6GRHSNlEY+NmZkxp/
+         L4OM3C0ukBFHyhhOQwRzRglzDrRXC7/1QeyORN+wCcIrRGFD34RRu3dYdYq7CwYMAjJ/
+         W5yHNzXaX4k1eM/2ymXWs1gthUjDXYR3a/vPrvOAlJB4NLtUBhLl2sPStJlmwaHCjDAk
+         Bm9g==
+X-Gm-Message-State: AOAM532ayhjAMk2KF0QvGrQMKDmI1o/edLYtK6deOgE3StuXM2BbhycZ
+        FGq5ZWckADonfB5EmhdFeSbZ0LFozlVNr1BzybY8JEkKVsFuomZSI0B2g9F3ON5dp1wGpAx9Y8P
+        CfiQ3U3bBKxCtqw==
+X-Received: by 2002:a05:600c:a03:b0:37b:daff:6146 with SMTP id z3-20020a05600c0a0300b0037bdaff6146mr5774381wmp.85.1650496882596;
+        Wed, 20 Apr 2022 16:21:22 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxo89OB0L7C+fOTGPu87GxJ363Qr+U5mDJtwcIHCT3LXyuAOI6bYIdOKR918/xx3V47JNwkOA==
+X-Received: by 2002:a05:600c:a03:b0:37b:daff:6146 with SMTP id z3-20020a05600c0a0300b0037bdaff6146mr5774368wmp.85.1650496882421;
+        Wed, 20 Apr 2022 16:21:22 -0700 (PDT)
+Received: from debian.home (2a01cb058d3818005c1e4a7b0f47339f.ipv6.abo.wanadoo.fr. [2a01:cb05:8d38:1800:5c1e:4a7b:f47:339f])
+        by smtp.gmail.com with ESMTPSA id y6-20020a056000168600b0020a96d2cf8fsm1107213wrd.60.2022.04.20.16.21.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 Apr 2022 16:21:22 -0700 (PDT)
+Date:   Thu, 21 Apr 2022 01:21:19 +0200
+From:   Guillaume Nault <gnault@redhat.com>
+To:     David Miller <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>
+Cc:     netdev@vger.kernel.org,
+        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+        David Ahern <dsahern@kernel.org>, dccp@vger.kernel.org
+Subject: [PATCH net-next 0/3] ipv4: First steps toward removing RTO_ONLINK
+Message-ID: <cover.1650470610.git.gnault@redhat.com>
 MIME-Version: 1.0
-Received: by 2002:a05:7010:a822:b0:247:d9b3:22bc with HTTP; Thu, 14 Apr 2022
- 00:19:18 -0700 (PDT)
-Reply-To: danielseyba@yahoo.com
-From:   Seyba Daniel <mohaseen949433@gmail.com>
-Date:   Thu, 14 Apr 2022 09:19:18 +0200
-Message-ID: <CAOnm=uf+sOxsm1GWfs+og=Uq91U1DrTpWYwLbSdev8ss46xtwA@mail.gmail.com>
-Subject: Hello,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=5.5 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:1141 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [mohaseen949433[at]gmail.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [mohaseen949433[at]gmail.com]
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  3.7 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *****
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=-3.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello,
+RTO_ONLINK is a flag that allows to reduce the scope of route lookups.
+It's stored in a normally unused bit of the ->flowi4_tos field, in
+struct flowi4. However it has several problems:
 
-I am so sorry contacting you in this means especially when we have never
-met before. I urgently seek your service to represent me in investing in
-your region / country and you will be rewarded for your service without
-affecting your present job with very little time invested in it.
+ * This bit is also used by ECN. Although ECN bits are supposed to be
+   cleared before doing a route lookup, it happened that some code
+   paths didn't properly sanitise their ->flowi4_tos. So this mechanism
+   is fragile and we had bugs in the past where ECN bits slipped in and
+   could end up being erroneously interpreted as RTO_ONLINK.
 
-My interest is in buying real estate, private schools or companies with
-potentials for rapid growth in long terms.
+ * A dscp_t type was recently introduced to ensure ECN bits are cleared
+   during route lookups. ->flowi4_tos is the most important structure
+   field to convert, but RTO_ONLINK prevents such conversion, as dscp_t
+   mandates that ECN bits (where RTO_ONLINK is stored) be zero.
 
-So please confirm interest by responding back.
+Therefore we need to stop using RTO_ONLINK altogether. Fortunately
+RTO_ONLINK isn't a necessity. Instead of passing a flag in ->flowi4_tos
+to tell the route lookup function to restrict the scope, we can simply
+initialise the scope correctly.
 
-My dearest regards
+Patch 1 does some preparatory work: it stops resetting ->flowi4_scope
+automatically before a route lookup, thus allowing callers to set their
+desired scope without having to rely on the RTO_ONLINK flag.
 
-Seyba Daniel
+Patch 2-3 convert a few code paths to avoid relying on RTO_ONLINK.
+
+More conversions will have to take place before we can eventually
+remove this flag.
+
+Guillaume Nault (3):
+  ipv4: Don't reset ->flowi4_scope in ip_rt_fix_tos().
+  ipv4: Avoid using RTO_ONLINK with ip_route_connect().
+  ipv4: Initialise ->flowi4_scope properly in ICMP handlers.
+
+ include/net/route.h | 36 ++++++++++++++++++++++++------------
+ net/dccp/ipv4.c     |  5 ++---
+ net/ipv4/af_inet.c  |  6 +++---
+ net/ipv4/datagram.c |  7 +++----
+ net/ipv4/route.c    | 41 +++++++++++++++++++----------------------
+ net/ipv4/tcp_ipv4.c |  5 ++---
+ 6 files changed, 53 insertions(+), 47 deletions(-)
+
+-- 
+2.21.3
+

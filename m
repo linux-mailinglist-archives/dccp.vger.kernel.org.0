@@ -2,58 +2,58 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E3BD50B5A3
-	for <lists+dccp@lfdr.de>; Fri, 22 Apr 2022 12:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1948750B5D2
+	for <lists+dccp@lfdr.de>; Fri, 22 Apr 2022 13:02:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1446926AbiDVK4s (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 22 Apr 2022 06:56:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51854 "EHLO
+        id S1446651AbiDVLF3 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 22 Apr 2022 07:05:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58240 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1446915AbiDVK4r (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 22 Apr 2022 06:56:47 -0400
+        with ESMTP id S1446979AbiDVLF2 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 22 Apr 2022 07:05:28 -0400
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 883D15622E
-        for <dccp@vger.kernel.org>; Fri, 22 Apr 2022 03:53:52 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 729D05623A
+        for <dccp@vger.kernel.org>; Fri, 22 Apr 2022 04:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1650624831;
+        s=mimecast20190719; t=1650625353;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
          to:to:cc:cc:mime-version:mime-version:content-type:content-type:
          in-reply-to:in-reply-to:references:references;
-        bh=xnZQyjU9xLrcnPEW5DCyWO9xAj19XuZuuuLLzK36tiE=;
-        b=GyulpDVy8r98UTV7JtGRzjRGPeCBvI27/yYV3tqO//ZJwJFn+XhH4b/OSb3t/TAavg8bCH
-        QZqCLNS/rLNo/K4T+ImZB/Urx+ZqEfushHiyy/g96VDhDvMbxAmf60oE6sdr60Avq5j7lv
-        FJT6DxViKfGaC6FNKgvQyoK0VFNdCio=
+        bh=ZyHAq8XvVGq2hZYkl/QwRkAUTtNiHFZTrfQAk4QcfNI=;
+        b=KBQHAbGW+PLrkQ7yQa+5AJG9Y1cld2G9zqgyPcr6+BeU7VJYrD6aw9p0rXEAgiKizzXyPL
+        x8o9d7tjr65+xZ0jIub+om3Sv1zT4wBGkFVvhgP7lwyWzy5VlRneo0u3JlowAxk8dXcAoy
+        1/rA034FIqkdR5b6Wh5jfZZRcD+IF/I=
 Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
  [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-170-SU3NuXSHMWyNW0Qu0PQtPQ-1; Fri, 22 Apr 2022 06:53:50 -0400
-X-MC-Unique: SU3NuXSHMWyNW0Qu0PQtPQ-1
-Received: by mail-wr1-f70.google.com with SMTP id y13-20020adfc7cd000000b0020ac7c7bf2eso431358wrg.9
-        for <dccp@vger.kernel.org>; Fri, 22 Apr 2022 03:53:50 -0700 (PDT)
+ us-mta-88-lRvsxagyOIy2Hm6fWgr7Kg-1; Fri, 22 Apr 2022 07:02:32 -0400
+X-MC-Unique: lRvsxagyOIy2Hm6fWgr7Kg-1
+Received: by mail-wr1-f70.google.com with SMTP id t17-20020adfa2d1000000b0020ac519c222so711819wra.4
+        for <dccp@vger.kernel.org>; Fri, 22 Apr 2022 04:02:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=xnZQyjU9xLrcnPEW5DCyWO9xAj19XuZuuuLLzK36tiE=;
-        b=vEqOw/iiPEbvhw5t0asH2cDv3rOew3ro7kMxgpIBhrvZqJJkBfr7EdmU2VS/p5HPMT
-         Wg44SZus1NRFvwiAqNLeZ6zHQSE2XpizY38b9RxbNCqfN+lW8mmbIKJxwQzTnuSSn1u6
-         rk2dphVp6tlEZtSOITWqX65/c+TmQydFLyGU+Kpb4aQyGUpQqYG6l4k7F9Kf0d8HDjdZ
-         sdnINkmpVfPwPmxDL6855GtvRn2ET8dcYehfZxuWegFdAT+ELAB2/WMzyZu3n893pHdN
-         N03AXm9G6SbXuji6F96Qzoue5+kCqB2gPYdbcI93wpl6blEGuEp5Vr8eMVUF6rRJcf2m
-         sQFQ==
-X-Gm-Message-State: AOAM530n5z7vYbXpigreE6q5N3P18GIB3nAPIKdnGHtL2HbM2tHzQhgx
-        P1VqOSfTXLA7y0yU2wnEXJk9W/fTYTE8t2UMgEDUUWE1GrYD57Pmu3XC8F//gs8SO3JZXvrE+AZ
-        xyQyUZfhkGh2QGg==
-X-Received: by 2002:adf:cd87:0:b0:207:b0ad:6d8 with SMTP id q7-20020adfcd87000000b00207b0ad06d8mr3262432wrj.111.1650624828866;
-        Fri, 22 Apr 2022 03:53:48 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwhZcxDAj12VbxxvIv7PfzuGYSITpF+VJ1aomZhKgHA709UnEMd1+DWF424CTMMMxjLYrAjUw==
-X-Received: by 2002:adf:cd87:0:b0:207:b0ad:6d8 with SMTP id q7-20020adfcd87000000b00207b0ad06d8mr3262419wrj.111.1650624828639;
-        Fri, 22 Apr 2022 03:53:48 -0700 (PDT)
+        bh=ZyHAq8XvVGq2hZYkl/QwRkAUTtNiHFZTrfQAk4QcfNI=;
+        b=4Vm1j3uT5m5n1gLWvq2Q9epYto5nClo01TvFPjRILWEp11sjZhPC+dkmHoHNwsoYAc
+         h2iIig41yfR2latatRzf6+vE2PwCEmnjGNFC0thxUX7v6oB2pslPrvwn0yQtTuCnHJpm
+         oR/+CjiR7YQI8wPsP9yIW2c+paIpLacQRfe18x5nsBtEH8WFikJWTh21enRuDYhIc/Oc
+         tKeLrGfcFPevZAguzDS1+xEEHq5vw4fawItPSe7Qeyp7Jbz0qMOKHmgSkI0mrwuq8Sk5
+         sJAlwZK4xEBKJx2AKleBf4bv1dF8EB2NYrKfcsc0L7tytxDTnD3Kv9mEGp49ZxXrapoa
+         22WA==
+X-Gm-Message-State: AOAM531xT/r4wv8ooKB3mxtADr3uoL53hIX1u/0H104sRPUFQXqw4ojZ
+        Ftmru9YYNqQRng+Rbynv1IAzKwaRgKLM91UXaWvqB9bREWoIKEwYBERexp2Z1RnmGeu5nNcfE0n
+        TACeEhKgI1HimNQ==
+X-Received: by 2002:a5d:4888:0:b0:207:ad8b:e534 with SMTP id g8-20020a5d4888000000b00207ad8be534mr3054346wrq.325.1650625351046;
+        Fri, 22 Apr 2022 04:02:31 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz5KDHAyqMTVOXlPYgdsFNWeD0RjDElwWKKy8+vAIVq0lSzAkGokyJMdVzf2Awq+RspMcySUg==
+X-Received: by 2002:a5d:4888:0:b0:207:ad8b:e534 with SMTP id g8-20020a5d4888000000b00207ad8be534mr3054328wrq.325.1650625350805;
+        Fri, 22 Apr 2022 04:02:30 -0700 (PDT)
 Received: from debian.home (2a01cb058d3818005c1e4a7b0f47339f.ipv6.abo.wanadoo.fr. [2a01:cb05:8d38:1800:5c1e:4a7b:f47:339f])
-        by smtp.gmail.com with ESMTPSA id v13-20020adfe28d000000b0020375f27a5asm1534993wri.4.2022.04.22.03.53.47
+        by smtp.gmail.com with ESMTPSA id l6-20020a1c2506000000b0038e6fe8e8d8sm1740027wml.5.2022.04.22.04.02.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Apr 2022 03:53:47 -0700 (PDT)
-Date:   Fri, 22 Apr 2022 12:53:45 +0200
+        Fri, 22 Apr 2022 04:02:30 -0700 (PDT)
+Date:   Fri, 22 Apr 2022 13:02:28 +0200
 From:   Guillaume Nault <gnault@redhat.com>
 To:     David Ahern <dsahern@kernel.org>
 Cc:     David Miller <davem@davemloft.net>,
@@ -61,176 +61,52 @@ Cc:     David Miller <davem@davemloft.net>,
         Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
         Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
         dccp@vger.kernel.org
-Subject: Re: [PATCH net-next 1/3] ipv4: Don't reset ->flowi4_scope in
- ip_rt_fix_tos().
-Message-ID: <20220422105345.GA15621@debian.home>
+Subject: Re: [PATCH net-next 0/3] ipv4: First steps toward removing RTO_ONLINK
+Message-ID: <20220422110228.GB15621@debian.home>
 References: <cover.1650470610.git.gnault@redhat.com>
- <c3fdfe3353158c9b9da14602619fb82db5e77f27.1650470610.git.gnault@redhat.com>
- <0d4e27ee-385c-fd5d-bd31-51e9e2382667@kernel.org>
+ <2ee8fb0d-aeb4-5010-bc8c-16cbd6e88eff@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0d4e27ee-385c-fd5d-bd31-51e9e2382667@kernel.org>
+In-Reply-To: <2ee8fb0d-aeb4-5010-bc8c-16cbd6e88eff@kernel.org>
 X-Spam-Status: No, score=-3.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+        SPF_HELO_NONE,SPF_NONE autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Thu, Apr 21, 2022 at 08:30:52PM -0600, David Ahern wrote:
+On Thu, Apr 21, 2022 at 09:10:21PM -0600, David Ahern wrote:
 > On 4/20/22 5:21 PM, Guillaume Nault wrote:
-> > All callers already initialise ->flowi4_scope with RT_SCOPE_UNIVERSE,
-> > either by manual field assignment, memset(0) of the whole structure or
-> > implicit structure initialisation of on-stack variables
-> > (RT_SCOPE_UNIVERSE actually equals 0).
+> > RTO_ONLINK is a flag that allows to reduce the scope of route lookups.
+> > It's stored in a normally unused bit of the ->flowi4_tos field, in
+> > struct flowi4. However it has several problems:
 > > 
-> > Therefore, we don't need to always initialise ->flowi4_scope in
-> > ip_rt_fix_tos(). We only need to reduce the scope to RT_SCOPE_LINK when
-> > the special RTO_ONLINK flag is present in the tos.
+> >  * This bit is also used by ECN. Although ECN bits are supposed to be
+> >    cleared before doing a route lookup, it happened that some code
+> >    paths didn't properly sanitise their ->flowi4_tos. So this mechanism
+> >    is fragile and we had bugs in the past where ECN bits slipped in and
+> >    could end up being erroneously interpreted as RTO_ONLINK.
 > > 
-> > This will allow some code simplification, like removing
-> > ip_rt_fix_tos(). Also, the long term idea is to remove RTO_ONLINK
-> > entirely by properly initialising ->flowi4_scope, instead of
-> > overloading ->flowi4_tos with a special flag. Eventually, this will
-> > allow to convert ->flowi4_tos to dscp_t.
+> >  * A dscp_t type was recently introduced to ensure ECN bits are cleared
+> >    during route lookups. ->flowi4_tos is the most important structure
+> >    field to convert, but RTO_ONLINK prevents such conversion, as dscp_t
+> >    mandates that ECN bits (where RTO_ONLINK is stored) be zero.
 > > 
-> > Signed-off-by: Guillaume Nault <gnault@redhat.com>
-> > ---
-> > It's important for the correctness of this patch that all callers
-> > initialise ->flowi4_scope to 0 (in one way or another). Auditing all of
-> > them is long, although each case is pretty trivial.
+> > Therefore we need to stop using RTO_ONLINK altogether. Fortunately
+> > RTO_ONLINK isn't a necessity. Instead of passing a flag in ->flowi4_tos
+> > to tell the route lookup function to restrict the scope, we can simply
+> > initialise the scope correctly.
 > > 
-> > If it helps, I can send a patch series that converts implicit
-> > initialisation of ->flowi4_scope with an explicit assignment to
-> > RT_SCOPE_UNIVERSE. This would also have the advantage of making it
-> > clear to future readers that ->flowi4_scope _has_ to be initialised. I
-> > haven't sent such patch series to not overwhelm reviewers with trivial
-> > and not technically-required changes (there are 40+ places to modify,
-> > scattered over 30+ different files). But if anyone prefers explicit
-> > initialisation everywhere, then just let me know and I'll send such
-> > patches.
 > 
-> There are a handful of places that open code the initialization of the
-> flow struct. I *think* I found all of them in 40867d74c374.
+> I believe the set looks ok. I think the fib test coverage in selftests
+> could use more tests to cover tos.
 
-By open code, do you mean "doesn't use flowi4_init_output() nor
-ip_tunnel_init_flow()"? If so, I think there are many more.
+Yes, this is on my todo list. I also plan to review existing tests that
+cover route lookups with link scope, and extend them if necessary.
 
-To be sure we're on the same page, here's a small part of the diff for
-my "explicit flowi4_scope initialisation" patch series:
-
- drivers/infiniband/core/addr.c                          | 1 +
- drivers/infiniband/sw/rxe/rxe_net.c                     | 1 +
- drivers/net/amt.c                                       | 3 +++
- drivers/net/ethernet/broadcom/bnxt/bnxt_tc.c            | 1 +
- drivers/net/ethernet/mellanox/mlx5/core/en/tc_tun.c     | 3 +++
- drivers/net/ethernet/netronome/nfp/flower/action.c      | 1 +
- drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c | 7 +++++--
- drivers/net/geneve.c                                    | 9 +++++++--
- drivers/net/gtp.c                                       | 1 +
- drivers/net/ipvlan/ipvlan_core.c                        | 1 +
- drivers/net/vrf.c                                       | 1 +
- drivers/net/vxlan/vxlan_core.c                          | 1 +
- drivers/net/wireguard/socket.c                          | 1 +
- include/net/ip_tunnels.h                                | 1 +
- include/net/route.h                                     | 2 ++
- net/core/filter.c                                       | 1 +
- net/core/lwt_bpf.c                                      | 1 +
- net/dccp/ipv4.c                                         | 1 +
- net/ipv4/icmp.c                                         | 3 +++
- net/ipv4/netfilter.c                                    | 1 +
- net/ipv4/netfilter/nf_reject_ipv4.c                     | 1 +
- net/ipv4/route.c                                        | 1 +
- net/ipv4/xfrm4_policy.c                                 | 1 +
- net/netfilter/ipvs/ip_vs_xmit.c                         | 1 +
- net/netfilter/nf_conntrack_h323_main.c                  | 3 +++
- net/netfilter/nf_conntrack_sip.c                        | 1 +
- net/netfilter/nft_flow_offload.c                        | 1 +
- net/netfilter/nft_rt.c                                  | 1 +
- net/netfilter/xt_TCPMSS.c                               | 2 ++
- net/sctp/protocol.c                                     | 1 +
- net/smc/smc_ib.c                                        | 1 +
- net/tipc/udp_media.c                                    | 1 +
- net/xfrm/xfrm_policy.c                                  | 1 +
- 33 files changed, 53 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/infiniband/core/addr.c b/drivers/infiniband/core/addr.c
-index f253295795f0..5b6e0003eead 100644
---- a/drivers/infiniband/core/addr.c
-+++ b/drivers/infiniband/core/addr.c
-@@ -399,6 +399,7 @@ static int addr4_resolve(struct sockaddr *src_sock,
-        memset(&fl4, 0, sizeof(fl4));
-        fl4.daddr = dst_ip;
-        fl4.saddr = src_ip;
-+       fl4.flowi4_scope = RT_SCOPE_UNIVERSE;
-        fl4.flowi4_oif = addr->bound_dev_if;
-        rt = ip_route_output_key(addr->net, &fl4);
-        ret = PTR_ERR_OR_ZERO(rt);
-diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
-index c53f4529f098..cf6dc89a8785 100644
---- a/drivers/infiniband/sw/rxe/rxe_net.c
-+++ b/drivers/infiniband/sw/rxe/rxe_net.c
-@@ -31,6 +31,7 @@ static struct dst_entry *rxe_find_route4(struct net_device *ndev,
-        fl.flowi4_oif = ndev->ifindex;
-        memcpy(&fl.saddr, saddr, sizeof(*saddr));
-        memcpy(&fl.daddr, daddr, sizeof(*daddr));
-+       fl.flowi4_scope = RT_SCOPE_UNIVERSE;
-        fl.flowi4_proto = IPPROTO_UDP;
- 
-        rt = ip_route_output_key(&init_net, &fl);
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index 10455c9b9da0..3e957ff64715 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -990,6 +990,7 @@ static bool amt_send_membership_update(struct amt_dev *amt,
-        fl4.daddr              = amt->remote_ip;
-        fl4.saddr              = amt->local_ip;
-        fl4.flowi4_tos         = AMT_TOS;
-+       fl4.flowi4_scope       = RT_SCOPE_UNIVERSE;
-        fl4.flowi4_proto       = IPPROTO_UDP;
-        rt = ip_route_output_key(amt->net, &fl4);
-        if (IS_ERR(rt)) {
-@@ -1048,6 +1049,7 @@ static void amt_send_multicast_data(struct amt_dev *amt,
-        fl4.flowi4_oif         = amt->stream_dev->ifindex;
-        fl4.daddr              = tunnel->ip4;
-        fl4.saddr              = amt->local_ip;
-+       fl4.flowi4_scope       = RT_SCOPE_UNIVERSE;
-        fl4.flowi4_proto       = IPPROTO_UDP;
-        rt = ip_route_output_key(amt->net, &fl4);
-        if (IS_ERR(rt)) {
-@@ -1103,6 +1105,7 @@ static bool amt_send_membership_query(struct amt_dev *amt,
-        fl4.daddr              = tunnel->ip4;
-        fl4.saddr              = amt->local_ip;
-        fl4.flowi4_tos         = AMT_TOS;
-+       fl4.flowi4_scope       = RT_SCOPE_UNIVERSE;
-        fl4.flowi4_proto       = IPPROTO_UDP;
-        rt = ip_route_output_key(amt->net, &fl4);
-        if (IS_ERR(rt)) {
-...
-
-> > ---
-> >  net/ipv4/route.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> > index e839d424b861..d8f82c0ac132 100644
-> > --- a/net/ipv4/route.c
-> > +++ b/net/ipv4/route.c
-> > @@ -503,8 +503,8 @@ static void ip_rt_fix_tos(struct flowi4 *fl4)
-> >  	__u8 tos = RT_FL_TOS(fl4);
-> >  
-> >  	fl4->flowi4_tos = tos & IPTOS_RT_MASK;
-> > -	fl4->flowi4_scope = tos & RTO_ONLINK ?
-> > -			    RT_SCOPE_LINK : RT_SCOPE_UNIVERSE;
-> > +	if (tos & RTO_ONLINK)
-> > +		fl4->flowi4_scope = RT_SCOPE_LINK;
-> >  }
-> >  
-> >  static void __build_flow_key(const struct net *net, struct flowi4 *fl4,
-> 
-> Reviewed-by: David Ahern <dsahern@kernel.org>
-> 
+Thanks for the review.
 

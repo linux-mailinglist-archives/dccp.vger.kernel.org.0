@@ -2,111 +2,89 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1948750B5D2
-	for <lists+dccp@lfdr.de>; Fri, 22 Apr 2022 13:02:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 517EB50B7A4
+	for <lists+dccp@lfdr.de>; Fri, 22 Apr 2022 14:54:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1446651AbiDVLF3 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 22 Apr 2022 07:05:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58240 "EHLO
+        id S233860AbiDVM5e (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 22 Apr 2022 08:57:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60702 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1446979AbiDVLF2 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 22 Apr 2022 07:05:28 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 729D05623A
-        for <dccp@vger.kernel.org>; Fri, 22 Apr 2022 04:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1650625353;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=ZyHAq8XvVGq2hZYkl/QwRkAUTtNiHFZTrfQAk4QcfNI=;
-        b=KBQHAbGW+PLrkQ7yQa+5AJG9Y1cld2G9zqgyPcr6+BeU7VJYrD6aw9p0rXEAgiKizzXyPL
-        x8o9d7tjr65+xZ0jIub+om3Sv1zT4wBGkFVvhgP7lwyWzy5VlRneo0u3JlowAxk8dXcAoy
-        1/rA034FIqkdR5b6Wh5jfZZRcD+IF/I=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-88-lRvsxagyOIy2Hm6fWgr7Kg-1; Fri, 22 Apr 2022 07:02:32 -0400
-X-MC-Unique: lRvsxagyOIy2Hm6fWgr7Kg-1
-Received: by mail-wr1-f70.google.com with SMTP id t17-20020adfa2d1000000b0020ac519c222so711819wra.4
-        for <dccp@vger.kernel.org>; Fri, 22 Apr 2022 04:02:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=ZyHAq8XvVGq2hZYkl/QwRkAUTtNiHFZTrfQAk4QcfNI=;
-        b=4Vm1j3uT5m5n1gLWvq2Q9epYto5nClo01TvFPjRILWEp11sjZhPC+dkmHoHNwsoYAc
-         h2iIig41yfR2latatRzf6+vE2PwCEmnjGNFC0thxUX7v6oB2pslPrvwn0yQtTuCnHJpm
-         oR/+CjiR7YQI8wPsP9yIW2c+paIpLacQRfe18x5nsBtEH8WFikJWTh21enRuDYhIc/Oc
-         tKeLrGfcFPevZAguzDS1+xEEHq5vw4fawItPSe7Qeyp7Jbz0qMOKHmgSkI0mrwuq8Sk5
-         sJAlwZK4xEBKJx2AKleBf4bv1dF8EB2NYrKfcsc0L7tytxDTnD3Kv9mEGp49ZxXrapoa
-         22WA==
-X-Gm-Message-State: AOAM531xT/r4wv8ooKB3mxtADr3uoL53hIX1u/0H104sRPUFQXqw4ojZ
-        Ftmru9YYNqQRng+Rbynv1IAzKwaRgKLM91UXaWvqB9bREWoIKEwYBERexp2Z1RnmGeu5nNcfE0n
-        TACeEhKgI1HimNQ==
-X-Received: by 2002:a5d:4888:0:b0:207:ad8b:e534 with SMTP id g8-20020a5d4888000000b00207ad8be534mr3054346wrq.325.1650625351046;
-        Fri, 22 Apr 2022 04:02:31 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz5KDHAyqMTVOXlPYgdsFNWeD0RjDElwWKKy8+vAIVq0lSzAkGokyJMdVzf2Awq+RspMcySUg==
-X-Received: by 2002:a5d:4888:0:b0:207:ad8b:e534 with SMTP id g8-20020a5d4888000000b00207ad8be534mr3054328wrq.325.1650625350805;
-        Fri, 22 Apr 2022 04:02:30 -0700 (PDT)
-Received: from debian.home (2a01cb058d3818005c1e4a7b0f47339f.ipv6.abo.wanadoo.fr. [2a01:cb05:8d38:1800:5c1e:4a7b:f47:339f])
-        by smtp.gmail.com with ESMTPSA id l6-20020a1c2506000000b0038e6fe8e8d8sm1740027wml.5.2022.04.22.04.02.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Apr 2022 04:02:30 -0700 (PDT)
-Date:   Fri, 22 Apr 2022 13:02:28 +0200
-From:   Guillaume Nault <gnault@redhat.com>
-To:     David Ahern <dsahern@kernel.org>
-Cc:     David Miller <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
-        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
-        dccp@vger.kernel.org
-Subject: Re: [PATCH net-next 0/3] ipv4: First steps toward removing RTO_ONLINK
-Message-ID: <20220422110228.GB15621@debian.home>
-References: <cover.1650470610.git.gnault@redhat.com>
- <2ee8fb0d-aeb4-5010-bc8c-16cbd6e88eff@kernel.org>
+        with ESMTP id S1447653AbiDVMxG (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 22 Apr 2022 08:53:06 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 95CB1DEE6;
+        Fri, 22 Apr 2022 05:50:13 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 3AA766112B;
+        Fri, 22 Apr 2022 12:50:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8EDCCC385A8;
+        Fri, 22 Apr 2022 12:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1650631812;
+        bh=A/VElV67rY+XYeSdLD39ruqlrB3+QJRia6c0TYpJjr4=;
+        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+        b=prPT1RZp1k/KvfMy3Asgj/v6zQiGeuwoK5wuJQmXCuhxt3Y0wrfkVpXb9JvtK1lmH
+         jFtSQSYkY/8HxsDmbongJ2Xb/jAwjCGRlQtCXVfaADH9SO3Gxe1HMFfTfgsGWejxD/
+         2TF97BPMhCookwnERDyk8yEO2qSMrGd4GLi7YaLz29wP7CKDbVHSrNJ3rX/Jq1kAjY
+         0omy0+iNqRAQkQb8xVFlj/cbjupl6msVnjzXZ3zg5RcblJNsrU2nmq+CmBNIWNV4Vc
+         adbpNmfTZ70risyak1MeFuow0toRU5dl1ZPRTZd4nFzpTBLRZQoC1g58Jbj1k3/fY9
+         e56Pa0MvrnHPw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
+        by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id 5B611E8DD61;
+        Fri, 22 Apr 2022 12:50:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2ee8fb0d-aeb4-5010-bc8c-16cbd6e88eff@kernel.org>
-X-Spam-Status: No, score=-3.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_NONE autolearn=unavailable autolearn_force=no
-        version=3.4.6
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next 0/3] ipv4: First steps toward removing RTO_ONLINK
+From:   patchwork-bot+netdevbpf@kernel.org
+Message-Id: <165063181235.24908.15151109016653470553.git-patchwork-notify@kernel.org>
+Date:   Fri, 22 Apr 2022 12:50:12 +0000
+References: <cover.1650470610.git.gnault@redhat.com>
+In-Reply-To: <cover.1650470610.git.gnault@redhat.com>
+To:     Guillaume Nault <gnault@redhat.com>
+Cc:     davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+        netdev@vger.kernel.org, yoshfuji@linux-ipv6.org,
+        dsahern@kernel.org, dccp@vger.kernel.org
+X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Thu, Apr 21, 2022 at 09:10:21PM -0600, David Ahern wrote:
-> On 4/20/22 5:21 PM, Guillaume Nault wrote:
-> > RTO_ONLINK is a flag that allows to reduce the scope of route lookups.
-> > It's stored in a normally unused bit of the ->flowi4_tos field, in
-> > struct flowi4. However it has several problems:
-> > 
-> >  * This bit is also used by ECN. Although ECN bits are supposed to be
-> >    cleared before doing a route lookup, it happened that some code
-> >    paths didn't properly sanitise their ->flowi4_tos. So this mechanism
-> >    is fragile and we had bugs in the past where ECN bits slipped in and
-> >    could end up being erroneously interpreted as RTO_ONLINK.
-> > 
-> >  * A dscp_t type was recently introduced to ensure ECN bits are cleared
-> >    during route lookups. ->flowi4_tos is the most important structure
-> >    field to convert, but RTO_ONLINK prevents such conversion, as dscp_t
-> >    mandates that ECN bits (where RTO_ONLINK is stored) be zero.
-> > 
-> > Therefore we need to stop using RTO_ONLINK altogether. Fortunately
-> > RTO_ONLINK isn't a necessity. Instead of passing a flag in ->flowi4_tos
-> > to tell the route lookup function to restrict the scope, we can simply
-> > initialise the scope correctly.
-> > 
+Hello:
+
+This series was applied to netdev/net-next.git (master)
+by David S. Miller <davem@davemloft.net>:
+
+On Thu, 21 Apr 2022 01:21:19 +0200 you wrote:
+> RTO_ONLINK is a flag that allows to reduce the scope of route lookups.
+> It's stored in a normally unused bit of the ->flowi4_tos field, in
+> struct flowi4. However it has several problems:
 > 
-> I believe the set looks ok. I think the fib test coverage in selftests
-> could use more tests to cover tos.
+>  * This bit is also used by ECN. Although ECN bits are supposed to be
+>    cleared before doing a route lookup, it happened that some code
+>    paths didn't properly sanitise their ->flowi4_tos. So this mechanism
+>    is fragile and we had bugs in the past where ECN bits slipped in and
+>    could end up being erroneously interpreted as RTO_ONLINK.
+> 
+> [...]
 
-Yes, this is on my todo list. I also plan to review existing tests that
-cover route lookups with link scope, and extend them if necessary.
+Here is the summary with links:
+  - [net-next,1/3] ipv4: Don't reset ->flowi4_scope in ip_rt_fix_tos().
+    https://git.kernel.org/netdev/net-next/c/16a28267774c
+  - [net-next,2/3] ipv4: Avoid using RTO_ONLINK with ip_route_connect().
+    https://git.kernel.org/netdev/net-next/c/67e1e2f4854b
+  - [net-next,3/3] ipv4: Initialise ->flowi4_scope properly in ICMP handlers.
+    https://git.kernel.org/netdev/net-next/c/b1ad41384866
 
-Thanks for the review.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 

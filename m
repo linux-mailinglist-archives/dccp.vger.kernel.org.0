@@ -2,92 +2,92 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EE0DC52C5D4
-	for <lists+dccp@lfdr.de>; Thu, 19 May 2022 00:01:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A45B52CD93
+	for <lists+dccp@lfdr.de>; Thu, 19 May 2022 09:52:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229600AbiERWBs (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 18 May 2022 18:01:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35452 "EHLO
+        id S235019AbiESHv6 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 19 May 2022 03:51:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50510 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229615AbiERWBk (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 18 May 2022 18:01:40 -0400
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com [IPv6:2607:f8b0:4864:20::82c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 22993281786
-        for <dccp@vger.kernel.org>; Wed, 18 May 2022 14:50:32 -0700 (PDT)
-Received: by mail-qt1-x82c.google.com with SMTP id g3so3115695qtb.7
-        for <dccp@vger.kernel.org>; Wed, 18 May 2022 14:50:32 -0700 (PDT)
+        with ESMTP id S235048AbiESHvq (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 19 May 2022 03:51:46 -0400
+Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com [99.78.197.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3998E434B6;
+        Thu, 19 May 2022 00:51:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=675CvuSp++zNLeIUZybBsP51nvc83dY+2bSGb3FYErQ=;
-        b=EHywor1tGPa8q1x+/ElYoYYjqR036UriPE2ag+P7smK794VAQAaD5w2NUxVOHyZn7Y
-         WpDOZcK6TtaNBr3/emRhDMBd885SRKUtEqR9lmrVHH0EvBgnqzzt1QlWTMJ2zu/4YV6W
-         HvB3rADq9O/HBi3iHscda19ydabpJW2OI21rnFZ/33bFZwF1OyCEDdjR0+GDfl2TANGU
-         FPqGxY11fqcG5zTNhJk6+p+dDKe6Jy8kK0n9JRo1FsaKrV6surP/Qm1k5a4vbRI8naDc
-         2T8rVQaTNgaJctpdDfFOf0A/mrzhue0I6up08VnO42Wp+50CVaBUzRYcYrTVf7hiYz71
-         cUMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=675CvuSp++zNLeIUZybBsP51nvc83dY+2bSGb3FYErQ=;
-        b=ziDEPJHjXLY7Q9tOzavXM0ZaM8poZzV88BaYh7jNHATkk1CAveNamY6u/c6d6GhW99
-         rLFC42UngT0ISk+raF528FJKzudt/3bN3/+vpaiPbWcM13BKotMVsQaEc3ilF2XeuNsN
-         ZM99dG5u76A60t6t28JpkOtD8FELfhXGoMHukNzRDEvOH5nMpn6ZG28oVi/nWnlbYcnJ
-         WYWVPKhDTVxf4d4mf0NU1p4lK60ARetPXyT2LPctcDTPiVFmjwJh0JTy5ncj17zbzaqS
-         1dUG4iMRlw32TO5Vw6A/P5sSFrDzBRZnDRxqH+2ipQif21kkYXU6GAdRJL/XJYuFX6ao
-         yI8A==
-X-Gm-Message-State: AOAM533/+u/fDc24wblyEB2IA//rbmHB+qJYhQra4DkcPadOmn4G1dAr
-        xwdb2WrGS67/YGUyvIRt6NEqG2qk++Tb/LZ4IJ4=
-X-Google-Smtp-Source: ABdhPJxcHfcBwK4RJ+qcS3/RO5qNYrIAY7hz9vCnWiBt1hss6BEX21dYmU1sZaSXVgWo0nl5KldguoEiy3mLyv0D5nQ=
-X-Received: by 2002:a05:622a:58a:b0:2f3:c0d0:1def with SMTP id
- c10-20020a05622a058a00b002f3c0d01defmr1670432qtb.78.1652910631273; Wed, 18
- May 2022 14:50:31 -0700 (PDT)
+  d=amazon.co.jp; i=@amazon.co.jp; q=dns/txt;
+  s=amazon201209; t=1652946705; x=1684482705;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=2iFj8eMw07xwx7nl36uCuyivAkU8E8HF5KmfsEJEFiI=;
+  b=RcVS4LKheWUKjdN6wzDmcHQS8Q+iZFimw+78eIef9L0sORKMHHi7eRZ8
+   24bIZIpKyrjOWj5I8Ul23HX79tZE6f4ypCs2d1Nt2VPkkIb8Y6cuBNk5g
+   wJHUXiQUyTk1aM4owyu5yUflIv1epqy/TnGZnU6jK1hn1Sj4lPrNtw4OU
+   E=;
+X-IronPort-AV: E=Sophos;i="5.91,237,1647302400"; 
+   d="scan'208";a="89838153"
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO email-inbound-relay-iad-1d-ca048aa0.us-east-1.amazon.com) ([10.25.36.214])
+  by smtp-border-fw-80006.pdx80.corp.amazon.com with ESMTP; 19 May 2022 07:51:43 +0000
+Received: from EX13MTAUWB001.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+        by email-inbound-relay-iad-1d-ca048aa0.us-east-1.amazon.com (Postfix) with ESMTPS id 15D7281303;
+        Thu, 19 May 2022 07:51:38 +0000 (UTC)
+Received: from EX13D04ANC001.ant.amazon.com (10.43.157.89) by
+ EX13MTAUWB001.ant.amazon.com (10.43.161.207) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.32; Thu, 19 May 2022 07:51:31 +0000
+Received: from 88665a182662.ant.amazon.com (10.43.161.12) by
+ EX13D04ANC001.ant.amazon.com (10.43.157.89) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.36; Thu, 19 May 2022 07:51:27 +0000
+From:   Kuniyuki Iwashima <kuniyu@amazon.co.jp>
+To:     <joannelkoong@gmail.com>
+CC:     <davem@davemloft.net>, <dsahern@kernel.org>, <edumazet@google.com>,
+        <kafai@fb.com>, <kuba@kernel.org>, <kuniyu@amazon.co.jp>,
+        <pabeni@redhat.com>, <richard_siegfried@systemli.org>,
+        <yoshfuji@linux-ipv6.org>, <netdev@vger.kernel.org>,
+        <dccp@vger.kernel.org>
+Subject: Re: [PATCH net-next v5 1/2] net: Add a second bind table hashed by port and address
+Date:   Thu, 19 May 2022 16:51:19 +0900
+Message-ID: <20220519075119.87442-1-kuniyu@amazon.co.jp>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220518231912.2891175-2-joannelkoong@gmail.com>
+References: <20220518231912.2891175-2-joannelkoong@gmail.com>
 MIME-Version: 1.0
-Received: by 2002:ad4:5cc1:0:0:0:0:0 with HTTP; Wed, 18 May 2022 14:50:31
- -0700 (PDT)
-Reply-To: tonywenn@asia.com
-From:   Tony Wen <thompsonmiller942@gmail.com>
-Date:   Wed, 18 May 2022 17:50:31 -0400
-Message-ID: <CAN7gJ1TtYPGBhnkrtRO9Z7bSt=cmZurAq3k=8kC6LSpjoAaq+w@mail.gmail.com>
-Subject: work
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:82c listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.4608]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [thompsonmiller942[at]gmail.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [thompsonmiller942[at]gmail.com]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  3.4 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *****
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.43.161.12]
+X-ClientProxiedBy: EX13D30UWC003.ant.amazon.com (10.43.162.122) To
+ EX13D04ANC001.ant.amazon.com (10.43.157.89)
+X-Spam-Status: No, score=-4.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Can you work with me?
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Wed, 18 May 2022 16:19:11 -0700
+> We currently have one tcp bind table (bhash) which hashes by port
+> number only. In the socket bind path, we check for bind conflicts by
+> traversing the specified port's inet_bind2_bucket while holding the
+> bucket's spinlock (see inet_csk_get_port() and inet_csk_bind_conflict()).
+> 
+> In instances where there are tons of sockets hashed to the same port
+> at different addresses, checking for a bind conflict is time-intensive
+> and can cause softirq cpu lockups, as well as stops new tcp connections
+> since __inet_inherit_port() also contests for the spinlock.
+> 
+> This patch proposes adding a second bind table, bhash2, that hashes by
+> port and ip address. Searching the bhash2 table leads to significantly
+> faster conflict resolution and less time holding the spinlock.
+> 
+> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+> Reviewed-by: Eric Dumazet <edumazet@google.com>
+
+Acked-by: Kuniyuki Iwashima <kuniyu@amazon.co.jp>
+
+To maintainers:
+lore and patchwork seem to miss this version...?
+
+Thank you.

@@ -2,96 +2,63 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B01CC532C1E
-	for <lists+dccp@lfdr.de>; Tue, 24 May 2022 16:22:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E0B3353441E
+	for <lists+dccp@lfdr.de>; Wed, 25 May 2022 21:16:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234426AbiEXOWU (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 24 May 2022 10:22:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43760 "EHLO
+        id S1344091AbiEYTQ4 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 25 May 2022 15:16:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44080 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236990AbiEXOWT (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 24 May 2022 10:22:19 -0400
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AAA5B5FF36
-        for <dccp@vger.kernel.org>; Tue, 24 May 2022 07:22:18 -0700 (PDT)
-Received: by mail-ej1-x62b.google.com with SMTP id y13so34951120eje.2
-        for <dccp@vger.kernel.org>; Tue, 24 May 2022 07:22:18 -0700 (PDT)
+        with ESMTP id S1344752AbiEYTPQ (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 25 May 2022 15:15:16 -0400
+Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com [IPv6:2607:f8b0:4864:20::e35])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EA4C24F39
+        for <dccp@vger.kernel.org>; Wed, 25 May 2022 12:14:21 -0700 (PDT)
+Received: by mail-vs1-xe35.google.com with SMTP id j7so21624700vsj.7
+        for <dccp@vger.kernel.org>; Wed, 25 May 2022 12:14:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
+        h=mime-version:from:date:message-id:subject:to:cc
          :content-transfer-encoding;
-        bh=amfo7krDAamEYJ4a7A+EJVO64lgmgvwc9CJ5YTrOkPU=;
-        b=LwEpLTtR3I0NX+PgVq2hy68PVPk+6OLYDmIEV84rxk0nK8RJFqsfk9iWIBSEaMXBBB
-         pmwGF16YIjyX5N/tfPkoMv9CQW6Qv4wjRbo1WnPrdu7WlXfEtFXmbEqTxkaZE776Ai41
-         HwfPtL9aMB4L3AGZT7erSj9sJnHNRc+CGakdjjF5x4ozzEYlqaitfm4fPVNpjhagMfEo
-         ClcaKrQ8HNddAoRO+KZvrTDcN5tWMIr2e+gqhuU9dFtX1x9kZMLM5IV3PmAStjIG0rHu
-         EFpCCvHEP1Vrt5x9Cv7LHiDu0BmujHZ1ZkiIKqq+ujUYe+vig2oZWh5pfV1hNEjLeAka
-         yZxA==
+        bh=V3ilouT9genmWgVMdUNI5P/LrIsW5jIirCBfI8vk+4c=;
+        b=hjC540glZcaHzFjgPkV2v9T35nBAxubfGmHV2S5Z/B+P1/WskUkPuxR/kr/tykIGXJ
+         2vHX5WrsppnPbjvpuqvmMPMZ9HPhhvA6S7A8/D2TyV20k45AC+OFQcfBgjy1ZJGUqTwY
+         Kgl1rXCn2iR8gqkEqpgl3HG1dCL5zHmqup6a+1HPBuY3vM506dUpg9uLoCUtXBelTIOL
+         9p46PsPPJFkPvWZzpctSIwn+MMexAueyIpXOg/yvJaPxA3+XvQCHCif/ZSfj3uNVkShU
+         qSNUOYY2dMZ+hzvbNsgf4zWR9iYU3CaY5L6LSLdLHvKZrA30M+C9Pi7D/Jh65JMSiPVR
+         70bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=amfo7krDAamEYJ4a7A+EJVO64lgmgvwc9CJ5YTrOkPU=;
-        b=LVecP74CtHG9HfUWx5MUpWLtCIcEUz2sL0IVzYB4svW4qOOVygsq2yfIzzMl6vxDiV
-         rNekCc0mJ1EQ8bZGJVmMZKNfvaji9yjpAFGOOboIxRRArg1/iPpy84cMr8IZ8Ie8pySt
-         yki0JQLHhoVu7SYd3pA+4sXRIYQtvjfNTxBoT7u1PKflViwl5Wtdv8skWB2mcJBR6qrR
-         72L5p3HojVvIVaJ4DrbWFrPr8LH8NF3r1wJFv3IMwM4h4UNjedE3VU3UHNQKLFaL9rer
-         iGq1buphpLZ+K+Kg5QRxzfzZ+Ja45zDxHsYyf3AfwGnWG8kypbF409Yowj44vqzb4s5T
-         bDQw==
-X-Gm-Message-State: AOAM533VOUck13Dd4IieEu0+twd9b6EOOHnF+akBLDPTAg9ToVis5Tod
-        8EbYSP5kzMohbouTTKqr68ruO9IE4uhbLzpvMoo=
-X-Google-Smtp-Source: ABdhPJxoxGeyHeqt0AIlIM7Bef8uhBgAg6dcBX88nqT8cTbOiHxWoWFRY6bBPGWsWDIjkJc1iWOol7z5KYQVzCH2434=
-X-Received: by 2002:a17:907:7f8e:b0:6ff:1f9:61f5 with SMTP id
- qk14-20020a1709077f8e00b006ff01f961f5mr3921910ejc.722.1653402136119; Tue, 24
- May 2022 07:22:16 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc
+         :content-transfer-encoding;
+        bh=V3ilouT9genmWgVMdUNI5P/LrIsW5jIirCBfI8vk+4c=;
+        b=NsmginvDm5iPQPC+t0jZzMaMD7vvMQQRFiaVkj7pYzGowPOAqSLwcXS1+jkHBsdU8p
+         o//tWggZjfLQiFV5NHh2N8M+lhIU7Gehj4cFw4nKwryFYz9zohpcZ/6MeXo9JqWwZI4f
+         xfshnWss6EHdTzNcZm7qO5g5hoS7dnJ9tSHYHQp4KBBBN+XK5gsRfCI874Nnb8TAz783
+         7cQZMQKQLYpuj8d2mkSze3RIxaVKA0k54s+XF6QEeViB4NgTKAUcAvsf9ZBWO1+1apGS
+         5XmMcHUAQRQ58C9RrKcrdpKXWPscVDq3UXVuEz9UfRDbUQyaR4XrzpbC4GsSebtN3v8a
+         fA+Q==
+X-Gm-Message-State: AOAM530F304kHXMJ1q378eua1UTPaeGhgm3T+tQUMcR8I12pqcw2Y/Kn
+        JoyuRNK+kQhP6BbMsl5V5Q0xTdPTQO8ScRSl+4s=
+X-Google-Smtp-Source: ABdhPJxxV3nkZSef01atFpH4/bODDRBSp3jyq4LljAdcChstn+adKk+tJho8WeMw27csFWy3/bhZqSMAIO/MOEERDNM=
+X-Received: by 2002:a67:1787:0:b0:337:d8cd:35b2 with SMTP id
+ 129-20020a671787000000b00337d8cd35b2mr3913533vsx.29.1653506060518; Wed, 25
+ May 2022 12:14:20 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:640c:2f0b:b0:15b:9a83:a493 with HTTP; Tue, 24 May 2022
- 07:22:15 -0700 (PDT)
-Reply-To: mrs.jenniferabas@gmail.com
-From:   mrs jenniferabas <adjeadje118@gmail.com>
-Date:   Tue, 24 May 2022 07:22:15 -0700
-Message-ID: <CABv96uhnhMxJyMBw01m4c-cDGRgLAXNxYKgp-sbxVAqR=dOv6Q@mail.gmail.com>
-Subject: Guten Tag,
-To:     undisclosed-recipients:;
+Received: by 2002:a59:d484:0:b0:2bc:cae4:6d22 with HTTP; Wed, 25 May 2022
+ 12:14:20 -0700 (PDT)
+From:   Rolf Benra <olfbenra@gmail.com>
+Date:   Wed, 25 May 2022 21:14:20 +0200
+Message-ID: <CA+z==Vsj_zeky5DFNKT8Q+O=mwToTyog=vcK0XAkQQ9W4xetXw@mail.gmail.com>
+Subject: Bitte kontaktaufnahme Erforderlich !!! Please Contact Required !!!
+To:     contact@firstdiamondbk.com
+Cc:     info@firstdiamondbk.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: Yes, score=7.8 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,LOTS_OF_MONEY,MONEY_FREEMAIL_REPTO,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_HK_NAME_FM_MR_MRS,
-        T_SCC_BODY_TEXT_LINE,UNDISC_FREEM,UNDISC_MONEY autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2a00:1450:4864:20:0:0:0:62b listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5650]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [adjeadje118[at]gmail.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [adjeadje118[at]gmail.com]
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        *  0.0 LOTS_OF_MONEY Huge... sums of money
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  0.0 T_HK_NAME_FM_MR_MRS No description available.
-        *  3.3 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-        *  1.7 MONEY_FREEMAIL_REPTO Lots of money from someone using free
-        *      email?
-        *  0.9 UNDISC_MONEY Undisclosed recipients + money/fraud signs
-X-Spam-Level: *******
+X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -99,29 +66,43 @@ List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
 Guten Tag,
-Ich wei=C3=9F, dass dieser Brief Sie sehr =C3=BCberraschend treffen kann. E=
-s ist
-jedoch nur
-Mein dringendes Bed=C3=BCrfnis nach einem ausl=C3=A4ndischen Partner. Ich w=
-=C3=BCrde
-gerne wissen
-dieser Vorschlag w=C3=A4re
-N=C3=BCtzlich f=C3=BCr Ihre Akzeptanz. Ich brauche Ihre aufrichtige Hilfe
-verwirkliche mein humanit=C3=A4res Projekt.
-Leider bin ich todkrank und sterbe bald. Ich m=C3=B6chte, dass du Geld ausg=
-ibst
-Mein Erbe betr=C3=A4gt drei Millionen einhundertf=C3=BCnfzigtausend US-Doll=
-ar
-($ 3.150.000,00) f=C3=BCr wohlt=C3=A4tige Zwecke in Ihrem Land, wenn Sie es=
- erhalten
-Geld. Es w=C3=A4re mir eine Freude, dieses Projekt mit Ihnen abzuschlie=C3=
-=9Fen
-bevor ich sterbe.
-Weitere Informationen erhalten Sie, wenn Sie auf meinen Vorschlag reagieren=
-.
-Ihre positive Antwort wird gesch=C3=A4tzt.
-(mrs.jenniferabas@gmail.com)
+
+Ich habe mich nur gefragt, ob Sie meine vorherige E-Mail bekommen
+
+haben ?
+
+Ich habe versucht, Sie per E-Mail zu erreichen.
+
+Kommen Sie bitte schnell zu mir zur=C3=BCck, es ist sehr wichtig.
+
+Danke
+
+Rolf Benra
+
+olfbenra@gmail.com
 
 
-Deine Schwester,
-Frau Jennifeas Abbas,
+
+
+
+
+
+----------------------------------
+
+
+
+
+Good Afternoon,
+
+I was just wondering if you got my Previous E-mail
+have ?
+
+I tried to reach you by E-mail.
+
+Please come back to me quickly, it is very Important.
+
+Thanks
+
+Rolf Benra
+
+olfbenra@gmail.com

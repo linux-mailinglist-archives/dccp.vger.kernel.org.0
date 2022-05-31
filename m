@@ -2,74 +2,97 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 916D1536393
-	for <lists+dccp@lfdr.de>; Fri, 27 May 2022 15:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A119B539952
+	for <lists+dccp@lfdr.de>; Wed,  1 Jun 2022 00:05:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1352154AbiE0Nvf convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Fri, 27 May 2022 09:51:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34532 "EHLO
+        id S1348308AbiEaWEs (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 31 May 2022 18:04:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53614 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1352824AbiE0Nvd (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 27 May 2022 09:51:33 -0400
-X-Greylist: delayed 9716 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 27 May 2022 06:51:32 PDT
-Received: from mail.composit.net (mail.composit.net [195.49.185.119])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 7638837BF6;
-        Fri, 27 May 2022 06:51:32 -0700 (PDT)
-Received: from mail.composit.net (localhost.localdomain [127.0.0.1])
-        by mail.composit.net (Proxmox) with ESMTP id ABD8838EA07;
-        Fri, 27 May 2022 14:05:43 +0300 (MSK)
-Received: from mail.composit.net (mail.composit.local [192.168.101.14])
-        by mail.composit.net (Proxmox) with SMTP id 7FDF5382A7A;
-        Fri, 27 May 2022 14:05:43 +0300 (MSK)
-Received: from [192.168.1.105] (Unknown [197.234.219.23])
-        by mail.composit.net with ESMTPSA
-        (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256)
-        ; Fri, 27 May 2022 14:05:44 +0300
-Message-ID: <397C981D-1DAF-44FB-A2B9-DC7F08AAFC2E@mail.composit.net>
-Content-Type: text/plain; charset="iso-8859-1"
+        with ESMTP id S1347523AbiEaWEr (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 31 May 2022 18:04:47 -0400
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com [IPv6:2607:f8b0:4864:20::b36])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D962F9C2CD
+        for <dccp@vger.kernel.org>; Tue, 31 May 2022 15:04:46 -0700 (PDT)
+Received: by mail-yb1-xb36.google.com with SMTP id w2so4561941ybi.7
+        for <dccp@vger.kernel.org>; Tue, 31 May 2022 15:04:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=3tFkrwhqVchKldB/4jas7UgIJBTUliw27Vbsv32SH+8=;
+        b=l04EUNe5705ARgKl9NFJEeXLPc9vUjgai4XVpiyBvU/fPCzZrL1M9OnLEnM79kayQV
+         GL65SOmDmldDJKndhWqCyCuJaqhqEB2JLaHThO8aKxpJ9NBp1CyGcPd13APIYRUQ1tiR
+         ank09vWOvhuhuVzZccZQFytX4VUIqMMgAnVd/PRVwTsGPR3VqDQmIBYIZwIfmfQpOAjY
+         +KhT7xcRNK4kdoul+LbUh1uDHTjbOKodUA59pNuBVVS7pTBFSlO5UY6RYL+QmT+vlfm4
+         v4w0VdJWnD+70vaIt+wQr+YnTlMf0ka7D2J/Mx59JstUPEqrcpi7BAvqupe8TNuv3DUY
+         Y09w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=3tFkrwhqVchKldB/4jas7UgIJBTUliw27Vbsv32SH+8=;
+        b=Lg7yV1RfNWdkF3BFDQC/7DTay9HssFUWt3aDHcMrr3fthkOseHaW0hAtZUGi8i+qM1
+         h0hFKQVP3LeoGzRK5IUjbarkz/bzSoYdZmNe/I/aGgi4s+JNTIktosfuFPz0Vwsf68uW
+         iqWVsBwivs0qTDptjZLSFBZ01j9lRU4d63bEqLUMJ4QFKnplEsaAg3vxTk/p3b3+l7HC
+         sLUifgcWLBfU01G/DJZpvLShGIr/FCBxoE842Jlj0BBD0hHND8/SLEj73Vlk1Rq4F52r
+         DI2hx3UAnUbE41t8EP6wK4OOqGbTTjmEc6oikCIFhRvdD71Ze/91HiD2CW+yPZG41Cfo
+         ZECA==
+X-Gm-Message-State: AOAM531uEQ3czvAuwR+WI3c+NpJGew71j5TNU6QnH+3ezCd9fg5o9FUI
+        h6cKZGSXzGGI4fjtbruLiWIO46FItTeq2Cm4dT/JSg==
+X-Google-Smtp-Source: ABdhPJywRuGYPTVD0zI+ijOluT6NTQHJERO1wgN0joG82CRywpBmGOD+X6ACHMkgziA7eIJZMht9tNDGKVmzX6iqmM8=
+X-Received: by 2002:a25:c0d4:0:b0:65d:61f:8ded with SMTP id
+ c203-20020a25c0d4000000b0065d061f8dedmr10155960ybf.407.1654034685818; Tue, 31
+ May 2022 15:04:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: Greetings From Ukraine.  
-To:     Recipients <heiss@dnet.it>
-From:   "Kostiantyn Chichkov" <heiss@dnet.it>
-Date:   Fri, 27 May 2022 12:05:23 +0100
-Reply-To: kostiantync@online.ee
-X-Spam-Status: Yes, score=5.1 required=5.0 tests=BAYES_50,
-        RCVD_IN_BL_SPAMCOP_NET,RCVD_IN_SBL,RCVD_IN_SORBS_WEB,
-        RCVD_IN_VALIDITY_RPBL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: *  1.3 RCVD_IN_BL_SPAMCOP_NET RBL: Received via a relay in
-        *      bl.spamcop.net
-        *      [Blocked - see <https://www.spamcop.net/bl.shtml?195.49.185.119>]
-        *  1.5 RCVD_IN_SORBS_WEB RBL: SORBS: sender is an abusable web server
-        *      [197.234.219.23 listed in dnsbl.sorbs.net]
-        *  0.1 RCVD_IN_SBL RBL: Received via a relay in Spamhaus SBL
-        *      [197.234.219.23 listed in zen.spamhaus.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.0 SPF_NONE SPF: sender does not publish an SPF Record
-        *  1.3 RCVD_IN_VALIDITY_RPBL RBL: Relay in Validity RPBL,
-        *      https://senderscore.org/blocklistlookup/
-        *      [195.49.185.119 listed in bl.score.senderscore.com]
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-X-Spam-Level: *****
+References: <20220524230400.1509219-1-joannelkoong@gmail.com> <20220524230400.1509219-2-joannelkoong@gmail.com>
+In-Reply-To: <20220524230400.1509219-2-joannelkoong@gmail.com>
+From:   Eric Dumazet <edumazet@google.com>
+Date:   Tue, 31 May 2022 15:04:34 -0700
+Message-ID: <CANn89i+pg8guF+XeOngSMa4vUD81g=u-pCBpi0Yp2WB9PQZvdg@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 1/2] net: Update bhash2 when socket's rcv
+ saddr changes
+To:     Joanne Koong <joannelkoong@gmail.com>
+Cc:     netdev@vger.kernel.org, kafai@fb.com, kuba@kernel.org,
+        davem@davemloft.net, richard_siegfried@systemli.org,
+        dsahern@kernel.org, pabeni@redhat.com, yoshfuji@linux-ipv6.org,
+        kuniyu@amazon.co.jp, dccp@vger.kernel.org, testing@vger.kernel.org,
+        syzbot+015d756bbd1f8b5c8f09@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Good Morning,
+On Tue, May 24, 2022 at 4:20 PM Joanne Koong <joannelkoong@gmail.com> wrote:
+>
+> Commit d5a42de8bdbe ("net: Add a second bind table hashed by port and
+> address") added a second bind table, bhash2, that hashes by a socket's port
+> and rcv address.
+>
+> However, there are two cases where the socket's rcv saddr can change
+> after it has been binded:
+>
+> 1) The case where there is a bind() call on "::" (IPADDR_ANY) and then
+> a connect() call. The kernel will assign the socket an address when it
+> handles the connect()
+>
+> 2) In inet_sk_reselect_saddr(), which is called when rerouting fails
+> when rebuilding the sk header (invoked by inet_sk_rebuild_header)
+>
+> In these two cases, we need to update the bhash2 table by removing the
+> entry for the old address, and adding a new entry reflecting the updated
+> address.
+>
+> Reported-by: syzbot+015d756bbd1f8b5c8f09@syzkaller.appspotmail.com
+> Fixes: d5a42de8bdbe ("net: Add a second bind table hashed by port and address")
+> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+> ---
 
-We are Kostiantyn Chychkov and Maryna Chudnovska from Ukraine, we need your service, we have gone through your profile and we will like to work with you on an important service that needs urgent attention due to the ongoing war in our country. Kindly acknowledge this inquiry as soon as possible for a detailed discussion about the service.
-
-Thank you.
-
-Yours expectantly,
-
-Kostiantyn Chichkov & Ms. Maryna Chudnovska,
-From Ukraine.
-
-
+Reviewed-by: Eric Dumazet <edumzet@google.com>

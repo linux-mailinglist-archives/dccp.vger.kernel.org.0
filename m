@@ -2,125 +2,69 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A18E53ACD0
-	for <lists+dccp@lfdr.de>; Wed,  1 Jun 2022 20:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BF69953AF3F
+	for <lists+dccp@lfdr.de>; Thu,  2 Jun 2022 00:50:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231695AbiFASbX (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 1 Jun 2022 14:31:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36924 "EHLO
+        id S230099AbiFAVDB (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 1 Jun 2022 17:03:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34166 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229871AbiFASbV (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 1 Jun 2022 14:31:21 -0400
-Received: from mail-vs1-xe29.google.com (mail-vs1-xe29.google.com [IPv6:2607:f8b0:4864:20::e29])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FA90ABF48;
-        Wed,  1 Jun 2022 11:31:20 -0700 (PDT)
-Received: by mail-vs1-xe29.google.com with SMTP id q14so2477598vsr.12;
-        Wed, 01 Jun 2022 11:31:20 -0700 (PDT)
+        with ESMTP id S230420AbiFAVDA (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 1 Jun 2022 17:03:00 -0400
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com [IPv6:2607:f8b0:4864:20::22d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6EF9B2A269
+        for <dccp@vger.kernel.org>; Wed,  1 Jun 2022 14:02:59 -0700 (PDT)
+Received: by mail-oi1-x22d.google.com with SMTP id m82so4187458oif.13
+        for <dccp@vger.kernel.org>; Wed, 01 Jun 2022 14:02:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=OFvsxENADR9nRogVtYrcodU+LeiBGyV+qepeUinzWDE=;
-        b=ettnCSZocYZcqVQEfvzuV4fO1803FG4NM6Bee7y+Bbnmke0Wu3wgZ4XWrAEdC7X3RT
-         OyufiwExdccONw4dLvpl85DRE4PjSW2Qgo4C8joXXNc0CbpJvxoi82WgtxcksUmaYGQ3
-         HJyrGzbdGqSiyOcwSc9TLgQlwbM5GBsbcBPI6GNEo4lo8OWfPTmyRqAmLZ9J43mh5nI3
-         dSopi+vcjJTptzGcOLRa2d0UjAc7GtwnyyaXeROuGAJYTI9g247ivLjwLdToylCQ7ca8
-         +VhpEbHvEBPYpMtZuQiNCbFSj83+swOspl5IttoC4TNChU7TCYdWJDCo00HYCQfMHKnq
-         sUwA==
+        h=mime-version:reply-to:in-reply-to:references:from:date:message-id
+         :subject:to;
+        bh=Gk4nfCem3ECRa7Gml0J0mN/3RZoOAdfGaQAqyHPKtiI=;
+        b=RGd9c1aErSn0Z6Ze8KLoF3EWbTH/9kTlwI+HC+SAx7dzvBrwHHsKOlh0JbRb09xcBP
+         iM2OCHeO/Jrl9Xle2mDSw6T0q2WeDDZSG5qe5a4Dg+cUelC504vEzjOQufYXWP9aJXgI
+         V/LFJCahzAFFpJlr1tiv2Vp4M01X+B3LdrfN7rOxB8bGQcOq43FjV1KDwVfyhOisNkOG
+         FD6f0xHzXypVyOoc2S2G61yyKZweooFWr6HTnKbFSpcoQrcxWgeekfUkx9WrMRo9A/lx
+         1hTIaXz5Rg+fQ0IRlejP5CxzHN8QjtW4TV9t29PD5AzmW/wzytk4/unH4gfxTM3MusEo
+         OocQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=OFvsxENADR9nRogVtYrcodU+LeiBGyV+qepeUinzWDE=;
-        b=C69QEeHr2IMfNTHXtFTvxNG63HbjT9ePcqQClbfjycy7WhNpVgL0Sja+5Ij5WMRBC8
-         ARowBD4CKKjpoYb7gzRszuqRXevwlb7T1sI3oLYIYrfGPD0ctQ3I6KDCDCrBSWapFfno
-         GtzOQoMME5rN45chqIKktWanRtnorBUCDTpg4L0ff2dRJBUg8Ba3TaF917C0YsfCXmwl
-         hBi5R+5daW4+Dmx0L/pnx0Hgp5eadbTB9uZkOM+nHdzahdM4F7JzrhHSrxswR9P8L9Cx
-         HL8AleaM7swtSpd6UKHX+9Wibgur3NVzJTb7HPkULbke/L/p3AvrMYHbDOWAS51r/56x
-         PKZw==
-X-Gm-Message-State: AOAM532iQMrFt2AeAagWN0/iBLWXRl3ZoPmpOHXn6sbZtupr/GBVjfi5
-        kZ85ORr6EDCJF/aBJ/WrYPUNupMNC7uc+lQssv4=
-X-Google-Smtp-Source: ABdhPJx7fajL9rrU15sgVUAJsUHAOYFnWmV6W7+XgivDuS1jOdRXBC7zKlb0bYCdyrceDxrUcGtHL9k12EtoQHZa8Iw=
-X-Received: by 2002:a05:6102:3f4b:b0:337:c02d:f5d7 with SMTP id
- l11-20020a0561023f4b00b00337c02df5d7mr697471vsv.50.1654108279594; Wed, 01 Jun
- 2022 11:31:19 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:in-reply-to:references
+         :from:date:message-id:subject:to;
+        bh=Gk4nfCem3ECRa7Gml0J0mN/3RZoOAdfGaQAqyHPKtiI=;
+        b=I8TZMnRpIEUamGGvLisZKdVgFxCCCI379mKYe7GV3mK1pEvyVYVvSG7JU8ajpYVdrz
+         RvsV0bcQdAz02wMj7kN5CPs1oIXfSZZ+b7PBOk2Nu6C0CAj5O3dLEh07GIvfzGn4gCHV
+         DWqmQ207fHS7ctJ10AJz2apiqvg7hxZCohF4kf7vwtkwA3OGCjV2+B85TWeBUb6mu+lu
+         ghOBfY8CHFWgczwRs574lubYXILVz/2LvImMknW5rJ2V6hnloIVWftF2ngDyUztTQzKt
+         pXkk8q2smaiHZRy/gR95y61a9T+AkB1gVwMGhDLUMHktdcsIZk8KcUthLgx5hYFEwm5t
+         Ptug==
+X-Gm-Message-State: AOAM531dBSDrnRZGgql/1zXAF9HXNgbFNARRZtZXQAnG1VtI/K+u5CmQ
+        Dki18s5CSVTuXc5CIaTv7q0tGhZ1rSmM+FOPh6tKBVKo5TQ=
+X-Google-Smtp-Source: ABdhPJw3lgUh0oxmgmjzAwlNNZ94ksw/9I0mOwLnUtgereG7iWZKY4s1I5RZI0o0mPKS7RYxDWrvjq+R1cXj2tliMpE=
+X-Received: by 2002:a05:6870:4619:b0:f1:e78d:fd54 with SMTP id
+ z25-20020a056870461900b000f1e78dfd54mr18171419oao.195.1654111014269; Wed, 01
+ Jun 2022 12:16:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220524230400.1509219-1-joannelkoong@gmail.com>
- <20220524230400.1509219-2-joannelkoong@gmail.com> <CANn89i+pg8guF+XeOngSMa4vUD81g=u-pCBpi0Yp2WB9PQZvdg@mail.gmail.com>
- <5e8ccf5fb949fb8bef822f379f7a410ccd6b6f41.camel@redhat.com>
-In-Reply-To: <5e8ccf5fb949fb8bef822f379f7a410ccd6b6f41.camel@redhat.com>
-From:   Joanne Koong <joannelkoong@gmail.com>
-Date:   Wed, 1 Jun 2022 11:31:08 -0700
-Message-ID: <CAJnrk1bkLFwAmmQviJeeHKSHygUqG8LH81RYnx6+mJOLZF8tjw@mail.gmail.com>
-Subject: Re: [PATCH net-next v1 1/2] net: Update bhash2 when socket's rcv
- saddr changes
-To:     Paolo Abeni <pabeni@redhat.com>
-Cc:     Eric Dumazet <edumazet@google.com>,
-        netdev <netdev@vger.kernel.org>, Martin KaFai Lau <kafai@fb.com>,
-        Jakub Kicinski <kuba@kernel.org>,
-        David Miller <davem@davemloft.net>,
-        richard_siegfried@systemli.org, dsahern@kernel.org,
-        yoshfuji@linux-ipv6.org, kuniyu@amazon.co.jp, dccp@vger.kernel.org,
-        testing@vger.kernel.org,
-        syzbot <syzbot+015d756bbd1f8b5c8f09@syzkaller.appspotmail.com>
+Received: by 2002:a05:6358:3601:b0:a3:2139:251d with HTTP; Wed, 1 Jun 2022
+ 12:16:53 -0700 (PDT)
+Reply-To: johnwinery@online.ee
+In-Reply-To: <CAFqHCSRskayxkisB-+u26DtbT6KFL5dAQ+X5s5W-kcBz_DGgTw@mail.gmail.com>
+References: <CAFqHCSRskayxkisB-+u26DtbT6KFL5dAQ+X5s5W-kcBz_DGgTw@mail.gmail.com>
+From:   johnwinery <alicejohnson8974@gmail.com>
+Date:   Wed, 1 Jun 2022 12:16:53 -0700
+Message-ID: <CAFqHCSSwNksOc4c+jJ+6tiF2b2hWGn9JARB6iPpgQJTeHU_7AA@mail.gmail.com>
+Subject: Re: good day
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Wed, Jun 1, 2022 at 2:58 AM Paolo Abeni <pabeni@redhat.com> wrote:
->
-> Hello,
->
-> On Tue, 2022-05-31 at 15:04 -0700, Eric Dumazet wrote:
-> > On Tue, May 24, 2022 at 4:20 PM Joanne Koong <joannelkoong@gmail.com> wrote:
-> > >
-> > > Commit d5a42de8bdbe ("net: Add a second bind table hashed by port and
-> > > address") added a second bind table, bhash2, that hashes by a socket's port
-> > > and rcv address.
-> > >
-> > > However, there are two cases where the socket's rcv saddr can change
-> > > after it has been binded:
-> > >
-> > > 1) The case where there is a bind() call on "::" (IPADDR_ANY) and then
-> > > a connect() call. The kernel will assign the socket an address when it
-> > > handles the connect()
-> > >
-> > > 2) In inet_sk_reselect_saddr(), which is called when rerouting fails
-> > > when rebuilding the sk header (invoked by inet_sk_rebuild_header)
-> > >
-> > > In these two cases, we need to update the bhash2 table by removing the
-> > > entry for the old address, and adding a new entry reflecting the updated
-> > > address.
-> > >
-> > > Reported-by: syzbot+015d756bbd1f8b5c8f09@syzkaller.appspotmail.com
-> > > Fixes: d5a42de8bdbe ("net: Add a second bind table hashed by port and address")
-> > > Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> > > ---
-> >
-> > Reviewed-by: Eric Dumazet <edumzet@google.com>
-> >
-> Apparently this patch (and 2/2) did not reach the ML nor patchwork (let
-> alone my inbox ;). I've no idea on the root cause, sorry.
->
-> @Joanne: could you please re-post the series? (you can retain Eric's
-> review tag)
->
-For some reason, my patches recently haven't been getting through to
-the netdev mailing list but they've been going through ok to the bpf
-one; John, Jakub, and I are looking into it and doing some
-investigations :)
-
-I will resend this series again.
-
-Thanks for taking a look at this patchset, Eric and Paolo.
-> Thanks!
->
-> Paolo
->
+Greeting ,I had written an earlier mail to you but without response

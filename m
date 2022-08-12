@@ -2,19 +2,18 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A76FE591659
-	for <lists+dccp@lfdr.de>; Fri, 12 Aug 2022 22:34:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3D113591670
+	for <lists+dccp@lfdr.de>; Fri, 12 Aug 2022 22:47:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231799AbiHLUep (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 12 Aug 2022 16:34:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58398 "EHLO
+        id S232950AbiHLUrZ (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 12 Aug 2022 16:47:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40508 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230445AbiHLUeo (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 12 Aug 2022 16:34:44 -0400
-X-Greylist: delayed 162 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 12 Aug 2022 13:34:43 PDT
+        with ESMTP id S229617AbiHLUrZ (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 12 Aug 2022 16:47:25 -0400
 Received: from 69-171-232-181.mail-mxout.facebook.com (69-171-232-181.mail-mxout.facebook.com [69.171.232.181])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 65B54B14DD
-        for <dccp@vger.kernel.org>; Fri, 12 Aug 2022 13:34:43 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 136F8AE204
+        for <dccp@vger.kernel.org>; Fri, 12 Aug 2022 13:47:23 -0700 (PDT)
 Received: by devbig010.atn6.facebook.com (Postfix, from userid 115148)
         id 7561010576443; Fri, 12 Aug 2022 13:31:49 -0700 (PDT)
 From:   Joanne Koong <joannelkoong@gmail.com>

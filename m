@@ -2,250 +2,103 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A0CF59165C
-	for <lists+dccp@lfdr.de>; Fri, 12 Aug 2022 22:34:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 55DAB594DE7
+	for <lists+dccp@lfdr.de>; Tue, 16 Aug 2022 03:35:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233681AbiHLUes (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 12 Aug 2022 16:34:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58412 "EHLO
+        id S244008AbiHPA7s (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 15 Aug 2022 20:59:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230445AbiHLUeq (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 12 Aug 2022 16:34:46 -0400
-Received: from 66-220-155-178.mail-mxout.facebook.com (66-220-155-178.mail-mxout.facebook.com [66.220.155.178])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1323AB14DD
-        for <dccp@vger.kernel.org>; Fri, 12 Aug 2022 13:34:44 -0700 (PDT)
-Received: by devbig010.atn6.facebook.com (Postfix, from userid 115148)
-        id 5F16810576446; Fri, 12 Aug 2022 13:31:50 -0700 (PDT)
-From:   Joanne Koong <joannelkoong@gmail.com>
-To:     netdev@vger.kernel.org
-Cc:     edumazet@google.com, kafai@fb.com, kuba@kernel.org,
-        davem@davemloft.net, pabeni@redhat.com, dccp@vger.kernel.org,
-        Joanne Koong <joannelkoong@gmail.com>
-Subject: [PATCH net-next v4 3/3] selftests/net: Add sk_bind_sendto_listen and sk_connect_zero_addr
-Date:   Fri, 12 Aug 2022 13:29:05 -0700
-Message-Id: <20220812202905.1599234-4-joannelkoong@gmail.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220812202905.1599234-1-joannelkoong@gmail.com>
-References: <20220812202905.1599234-1-joannelkoong@gmail.com>
+        with ESMTP id S1349256AbiHPA6R (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 15 Aug 2022 20:58:17 -0400
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com [IPv6:2607:f8b0:4864:20::736])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C471BB8F39
+        for <dccp@vger.kernel.org>; Mon, 15 Aug 2022 13:49:30 -0700 (PDT)
+Received: by mail-qk1-x736.google.com with SMTP id w18so1522688qki.8
+        for <dccp@vger.kernel.org>; Mon, 15 Aug 2022 13:49:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc;
+        bh=ej3T27wdcOl5hgxFKEEvscpLUDARFbq7IX1O4+1Fbq8=;
+        b=ciiDt7IvJulP9OD3Rdq8UvRJ3fwWfqewZln/FuuV02VzqTDNxD6KPMkb0xfzdNRxy8
+         +Djh+8Tacz4KwWedlMk2YxcJrjnu77ky4O4+oiBAmlYNryIFr6hkSNTxpxR2nH36KTz0
+         VZJ5L4o1ZUSwtKt3PJEnOmCNK32E9wIG7hXl9kucs6UOFwG7qZeXPgTdSTZipr2WhtVr
+         Dj5niZU39Ux+5XEmJMd9UbZ2/Dq5BwVG3EO022Sz7hHDQnSr6JNuvHgiFLh661sNXKqZ
+         Pz/Ak4FtHu7se1rMxfLmJRqei1KXXZ6oQEqqvyvYzSyF1xQy37aH+ppciYPXQnBOroYe
+         9pUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc;
+        bh=ej3T27wdcOl5hgxFKEEvscpLUDARFbq7IX1O4+1Fbq8=;
+        b=e8GYBblKokxnBye5P6c1lKghiGAxYhHyRLp7BcW87++nghIUpGOZYIu5VeF1pIlbbe
+         eRWzeDonbL2kMe906ECT8PJnkUB6pAQKAVnIM/3Yfs4N4lFAG+jqZBrE8oXrIxSPNzI6
+         bFdo22Lm3lPvvQsLUabMvwEI+y0NsQiaPP1+ksRsXxPScpsUD9BKj89YboCqjCwpBVoF
+         D2/SL096kWKZlGOMi3lkSyqr4JeNaZImsQ+wIjcXdjDBsy8KIesPm3YiW0+lUdu3JQg5
+         FmGoPZf0VQ4tRrPtsY56hiPG/UUqPHoCzo8q3Y01+31wNMIb1ql7EVH2Cor/vQZyx8e7
+         5XIg==
+X-Gm-Message-State: ACgBeo3BvIOQk6yUfP0x+DaDm91So673sjYZqnL0uzfqRYPI1gPHCtbA
+        of8grtz6RtDkjjoEZFNnPi0yCM6a8DW7hdSa/S0=
+X-Google-Smtp-Source: AA6agR4OyNII0/T7Ajz/xZEHVX5t/vs6a2boGSvSsLNg87xrMh5q2e1rm1NYCUG0MZ1/3JjMUmh5qHaPQl4Nx3tHjN0=
+X-Received: by 2002:a05:620a:e11:b0:6b9:2aea:65d3 with SMTP id
+ y17-20020a05620a0e1100b006b92aea65d3mr12812712qkm.112.1660596569528; Mon, 15
+ Aug 2022 13:49:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=1.6 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-        FORGED_GMAIL_RCVD,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,RDNS_DYNAMIC,
-        SPF_HELO_PASS,SPF_SOFTFAIL,TVD_RCVD_IP,T_SCC_BODY_TEXT_LINE
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+Received: by 2002:ab3:ef88:0:b0:46d:3a61:256e with HTTP; Mon, 15 Aug 2022
+ 13:49:28 -0700 (PDT)
+Reply-To: wijh555@gmail.com
+From:   "Prof. Chin Guang" <dmitrybogdanv07@gmail.com>
+Date:   Mon, 15 Aug 2022 13:49:28 -0700
+Message-ID: <CAPi14yL=-oMuMop-OF5+7fFv1b1T9bKVUSG4J6GXsht-GK8bEA@mail.gmail.com>
+Subject: Greetings,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:736 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5086]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
+        *      digit
+        *      [wijh555[at]gmail.com]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [dmitrybogdanv07[at]gmail.com]
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [dmitrybogdanv07[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.1 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-This patch adds 2 new tests: sk_bind_sendto_listen and
-sk_connect_zero_addr.
+-- 
+Hello,
+We the Board Directors believe you are in good health, doing great and
+with the hope that this mail will meet you in good condition, We are
+privileged and delighted to reach you via email" And we are urgently
+waiting to hear from you. and again your number is not connecting.
 
-The sk_bind_sendto_listen test exercises the path where a socket's
-rcv saddr changes after it has been added to the binding tables,
-and then a listen() on the socket is invoked. The listen() should
-succeed.
-
-The sk_bind_sendto_listen test is copied over from one of syzbot's
-tests: https://syzkaller.appspot.com/x/repro.c?x=3D1673a38df00000
-
-The sk_connect_zero_addr test exercises the path where the socket was
-never previously added to the binding tables and it gets assigned a
-saddr upon a connect() to address 0.
-
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
----
- tools/testing/selftests/net/.gitignore        |  2 +
- tools/testing/selftests/net/Makefile          |  2 +
- .../selftests/net/sk_bind_sendto_listen.c     | 80 +++++++++++++++++++
- .../selftests/net/sk_connect_zero_addr.c      | 62 ++++++++++++++
- 4 files changed, 146 insertions(+)
- create mode 100644 tools/testing/selftests/net/sk_bind_sendto_listen.c
- create mode 100644 tools/testing/selftests/net/sk_connect_zero_addr.c
-
-diff --git a/tools/testing/selftests/net/.gitignore b/tools/testing/selft=
-ests/net/.gitignore
-index 89e2d4aa812a..bec5cf96984c 100644
---- a/tools/testing/selftests/net/.gitignore
-+++ b/tools/testing/selftests/net/.gitignore
-@@ -41,3 +41,5 @@ cmsg_sender
- unix_connect
- tap
- bind_bhash
-+sk_bind_sendto_listen
-+sk_connect_zero_addr
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftes=
-ts/net/Makefile
-index a3a26d8c29df..e9f02850106f 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -65,6 +65,8 @@ TEST_GEN_FILES +=3D stress_reuseport_listen
- TEST_PROGS +=3D test_vxlan_vnifiltering.sh
- TEST_GEN_FILES +=3D io_uring_zerocopy_tx
- TEST_GEN_FILES +=3D bind_bhash
-+TEST_GEN_PROGS +=3D sk_bind_sendto_listen
-+TEST_GEN_PROGS +=3D sk_connect_zero_addr
-=20
- TEST_FILES :=3D settings
-=20
-diff --git a/tools/testing/selftests/net/sk_bind_sendto_listen.c b/tools/=
-testing/selftests/net/sk_bind_sendto_listen.c
-new file mode 100644
-index 000000000000..b420d830f72c
---- /dev/null
-+++ b/tools/testing/selftests/net/sk_bind_sendto_listen.c
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <arpa/inet.h>
-+#include <error.h>
-+#include <errno.h>
-+#include <unistd.h>
-+
-+int main(void)
-+{
-+	int fd1, fd2, one =3D 1;
-+	struct sockaddr_in6 bind_addr =3D {
-+		.sin6_family =3D AF_INET6,
-+		.sin6_port =3D htons(20000),
-+		.sin6_flowinfo =3D htonl(0),
-+		.sin6_addr =3D {},
-+		.sin6_scope_id =3D 0,
-+	};
-+
-+	inet_pton(AF_INET6, "::", &bind_addr.sin6_addr);
-+
-+	fd1 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd1 < 0) {
-+		error(1, errno, "socket fd1");
-+		return -1;
-+	}
-+
-+	if (setsockopt(fd1, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))) {
-+		error(1, errno, "setsockopt(SO_REUSEADDR) fd1");
-+		goto out_err1;
-+	}
-+
-+	if (bind(fd1, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd1");
-+		goto out_err1;
-+	}
-+
-+	if (sendto(fd1, NULL, 0, MSG_FASTOPEN, (struct sockaddr *)&bind_addr,
-+		   sizeof(bind_addr))) {
-+		error(1, errno, "sendto fd1");
-+		goto out_err1;
-+	}
-+
-+	fd2 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd2 < 0) {
-+		error(1, errno, "socket fd2");
-+		goto out_err1;
-+	}
-+
-+	if (setsockopt(fd2, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))) {
-+		error(1, errno, "setsockopt(SO_REUSEADDR) fd2");
-+		goto out_err2;
-+	}
-+
-+	if (bind(fd2, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd2");
-+		goto out_err2;
-+	}
-+
-+	if (sendto(fd2, NULL, 0, MSG_FASTOPEN, (struct sockaddr *)&bind_addr,
-+		   sizeof(bind_addr)) !=3D -1) {
-+		error(1, errno, "sendto fd2");
-+		goto out_err2;
-+	}
-+
-+	if (listen(fd2, 0)) {
-+		error(1, errno, "listen");
-+		goto out_err2;
-+	}
-+
-+	close(fd2);
-+	close(fd1);
-+	return 0;
-+
-+out_err2:
-+	close(fd2);
-+
-+out_err1:
-+	close(fd1);
-+	return -1;
-+}
-diff --git a/tools/testing/selftests/net/sk_connect_zero_addr.c b/tools/t=
-esting/selftests/net/sk_connect_zero_addr.c
-new file mode 100644
-index 000000000000..4be418aefd9f
---- /dev/null
-+++ b/tools/testing/selftests/net/sk_connect_zero_addr.c
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <arpa/inet.h>
-+#include <error.h>
-+#include <errno.h>
-+#include <unistd.h>
-+
-+int main(void)
-+{
-+	int fd1, fd2, one =3D 1;
-+	struct sockaddr_in6 bind_addr =3D {
-+		.sin6_family =3D AF_INET6,
-+		.sin6_port =3D htons(20000),
-+		.sin6_flowinfo =3D htonl(0),
-+		.sin6_addr =3D {},
-+		.sin6_scope_id =3D 0,
-+	};
-+
-+	inet_pton(AF_INET6, "::", &bind_addr.sin6_addr);
-+
-+	fd1 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd1 < 0) {
-+		error(1, errno, "socket fd1");
-+		return -1;
-+	}
-+
-+	if (setsockopt(fd1, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))) {
-+		error(1, errno, "setsockopt(SO_REUSEADDR) fd1");
-+		goto out_err1;
-+	}
-+
-+	if (bind(fd1, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd1");
-+		goto out_err1;
-+	}
-+
-+	if (listen(fd1, 0)) {
-+		error(1, errno, "listen");
-+		goto out_err1;
-+	}
-+
-+	fd2 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd2 < 0) {
-+		error(1, errno, "socket fd2");
-+		goto out_err1;
-+	}
-+
-+	if (connect(fd2, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd2");
-+		goto out_err2;
-+	}
-+
-+	close(fd2);
-+	close(fd1);
-+	return 0;
-+
-+out_err2:
-+	close(fd2);
-+out_err1:
-+	close(fd1);
-+	return -1;
-+}
---=20
-2.30.2
-
+Sincerely,
+Prof. Chin Guang

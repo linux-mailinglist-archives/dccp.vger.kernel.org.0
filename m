@@ -2,250 +2,92 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 39E3F59C5CB
-	for <lists+dccp@lfdr.de>; Mon, 22 Aug 2022 20:11:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A6F65A076E
+	for <lists+dccp@lfdr.de>; Thu, 25 Aug 2022 04:42:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236771AbiHVSLF (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 22 Aug 2022 14:11:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32834 "EHLO
+        id S231864AbiHYCk2 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 24 Aug 2022 22:40:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57466 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236677AbiHVSLD (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 22 Aug 2022 14:11:03 -0400
-Received: from 69-171-232-181.mail-mxout.facebook.com (69-171-232-181.mail-mxout.facebook.com [69.171.232.181])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D237F46D9B
-        for <dccp@vger.kernel.org>; Mon, 22 Aug 2022 11:11:01 -0700 (PDT)
-Received: by devbig010.atn6.facebook.com (Postfix, from userid 115148)
-        id EBF0410CCCA4C; Mon, 22 Aug 2022 11:10:48 -0700 (PDT)
-From:   Joanne Koong <joannelkoong@gmail.com>
-To:     netdev@vger.kernel.org
-Cc:     edumazet@google.com, kafai@fb.com, kuba@kernel.org,
-        davem@davemloft.net, pabeni@redhat.com, dccp@vger.kernel.org,
-        Joanne Koong <joannelkoong@gmail.com>
-Subject: [PATCH RESEND net-next v4 3/3] selftests/net: Add sk_bind_sendto_listen and sk_connect_zero_addr
-Date:   Mon, 22 Aug 2022 11:10:23 -0700
-Message-Id: <20220822181023.3979645-4-joannelkoong@gmail.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220822181023.3979645-1-joannelkoong@gmail.com>
-References: <20220822181023.3979645-1-joannelkoong@gmail.com>
+        with ESMTP id S231259AbiHYCkX (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 24 Aug 2022 22:40:23 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 009CC491E7;
+        Wed, 24 Aug 2022 19:40:21 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id B02E0B82731;
+        Thu, 25 Aug 2022 02:40:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 62627C433D6;
+        Thu, 25 Aug 2022 02:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1661395219;
+        bh=brwVWbfKcz1OKdMhOJBkHODIYTzZuM3+32ngS8gNJM4=;
+        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+        b=OjJLUfFG8PBkWTjNyD7B3tV/qlygNiosz0EhuNWgpiiwq8qx9vcXiwWtAz6ysJS9C
+         Lvh/yceGm3Ntw/tnrEaU0aXjQ3x5Q6Zn7FNHw7VB9ewHROwrLb0H7D1rIgIF+92+N4
+         NVwPW0zwoVW1aUbYCrn0w+NqN46hPtXgMQi809QsIemNU1K1mK7cqW9Q59xMGAA/la
+         x4yAqE379zM6Fsua4Cbyp9bsK3KCg1Pc31/WH6JvC+R7VgUgrKO+sb+eA7wRkPPVn4
+         QSZ/51VtrhY1kBIcVG3WaGVGV/Qcx/qGYEpMxp5Wj7OzVrYCNGT4Cx++bJZDSlknJD
+         RKixprbN19vxw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
+        by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id 4CCD8C04E59;
+        Thu, 25 Aug 2022 02:40:19 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=1.6 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-        FORGED_GMAIL_RCVD,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,RDNS_DYNAMIC,
-        SPF_HELO_PASS,SPF_SOFTFAIL,TVD_RCVD_IP,T_SCC_BODY_TEXT_LINE
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH RESEND net-next v4 0/3] Add a second bind table hashed by port
+ and address
+From:   patchwork-bot+netdevbpf@kernel.org
+Message-Id: <166139521930.434.1076457897005126686.git-patchwork-notify@kernel.org>
+Date:   Thu, 25 Aug 2022 02:40:19 +0000
+References: <20220822181023.3979645-1-joannelkoong@gmail.com>
+In-Reply-To: <20220822181023.3979645-1-joannelkoong@gmail.com>
+To:     Joanne Koong <joannelkoong@gmail.com>
+Cc:     netdev@vger.kernel.org, edumazet@google.com, kafai@fb.com,
+        kuba@kernel.org, davem@davemloft.net, pabeni@redhat.com,
+        dccp@vger.kernel.org
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-This patch adds 2 new tests: sk_bind_sendto_listen and
-sk_connect_zero_addr.
+Hello:
 
-The sk_bind_sendto_listen test exercises the path where a socket's
-rcv saddr changes after it has been added to the binding tables,
-and then a listen() on the socket is invoked. The listen() should
-succeed.
+This series was applied to netdev/net-next.git (master)
+by Jakub Kicinski <kuba@kernel.org>:
 
-The sk_bind_sendto_listen test is copied over from one of syzbot's
-tests: https://syzkaller.appspot.com/x/repro.c?x=3D1673a38df00000
+On Mon, 22 Aug 2022 11:10:20 -0700 you wrote:
+> Currently, there is one bind hashtable (bhash) that hashes by port only.
+> This patchset adds a second bind table (bhash2) that hashes by port and
+> address.
+> 
+> The motivation for adding bhash2 is to expedite bind requests in situations
+> where the port has many sockets in its bhash table entry (eg a large number
+> of sockets bound to different addresses on the same port), which makes checking
+> bind conflicts costly especially given that we acquire the table entry spinlock
+> while doing so, which can cause softirq cpu lockups and can prevent new tcp
+> connections.
+> 
+> [...]
 
-The sk_connect_zero_addr test exercises the path where the socket was
-never previously added to the binding tables and it gets assigned a
-saddr upon a connect() to address 0.
+Here is the summary with links:
+  - [RESEND,net-next,v4,1/3] net: Add a bhash2 table hashed by port and address
+    https://git.kernel.org/netdev/net-next/c/28044fc1d495
+  - [RESEND,net-next,v4,2/3] selftests/net: Add test for timing a bind request to a port with a populated bhash entry
+    https://git.kernel.org/netdev/net-next/c/c35ecb95c448
+  - [RESEND,net-next,v4,3/3] selftests/net: Add sk_bind_sendto_listen and sk_connect_zero_addr
+    https://git.kernel.org/netdev/net-next/c/1be9ac87a75a
 
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
----
- tools/testing/selftests/net/.gitignore        |  2 +
- tools/testing/selftests/net/Makefile          |  2 +
- .../selftests/net/sk_bind_sendto_listen.c     | 80 +++++++++++++++++++
- .../selftests/net/sk_connect_zero_addr.c      | 62 ++++++++++++++
- 4 files changed, 146 insertions(+)
- create mode 100644 tools/testing/selftests/net/sk_bind_sendto_listen.c
- create mode 100644 tools/testing/selftests/net/sk_connect_zero_addr.c
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-diff --git a/tools/testing/selftests/net/.gitignore b/tools/testing/selft=
-ests/net/.gitignore
-index 89e2d4aa812a..bec5cf96984c 100644
---- a/tools/testing/selftests/net/.gitignore
-+++ b/tools/testing/selftests/net/.gitignore
-@@ -41,3 +41,5 @@ cmsg_sender
- unix_connect
- tap
- bind_bhash
-+sk_bind_sendto_listen
-+sk_connect_zero_addr
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftes=
-ts/net/Makefile
-index b17ec78f3951..e6a951ba5ba0 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -66,6 +66,8 @@ TEST_GEN_FILES +=3D stress_reuseport_listen
- TEST_PROGS +=3D test_vxlan_vnifiltering.sh
- TEST_GEN_FILES +=3D io_uring_zerocopy_tx
- TEST_GEN_FILES +=3D bind_bhash
-+TEST_GEN_PROGS +=3D sk_bind_sendto_listen
-+TEST_GEN_PROGS +=3D sk_connect_zero_addr
-=20
- TEST_FILES :=3D settings
-=20
-diff --git a/tools/testing/selftests/net/sk_bind_sendto_listen.c b/tools/=
-testing/selftests/net/sk_bind_sendto_listen.c
-new file mode 100644
-index 000000000000..b420d830f72c
---- /dev/null
-+++ b/tools/testing/selftests/net/sk_bind_sendto_listen.c
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <arpa/inet.h>
-+#include <error.h>
-+#include <errno.h>
-+#include <unistd.h>
-+
-+int main(void)
-+{
-+	int fd1, fd2, one =3D 1;
-+	struct sockaddr_in6 bind_addr =3D {
-+		.sin6_family =3D AF_INET6,
-+		.sin6_port =3D htons(20000),
-+		.sin6_flowinfo =3D htonl(0),
-+		.sin6_addr =3D {},
-+		.sin6_scope_id =3D 0,
-+	};
-+
-+	inet_pton(AF_INET6, "::", &bind_addr.sin6_addr);
-+
-+	fd1 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd1 < 0) {
-+		error(1, errno, "socket fd1");
-+		return -1;
-+	}
-+
-+	if (setsockopt(fd1, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))) {
-+		error(1, errno, "setsockopt(SO_REUSEADDR) fd1");
-+		goto out_err1;
-+	}
-+
-+	if (bind(fd1, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd1");
-+		goto out_err1;
-+	}
-+
-+	if (sendto(fd1, NULL, 0, MSG_FASTOPEN, (struct sockaddr *)&bind_addr,
-+		   sizeof(bind_addr))) {
-+		error(1, errno, "sendto fd1");
-+		goto out_err1;
-+	}
-+
-+	fd2 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd2 < 0) {
-+		error(1, errno, "socket fd2");
-+		goto out_err1;
-+	}
-+
-+	if (setsockopt(fd2, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))) {
-+		error(1, errno, "setsockopt(SO_REUSEADDR) fd2");
-+		goto out_err2;
-+	}
-+
-+	if (bind(fd2, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd2");
-+		goto out_err2;
-+	}
-+
-+	if (sendto(fd2, NULL, 0, MSG_FASTOPEN, (struct sockaddr *)&bind_addr,
-+		   sizeof(bind_addr)) !=3D -1) {
-+		error(1, errno, "sendto fd2");
-+		goto out_err2;
-+	}
-+
-+	if (listen(fd2, 0)) {
-+		error(1, errno, "listen");
-+		goto out_err2;
-+	}
-+
-+	close(fd2);
-+	close(fd1);
-+	return 0;
-+
-+out_err2:
-+	close(fd2);
-+
-+out_err1:
-+	close(fd1);
-+	return -1;
-+}
-diff --git a/tools/testing/selftests/net/sk_connect_zero_addr.c b/tools/t=
-esting/selftests/net/sk_connect_zero_addr.c
-new file mode 100644
-index 000000000000..4be418aefd9f
---- /dev/null
-+++ b/tools/testing/selftests/net/sk_connect_zero_addr.c
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <arpa/inet.h>
-+#include <error.h>
-+#include <errno.h>
-+#include <unistd.h>
-+
-+int main(void)
-+{
-+	int fd1, fd2, one =3D 1;
-+	struct sockaddr_in6 bind_addr =3D {
-+		.sin6_family =3D AF_INET6,
-+		.sin6_port =3D htons(20000),
-+		.sin6_flowinfo =3D htonl(0),
-+		.sin6_addr =3D {},
-+		.sin6_scope_id =3D 0,
-+	};
-+
-+	inet_pton(AF_INET6, "::", &bind_addr.sin6_addr);
-+
-+	fd1 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd1 < 0) {
-+		error(1, errno, "socket fd1");
-+		return -1;
-+	}
-+
-+	if (setsockopt(fd1, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one))) {
-+		error(1, errno, "setsockopt(SO_REUSEADDR) fd1");
-+		goto out_err1;
-+	}
-+
-+	if (bind(fd1, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd1");
-+		goto out_err1;
-+	}
-+
-+	if (listen(fd1, 0)) {
-+		error(1, errno, "listen");
-+		goto out_err1;
-+	}
-+
-+	fd2 =3D socket(AF_INET6, SOCK_STREAM, IPPROTO_IP);
-+	if (fd2 < 0) {
-+		error(1, errno, "socket fd2");
-+		goto out_err1;
-+	}
-+
-+	if (connect(fd2, (struct sockaddr *)&bind_addr, sizeof(bind_addr))) {
-+		error(1, errno, "bind fd2");
-+		goto out_err2;
-+	}
-+
-+	close(fd2);
-+	close(fd1);
-+	return 0;
-+
-+out_err2:
-+	close(fd2);
-+out_err1:
-+	close(fd1);
-+	return -1;
-+}
---=20
-2.30.2
 

@@ -2,152 +2,174 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7CCEF5FD2CC
-	for <lists+dccp@lfdr.de>; Thu, 13 Oct 2022 03:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E7DEE618619
+	for <lists+dccp@lfdr.de>; Thu,  3 Nov 2022 18:25:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229541AbiJMBnX convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+dccp@lfdr.de>); Wed, 12 Oct 2022 21:43:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52382 "EHLO
+        id S231820AbiKCRZH (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 3 Nov 2022 13:25:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46552 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229459AbiJMBnV (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 12 Oct 2022 21:43:21 -0400
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7678936DEB;
-        Wed, 12 Oct 2022 18:43:19 -0700 (PDT)
-Received: from omf20.hostedemail.com (a10.router.float.18 [10.200.18.1])
-        by unirelay02.hostedemail.com (Postfix) with ESMTP id 640C9120237;
-        Thu, 13 Oct 2022 01:37:28 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf20.hostedemail.com (Postfix) with ESMTPA id 56EDD20026;
-        Thu, 13 Oct 2022 01:37:01 +0000 (UTC)
-Message-ID: <3f527ec95a12135eb40f5f2d156a2954feb7fbfe.camel@perches.com>
-Subject: Re: [PATCH v1 3/5] treewide: use get_random_u32() when possible
-From:   Joe Perches <joe@perches.com>
-To:     David Laight <David.Laight@ACULAB.COM>,
-        "Jason A. Donenfeld" <Jason@zx2c4.com>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc:     "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-        "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-        "linux-mm@kvack.org" <linux-mm@kvack.org>,
-        "linux-sctp@vger.kernel.org" <linux-sctp@vger.kernel.org>,
-        "target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
-        "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
-        "linux-stm32@st-md-mailman.stormreply.com" 
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
-        "dev@openvswitch.org" <dev@openvswitch.org>,
-        "rds-devel@oss.oracle.com" <rds-devel@oss.oracle.com>,
-        "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-        "dccp@vger.kernel.org" <dccp@vger.kernel.org>,
-        "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
-        "kasan-dev@googlegroups.com" <kasan-dev@googlegroups.com>,
-        "lvs-devel@vger.kernel.org" <lvs-devel@vger.kernel.org>,
-        "SHA-cyfmac-dev-list@infineon.com" <SHA-cyfmac-dev-list@infineon.com>,
-        "coreteam@netfilter.org" <coreteam@netfilter.org>,
-        "tipc-discussion@lists.sourceforge.net" 
-        <tipc-discussion@lists.sourceforge.net>,
-        "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
-        "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-        "linux-actions@lists.infradead.org" 
-        <linux-actions@lists.infradead.org>,
-        "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-        "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-        "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
-        "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-        "linux-hams@vger.kernel.org" <linux-hams@vger.kernel.org>,
-        "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
-        "linux-arm-kernel@lists.infradead.org" 
-        <linux-arm-kernel@lists.infradead.org>,
-        "cake@lists.bufferbloat.net" <cake@lists.bufferbloat.net>,
-        "brcm80211-dev-list.pdl@broadcom.com" 
-        <brcm80211-dev-list.pdl@broadcom.com>,
-        "linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-        "linux-f2fs-devel@lists.sourceforge.net" 
-        <linux-f2fs-devel@lists.sourceforge.net>,
-        "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-        "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
-        "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Date:   Wed, 12 Oct 2022 18:37:11 -0700
-In-Reply-To: <d45bd258e033453b85a137112e7694e1@AcuMS.aculab.com>
-References: <20221005214844.2699-1-Jason@zx2c4.com>
-         <20221005214844.2699-4-Jason@zx2c4.com>
-         <f8ad3ba44d28dec1a5f7626b82c5e9c2aeefa729.camel@perches.com>
-         <d45bd258e033453b85a137112e7694e1@AcuMS.aculab.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 8BIT
-User-Agent: Evolution 3.44.4 (3.44.4-2.fc36) 
+        with ESMTP id S231945AbiKCRZD (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 3 Nov 2022 13:25:03 -0400
+Received: from smtp-fw-6002.amazon.com (smtp-fw-6002.amazon.com [52.95.49.90])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CB1F711C38;
+        Thu,  3 Nov 2022 10:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1667496298; x=1699032298;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=+MzOA0ZQwWhwJY937zxcKkg2PWwYbYGkCsdjVTosZWc=;
+  b=FEBIbmVxmmS/yZCtyNl4MUXqsYOqfVChBW3n96nVICFZ3B1oCndlxyXd
+   ABzo7+T11dTTFVjIQdGMFSUC/M96ahpQVZmNXxW+YRVKWcbEhwGMaFplm
+   LMGYpYQl8zdToxSrW4PoW83L+iivXe5ABoEnEaliKbU3xBP5p/UBUnmnf
+   8=;
+X-IronPort-AV: E=Sophos;i="5.96,134,1665446400"; 
+   d="scan'208";a="262902814"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-pdx-2b-m6i4x-32fb4f1a.us-west-2.amazon.com) ([10.43.8.6])
+  by smtp-border-fw-6002.iad6.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2022 17:24:51 +0000
+Received: from EX13MTAUWB002.ant.amazon.com (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
+        by email-inbound-relay-pdx-2b-m6i4x-32fb4f1a.us-west-2.amazon.com (Postfix) with ESMTPS id A6887C33BD;
+        Thu,  3 Nov 2022 17:24:49 +0000 (UTC)
+Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
+ EX13MTAUWB002.ant.amazon.com (10.43.161.202) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.42; Thu, 3 Nov 2022 17:24:43 +0000
+Received: from 88665a182662.ant.amazon.com.com (10.43.161.14) by
+ EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.15;
+ Thu, 3 Nov 2022 17:24:41 +0000
+From:   Kuniyuki Iwashima <kuniyu@amazon.com>
+To:     "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+        David Ahern <dsahern@kernel.org>
+CC:     Arnaldo Carvalho de Melo <acme@mandriva.com>,
+        Joanne Koong <joannelkoong@gmail.com>,
+        Martin KaFai Lau <martin.lau@kernel.org>,
+        "Ziyang Xuan (William)" <william.xuanziyang@huawei.com>,
+        Kuniyuki Iwashima <kuniyu@amazon.com>,
+        Kuniyuki Iwashima <kuni1840@gmail.com>,
+        <netdev@vger.kernel.org>, <dccp@vger.kernel.org>
+Subject: [PATCH v1 net] dccp/tcp: Reset saddr on failure after inet6?_hash_connect().
+Date:   Thu, 3 Nov 2022 10:24:19 -0700
+Message-ID: <20221103172419.20977-1-kuniyu@amazon.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-Spam-Status: No, score=-0.9 required=5.0 tests=BAYES_00,FORGED_SPF_HELO,
-        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
-        SPF_NONE,UNPARSEABLE_RELAY autolearn=no autolearn_force=no
-        version=3.4.6
-X-Stat-Signature: jmxt1u5agdpi9w76hr4tp6uotie3p373
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 56EDD20026
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18KEIRmyyr9pSEavQqF5X0dTzAEITyiJq4=
-X-HE-Tag: 1665625021-540494
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.43.161.14]
+X-ClientProxiedBy: EX13D42UWA002.ant.amazon.com (10.43.160.16) To
+ EX19D004ANA001.ant.amazon.com (10.37.240.138)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Wed, 2022-10-12 at 21:29 +0000, David Laight wrote:
-> From: Joe Perches
-> > Sent: 12 October 2022 20:17
-> > 
-> > On Wed, 2022-10-05 at 23:48 +0200, Jason A. Donenfeld wrote:
-> > > The prandom_u32() function has been a deprecated inline wrapper around
-> > > get_random_u32() for several releases now, and compiles down to the
-> > > exact same code. Replace the deprecated wrapper with a direct call to
-> > > the real function.
-> > []
-> > > diff --git a/drivers/infiniband/hw/cxgb4/cm.c b/drivers/infiniband/hw/cxgb4/cm.c
-> > []
-> > > @@ -734,7 +734,7 @@ static int send_connect(struct c4iw_ep *ep)
-> > >  				   &ep->com.remote_addr;
-> > >  	int ret;
-> > >  	enum chip_type adapter_type = ep->com.dev->rdev.lldi.adapter_type;
-> > > -	u32 isn = (prandom_u32() & ~7UL) - 1;
-> > > +	u32 isn = (get_random_u32() & ~7UL) - 1;
-> > 
-> > trivia:
-> > 
-> > There are somewhat odd size mismatches here.
-> > 
-> > I had to think a tiny bit if random() returned a value from 0 to 7
-> > and was promoted to a 64 bit value then truncated to 32 bit.
-> > 
-> > Perhaps these would be clearer as ~7U and not ~7UL
-> 
-> That makes no difference - the compiler will generate the same code.
+When connect() is called on a socket bound to the wildcard address,
+we change the socket's saddr to a local address.  If the socket
+fails to connect() to the destination, we have to reset the saddr.
 
-True, more or less.  It's more a question for the reader.
+However, when an error occurs after inet_hash6?_connect() in
+(dccp|tcp)_v[46]_conect(), we forget to reset saddr and leave
+the socket bound to the address.
 
-> The real question is WTF is the code doing?
+From the user's point of view, whether saddr is reset or not varies
+with errno.  Let's fix this inconsistent behaviour.
 
-True.
+Note that with this patch, the repro [0] will trigger the WARN_ON()
+in inet_csk_get_port() again, but this patch is not buggy and rather
+fixes a bug papering over the bhash2's bug [1] for which we need
+another fix.
 
-> The '& ~7u' clears the bottom 3 bits.
-> The '- 1' then sets the bottom 3 bits and decrements the
-> (random) high bits.
+For the record, the repro causes -EADDRNOTAVAIL in inet_hash6_connect()
+by this sequence:
 
-Right.
+  s1 = socket()
+  s1.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+  s1.bind(('127.0.0.1', 10000))
+  s1.sendto(b'hello', MSG_FASTOPEN, (('127.0.0.1', 10000)))
+  # or s1.connect(('127.0.0.1', 10000))
 
-> So is the same as get_random_u32() | 7.
+  s2 = socket()
+  s2.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+  s2.bind(('0.0.0.0', 10000))
+  s2.connect(('127.0.0.1', 10000))  # -EADDRNOTAVAIL
 
-True, it's effectively the same as the upper 29 bits are random
-anyway and the bottom 3 bits are always set.
+  s2.listen(32)  # WARN_ON(inet_csk(sk)->icsk_bind2_hash != tb2);
 
-> But I bet the coder had something else in mind.
+[0]: https://syzkaller.appspot.com/bug?extid=015d756bbd1f8b5c8f09
+[1]: https://lore.kernel.org/netdev/20221029001249.86337-1-kuniyu@amazon.com/
 
-Likely.
+Fixes: 3df80d9320bc ("[DCCP]: Introduce DCCPv6")
+Fixes: 7c657876b63c ("[DCCP]: Initial implementation")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+---
+ net/dccp/ipv4.c     | 2 ++
+ net/dccp/ipv6.c     | 2 ++
+ net/ipv4/tcp_ipv4.c | 2 ++
+ net/ipv6/tcp_ipv6.c | 2 ++
+ 4 files changed, 8 insertions(+)
 
-And it was also likely copy/pasted a few times.
+diff --git a/net/dccp/ipv4.c b/net/dccp/ipv4.c
+index 713b7b8dad7e..40640c26680e 100644
+--- a/net/dccp/ipv4.c
++++ b/net/dccp/ipv4.c
+@@ -157,6 +157,8 @@ int dccp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
+ 	 * This unhashes the socket and releases the local port, if necessary.
+ 	 */
+ 	dccp_set_state(sk, DCCP_CLOSED);
++	if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
++		inet_reset_saddr(sk);
+ 	ip_rt_put(rt);
+ 	sk->sk_route_caps = 0;
+ 	inet->inet_dport = 0;
+diff --git a/net/dccp/ipv6.c b/net/dccp/ipv6.c
+index e57b43006074..626166cb6d7e 100644
+--- a/net/dccp/ipv6.c
++++ b/net/dccp/ipv6.c
+@@ -985,6 +985,8 @@ static int dccp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
+ 
+ late_failure:
+ 	dccp_set_state(sk, DCCP_CLOSED);
++	if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
++		inet_reset_saddr(sk);
+ 	__sk_dst_reset(sk);
+ failure:
+ 	inet->inet_dport = 0;
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 87d440f47a70..6a3a732b584d 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -343,6 +343,8 @@ int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
+ 	 * if necessary.
+ 	 */
+ 	tcp_set_state(sk, TCP_CLOSE);
++	if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
++		inet_reset_saddr(sk);
+ 	ip_rt_put(rt);
+ 	sk->sk_route_caps = 0;
+ 	inet->inet_dport = 0;
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index 2a3f9296df1e..81b396e5cf79 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -359,6 +359,8 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
+ 
+ late_failure:
+ 	tcp_set_state(sk, TCP_CLOSE);
++	if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
++		inet_reset_saddr(sk);
+ failure:
+ 	inet->inet_dport = 0;
+ 	sk->sk_route_caps = 0;
+-- 
+2.30.2
+

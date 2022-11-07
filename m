@@ -2,210 +2,128 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E562661E831
-	for <lists+dccp@lfdr.de>; Mon,  7 Nov 2022 02:15:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 37AB761F060
+	for <lists+dccp@lfdr.de>; Mon,  7 Nov 2022 11:24:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230228AbiKGBPO (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sun, 6 Nov 2022 20:15:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35584 "EHLO
+        id S231592AbiKGKX5 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 7 Nov 2022 05:23:57 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230241AbiKGBPN (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sun, 6 Nov 2022 20:15:13 -0500
-Received: from smtp-fw-33001.amazon.com (smtp-fw-33001.amazon.com [207.171.190.10])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFF34D11F;
-        Sun,  6 Nov 2022 17:15:12 -0800 (PST)
+        with ESMTP id S231636AbiKGKXy (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 7 Nov 2022 05:23:54 -0500
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com [IPv6:2607:f8b0:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C178218B23
+        for <dccp@vger.kernel.org>; Mon,  7 Nov 2022 02:23:52 -0800 (PST)
+Received: by mail-pl1-x644.google.com with SMTP id io19so10638375plb.8
+        for <dccp@vger.kernel.org>; Mon, 07 Nov 2022 02:23:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1667783712; x=1699319712;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=LvG2y9vuTzkklBU+0KDISGnOwxeG/V5vl2Wv5z3k26s=;
-  b=P/78D10X3XWrLWAxYKfPWljqEqK0xbL+hmmz3MnD7RU9PWV7SwerENOw
-   uBsNw+Iy/bPUeRUIHc5b5+EXIo/W5QWZ4XU+kvgFS4umc6Jn2891xbkik
-   2MuCrKhfty3zE/PBMTBjigI4TSBr3kvbbT95lbDo1VEzZVkFAnCn0hkas
-   0=;
-X-IronPort-AV: E=Sophos;i="5.96,143,1665446400"; 
-   d="scan'208";a="238994624"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-pdx-2c-m6i4x-fad5e78e.us-west-2.amazon.com) ([10.43.8.6])
-  by smtp-border-fw-33001.sea14.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Nov 2022 01:15:06 +0000
-Received: from EX13MTAUWB002.ant.amazon.com (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
-        by email-inbound-relay-pdx-2c-m6i4x-fad5e78e.us-west-2.amazon.com (Postfix) with ESMTPS id A0107A3305;
-        Mon,  7 Nov 2022 01:15:04 +0000 (UTC)
-Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
- EX13MTAUWB002.ant.amazon.com (10.43.161.202) with Microsoft SMTP Server (TLS)
- id 15.0.1497.42; Mon, 7 Nov 2022 01:15:03 +0000
-Received: from 88665a182662.ant.amazon.com (10.43.160.223) by
- EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.15;
- Mon, 7 Nov 2022 01:15:00 +0000
-From:   Kuniyuki Iwashima <kuniyu@amazon.com>
-To:     <joannelkoong@gmail.com>
-CC:     <acme@mandriva.com>, <davem@davemloft.net>, <dccp@vger.kernel.org>,
-        <dsahern@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
-        <kuni1840@gmail.com>, <kuniyu@amazon.com>, <martin.lau@kernel.org>,
-        <netdev@vger.kernel.org>, <pabeni@redhat.com>,
-        <william.xuanziyang@huawei.com>, <yoshfuji@linux-ipv6.org>
-Subject: Re: [PATCH v1 net] dccp/tcp: Reset saddr on failure after inet6?_hash_connect().
-Date:   Sun, 6 Nov 2022 17:14:51 -0800
-Message-ID: <20221107011451.35814-1-kuniyu@amazon.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <CAJnrk1ZF_0vG0gS0cVVjZSaiKpCFCbw3=C9twQqy-n9qPjoBiQ@mail.gmail.com>
-References: <CAJnrk1ZF_0vG0gS0cVVjZSaiKpCFCbw3=C9twQqy-n9qPjoBiQ@mail.gmail.com>
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=AOmtRIzmF5dcnWrT0j3skK83MYTC+QvduwZ6ndeN2Ks=;
+        b=Zv++OJ/ncK2pWuUWAQT+z52+cIoHK/WVJU4bVze52hunD5wDL4D5XJdl5mW2VbRjhi
+         PKA0tQ/z42/ONfUnPJoBfdYRGEG2gwiyoDRW7hecaxcg+/0t0u3g44ISFlpe+B9l1fvu
+         TmkNgtKOyak6WThRMAIvY+g5IgPZxvnz63e21BpajeaX9653GP4qpHUHyfV7BL4cSNb4
+         pCU1fNGxZBn7NlKzWZCMHMxM9LSs8sKofgpQ0FSoeb/qTDQ+CPP+tvlBe/vGQ8T8hOyn
+         vdUZr48/zTuwVxtBDF6IrOR7pT19nf73qD9i1Q8QUWEzM8dVJjwmGS+xVbVCXqFaE09J
+         SKzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AOmtRIzmF5dcnWrT0j3skK83MYTC+QvduwZ6ndeN2Ks=;
+        b=qJiPlaifsxrpKMvnJXv3skDMUVGsD6cpOMOsc+HMUH5f6z86xdx8iAtswOGr4cWkYh
+         C2wzsrgnHyDVlkvX6+ffrG7jhidhZs9i1TQEUCzsV5yVZpMFCOcUtq91FY7DGOAy+eRY
+         3RD1OVatbLE8P81k1fSO2nR/sGK3yyBiTlTZtlh2nGlYeepUG8xXXjwr9KXBc/LkmHV3
+         tKilqicOP/Q06mtx02dwvJSCJM0TKV1NnvFNQm5dZ1FYcuPIOROuhb/dA867RG8Vn9Mp
+         E08sNW8SCGNp0FQOiK5yOTsSDQrcHjcF+mdU3nLBK66hvwIjK24ku55NEppaPfxyvNyT
+         i1Hg==
+X-Gm-Message-State: ACrzQf27imz8F2BRgu7kbudTiUUlKOyxMR9RezExd+evcs6FEDJrKW2M
+        TzFRHv/HuxyYH2RJvL0VV7MAuSMnpYJSGMNcim0=
+X-Google-Smtp-Source: AMsMyM7DPjaK7bSeUBIcMTkNZUaqK+NSwCEUfp88ZZDLY5TXShnQ2+B86xH3ryBKqTyGQWW3ozA/96x60VupsK8qo34=
+X-Received: by 2002:a17:902:8a90:b0:186:b145:f5ec with SMTP id
+ p16-20020a1709028a9000b00186b145f5ecmr50774476plo.103.1667816632274; Mon, 07
+ Nov 2022 02:23:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.43.160.223]
-X-ClientProxiedBy: EX13D47UWA002.ant.amazon.com (10.43.163.30) To
- EX19D004ANA001.ant.amazon.com (10.37.240.138)
-X-Spam-Status: No, score=-4.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-        RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
-        autolearn=ham autolearn_force=no version=3.4.6
+Received: by 2002:a05:6a06:925:b0:587:19e0:c567 with HTTP; Mon, 7 Nov 2022
+ 02:23:51 -0800 (PST)
+Reply-To: contact@ammico.it
+From:   =?UTF-8?Q?Mrs=2E_Monika_Everenov=C3=A1?= <977638ib@gmail.com>
+Date:   Mon, 7 Nov 2022 11:23:51 +0100
+Message-ID: <CAHAXD+bPNCns8Ez=7iXmPLADMtJgZj3-mFTk3NMhWC-Ca1b9rw@mail.gmail.com>
+Subject: Re:
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: Yes, score=5.8 required=5.0 tests=ADVANCE_FEE_2_NEW_MONEY,
+        BAYES_40,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        FREEMAIL_FROM,FROM_STARTS_WITH_NUMS,LOTS_OF_MONEY,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_HK_NAME_FM_MR_MRS,UNDISC_MONEY autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:644 listed in]
+        [list.dnswl.org]
+        * -0.0 BAYES_40 BODY: Bayes spam probability is 20 to 40%
+        *      [score: 0.2365]
+        *  0.7 FROM_STARTS_WITH_NUMS From: starts with several numbers
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [977638ib[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        *  0.0 T_HK_NAME_FM_MR_MRS No description available.
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        *  3.3 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+        *  2.0 ADVANCE_FEE_2_NEW_MONEY Advance Fee fraud and lots of money
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-From:   Joanne Koong <joannelkoong@gmail.com>
-Date:   Sun, 6 Nov 2022 11:18:44 -0800
-> On Thu, Nov 3, 2022 at 10:24 AM Kuniyuki Iwashima <kuniyu@amazon.com> wrote:
-> >
-> > When connect() is called on a socket bound to the wildcard address,
-> > we change the socket's saddr to a local address.  If the socket
-> > fails to connect() to the destination, we have to reset the saddr.
-> >
-> > However, when an error occurs after inet_hash6?_connect() in
-> > (dccp|tcp)_v[46]_conect(), we forget to reset saddr and leave
-> > the socket bound to the address.
-> >
-> > From the user's point of view, whether saddr is reset or not varies
-> > with errno.  Let's fix this inconsistent behaviour.
-> >
-> > Note that with this patch, the repro [0] will trigger the WARN_ON()
-> > in inet_csk_get_port() again, but this patch is not buggy and rather
-> > fixes a bug papering over the bhash2's bug [1] for which we need
-> > another fix.
-> >
-> > For the record, the repro causes -EADDRNOTAVAIL in inet_hash6_connect()
-> > by this sequence:
-> >
-> >   s1 = socket()
-> >   s1.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-> >   s1.bind(('127.0.0.1', 10000))
-> >   s1.sendto(b'hello', MSG_FASTOPEN, (('127.0.0.1', 10000)))
-> >   # or s1.connect(('127.0.0.1', 10000))
-> >
-> >   s2 = socket()
-> >   s2.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-> >   s2.bind(('0.0.0.0', 10000))
-> >   s2.connect(('127.0.0.1', 10000))  # -EADDRNOTAVAIL
-> >
-> >   s2.listen(32)  # WARN_ON(inet_csk(sk)->icsk_bind2_hash != tb2);
-> >
-> > [0]: https://syzkaller.appspot.com/bug?extid=015d756bbd1f8b5c8f09
-> > [1]: https://lore.kernel.org/netdev/20221029001249.86337-1-kuniyu@amazon.com/
-> >
-> > Fixes: 3df80d9320bc ("[DCCP]: Introduce DCCPv6")
-> > Fixes: 7c657876b63c ("[DCCP]: Initial implementation")
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
-> > ---
-> >  net/dccp/ipv4.c     | 2 ++
-> >  net/dccp/ipv6.c     | 2 ++
-> >  net/ipv4/tcp_ipv4.c | 2 ++
-> >  net/ipv6/tcp_ipv6.c | 2 ++
-> >  4 files changed, 8 insertions(+)
-> >
-> > diff --git a/net/dccp/ipv4.c b/net/dccp/ipv4.c
-> > index 713b7b8dad7e..40640c26680e 100644
-> > --- a/net/dccp/ipv4.c
-> > +++ b/net/dccp/ipv4.c
-> > @@ -157,6 +157,8 @@ int dccp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
-> >          * This unhashes the socket and releases the local port, if necessary.
-> >          */
-> >         dccp_set_state(sk, DCCP_CLOSED);
-> > +       if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
-> > +               inet_reset_saddr(sk);
-> >         ip_rt_put(rt);
-> >         sk->sk_route_caps = 0;
-> >         inet->inet_dport = 0;
-> > diff --git a/net/dccp/ipv6.c b/net/dccp/ipv6.c
-> > index e57b43006074..626166cb6d7e 100644
-> > --- a/net/dccp/ipv6.c
-> > +++ b/net/dccp/ipv6.c
-> > @@ -985,6 +985,8 @@ static int dccp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
-> >
-> >  late_failure:
-> >         dccp_set_state(sk, DCCP_CLOSED);
-> > +       if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
-> > +               inet_reset_saddr(sk);
-> >         __sk_dst_reset(sk);
-> >  failure:
-> >         inet->inet_dport = 0;
-> > diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-> > index 87d440f47a70..6a3a732b584d 100644
-> > --- a/net/ipv4/tcp_ipv4.c
-> > +++ b/net/ipv4/tcp_ipv4.c
-> > @@ -343,6 +343,8 @@ int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
-> >          * if necessary.
-> >          */
-> >         tcp_set_state(sk, TCP_CLOSE);
-> > +       if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
-> > +               inet_reset_saddr(sk);
-> >         ip_rt_put(rt);
-> >         sk->sk_route_caps = 0;
-> >         inet->inet_dport = 0;
-> > diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-> > index 2a3f9296df1e..81b396e5cf79 100644
-> > --- a/net/ipv6/tcp_ipv6.c
-> > +++ b/net/ipv6/tcp_ipv6.c
-> > @@ -359,6 +359,8 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
-> >
-> >  late_failure:
-> >         tcp_set_state(sk, TCP_CLOSE);
-> > +       if (!(sk->sk_userlocks & SOCK_BINDADDR_LOCK))
-> > +               inet_reset_saddr(sk);
-> >  failure:
-> >         inet->inet_dport = 0;
-> >         sk->sk_route_caps = 0;
-> > --
-> > 2.30.2
-> >
-> 
-> inet_reset_saddr() sets both inet_saddr and inet_rcv_saddr to 0, but I
-> think there are some edge cases where when dccp/tcp_v4/6_connect() is
-> called, inet_saddr is 0 but inet_rcv_saddr is not, which means we'd
-> need to reset inet_rcv_saddr to its original value. The example case
-> I'm looking at is  __inet_bind() where if the request is to bind to a
-> multicast address,
-> 
->     inet->inet_rcv_saddr = inet->inet_saddr = addr->sin_addr.s_addr;
->     if (chk_addr_ret == RTN_MULTICAST || chk_addr_ret == RTN_BROADCAST)
->         inet->inet_saddr = 0;  /* Use device */
-
-Thanks for reviewing.
-
-We have to take care of these two error paths.
-
-  * (dccp|tcp)_v[46]_coonnect()
-  * __inet_stream_connect()
-
-In __inet_stream_connect(), we call ->disconnect(), which already has the
-same logic in this patch.
-
-In your edge case, once (dccp|tcp)_v[46]_coonnect() succeeds, both of
-inet->inet_saddr and sk_rcv_saddr are non-zero.  If connect() fails after
-that, in ->disconnect(), we cannot know if we should restore sk_rcv_saddr
-only.  Also, we don't have the previous address there.
-
-For these reasons, we reset both addresses only if the sk was bound to
-INADDR_ANY, which we can detect by the SOCK_BINDADDR_LOCK flag.
-
-As you mentinoed, we can restore sk_rcv_saddr for the edge case in
-(dccp|tcp)_v[46]_coonnect() but cannot in __inet_stream_connect().
-
-If we do so, we need another flag for the case and another member to save
-the old multicast/broadcast address. (+ where we need rehash for bhash2)
-
-What do you think ?
+Hei ja miten voit?
+Nimeni on rouva Evereen, l=C3=A4het=C3=A4n t=C3=A4m=C3=A4n viestin suurella=
+ toivolla
+v=C3=A4lit=C3=B6n vastaus, koska minun on teht=C3=A4v=C3=A4 uusi syd=C3=A4n=
+leikkaus
+t=C3=A4ll=C3=A4 hetkell=C3=A4 huonokuntoinen ja v=C3=A4h=C3=A4iset mahdolli=
+suudet selviyty=C3=A4.
+Mutta ennen kuin min=C3=A4
+Tee toinen vaarallinen operaatio, annan sen sinulle
+Minulla on 6 550 000 dollaria yhdysvaltalaisella pankkitilill=C3=A4
+sijoittamista, hallinnointia ja k=C3=A4ytt=C3=B6=C3=A4 varten
+voittoa hyv=C3=A4ntekev=C3=A4isyysprojektin toteuttamiseen. Tarkoitan saira=
+iden auttamista
+ja k=C3=B6yh=C3=A4t ovat viimeinen haluni maan p=C3=A4=C3=A4ll=C3=A4, sill=
+=C3=A4 minulla ei ole niit=C3=A4
+kenelt=C3=A4 perii rahaa.
+Vastaa minulle nopeasti
+terveisi=C3=A4
+Rouva Monika Evereen
+Florida, Amerikan Yhdysvallat
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+Hi and how are you?
+My name is Mrs. Evereen, I am sending this message with great hope for
+an immediate response, as I have to undergo heart reoperation in my
+current poor health with little chance of survival. But before I
+undertake the second dangerous operation, I will give you the
+$6,550,000 I have in my US bank account to invest well, manage and use
+the profits to run a charity project for me. I count helping the sick
+and the poor as my last wish on earth, because I have no one to
+inherit money from.
+Please give me a quick reply
+regards
+Mrs. Monika Evereen
+Florida, United States of America

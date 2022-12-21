@@ -2,64 +2,44 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5EEDF642CB1
-	for <lists+dccp@lfdr.de>; Mon,  5 Dec 2022 17:21:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CA01E652E26
+	for <lists+dccp@lfdr.de>; Wed, 21 Dec 2022 09:59:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231790AbiLEQV1 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 5 Dec 2022 11:21:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48050 "EHLO
+        id S231511AbiLUI75 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 21 Dec 2022 03:59:57 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33274 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230199AbiLEQV1 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 5 Dec 2022 11:21:27 -0500
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 22BEA1D66B
-        for <dccp@vger.kernel.org>; Mon,  5 Dec 2022 08:21:26 -0800 (PST)
-Received: by mail-ed1-x542.google.com with SMTP id z92so16550177ede.1
-        for <dccp@vger.kernel.org>; Mon, 05 Dec 2022 08:21:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=O4WPtqOs6pYDke8VCfpzwsIX+8zN33o8tLS2XMy/lFU=;
-        b=WpGWlZW0sQf4YKFL2S7kgQw+B9tPiseDUaoH3pPMdfcAz8yNDjrwqU6crOhxU6TkWq
-         /5C1NfpTkrYfo+j2sTjVEVHw7cBgycNxloUmzisNAfuRVziPBRpK4vpCYwe2knXbVoul
-         IPCt/F9TG6N8mmCuNsT7NmPSHsvGSSQR7fddwf7MEydiXIF2IWzQjZUuwB4xBrf4YvSy
-         MM++I5zW3mVOeugLqyafwL/VpYnzfkSMUgxldk9l9M+AO3hx34GCZFo6NuLTulzLyZeV
-         JhSLZmh8J+dGqVuqnOamRrIucuV4OexDoNCThe1CJCBghjtbNwqRqoZbA/CujpdlIVmq
-         5ECA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=O4WPtqOs6pYDke8VCfpzwsIX+8zN33o8tLS2XMy/lFU=;
-        b=WgQ3KU06sNfJ70sZHVMRWKMxWHA5aZjBYwz1AjFE0MmqH3lxTwXlGDaiWEpjN7z7UW
-         rCM22rlgALI1uiKvb3yvDbufAs6rA5I2Y/A3MOX1H8cvMEeXNhOQ/dMwhlBFwJ1xkSNw
-         xJE7DSzD6LkO94dBQrj+K4sXDrFnZC8FS7QZ1Qt1V5as5SRXr0abXUPI+uLDOb+hDUCQ
-         I1DTUlNhUsO8Lpp+77DCPNWsityrdyyRyO/83XgSGDJXdNoAy3zmKNyZ4yRFTBO0vtqQ
-         lufJCbDMACal7lTb8BPRPN9tZYI5xNR9/DMlHhrImq5icltukbfEGAOWMhXvvvUDb0MM
-         vAIg==
-X-Gm-Message-State: ANoB5pnujRgVwyDBEmBAg+nuTsSDTaAQaU7F4umYtYrmAfeJ3PBshAb7
-        ZHZIo5BH+GSuWUmJuJKGzUfAPr6erdXLFjUV+bs=
-X-Google-Smtp-Source: AA0mqf4iwcY3zupNtMRjqtzaFn9fR9FG3wJAV7sE7S81qbuEiUeEIUci0xuClxMhy2CAskLH6CHZ74VmxFZtrYg4XC4=
-X-Received: by 2002:aa7:c84d:0:b0:468:354b:280d with SMTP id
- g13-20020aa7c84d000000b00468354b280dmr75851638edt.178.1670257284679; Mon, 05
- Dec 2022 08:21:24 -0800 (PST)
+        with ESMTP id S229696AbiLUI7t (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 21 Dec 2022 03:59:49 -0500
+X-Greylist: delayed 533 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 21 Dec 2022 00:59:40 PST
+Received: from mail.glencoeaur.com (mail.glencoeaur.com [217.61.97.113])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 520A41B3
+        for <dccp@vger.kernel.org>; Wed, 21 Dec 2022 00:59:40 -0800 (PST)
+Received: by mail.glencoeaur.com (Postfix, from userid 1001)
+        id 8FB0381CCE; Wed, 21 Dec 2022 08:50:31 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=glencoeaur.com;
+        s=mail; t=1671612644;
+        bh=0BgaW9t8GFER5QecxVkFsHrVi3gO/4V5KAZgJaiRYBs=;
+        h=Date:From:To:Subject:From;
+        b=t0ImbSE5/YhQHE3pjAeJ5+RmmO1ybbBC9l+NPEut+xd4WURSVvssKCP9pBDHIcVl8
+         hIuAFBdeAKUJtFp4TBkqTLEiBz3uRJngUynffWEJbp6+wTO3d0RHMP5PA56NIXIR0s
+         5POik2cui0mHv3chUeKrNryaZcmuhZ3PXufuvklHKxuglqv8tGqQ7czA0B4C+LED8f
+         1pjBTWCDr/2TgDlgoRB0WR27ewHNLtrAfK9OTf+X/Ca6WNL2jF9AOhtnNv8HWfxao0
+         UEPiDN86eR0k6NR3nNE81saAdDOCMl4EoWY+a4RdxxWxDbbF1bDPujj2ioLAx7uf1C
+         G31ytcTH1X7sA==
+Received: by mail.glencoeaur.com for <dccp@vger.kernel.org>; Wed, 21 Dec 2022 08:50:23 GMT
+Message-ID: <20221221074500-0.1.l.1bdo.0.77hnvu98s0@glencoeaur.com>
+Date:   Wed, 21 Dec 2022 08:50:23 GMT
+From:   "Zbynek Spacek" <zbynek.spacek@glencoeaur.com>
+To:     <dccp@vger.kernel.org>
+Subject: Silikonmischungen
+X-Mailer: mail.glencoeaur.com
 MIME-Version: 1.0
-Received: by 2002:a05:6f02:4084:b0:27:8b12:efa6 with HTTP; Mon, 5 Dec 2022
- 08:21:24 -0800 (PST)
-Reply-To: plml44@hotmail.com
-From:   Philip Manul <justintentou@gmail.com>
-Date:   Mon, 5 Dec 2022 08:21:24 -0800
-Message-ID: <CAK9eWvhDQMBf0srAxJD97SQ2Z9jU2ORu8LShjsYG=P0Wz7Jg3w@mail.gmail.com>
-Subject: REP:
-To:     in <in@proposal.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=1.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS
-        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_FMBLA_NEWDOM28,
+        SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -67,12 +47,23 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
---=20
-Guten tag,
-Mein Name ist Philip Manul. Ich bin von Beruf Rechtsanwalt. Ich habe
-einen verstorbenen Kunden, der zuf=C3=A4llig denselben Namen mit Ihnen
-teilt. Ich habe alle Papierdokumente in meinem Besitz. Ihr Verwandter,
-mein verstorbener Kunde, hat hier in meinem Land einen nicht
-beanspruchten Fonds zur=C3=BCckgelassen. Ich warte auf Ihre Antwort zum
-Verfahren.
-Philip Manul.
+Good morning,
+
+do you need intermediates for processing, plastics (e.g. rubber) or silic=
+one mixtures?
+
+We provide a wide range of silicone rubbers with various properties, sili=
+cone mixtures from renowned manufacturers such as Wacker, Elastosil LR an=
+d dyes, stabilizers, primers and anti-adhesive additives.
+
+We also produce technical silicone compounds with increased resistance to=
+ oils, resistant to high temperatures and water vapor, conductive and man=
+y more.
+
+We provide fast order fulfillment, timely deliveries and cost optimizatio=
+n.
+
+Can I introduce what we can offer you?
+
+
+Zbynek Spacek

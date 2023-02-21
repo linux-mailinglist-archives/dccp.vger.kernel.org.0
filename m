@@ -2,47 +2,47 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0580D69E270
-	for <lists+dccp@lfdr.de>; Tue, 21 Feb 2023 15:36:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 26BA669E564
+	for <lists+dccp@lfdr.de>; Tue, 21 Feb 2023 18:01:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234469AbjBUOgU (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 21 Feb 2023 09:36:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56750 "EHLO
+        id S233887AbjBURBV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 21 Feb 2023 12:01:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36692 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234479AbjBUOgT (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 21 Feb 2023 09:36:19 -0500
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EADD82005F;
-        Tue, 21 Feb 2023 06:36:17 -0800 (PST)
+        with ESMTP id S234045AbjBURBR (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 21 Feb 2023 12:01:17 -0500
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 670DA2DE4C;
+        Tue, 21 Feb 2023 09:00:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1676990177; x=1708526177;
+  t=1676998858; x=1708534858;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=kKuauHEwCn/evaSwaiQiEBC/jkT5pSUJ75GMLBWCODE=;
-  b=n1Hw8T4/GAkIcC/uiztKysbsLR7HJlZQoXvliviGpqXr1dhs7RPPJyHC
-   IGlwbIQ+EB9tEimKOcjLoAZpWYZQxE56ofi6V60GR2To/11wZWoulX06v
-   2dWy19mvAO7XCGS4jR8HptdUUpA5YItEgOcYbCVSA7jV5YuOdNP/XOEem
-   J3eLWSI4+QrWl9BN/t04p7cCxu+nUKPmDaP/j1piaKIJQVzNzbAqYomqY
-   GMNOt41th5WpbWM8xbkj0GD848DKHZOGxqsxYTkGbCMzYJVglXlHRqZAJ
-   QqyqErHshVpnduWCvvGb+6XGCY1CHE/9b4Cuof34P2l+hswDbxRj62ise
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="316366280"
+  bh=/uDZVbdY6N/F4bBf82Z5z+zEup9dGw6Lu0/VdW3Y+ds=;
+  b=AWQVHpHWrfBsG5qBrOkWHKB40k02T2lC69S7e9YK83pZcbCy5taHec0z
+   BhcFM/jkOJlQ1YCtm3LEW7rlPOWnBisrokzBlmE3DdFnuujUGQl4VNj/9
+   R3WPipqoU5ssRmwA0g5Uzs06liNj4fD0LSfWVLaWM3nqsTwngat79s+PV
+   S6QBick5f4p5I/KbMeK9mfdeYRmbCcqYVL5f/3zQL/Q9rToZfZoTJY2w9
+   DIkgMwaMUkJrdEBkBoPDSH5Ll/pHs42i/aA8R27VzFqQmSC7x7LFaKs7W
+   /s2y6Ty8MwiivClrfCpd6FL99jU51m5VeJpALjLdM6uGXaftMTqx8UK1x
+   Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="312315474"
 X-IronPort-AV: E=Sophos;i="5.97,315,1669104000"; 
-   d="scan'208";a="316366280"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Feb 2023 06:36:17 -0800
+   d="scan'208";a="312315474"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Feb 2023 09:00:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="845696962"
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="917251899"
 X-IronPort-AV: E=Sophos;i="5.97,315,1669104000"; 
-   d="scan'208";a="845696962"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
-  by orsmga005.jf.intel.com with ESMTP; 21 Feb 2023 06:36:14 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
+   d="scan'208";a="917251899"
+Received: from lkp-server01.sh.intel.com (HELO eac18b5d7d93) ([10.239.97.150])
+  by fmsmga006.fm.intel.com with ESMTP; 21 Feb 2023 09:00:29 -0800
+Received: from kbuild by eac18b5d7d93 with local (Exim 4.96)
         (envelope-from <lkp@intel.com>)
-        id 1pUTkb-000Er6-35;
-        Tue, 21 Feb 2023 14:36:13 +0000
-Date:   Tue, 21 Feb 2023 22:35:48 +0800
+        id 1pUW0C-00003Z-1x;
+        Tue, 21 Feb 2023 17:00:28 +0000
+Date:   Wed, 22 Feb 2023 01:00:03 +0800
 From:   kernel test robot <lkp@intel.com>
 To:     Hangyu Hua <hbh25y@gmail.com>, davem@davemloft.net,
         edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
@@ -52,15 +52,15 @@ Cc:     llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
         linux-kernel@vger.kernel.org, Hangyu Hua <hbh25y@gmail.com>
 Subject: Re: [PATCH] net: dccp: delete redundant ackvec record in
  dccp_insert_options()
-Message-ID: <202302212209.2xKQbnhl-lkp@intel.com>
+Message-ID: <202302220054.Y70E8KTB-lkp@intel.com>
 References: <20230221092206.39741-1-hbh25y@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20230221092206.39741-1-hbh25y@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-        SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_PASS,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -69,10 +69,10 @@ X-Mailing-List: dccp@vger.kernel.org
 
 Hi Hangyu,
 
-Thank you for the patch! Perhaps something to improve:
+Thank you for the patch! Yet something to improve:
 
-[auto build test WARNING on net-next/master]
-[also build test WARNING on net/master horms-ipvs/master linus/master v6.2 next-20230221]
+[auto build test ERROR on net-next/master]
+[also build test ERROR on net/master horms-ipvs/master linus/master v6.2 next-20230221]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
@@ -80,7 +80,7 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 url:    https://github.com/intel-lab-lkp/linux/commits/Hangyu-Hua/net-dccp-delete-redundant-ackvec-record-in-dccp_insert_options/20230221-172448
 patch link:    https://lore.kernel.org/r/20230221092206.39741-1-hbh25y%40gmail.com
 patch subject: [PATCH] net: dccp: delete redundant ackvec record in dccp_insert_options()
-config: i386-randconfig-a013-20230220 (https://download.01.org/0day-ci/archive/20230221/202302212209.2xKQbnhl-lkp@intel.com/config)
+config: i386-randconfig-a013-20230220 (https://download.01.org/0day-ci/archive/20230222/202302220054.Y70E8KTB-lkp@intel.com/config)
 compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
@@ -92,21 +92,21 @@ reproduce (this is a W=1 build):
         # save the config file
         mkdir build_dir && cp config build_dir/.config
         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash net/dccp/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash net/
 
 If you fix the issue, kindly add following tag where applicable
 | Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202302212209.2xKQbnhl-lkp@intel.com/
+| Link: https://lore.kernel.org/oe-kbuild-all/202302220054.Y70E8KTB-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
-   net/dccp/options.c:594:8: error: implicit declaration of function 'dccp_ackvec_lookup' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+>> net/dccp/options.c:594:8: error: implicit declaration of function 'dccp_ackvec_lookup' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
            avr = dccp_ackvec_lookup(&av->av_records, DCCP_SKB_CB(skb)->dccpd_seq);
                  ^
->> net/dccp/options.c:594:6: warning: incompatible integer to pointer conversion assigning to 'struct dccp_ackvec_record *' from 'int' [-Wint-conversion]
+   net/dccp/options.c:594:6: warning: incompatible integer to pointer conversion assigning to 'struct dccp_ackvec_record *' from 'int' [-Wint-conversion]
            avr = dccp_ackvec_lookup(&av->av_records, DCCP_SKB_CB(skb)->dccpd_seq);
                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   net/dccp/options.c:596:18: error: use of undeclared identifier 'dccp_ackvec_record_slab'; did you mean 'dccp_ackvec_clear_state'?
+>> net/dccp/options.c:596:18: error: use of undeclared identifier 'dccp_ackvec_record_slab'; did you mean 'dccp_ackvec_clear_state'?
            kmem_cache_free(dccp_ackvec_record_slab, avr);
                            ^~~~~~~~~~~~~~~~~~~~~~~
                            dccp_ackvec_clear_state
@@ -116,7 +116,7 @@ All warnings (new ones prefixed by >>):
    1 warning and 2 errors generated.
 
 
-vim +594 net/dccp/options.c
+vim +/dccp_ackvec_lookup +594 net/dccp/options.c
 
    548	
    549	int dccp_insert_options(struct sock *sk, struct sk_buff *skb)
@@ -166,7 +166,7 @@ vim +594 net/dccp/options.c
    593	delete_ackvec:
  > 594		avr = dccp_ackvec_lookup(&av->av_records, DCCP_SKB_CB(skb)->dccpd_seq);
    595		list_del(&avr->avr_node);
-   596		kmem_cache_free(dccp_ackvec_record_slab, avr);
+ > 596		kmem_cache_free(dccp_ackvec_record_slab, avr);
    597		return -1;
    598	}
    599	

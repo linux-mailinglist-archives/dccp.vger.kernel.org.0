@@ -2,71 +2,49 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 379C46BD47E
-	for <lists+dccp@lfdr.de>; Thu, 16 Mar 2023 16:58:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E82D86BD9BA
+	for <lists+dccp@lfdr.de>; Thu, 16 Mar 2023 21:00:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231436AbjCPP6t (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 16 Mar 2023 11:58:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36392 "EHLO
+        id S229631AbjCPUAu (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 16 Mar 2023 16:00:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48612 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231402AbjCPP6s (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 16 Mar 2023 11:58:48 -0400
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3C72D10A9C
-        for <dccp@vger.kernel.org>; Thu, 16 Mar 2023 08:58:47 -0700 (PDT)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-        by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.92)
-        (envelope-from <mkl@pengutronix.de>)
-        id 1pcpzT-0001Wg-0O; Thu, 16 Mar 2023 16:58:07 +0100
-Received: from pengutronix.de (unknown [IPv6:2a00:20:3043:e035:5ae3:9609:678c:e1fb])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-        (Client did not present a certificate)
-        (Authenticated sender: mkl-all@blackshift.org)
-        by smtp.blackshift.org (Postfix) with ESMTPSA id EEF27194E2F;
-        Thu, 16 Mar 2023 15:57:59 +0000 (UTC)
-Date:   Thu, 16 Mar 2023 16:57:58 +0100
-From:   Marc Kleine-Budde <mkl@pengutronix.de>
-To:     David Howells <dhowells@redhat.com>
-Cc:     Matthew Wilcox <willy@infradead.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christoph Hellwig <hch@infradead.org>,
-        Jens Axboe <axboe@kernel.dk>, Jeff Layton <jlayton@kernel.org>,
-        Christian Brauner <brauner@kernel.org>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-        bpf@vger.kernel.org, dccp@vger.kernel.org,
-        linux-afs@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-can@vger.kernel.org, linux-crypto@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-hams@vger.kernel.org,
-        linux-rdma@vger.kernel.org, linux-sctp@vger.kernel.org,
-        linux-wpan@vger.kernel.org, linux-x25@vger.kernel.org,
-        mptcp@lists.linux.dev, rds-devel@oss.oracle.com,
-        tipc-discussion@lists.sourceforge.net,
-        virtualization@lists.linux-foundation.org
-Subject: Re: [RFC PATCH 28/28] sock: Remove ->sendpage*() in favour of
- sendmsg(MSG_SPLICE_PAGES)
-Message-ID: <20230316155758.5ylpybqjma7x4lbs@pengutronix.de>
-References: <20230316152618.711970-1-dhowells@redhat.com>
- <20230316152618.711970-29-dhowells@redhat.com>
+        with ESMTP id S229616AbjCPUAh (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 16 Mar 2023 16:00:37 -0400
+X-Greylist: delayed 110409 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 16 Mar 2023 13:00:17 PDT
+Received: from sragenkab.go.id (mail.sragenkab.go.id [103.172.109.4])
+        by lindbergh.monkeyblade.net (Postfix) with SMTP id C0EEC4D2A9
+        for <dccp@vger.kernel.org>; Thu, 16 Mar 2023 13:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sragenkab.go.id;
+         h=mime-version:content-type:content-transfer-encoding:date:from
+        :to:subject:reply-to:message-id; q=dns/txt; s=dkim1; bh=QGcIAmD5
+        O/Y9qXzDV8MxyimbsW3+rMaQ/kz75GzBHbk=; b=YA3uSSyJFwOGBwC2v2XKUT9i
+        ymifDm/nmkJiE/EocO4W8OWftyIilAkcqUYus+jbDmek0OFjRebr2DUucDquFYiG
+        ttCwq6+4T70cHqCGW99sm5m+pyNn42lntnauE7/wJsXNMuQ2vDYo6NxG31x304dz
+        9mKGrZi8bJHvdMVb1mDazgQ3WePlMkhxTMMDr9df1GSCJpCgwwOn2tiJdo3e+xW5
+        nk5w9AocppCLxi7A9dMKcNNA2nuuDCT8yBdRZA2k9vQ1qyagRblvEu4m/5vCstdl
+        vjFnsC0GyjRK3lE3iGfO00K1qx5RQKkuj/lenhk+BjyqvBMeu4CmpqqHRU2s/g==
+Received: (qmail 66562 invoked from network); 15 Mar 2023 02:17:37 -0000
+Received: from localhost (HELO mail2.sragenkab.go.id) (127.0.0.1)
+  by localhost with SMTP; 15 Mar 2023 02:17:37 -0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="km5oeoth2y26yqyc"
-Content-Disposition: inline
-In-Reply-To: <20230316152618.711970-29-dhowells@redhat.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dccp@vger.kernel.org
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date:   Tue, 14 Mar 2023 19:17:36 -0700
+From:   Ibrahim Tafa <jurnalsukowati@sragenkab.go.id>
+To:     undisclosed-recipients:;
+Subject: <LOAN OPPORTUNITY AT LOW-INTEREST RATE>
+Reply-To: <ibrahimtafa@abienceinvestmentsfze.com>
+Mail-Reply-To: <ibrahimtafa@abienceinvestmentsfze.com>
+Message-ID: <117ad8de80180db40637062f312ff93f@sragenkab.go.id>
+X-Sender: jurnalsukowati@sragenkab.go.id
+User-Agent: Roundcube Webmail/0.8.1
+X-Spam-Status: No, score=3.1 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+        SUBJ_ALL_CAPS,UNDISC_MONEY autolearn=no autolearn_force=no
         version=3.4.6
+X-Spam-Level: ***
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -74,45 +52,18 @@ List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
 
---km5oeoth2y26yqyc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On 16.03.2023 15:26:18, David Howells wrote:
-> [!] Note: This is a work in progress.  At the moment, some things won't
->     build if this patch is applied.  nvme, kcm, smc, tls.
->=20
-> Remove ->sendpage() and ->sendpage_locked().  sendmsg() with
-> MSG_SPLICE_PAGES should be used instead.  This allows multiple pages and
-> multipage folios to be passed through.
->=20
-> Signed-off-by: David Howells <dhowells@redhat.com>
+-- 
+Greetings,
+   I am contacting you based on the Investment/Loan opportunity for 
+companies in need of financing a project/business, We have developed a 
+new method of financing that doesn't take long to receive financing from 
+our clients.
+    If you are looking for funds to finance your project/Business or if 
+you are willing to work as our agent in your country to find clients in 
+need of financing and earn commissions, then get back to me for more 
+details.
 
-> cc: linux-can@vger.kernel.org
-
-Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for net/can
-
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde           |
-Embedded Linux                   | https://www.pengutronix.de  |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
-
---km5oeoth2y26yqyc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmQTPIMACgkQvlAcSiqK
-BOj6JAgAtfBV5yq+uNvtDfdNTDCgUnr0pkrsEqo0Ygt0A84TUlJF1K9QFkFTlvFo
-NEtegJFeDvbE8EmvRgOnpoTRcMQwDClaw5c7O7TquCr3SEAcXECesFYUVLWR7hsf
-Mk3DzSWUNIqMeSUOAEPBPfWNGGQWdjut5IQHdhuIs2/irjgsb5GZJ27rYyV9F/+l
-daE1Ac6RGnKq9zV/UszZ7AbfKA7bI9TVioWBVmIFCQZeWJprHq5rD0LTH6+QjdyQ
-5AdUTjTbZ/YRTjr4KQQkISfoq8oMC/zVENiagYZ89SGTbciIaCeqBpvdgUVKTob6
-2Uoo/o+yUY90Dy8JPw9/gLSsthDGaw==
-=IhKV
------END PGP SIGNATURE-----
-
---km5oeoth2y26yqyc--
+Regards,
+Ibrahim Tafa
+ABIENCE INVESTMENT GROUP FZE, United Arab Emirates

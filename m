@@ -2,76 +2,50 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C08706DECB8
-	for <lists+dccp@lfdr.de>; Wed, 12 Apr 2023 09:39:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1AB836DEDE9
+	for <lists+dccp@lfdr.de>; Wed, 12 Apr 2023 10:37:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229587AbjDLHju (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 12 Apr 2023 03:39:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59372 "EHLO
+        id S230366AbjDLIht (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 12 Apr 2023 04:37:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46446 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229633AbjDLHjd (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 12 Apr 2023 03:39:33 -0400
-Received: from eu-smtp-delivery-151.mimecast.com (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF44C1726
-        for <dccp@vger.kernel.org>; Wed, 12 Apr 2023 00:39:31 -0700 (PDT)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-180-BM_HQVsgMWedE-uoB0ILog-1; Wed, 12 Apr 2023 08:39:29 +0100
-X-MC-Unique: BM_HQVsgMWedE-uoB0ILog-1
-Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
- (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Wed, 12 Apr
- 2023 08:39:26 +0100
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.048; Wed, 12 Apr 2023 08:39:26 +0100
-From:   David Laight <David.Laight@ACULAB.COM>
-To:     'David Ahern' <dsahern@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        "Breno Leitao" <leitao@debian.org>
-CC:     Willem de Bruijn <willemb@google.com>,
-        "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "kuba@kernel.org" <kuba@kernel.org>,
-        "asml.silence@gmail.com" <asml.silence@gmail.com>,
-        "leit@fb.com" <leit@fb.com>,
-        "edumazet@google.com" <edumazet@google.com>,
-        "pabeni@redhat.com" <pabeni@redhat.com>,
-        "davem@davemloft.net" <davem@davemloft.net>,
-        "dccp@vger.kernel.org" <dccp@vger.kernel.org>,
-        "mptcp@lists.linux.dev" <mptcp@lists.linux.dev>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "willemdebruijn.kernel@gmail.com" <willemdebruijn.kernel@gmail.com>,
-        "matthieu.baerts@tessares.net" <matthieu.baerts@tessares.net>,
-        "marcelo.leitner@gmail.com" <marcelo.leitner@gmail.com>
-Subject: RE: [PATCH 0/5] add initial io_uring_cmd support for sockets
-Thread-Topic: [PATCH 0/5] add initial io_uring_cmd support for sockets
-Thread-Index: AQHZbIo9yiioZyVNEkW7nkcDZ6Um0a8nR9fA
-Date:   Wed, 12 Apr 2023 07:39:26 +0000
-Message-ID: <d25962b44b2d4204a7251d97c331fcf8@AcuMS.aculab.com>
-References: <20230406144330.1932798-1-leitao@debian.org>
- <CA+FuTSeKpOJVqcneCoh_4x4OuK1iE0Tr6f3rSNrQiR-OUgjWow@mail.gmail.com>
- <ZC7seVq7St6UnKjl@gmail.com>
- <CA+FuTSf9LEhzjBey_Nm_-vN0ZjvtBSQkcDWS+5uBnLmr8Qh5uA@mail.gmail.com>
- <e576f6fe-d1f3-93cd-cb94-c0ae115299d8@kernel.org>
- <ZDVLyi1PahE0sfci@gmail.com>
- <75e3c434-eb8b-66e5-5768-ca0f906979a1@kernel.org>
- <67831406-8d2f-feff-f56b-d0f002a95d96@kernel.dk>
- <ea36790d-b2fe-0b4d-1bfc-be7b20b1614b@kernel.org>
- <b56c03b3-d948-2fdf-bc5d-635ecfdf1592@kernel.dk>
- <a9858183-8f69-7aff-51ac-122f627ba66f@kernel.org>
-In-Reply-To: <a9858183-8f69-7aff-51ac-122f627ba66f@kernel.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+        with ESMTP id S230184AbjDLIh3 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 12 Apr 2023 04:37:29 -0400
+Received: from mail-io1-f70.google.com (mail-io1-f70.google.com [209.85.166.70])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3C0B3769D
+        for <dccp@vger.kernel.org>; Wed, 12 Apr 2023 01:36:03 -0700 (PDT)
+Received: by mail-io1-f70.google.com with SMTP id i68-20020a6b3b47000000b00760a6d1a015so998965ioa.1
+        for <dccp@vger.kernel.org>; Wed, 12 Apr 2023 01:36:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681288501; x=1683880501;
+        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rN5LL/mhX9dYZOvabcHjv0kZZdZ2NjEFEF7pBMtQmz8=;
+        b=ZtNz6/4OeDKgyiZAdr9ONhW6u55lYtftttIErjjx4cXi65pNLk+QHHgydNTQiCNgWr
+         B5XQwZiDt1nTXLiWrwUDrsymtRgjdPIedBED7keXOXjaLkRipPdCtHOdYNPZR8dPnCrp
+         nERm4yxQIgP/Pb9eQYYUbcc8h77MGOM5zmsTf6OB3v+aHYtYZN1bq1Yn6wOW0CRDg8C6
+         yyWOj6nLUfSaU9V+YgOnsGxBhPdp0BLwBTE6i3LyS4//EZQ7wxXjuMChydPimYgJotm3
+         wykrySHaIyX6RPcjUjYZdlDNfPLf2zs/tnWpLEXHJVJCWxXxgmjaHuPZZDSqfYh4AfjH
+         KV4w==
+X-Gm-Message-State: AAQBX9dPUsC4CpFG3FMJ2LwrnU17kQjdDP67SRcVIeA0O/d+fF/Yw+Ba
+        NsDILXBxKVVdTUITHk3a06oIFV7XAu958V+8yrLJLNnHSACShJg=
+X-Google-Smtp-Source: AKy350YIfhBATaCsSAx1MTdSfIX493BB+ipp0VwIn2GkJGJJZn/6Ktn8mynki0Lzd0xhwYT/J/q/eSEp+/FhJzcRfVgCuVDxwG5x
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+X-Received: by 2002:a02:85ea:0:b0:3c5:1971:1b7f with SMTP id
+ d97-20020a0285ea000000b003c519711b7fmr5306205jai.6.1681288500882; Wed, 12 Apr
+ 2023 01:35:00 -0700 (PDT)
+Date:   Wed, 12 Apr 2023 01:35:00 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000dc33db05f91f7b42@google.com>
+Subject: [syzbot] Monthly dccp report
+From:   syzbot <syzbot+listd740d6f828e66494271a@syzkaller.appspotmail.com>
+To:     dccp@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,FROM_LOCAL_HEX,
+        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+        SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
         version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -79,30 +53,26 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-RnJvbTogRGF2aWQgQWhlcm4NCj4gU2VudDogMTEgQXByaWwgMjAyMyAxNjoyOA0KLi4uLg0KPiBD
-aHJpc3RvcGgncyBwYXRjaCBzZXQgYSBmZXcgeWVhcnMgYmFjayB0aGF0IHJlbW92ZWQgc2V0X2Zz
-IGJyb2tlIHRoZQ0KPiBhYmlsaXR5IHRvIGRvIGluLWtlcm5lbCBpb2N0bCBhbmQge3MsZ31zZXRz
-b2Nrb3B0IGNhbGxzLiBJIGRpZCBub3QNCj4gZm9sbG93IHRoYXQgY2hhbmdlOyB3YXMgaXQgYSBk
-ZWxpYmVyYXRlIGludGVudCB0byBub3QgYWxsb3cgdGhlc2UNCj4gaW4ta2VybmVsIGNhbGxzIHZz
-IHdhbnRpbmcgdG8gcmVtb3ZlIHRoZSBzZXRfZnM/IGUuZy4sIGNhbiB3ZSBhZGQgYQ0KPiBraW9j
-dGwgdmFyaWFudCBmb3IgaW4ta2VybmVsIHVzZSBvZiB0aGUgQVBJcz8NCg0KSSB0aGluayB0aGF0
-IHdhcyBhIHNpZGUgZWZmZWN0LCBhbmQgd2l0aCBubyBpbi10cmVlIGluLWtlcm5lbA0KdXNlcnMg
-KGFwYXJ0IGZyb20gbGltaXRlZCBjYWxscyBpbiBicGYpIGl0IHdhcyBkZWVtZWQgYWNjZXB0YWJs
-ZS4NCihJdCBpcyBhIFBJVEEgZm9yIGFueSBjb2RlIHRyeWluZyB0byB1c2UgU0NUUCBpbiBrZXJu
-ZWwuKQ0KDQpPbmUgcHJvYmxlbSBpcyB0aGF0IG5vdCBhbGwgc29ja29wdCBjYWxscyBwYXNzIHRo
-ZSBjb3JyZWN0IGxlbmd0aC4NCkFuZCBzb21lIG9mIHRoZW0gY2FuIGhhdmUgdmVyeSBsb25nIGJ1
-ZmZlcnMuDQpOb3QgdG8gbWVudGlvbiB0aGUgb25lcyB0aGF0IGFyZSByZWFkLW1vZGlmeS13cml0
-ZS4NCg0KQSBwbGF1c2libGUgc29sdXRpb24gaXMgdG8gcGFzcyBhICdmYXQgcG9pbnRlcicgdGhh
-dCBjb250YWlucw0Kc29tZSwgb3IgYWxsLCBvZjoNCgktIEEgdXNlcnNwYWNlIGJ1ZmZlciBwb2lu
-dGVyLg0KCS0gQSBrZXJuZWwgYnVmZmVyIHBvaW50ZXIuDQoJLSBUaGUgbGVuZ3RoIHN1cHBsaWVk
-IGJ5IHRoZSB1c2VyLg0KCS0gVGhlIGxlbmd0aCBvZiB0aGUga2VybmVsIGJ1ZmZlci4NCgk9IFRo
-ZSBudW1iZXIgb2YgYnl0ZXMgdG8gY29weSBvbiBjb21wbGV0aW9uLg0KRm9yIHNpbXBsZSB1c2Vy
-IHJlcXVlc3RzIHRoZSBzeXNjYWxsIGVudHJ5L2V4aXQgY29kZQ0Kd291bGQgY29weSB0aGUgZGF0
-YSB0byBhIHNob3J0IG9uLXN0YWNrIGJ1ZmZlci4NCktlcm5lbCB1c2VycyBqdXN0IHBhc3MgdGhl
-IGtlcm5lbCBhZGRyZXNzLg0KT2RkIHJlcXVlc3RzIGNhbiBqdXN0IHVzZSB0aGUgdXNlciBwb2lu
-dGVyLg0KDQpQcm9iYWJseSBuZWVkcyBhY2Nlc3NvcnMgdGhhdCBhZGQgaW4gYW4gb2Zmc2V0Lg0K
-DQpJdCBtaWdodCBhbHNvIGJlIHRoYXQgc29tZSBvZiB0aGUgcHJvYmxlbWF0aWMgc29ja29wdA0K
-d2VyZSBpbiBkZWNuZXQgLSBub3cgcmVtb3ZlZC4NCg0KCURhdmlkDQoNCi0NClJlZ2lzdGVyZWQg
-QWRkcmVzcyBMYWtlc2lkZSwgQnJhbWxleSBSb2FkLCBNb3VudCBGYXJtLCBNaWx0b24gS2V5bmVz
-LCBNSzEgMVBULCBVSw0KUmVnaXN0cmF0aW9uIE5vOiAxMzk3Mzg2IChXYWxlcykNCg==
+Hello dccp maintainers/developers,
 
+This is a 30-day syzbot report for the dccp subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dccp
+
+During the period, 0 new issues were detected and 0 were fixed.
+In total, 6 issues are still open and 4 have been fixed so far.
+
+Some of the still happening issues:
+
+Crashes Repro Title
+101     Yes   KASAN: use-after-free Read in ccid2_hc_tx_packet_recv
+              https://syzkaller.appspot.com/bug?extid=554ccde221001ab5479a
+43      Yes   BUG: "hc->tx_t_ipi == NUM" holds (exception!) at net/dccp/ccids/ccid3.c:LINE/ccid3_update_send_interval()
+              https://syzkaller.appspot.com/bug?extid=94641ba6c1d768b1e35e
+4       Yes   BUG: stored value of X_recv is zero at net/dccp/ccids/ccid3.c:LINE/ccid3_first_li() (3)
+              https://syzkaller.appspot.com/bug?extid=2ad8ef335371014d4dc7
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.

@@ -2,67 +2,51 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D792E6DDFB5
-	for <lists+dccp@lfdr.de>; Tue, 11 Apr 2023 17:29:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C08706DECB8
+	for <lists+dccp@lfdr.de>; Wed, 12 Apr 2023 09:39:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230271AbjDKP30 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 11 Apr 2023 11:29:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50014 "EHLO
+        id S229587AbjDLHju (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 12 Apr 2023 03:39:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59372 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230257AbjDKP3X (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 11 Apr 2023 11:29:23 -0400
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com [IPv6:2607:f8b0:4864:20::d35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3222E5276
-        for <dccp@vger.kernel.org>; Tue, 11 Apr 2023 08:29:17 -0700 (PDT)
-Received: by mail-io1-xd35.google.com with SMTP id ca18e2360f4ac-75d1e0ff8ecso9464939f.0
-        for <dccp@vger.kernel.org>; Tue, 11 Apr 2023 08:29:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20210112.gappssmtp.com; s=20210112; t=1681226956; x=1683818956;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LY7YABVANJBpnoGShMcSEGz2zmHaSs72D2YD+dvEB/o=;
-        b=ZWrZYfxohRGNPyYVlwzZUd5gQvb0wTWEee+Sxa0LCjDgo/Nx9goOCVGN1ZhnS2P0jL
-         i5DPkiH3Puod6ziLgypR/OS5UxpWT2TBfaSCSpCF+tHebPCFT7ESdPLULIunYzFtzNW/
-         k31xn+gNlN+5maMjymgBg5DTnosmu/WZnPXv5IgkBgn/BI2t4I5B+vC9/zSJIQS67DbX
-         HjtA/YuQ3zHqcqjx9MTEwJMU0YbMKcVmB/gJMBfo+kMTvxVMGOdinj5BHkVRobw1fnH6
-         YAPqyTXFdGmroG0hI2ZCyRs4Va2oHUoCSrVqj4IGVYvCyByZSsFDcrIuCEqU3odnT9Tw
-         qw6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681226956; x=1683818956;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LY7YABVANJBpnoGShMcSEGz2zmHaSs72D2YD+dvEB/o=;
-        b=zDs8rAe1ZvtExzmyMxLTSHfr/s5pkHZKlyQ3fETjNoO3wH4cpeGawn6vhwE5Zd9JHx
-         PObvRz72kgm1aG+EU0A1HYySjJ19SKfH0poMD5VO5I8p15nqNvTlWMvTiItcusfYzUNv
-         Kg+fF8LfHxwtGsn2Rp8WPiOpIlmSMsd7hxKKxh7Pd/2mZzicu1BBctHnpyE88OuRXsuo
-         yquCl375kmgfilNCsebAffxbjQZwNOF9IqNBcwBtdTfV70VGFJnQAc+LTVmG/VDHLJLq
-         RAd//SbB+TudnSRRjDPXEsbzxEbB0XnGnJaz+0bSVhI+6VA5TVLmG/sThgDB10nMQcxz
-         g5pw==
-X-Gm-Message-State: AAQBX9cOm9cumwBMqPvv0eP6dNH/vc1HjoR4SPYbw4dBnhm+2FE6Edb+
-        qbdwH5KG+xsBABBsONc4dB4Y+g==
-X-Google-Smtp-Source: AKy350YTQzwtVs+fobpu4VlZXmN6QjQ8Crt7xuEhF8qtkl8AUI5eJ6G7pwRhzeqzoKUNI7xlvPDHKg==
-X-Received: by 2002:a05:6602:2d08:b0:758:9dcb:5d1a with SMTP id c8-20020a0566022d0800b007589dcb5d1amr6232653iow.2.1681226956457;
-        Tue, 11 Apr 2023 08:29:16 -0700 (PDT)
-Received: from [192.168.1.94] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id h35-20020a05663833a300b0040bce6160e1sm1554966jav.12.2023.04.11.08.29.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Apr 2023 08:29:16 -0700 (PDT)
-Message-ID: <78abce6b-709b-7309-2ee1-5370d05748b6@kernel.dk>
-Date:   Tue, 11 Apr 2023 09:29:15 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH 0/5] add initial io_uring_cmd support for sockets
-Content-Language: en-US
-To:     David Ahern <dsahern@kernel.org>, Breno Leitao <leitao@debian.org>
-Cc:     Willem de Bruijn <willemb@google.com>, io-uring@vger.kernel.org,
-        netdev@vger.kernel.org, kuba@kernel.org, asml.silence@gmail.com,
-        leit@fb.com, edumazet@google.com, pabeni@redhat.com,
-        davem@davemloft.net, dccp@vger.kernel.org, mptcp@lists.linux.dev,
-        linux-kernel@vger.kernel.org, willemdebruijn.kernel@gmail.com,
-        matthieu.baerts@tessares.net, marcelo.leitner@gmail.com
+        with ESMTP id S229633AbjDLHjd (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 12 Apr 2023 03:39:33 -0400
+Received: from eu-smtp-delivery-151.mimecast.com (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF44C1726
+        for <dccp@vger.kernel.org>; Wed, 12 Apr 2023 00:39:31 -0700 (PDT)
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-180-BM_HQVsgMWedE-uoB0ILog-1; Wed, 12 Apr 2023 08:39:29 +0100
+X-MC-Unique: BM_HQVsgMWedE-uoB0ILog-1
+Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
+ (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Wed, 12 Apr
+ 2023 08:39:26 +0100
+Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
+ id 15.00.1497.048; Wed, 12 Apr 2023 08:39:26 +0100
+From:   David Laight <David.Laight@ACULAB.COM>
+To:     'David Ahern' <dsahern@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        "Breno Leitao" <leitao@debian.org>
+CC:     Willem de Bruijn <willemb@google.com>,
+        "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+        "kuba@kernel.org" <kuba@kernel.org>,
+        "asml.silence@gmail.com" <asml.silence@gmail.com>,
+        "leit@fb.com" <leit@fb.com>,
+        "edumazet@google.com" <edumazet@google.com>,
+        "pabeni@redhat.com" <pabeni@redhat.com>,
+        "davem@davemloft.net" <davem@davemloft.net>,
+        "dccp@vger.kernel.org" <dccp@vger.kernel.org>,
+        "mptcp@lists.linux.dev" <mptcp@lists.linux.dev>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "willemdebruijn.kernel@gmail.com" <willemdebruijn.kernel@gmail.com>,
+        "matthieu.baerts@tessares.net" <matthieu.baerts@tessares.net>,
+        "marcelo.leitner@gmail.com" <marcelo.leitner@gmail.com>
+Subject: RE: [PATCH 0/5] add initial io_uring_cmd support for sockets
+Thread-Topic: [PATCH 0/5] add initial io_uring_cmd support for sockets
+Thread-Index: AQHZbIo9yiioZyVNEkW7nkcDZ6Um0a8nR9fA
+Date:   Wed, 12 Apr 2023 07:39:26 +0000
+Message-ID: <d25962b44b2d4204a7251d97c331fcf8@AcuMS.aculab.com>
 References: <20230406144330.1932798-1-leitao@debian.org>
  <CA+FuTSeKpOJVqcneCoh_4x4OuK1iE0Tr6f3rSNrQiR-OUgjWow@mail.gmail.com>
  <ZC7seVq7St6UnKjl@gmail.com>
@@ -74,90 +58,51 @@ References: <20230406144330.1932798-1-leitao@debian.org>
  <ea36790d-b2fe-0b4d-1bfc-be7b20b1614b@kernel.org>
  <b56c03b3-d948-2fdf-bc5d-635ecfdf1592@kernel.dk>
  <a9858183-8f69-7aff-51ac-122f627ba66f@kernel.org>
-From:   Jens Axboe <axboe@kernel.dk>
 In-Reply-To: <a9858183-8f69-7aff-51ac-122f627ba66f@kernel.org>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        NICE_REPLY_A,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS
-        autolearn=unavailable autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: base64
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On 4/11/23 9:27?AM, David Ahern wrote:
-> On 4/11/23 9:17 AM, Jens Axboe wrote:
->> On 4/11/23 9:10?AM, David Ahern wrote:
->>> On 4/11/23 8:41 AM, Jens Axboe wrote:
->>>> On 4/11/23 8:36?AM, David Ahern wrote:
->>>>> On 4/11/23 6:00 AM, Breno Leitao wrote:
->>>>>> I am not sure if avoiding io_uring details in network code is possible.
->>>>>>
->>>>>> The "struct proto"->uring_cmd callback implementation (tcp_uring_cmd()
->>>>>> in the TCP case) could be somewhere else, such as in the io_uring/
->>>>>> directory, but, I think it might be cleaner if these implementations are
->>>>>> closer to function assignment (in the network subsystem).
->>>>>>
->>>>>> And this function (tcp_uring_cmd() for instance) is the one that I am
->>>>>> planning to map io_uring CMDs to ioctls. Such as SOCKET_URING_OP_SIOCINQ
->>>>>> -> SIOCINQ.
->>>>>>
->>>>>> Please let me know if you have any other idea in mind.
->>>>>
->>>>> I am not convinced that this io_uring_cmd is needed. This is one
->>>>> in-kernel subsystem calling into another, and there are APIs for that.
->>>>> All of this set is ioctl based and as Willem noted a little refactoring
->>>>> separates the get_user/put_user out so that in-kernel can call can be
->>>>> made with existing ops.
->>>>
->>>> How do you want to wire it up then? We can't use fops->unlocked_ioctl()
->>>> obviously, and we already have ->uring_cmd() for this purpose.
->>>>
->>>> I do think the right thing to do is have a common helper that returns
->>>> whatever value you want (or sets it), and split the ioctl parts into a
->>>> wrapper around that that simply copies in/out as needed. Then
->>>> ->uring_cmd() could call that, or you could some exported function that
->>>> does supports that.
->>>>
->>>> This works for the basic cases, though I do suspect we'll want to go
->>>> down the ->uring_cmd() at some point for more advanced cases or cases
->>>> that cannot sanely be done in an ioctl fashion.
->>>>
->>>
->>> My meta point is that there are uapis today to return this information
->>> to applications (and I suspect this is just the start of more networking
->>> changes - both data retrieval and adjusting settings). io_uring is
->>> wanting to do this on behalf of the application without a syscall. That
->>> makes io_uring yet another subsystem / component managing a socket. Any
->>> change to the networking stack required by io_uring should be usable by
->>> all other in-kernel socket owners or managers. ie., there is no reason
->>> for io_uring specific code here.
->>
->> I think we are in violent agreement here, what I'm describing is exactly
->> that - it'd make ioctl/{set,get}sockopt call into the same helpers that
->> ->uring_cmd() would, with the only difference being that the former
->> would need copy in/out and the latter would not.
->>
->> But let me just stress that for direct descriptors, we cannot currently
->> call ioctl or set/getsockopt. This means we have to instantiate a
->> regular descriptor first, do those things, then register it to never use
->> the regular file descriptor again. That's wasteful, and this is what we
->> want to enable (direct use of ioctl set/getsockopt WITHOUT a normal file
->> descriptor). It's not just for "oh it'd be handy to also do this from
->> io_uring" even if that would be a worthwhile goal in itself.
->>
-> 
-> Christoph's patch set a few years back that removed set_fs broke the
-> ability to do in-kernel ioctl and {s,g}setsockopt calls. I did not
-> follow that change; was it a deliberate intent to not allow these
-> in-kernel calls vs wanting to remove the set_fs? e.g., can we add a
-> kioctl variant for in-kernel use of the APIs?
-
-I think it'd be much better to cleanly split it out rather than try and
-hack around it.
-
--- 
-Jens Axboe
+RnJvbTogRGF2aWQgQWhlcm4NCj4gU2VudDogMTEgQXByaWwgMjAyMyAxNjoyOA0KLi4uLg0KPiBD
+aHJpc3RvcGgncyBwYXRjaCBzZXQgYSBmZXcgeWVhcnMgYmFjayB0aGF0IHJlbW92ZWQgc2V0X2Zz
+IGJyb2tlIHRoZQ0KPiBhYmlsaXR5IHRvIGRvIGluLWtlcm5lbCBpb2N0bCBhbmQge3MsZ31zZXRz
+b2Nrb3B0IGNhbGxzLiBJIGRpZCBub3QNCj4gZm9sbG93IHRoYXQgY2hhbmdlOyB3YXMgaXQgYSBk
+ZWxpYmVyYXRlIGludGVudCB0byBub3QgYWxsb3cgdGhlc2UNCj4gaW4ta2VybmVsIGNhbGxzIHZz
+IHdhbnRpbmcgdG8gcmVtb3ZlIHRoZSBzZXRfZnM/IGUuZy4sIGNhbiB3ZSBhZGQgYQ0KPiBraW9j
+dGwgdmFyaWFudCBmb3IgaW4ta2VybmVsIHVzZSBvZiB0aGUgQVBJcz8NCg0KSSB0aGluayB0aGF0
+IHdhcyBhIHNpZGUgZWZmZWN0LCBhbmQgd2l0aCBubyBpbi10cmVlIGluLWtlcm5lbA0KdXNlcnMg
+KGFwYXJ0IGZyb20gbGltaXRlZCBjYWxscyBpbiBicGYpIGl0IHdhcyBkZWVtZWQgYWNjZXB0YWJs
+ZS4NCihJdCBpcyBhIFBJVEEgZm9yIGFueSBjb2RlIHRyeWluZyB0byB1c2UgU0NUUCBpbiBrZXJu
+ZWwuKQ0KDQpPbmUgcHJvYmxlbSBpcyB0aGF0IG5vdCBhbGwgc29ja29wdCBjYWxscyBwYXNzIHRo
+ZSBjb3JyZWN0IGxlbmd0aC4NCkFuZCBzb21lIG9mIHRoZW0gY2FuIGhhdmUgdmVyeSBsb25nIGJ1
+ZmZlcnMuDQpOb3QgdG8gbWVudGlvbiB0aGUgb25lcyB0aGF0IGFyZSByZWFkLW1vZGlmeS13cml0
+ZS4NCg0KQSBwbGF1c2libGUgc29sdXRpb24gaXMgdG8gcGFzcyBhICdmYXQgcG9pbnRlcicgdGhh
+dCBjb250YWlucw0Kc29tZSwgb3IgYWxsLCBvZjoNCgktIEEgdXNlcnNwYWNlIGJ1ZmZlciBwb2lu
+dGVyLg0KCS0gQSBrZXJuZWwgYnVmZmVyIHBvaW50ZXIuDQoJLSBUaGUgbGVuZ3RoIHN1cHBsaWVk
+IGJ5IHRoZSB1c2VyLg0KCS0gVGhlIGxlbmd0aCBvZiB0aGUga2VybmVsIGJ1ZmZlci4NCgk9IFRo
+ZSBudW1iZXIgb2YgYnl0ZXMgdG8gY29weSBvbiBjb21wbGV0aW9uLg0KRm9yIHNpbXBsZSB1c2Vy
+IHJlcXVlc3RzIHRoZSBzeXNjYWxsIGVudHJ5L2V4aXQgY29kZQ0Kd291bGQgY29weSB0aGUgZGF0
+YSB0byBhIHNob3J0IG9uLXN0YWNrIGJ1ZmZlci4NCktlcm5lbCB1c2VycyBqdXN0IHBhc3MgdGhl
+IGtlcm5lbCBhZGRyZXNzLg0KT2RkIHJlcXVlc3RzIGNhbiBqdXN0IHVzZSB0aGUgdXNlciBwb2lu
+dGVyLg0KDQpQcm9iYWJseSBuZWVkcyBhY2Nlc3NvcnMgdGhhdCBhZGQgaW4gYW4gb2Zmc2V0Lg0K
+DQpJdCBtaWdodCBhbHNvIGJlIHRoYXQgc29tZSBvZiB0aGUgcHJvYmxlbWF0aWMgc29ja29wdA0K
+d2VyZSBpbiBkZWNuZXQgLSBub3cgcmVtb3ZlZC4NCg0KCURhdmlkDQoNCi0NClJlZ2lzdGVyZWQg
+QWRkcmVzcyBMYWtlc2lkZSwgQnJhbWxleSBSb2FkLCBNb3VudCBGYXJtLCBNaWx0b24gS2V5bmVz
+LCBNSzEgMVBULCBVSw0KUmVnaXN0cmF0aW9uIE5vOiAxMzk3Mzg2IChXYWxlcykNCg==
 

@@ -2,62 +2,85 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DB0C76E04FD
-	for <lists+dccp@lfdr.de>; Thu, 13 Apr 2023 04:58:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F17E6E0FE2
+	for <lists+dccp@lfdr.de>; Thu, 13 Apr 2023 16:24:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229571AbjDMC6I (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 12 Apr 2023 22:58:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35800 "EHLO
+        id S229936AbjDMOYf (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Thu, 13 Apr 2023 10:24:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54584 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229874AbjDMC6E (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 12 Apr 2023 22:58:04 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2C32A2694
-        for <dccp@vger.kernel.org>; Wed, 12 Apr 2023 19:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1681354634;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=5AzEg8Ao4jgsIZn9hnvRCP42sxSvRguawETbd/Q5Ewc=;
-        b=L80Zcw+F688pdP8sltsfN8+XRPlvFo9f3hqneePZkOzigK3xiDF3G2VBiOsxzr78LMoJ+H
-        suoMH8iMFIEzLjDKYOXn5t1bPCJkZ0U0r4pwxL/B27+2QkG9D63AlALr2e16EuyAN5bd2n
-        fWJlYH9TME6dwcpRDg5jZuyYUzXe2y0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-342-WKjhx5-FNSSDYZ-s21GaHw-1; Wed, 12 Apr 2023 22:57:05 -0400
-X-MC-Unique: WKjhx5-FNSSDYZ-s21GaHw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8493A185A78B;
-        Thu, 13 Apr 2023 02:57:04 +0000 (UTC)
-Received: from ovpn-8-18.pek2.redhat.com (ovpn-8-18.pek2.redhat.com [10.72.8.18])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id A35AB40C83A9;
-        Thu, 13 Apr 2023 02:56:54 +0000 (UTC)
-Date:   Thu, 13 Apr 2023 10:56:49 +0800
-From:   Ming Lei <ming.lei@redhat.com>
-To:     Breno Leitao <leitao@debian.org>
-Cc:     asml.silence@gmail.com, axboe@kernel.dk, davem@davemloft.net,
-        dccp@vger.kernel.org, dsahern@kernel.org, edumazet@google.com,
-        io-uring@vger.kernel.org, kuba@kernel.org, leit@fb.com,
-        linux-kernel@vger.kernel.org, marcelo.leitner@gmail.com,
-        matthieu.baerts@tessares.net, mptcp@lists.linux.dev,
-        netdev@vger.kernel.org, pabeni@redhat.com,
-        willemdebruijn.kernel@gmail.com, ming.lei@redhat.com
-Subject: Re: [PATCH RFC] io_uring: Pass whole sqe to commands
-Message-ID: <ZDdvcSKLa6ZEAhRW@ovpn-8-18.pek2.redhat.com>
-References: <20230406144330.1932798-1-leitao@debian.org>
- <20230406165705.3161734-1-leitao@debian.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230406165705.3161734-1-leitao@debian.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=ham
+        with ESMTP id S229887AbjDMOYe (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Thu, 13 Apr 2023 10:24:34 -0400
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com [IPv6:2607:f8b0:4864:20::82d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8B379EE3;
+        Thu, 13 Apr 2023 07:24:33 -0700 (PDT)
+Received: by mail-qt1-x82d.google.com with SMTP id fv6so2910073qtb.9;
+        Thu, 13 Apr 2023 07:24:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1681395873; x=1683987873;
+        h=content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/TrAOS0R5wy2ok/bqex9Gh2UkGvuG1Z9xkGn7BQOOkQ=;
+        b=b/ViUDzfSWs5SNJEDqJz6GRAGG5jpNDZbGdhDRdKGT0RWMPR7qgzc15mS4W/ggmnyg
+         p8S3AXLq6hpuKneYCVqCJb63LoikUs9JgZ2iSg/q/p+8p/hQ8uZ0MZ1t63JBR1mhS+Ow
+         s/P8ZpN8nQd+pRg75ZFN36HUBc7+9wcxuprDugkLijOVVbbkLBQ/Ll4yg2BdwQ63q5bP
+         hRnEb/+7AtAOHAHhgMHlkQ4TCel7v3t+rnFtKqqyX3EZ9PLYZUEjvbqrRo2ng3R1QwXq
+         ItyMUESW1xzSCkDQuXSupBgujX4h35O3Bo+fmkAExiiXU7whjjyuYuk/tfT8FzljppKh
+         Dftg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681395873; x=1683987873;
+        h=content-transfer-encoding:mime-version:subject:references
+         :in-reply-to:message-id:cc:to:from:date:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/TrAOS0R5wy2ok/bqex9Gh2UkGvuG1Z9xkGn7BQOOkQ=;
+        b=e0VQi+nY7CIc8Xw2mZDcBP5dGdqqoitVQbYwMn2P6y+kPPF0FuzokLZgu3zsVLnfMc
+         Hr5oYORILa7TpOa7UkP4fAG08n7HzXBmcsutx9d01BcG7neWi85lAclFi42So5Vdfs26
+         CRjyI2P1na4DxrdwQOCtc18MJLhgoqze2N786WsyIFZGR6AoZvbgWlaeCuIxplQBuJCf
+         YSPDBGtoirYCxxutQtBLky++GGJdG9ILDIzL30x/zO09doHzE11WjlW9fWbuv1kyQxHP
+         fW9O/XMipK3dYP7kTLogPyhYrJ5zUNVb0ThzJHDvsIZBjeCFs4UE9FiXJQ/Utw+j7pss
+         x5Yg==
+X-Gm-Message-State: AAQBX9eYMbwou0BOsVdngM3VTg/SmiWfQmOd8lws/PTI6wwey6p6uzz9
+        RUD4EJGNcOVNqmtEk5jKQJQ=
+X-Google-Smtp-Source: AKy350ZRTDu+Bd0TWjR0pjk1viq+nedbiyuO15GH/Y/6TJSTI8W79X1HEf7NRwtm3vKsuOfmgLCIWw==
+X-Received: by 2002:a05:622a:5:b0:3bf:b70b:7804 with SMTP id x5-20020a05622a000500b003bfb70b7804mr3244755qtw.25.1681395872712;
+        Thu, 13 Apr 2023 07:24:32 -0700 (PDT)
+Received: from localhost (240.157.150.34.bc.googleusercontent.com. [34.150.157.240])
+        by smtp.gmail.com with ESMTPSA id t17-20020a05622a181100b003e3982a6f2bsm524147qtc.18.2023.04.13.07.24.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Apr 2023 07:24:32 -0700 (PDT)
+Date:   Thu, 13 Apr 2023 10:24:31 -0400
+From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To:     Breno Leitao <leitao@debian.org>,
+        Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc:     Jens Axboe <axboe@kernel.dk>, David Ahern <dsahern@kernel.org>,
+        Willem de Bruijn <willemb@google.com>,
+        io-uring@vger.kernel.org, netdev@vger.kernel.org, kuba@kernel.org,
+        asml.silence@gmail.com, leit@fb.com, edumazet@google.com,
+        pabeni@redhat.com, davem@davemloft.net, dccp@vger.kernel.org,
+        mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+        matthieu.baerts@tessares.net, marcelo.leitner@gmail.com
+Message-ID: <6438109fe8733_13361929472@willemb.c.googlers.com.notmuch>
+In-Reply-To: <ZDdGl/JGDoRDL8ja@gmail.com>
+References: <75e3c434-eb8b-66e5-5768-ca0f906979a1@kernel.org>
+ <67831406-8d2f-feff-f56b-d0f002a95d96@kernel.dk>
+ <643573df81e20_11117c2942@willemb.c.googlers.com.notmuch>
+ <036c80e5-4844-5c84-304c-7e553fe17a9b@kernel.dk>
+ <64357608c396d_113ebd294ba@willemb.c.googlers.com.notmuch>
+ <19c69021-dce3-1a4a-00eb-920d1f404cfc@kernel.dk>
+ <64357bb97fb19_114b22294c4@willemb.c.googlers.com.notmuch>
+ <20cb4641-c765-e5ef-41cb-252be7721ce5@kernel.dk>
+ <ZDa32u9RNI4NQ7Ko@gmail.com>
+ <6436c01979c9b_163b6294b4@willemb.c.googlers.com.notmuch>
+ <ZDdGl/JGDoRDL8ja@gmail.com>
+Subject: Re: [PATCH 0/5] add initial io_uring_cmd support for sockets
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -65,59 +88,101 @@ Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Thu, Apr 06, 2023 at 09:57:05AM -0700, Breno Leitao wrote:
-> Currently uring CMD operation relies on having large SQEs, but future
-> operations might want to use normal SQE.
+Breno Leitao wrote:
+> On Wed, Apr 12, 2023 at 10:28:41AM -0400, Willem de Bruijn wrote:
+> > Breno Leitao wrote:
+> > > On Tue, Apr 11, 2023 at 09:28:29AM -0600, Jens Axboe wrote:
+> > > > On 4/11/23 9:24?AM, Willem de Bruijn wrote:
+> > > > > Jens Axboe wrote:
+> > > > >> On 4/11/23 9:00?AM, Willem de Bruijn wrote:
+> > > > >> But that doesn't work, because sock->ops->ioctl() assumes the arg is
+> > > > >> memory in userspace. Or do you mean change all of the sock->ops->ioctl()
+> > > > >> to pass in on-stack memory (or similar) and have it work with a kernel
+> > > > >> address?
+> > > > > 
+> > > > > That was what I suggested indeed.
+> > > > > 
+> > > > > It's about as much code change as this patch series. But it avoids
+> > > > > the code duplication.
+> > > > 
+> > > > Breno, want to tackle that as a prep patch first? Should make the
+> > > > functional changes afterwards much more straightforward, and will allow
+> > > > support for anything really.
+> > > 
+> > > Absolutely. I just want to make sure that I got the proper approach that
+> > > we agreed here.
+> > > 
+> > > Let me explain what I understood taking TCP as an example:
+> > > 
+> > > 1) Rename tcp_ioctl() to something as _tcp_ioctl() where the 'arg'
+> > > argument is now just a kernel memory (located in the stack frame from the
+> > > callee).
+> > > 
+> > > 2) Recreate "tcp_ioctl()" that will basically allocate a 'arg' in the
+> > > stack and call _tcp_ioctl() passing that 'arg' argument. At the bottom of
+> > > this (tcp_ioctl() function) function, call `put_user(in_kernel_arg, userspace_arg)
+> > > 
+> > > 3) Repeat it for the 20 protocols that implement ioctl:
+> > > 
+> > > 	ag  "struct proto .* = {" -A 20 net/ | grep \.ioctl
+> > > 	net/dccp/ipv6.c 	.ioctl	= dccp_ioctl,
+> > > 	net/dccp/ipv4.c		.ioctl	= dccp_ioctl,
+> > > 	net/ieee802154/socket.c .ioctl	= dgram_ioctl,
+> > > 	net/ipv4/udplite.c	.ioctl	= udp_ioctl,
+> > > 	net/ipv4/raw.c 		.ioctl	= raw_ioctl,
+> > > 	net/ipv4/udp.c		.ioctl	= udp_ioctl,
+> > > 	net/ipv4/tcp_ipv4.c 	.ioctl	= tcp_ioctl,
+> > > 	net/ipv6/raw.c		.ioctl	= rawv6_ioctl,
+> > > 	net/ipv6/tcp_ipv6.c	.ioctl	= tcp_ioctl,
+> > > 	net/ipv6/udp.c	 	.ioctl	= udp_ioctl,
+> > > 	net/ipv6/udplite.c	.ioctl	= udp_ioctl,
+> > > 	net/l2tp/l2tp_ip6.c	.ioctl	= l2tp_ioctl,
+> > > 	net/l2tp/l2tp_ip.c	.ioctl	= l2tp_ioctl,
+> > > 	net/phonet/datagram.:	.ioctl	= pn_ioctl,
+> > > 	net/phonet/pep.c	.ioctl	= pep_ioctl,
+> > > 	net/rds/af_rds.c	.ioctl	=	rds_ioctl,
+> > > 	net/sctp/socket.c	.ioctl  =	sctp_ioctl,
+> > > 	net/sctp/socket.c	.ioctl	= sctp_ioctl,
+> > > 	net/xdp/xsk.c		.ioctl	= sock_no_ioctl,
+> > > 	net/mptcp/protocol.c	.ioctl	= mptcp_ioctl,
+> > > 
+> > > Am I missing something?
+> > 
+> > The suggestion is to convert all to take kernel memory and do the
+> > put_cmsg in the caller of .ioctl. Rather than create a wrapper for
+> > each individual instance and add a separate .iouring_cmd for each.
+> > 
+> > "change all of the sock->ops->ioctl() to pass in on-stack memory
+> > (or similar) and have it work with a kernel address"
 > 
-> The io_uring_cmd currently only saves the payload (cmd) part of the SQE,
-> but, for commands that use normal SQE size, it might be necessary to
-> access the initial SQE fields outside of the payload/cmd block.  So,
-> saves the whole SQE other than just the pdu.
+> is it possible to do it for cases where we don't know what is the size
+> of the buffer?
 > 
-> This changes slighlty how the io_uring_cmd works, since the cmd
-> structures and callbacks are not opaque to io_uring anymore. I.e, the
-> callbacks can look at the SQE entries, not only, in the cmd structure.
+> For instance the raw_ioctl()/rawv6_ioctl() case. The "arg" argument is
+> used in different ways (one for input and one for output):
 > 
-> The main advantage is that we don't need to create custom structures for
-> simple commands.
+>   1) If cmd == SIOCOUTQ or SIOCINQ, then the return value will be
+>   returned to userspace:
+>   	put_user(amount, (int __user *)arg)
 > 
-> Suggested-by: Pavel Begunkov <asml.silence@gmail.com>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
+>   2) For default cmd, ipmr_ioctl() is called, which reads from the `arg`
+>   parameter:
+> 	copy_from_user(&vr, arg, sizeof(vr)
+> 
+> How to handle these contradictory behaviour ahead of time (at callee
+> time, where the buffers will be prepared)?
+> 
+> Thank you!
 
-...
+Ah you found a counter-example to the simple pattern of put_user.
 
-> diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-> index 2e4c483075d3..9648134ccae1 100644
-> --- a/io_uring/uring_cmd.c
-> +++ b/io_uring/uring_cmd.c
-> @@ -63,14 +63,15 @@ EXPORT_SYMBOL_GPL(io_uring_cmd_done);
->  int io_uring_cmd_prep_async(struct io_kiocb *req)
->  {
->  	struct io_uring_cmd *ioucmd = io_kiocb_to_cmd(req, struct io_uring_cmd);
-> -	size_t cmd_size;
-> +	size_t size = sizeof(struct io_uring_sqe);
->  
->  	BUILD_BUG_ON(uring_cmd_pdu_size(0) != 16);
->  	BUILD_BUG_ON(uring_cmd_pdu_size(1) != 80);
->  
-> -	cmd_size = uring_cmd_pdu_size(req->ctx->flags & IORING_SETUP_SQE128);
-> +	if (req->ctx->flags & IORING_SETUP_SQE128)
-> +		size <<= 1;
->  
-> -	memcpy(req->async_data, ioucmd->cmd, cmd_size);
-> +	memcpy(req->async_data, ioucmd->sqe, size);
+The answer perhaps depends on how many such counter-examples you
+encounter in the list you gave. If this is the only one, exceptions
+in the wrapper are reasonable. Not if there are many.
 
-The copy will make some fields of sqe become READ TWICE, and driver may see
-different sqe field value compared with the one observed in io_init_req().
+Is the intent for io_uring to support all cases eventually? The
+current patch series only targeted more common fast path operations.
 
-Can this kind of inconsistency cause trouble to driver?
-
-If it isn't one problem, this patch looks fine.
-
-But I guess any access on cmd->sqe in driver may have to be careful for dealing
-with potential post-sqe-update.
-
-Thanks,
-Ming
-
+Probably also relevant is whether/how the approach can be extended
+to [gs]etsockopt, as that was another example given, with the same
+challenge.

@@ -2,69 +2,54 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D9FD06DF871
-	for <lists+dccp@lfdr.de>; Wed, 12 Apr 2023 16:28:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C63406E02E9
+	for <lists+dccp@lfdr.de>; Thu, 13 Apr 2023 02:02:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229846AbjDLO2v (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 12 Apr 2023 10:28:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56058 "EHLO
+        id S229499AbjDMACi (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 12 Apr 2023 20:02:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54662 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230257AbjDLO2v (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 12 Apr 2023 10:28:51 -0400
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com [IPv6:2607:f8b0:4864:20::82d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45470192;
-        Wed, 12 Apr 2023 07:28:43 -0700 (PDT)
-Received: by mail-qt1-x82d.google.com with SMTP id y26so9980006qtv.9;
-        Wed, 12 Apr 2023 07:28:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681309722; x=1683901722;
-        h=content-transfer-encoding:mime-version:subject:references
-         :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=g3csUU+MZIL4psk3MHBw1EHOXxochpb77aPV46ZLfuc=;
-        b=aI6Q+2c2WaaTUQarPujC9vC4U+H06kMJ1qHxGql7eaQVoNPr4VI6/vTF20Gq0LrCOd
-         JUDyMJIC+/nGqr4gtxOQDYTlG2rqjsjPSXCJYVDyNnU7/visH6dzicAcsw917ORO/PW+
-         B+kYVJaEtQZ45dAnLsOgIl9PZq6Zz8f7E5ziG10GSCSsba7CEp8sJDNhd9m92KhZoJMd
-         +CEN2d4h/EVQRnzpA5ZyXzrN/4q9QwRHGNJXRrCpW0MUpzEmo2oEht0vdZE92tU7+cew
-         0TtCqPXhwtAvPD1w+obFG/+LpXEfiMk9/oSZ3bZaBHgysbET3Mze4e+lQ9YDtaTuv2Bo
-         Kt8A==
+        with ESMTP id S229451AbjDMACh (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 12 Apr 2023 20:02:37 -0400
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 95A5F3C39;
+        Wed, 12 Apr 2023 17:02:35 -0700 (PDT)
+Received: by mail-wm1-f50.google.com with SMTP id he13so12508322wmb.2;
+        Wed, 12 Apr 2023 17:02:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681309722; x=1683901722;
-        h=content-transfer-encoding:mime-version:subject:references
-         :in-reply-to:message-id:cc:to:from:date:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=g3csUU+MZIL4psk3MHBw1EHOXxochpb77aPV46ZLfuc=;
-        b=DiKMVrzcMCsauSyS/R4BARQbmdEvArJFT5jQqMHSC1NHcz+iFb/Mu4gbCEnrRnSp4u
-         rOWRfNA3/Uv0I4sifQ5dGpaktwjRlQOqzHbcjOOTEeQh0gDxTUr3EcheVCiXlEyG0ohc
-         MCh6BYUR80A2+Ezjr5/LHAq7pekF4x5402eaFBuygsqFtOOg+muHasvtm2CObjQt46fl
-         5SUfLAp6s2r1X38m8lOwnNwCBYtzvV7kdU0gD8uWxD8FdAmfhIFfiEAqcoe5yNFw7DX1
-         8ZHU4hWQbtSu3u5wtC/QtCE5oG3d4inatbpqaAvXd0WDteLCHlldQIZFTJEA7gjbaA19
-         EVuw==
-X-Gm-Message-State: AAQBX9c9JNhkxfXV3ew46T0qtj5I3OV2EPxBHeI5z/eU/mwVifqXAWAZ
-        FArkv8cqe7ewDT+/l6KTrV0=
-X-Google-Smtp-Source: AKy350Y9tE06l148YDTVFtOEKyW0JshhF+aM8qF7BkYMcr6VkzIdVIBtB5Ltrqx2TDstNnLe4jBZWQ==
-X-Received: by 2002:a05:622a:14e:b0:3e3:3941:d167 with SMTP id v14-20020a05622a014e00b003e33941d167mr29755868qtw.34.1681309722274;
-        Wed, 12 Apr 2023 07:28:42 -0700 (PDT)
-Received: from localhost (240.157.150.34.bc.googleusercontent.com. [34.150.157.240])
-        by smtp.gmail.com with ESMTPSA id t12-20020a37aa0c000000b007468b183a65sm257126qke.30.2023.04.12.07.28.41
+        d=1e100.net; s=20221208; t=1681344154; x=1683936154;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wnTbuQLS+s98EOJFfwv3Ba/ON2eWwogZsizkDywlsTM=;
+        b=OMwFMYP3LfY8f7wHmrhuQJi5aW3SHZc5GyBrnDvO+6BOvZUXJO0OlSExdkfBcW4xnu
+         YPzMrXVNVPWMwwmLvpecsN6nPtLUE+3udGDBTdjSoHYYmtwt5BzwCNf2jT4QdA8cNfLS
+         P/YNvyrsqDCoFvCwXu8iIATpkHdO+O5QBotAyXGHDLNMDwN/X6RRlSOVYlSZNhHZRexd
+         YBt3RfLtZtBJ/taYkARuugh4k8V7O1S3+WFV8MTCGqBpsmp6fXhm0U9pNo4kEYRXQjeQ
+         X+JOJVfBPY74Ynz1xAilMJmvis5cR0MJexG/ptnvYqku6XqRRwMzuBn5dQ5gHjQqLpRF
+         134g==
+X-Gm-Message-State: AAQBX9ddofw0oQixioxOp21XLlcRQSX8eNz6aOjoj43ET1J+d4W4sXSs
+        YFbGSylzAYsh4WNv23Zl3y3dvse6zS+CNQ==
+X-Google-Smtp-Source: AKy350bg7BOELuRvy/75oi6gDnbsLIrWQAvVymztmZ8D7/qU45W4+GLiVPq3yXBM3QmSWtXbHnGuXA==
+X-Received: by 2002:a1c:6a14:0:b0:3e1:f8af:8772 with SMTP id f20-20020a1c6a14000000b003e1f8af8772mr322031wmc.9.1681344153925;
+        Wed, 12 Apr 2023 17:02:33 -0700 (PDT)
+Received: from gmail.com (fwdproxy-cln-031.fbsv.net. [2a03:2880:31ff:1f::face:b00c])
+        by smtp.gmail.com with ESMTPSA id g5-20020a7bc4c5000000b003ee10fb56ebsm323679wmk.9.2023.04.12.17.02.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Apr 2023 07:28:41 -0700 (PDT)
-Date:   Wed, 12 Apr 2023 10:28:41 -0400
-From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To:     Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
-Cc:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        David Ahern <dsahern@kernel.org>,
+        Wed, 12 Apr 2023 17:02:33 -0700 (PDT)
+Date:   Wed, 12 Apr 2023 17:02:31 -0700
+From:   Breno Leitao <leitao@debian.org>
+To:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc:     Jens Axboe <axboe@kernel.dk>, David Ahern <dsahern@kernel.org>,
         Willem de Bruijn <willemb@google.com>,
         io-uring@vger.kernel.org, netdev@vger.kernel.org, kuba@kernel.org,
         asml.silence@gmail.com, leit@fb.com, edumazet@google.com,
         pabeni@redhat.com, davem@davemloft.net, dccp@vger.kernel.org,
         mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
         matthieu.baerts@tessares.net, marcelo.leitner@gmail.com
-Message-ID: <6436c01979c9b_163b6294b4@willemb.c.googlers.com.notmuch>
-In-Reply-To: <ZDa32u9RNI4NQ7Ko@gmail.com>
-References: <e576f6fe-d1f3-93cd-cb94-c0ae115299d8@kernel.org>
- <ZDVLyi1PahE0sfci@gmail.com>
- <75e3c434-eb8b-66e5-5768-ca0f906979a1@kernel.org>
+Subject: Re: [PATCH 0/5] add initial io_uring_cmd support for sockets
+Message-ID: <ZDdGl/JGDoRDL8ja@gmail.com>
+References: <75e3c434-eb8b-66e5-5768-ca0f906979a1@kernel.org>
  <67831406-8d2f-feff-f56b-d0f002a95d96@kernel.dk>
  <643573df81e20_11117c2942@willemb.c.googlers.com.notmuch>
  <036c80e5-4844-5c84-304c-7e553fe17a9b@kernel.dk>
@@ -73,82 +58,102 @@ References: <e576f6fe-d1f3-93cd-cb94-c0ae115299d8@kernel.org>
  <64357bb97fb19_114b22294c4@willemb.c.googlers.com.notmuch>
  <20cb4641-c765-e5ef-41cb-252be7721ce5@kernel.dk>
  <ZDa32u9RNI4NQ7Ko@gmail.com>
-Subject: Re: [PATCH 0/5] add initial io_uring_cmd support for sockets
-Mime-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+ <6436c01979c9b_163b6294b4@willemb.c.googlers.com.notmuch>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6436c01979c9b_163b6294b4@willemb.c.googlers.com.notmuch>
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,
+        FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+        autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Breno Leitao wrote:
-> On Tue, Apr 11, 2023 at 09:28:29AM -0600, Jens Axboe wrote:
-> > On 4/11/23 9:24?AM, Willem de Bruijn wrote:
-> > > Jens Axboe wrote:
-> > >> On 4/11/23 9:00?AM, Willem de Bruijn wrote:
-> > >> But that doesn't work, because sock->ops->ioctl() assumes the arg is
-> > >> memory in userspace. Or do you mean change all of the sock->ops->ioctl()
-> > >> to pass in on-stack memory (or similar) and have it work with a kernel
-> > >> address?
+On Wed, Apr 12, 2023 at 10:28:41AM -0400, Willem de Bruijn wrote:
+> Breno Leitao wrote:
+> > On Tue, Apr 11, 2023 at 09:28:29AM -0600, Jens Axboe wrote:
+> > > On 4/11/23 9:24?AM, Willem de Bruijn wrote:
+> > > > Jens Axboe wrote:
+> > > >> On 4/11/23 9:00?AM, Willem de Bruijn wrote:
+> > > >> But that doesn't work, because sock->ops->ioctl() assumes the arg is
+> > > >> memory in userspace. Or do you mean change all of the sock->ops->ioctl()
+> > > >> to pass in on-stack memory (or similar) and have it work with a kernel
+> > > >> address?
+> > > > 
+> > > > That was what I suggested indeed.
+> > > > 
+> > > > It's about as much code change as this patch series. But it avoids
+> > > > the code duplication.
 > > > 
-> > > That was what I suggested indeed.
-> > > 
-> > > It's about as much code change as this patch series. But it avoids
-> > > the code duplication.
+> > > Breno, want to tackle that as a prep patch first? Should make the
+> > > functional changes afterwards much more straightforward, and will allow
+> > > support for anything really.
 > > 
-> > Breno, want to tackle that as a prep patch first? Should make the
-> > functional changes afterwards much more straightforward, and will allow
-> > support for anything really.
+> > Absolutely. I just want to make sure that I got the proper approach that
+> > we agreed here.
+> > 
+> > Let me explain what I understood taking TCP as an example:
+> > 
+> > 1) Rename tcp_ioctl() to something as _tcp_ioctl() where the 'arg'
+> > argument is now just a kernel memory (located in the stack frame from the
+> > callee).
+> > 
+> > 2) Recreate "tcp_ioctl()" that will basically allocate a 'arg' in the
+> > stack and call _tcp_ioctl() passing that 'arg' argument. At the bottom of
+> > this (tcp_ioctl() function) function, call `put_user(in_kernel_arg, userspace_arg)
+> > 
+> > 3) Repeat it for the 20 protocols that implement ioctl:
+> > 
+> > 	ag  "struct proto .* = {" -A 20 net/ | grep \.ioctl
+> > 	net/dccp/ipv6.c 	.ioctl	= dccp_ioctl,
+> > 	net/dccp/ipv4.c		.ioctl	= dccp_ioctl,
+> > 	net/ieee802154/socket.c .ioctl	= dgram_ioctl,
+> > 	net/ipv4/udplite.c	.ioctl	= udp_ioctl,
+> > 	net/ipv4/raw.c 		.ioctl	= raw_ioctl,
+> > 	net/ipv4/udp.c		.ioctl	= udp_ioctl,
+> > 	net/ipv4/tcp_ipv4.c 	.ioctl	= tcp_ioctl,
+> > 	net/ipv6/raw.c		.ioctl	= rawv6_ioctl,
+> > 	net/ipv6/tcp_ipv6.c	.ioctl	= tcp_ioctl,
+> > 	net/ipv6/udp.c	 	.ioctl	= udp_ioctl,
+> > 	net/ipv6/udplite.c	.ioctl	= udp_ioctl,
+> > 	net/l2tp/l2tp_ip6.c	.ioctl	= l2tp_ioctl,
+> > 	net/l2tp/l2tp_ip.c	.ioctl	= l2tp_ioctl,
+> > 	net/phonet/datagram.:	.ioctl	= pn_ioctl,
+> > 	net/phonet/pep.c	.ioctl	= pep_ioctl,
+> > 	net/rds/af_rds.c	.ioctl	=	rds_ioctl,
+> > 	net/sctp/socket.c	.ioctl  =	sctp_ioctl,
+> > 	net/sctp/socket.c	.ioctl	= sctp_ioctl,
+> > 	net/xdp/xsk.c		.ioctl	= sock_no_ioctl,
+> > 	net/mptcp/protocol.c	.ioctl	= mptcp_ioctl,
+> > 
+> > Am I missing something?
 > 
-> Absolutely. I just want to make sure that I got the proper approach that
-> we agreed here.
+> The suggestion is to convert all to take kernel memory and do the
+> put_cmsg in the caller of .ioctl. Rather than create a wrapper for
+> each individual instance and add a separate .iouring_cmd for each.
 > 
-> Let me explain what I understood taking TCP as an example:
-> 
-> 1) Rename tcp_ioctl() to something as _tcp_ioctl() where the 'arg'
-> argument is now just a kernel memory (located in the stack frame from the
-> callee).
-> 
-> 2) Recreate "tcp_ioctl()" that will basically allocate a 'arg' in the
-> stack and call _tcp_ioctl() passing that 'arg' argument. At the bottom of
-> this (tcp_ioctl() function) function, call `put_user(in_kernel_arg, userspace_arg)
-> 
-> 3) Repeat it for the 20 protocols that implement ioctl:
-> 
-> 	ag  "struct proto .* = {" -A 20 net/ | grep \.ioctl
-> 	net/dccp/ipv6.c 	.ioctl	= dccp_ioctl,
-> 	net/dccp/ipv4.c		.ioctl	= dccp_ioctl,
-> 	net/ieee802154/socket.c .ioctl	= dgram_ioctl,
-> 	net/ipv4/udplite.c	.ioctl	= udp_ioctl,
-> 	net/ipv4/raw.c 		.ioctl	= raw_ioctl,
-> 	net/ipv4/udp.c		.ioctl	= udp_ioctl,
-> 	net/ipv4/tcp_ipv4.c 	.ioctl	= tcp_ioctl,
-> 	net/ipv6/raw.c		.ioctl	= rawv6_ioctl,
-> 	net/ipv6/tcp_ipv6.c	.ioctl	= tcp_ioctl,
-> 	net/ipv6/udp.c	 	.ioctl	= udp_ioctl,
-> 	net/ipv6/udplite.c	.ioctl	= udp_ioctl,
-> 	net/l2tp/l2tp_ip6.c	.ioctl	= l2tp_ioctl,
-> 	net/l2tp/l2tp_ip.c	.ioctl	= l2tp_ioctl,
-> 	net/phonet/datagram.:	.ioctl	= pn_ioctl,
-> 	net/phonet/pep.c	.ioctl	= pep_ioctl,
-> 	net/rds/af_rds.c	.ioctl	=	rds_ioctl,
-> 	net/sctp/socket.c	.ioctl  =	sctp_ioctl,
-> 	net/sctp/socket.c	.ioctl	= sctp_ioctl,
-> 	net/xdp/xsk.c		.ioctl	= sock_no_ioctl,
-> 	net/mptcp/protocol.c	.ioctl	= mptcp_ioctl,
-> 
-> Am I missing something?
+> "change all of the sock->ops->ioctl() to pass in on-stack memory
+> (or similar) and have it work with a kernel address"
 
-The suggestion is to convert all to take kernel memory and do the
-put_cmsg in the caller of .ioctl. Rather than create a wrapper for
-each individual instance and add a separate .iouring_cmd for each.
+is it possible to do it for cases where we don't know what is the size
+of the buffer?
 
-"change all of the sock->ops->ioctl() to pass in on-stack memory
-(or similar) and have it work with a kernel address"
+For instance the raw_ioctl()/rawv6_ioctl() case. The "arg" argument is
+used in different ways (one for input and one for output):
+
+  1) If cmd == SIOCOUTQ or SIOCINQ, then the return value will be
+  returned to userspace:
+  	put_user(amount, (int __user *)arg)
+
+  2) For default cmd, ipmr_ioctl() is called, which reads from the `arg`
+  parameter:
+	copy_from_user(&vr, arg, sizeof(vr)
+
+How to handle these contradictory behaviour ahead of time (at callee
+time, where the buffers will be prepared)?
+
+Thank you!

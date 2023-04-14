@@ -2,165 +2,119 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 40A2C6E2501
-	for <lists+dccp@lfdr.de>; Fri, 14 Apr 2023 16:01:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E7706E2646
+	for <lists+dccp@lfdr.de>; Fri, 14 Apr 2023 16:57:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229668AbjDNOBf (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 14 Apr 2023 10:01:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50120 "EHLO
+        id S229864AbjDNO5c (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 14 Apr 2023 10:57:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50680 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230032AbjDNOBf (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 14 Apr 2023 10:01:35 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B4F38B470
-        for <dccp@vger.kernel.org>; Fri, 14 Apr 2023 07:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1681480817;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=27YyBi9hssfCHBO7/PKix6vU7A+oXZmvyq6RpUloX40=;
-        b=NJRYVgNYUl0Biswn/+qXMnD3QbbQLgoFpsDrEFUsViNptokEcdouGE0VuFA7P6lr93hWfX
-        kKu5C9osY4SsAWphjsu/5tADO4XvKmWH9Vcj/AKknwyYHXRoYeIIjNtgVjEkPn5NGsMO5o
-        JFbJ27rQ0KoqYnR+nFT/V1fbEYUaHm0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-630-BcRvrHRHMtmqZL31AExtOw-1; Fri, 14 Apr 2023 10:00:14 -0400
-X-MC-Unique: BcRvrHRHMtmqZL31AExtOw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3F8F41C0691B;
-        Fri, 14 Apr 2023 14:00:13 +0000 (UTC)
-Received: from ovpn-8-21.pek2.redhat.com (ovpn-8-21.pek2.redhat.com [10.72.8.21])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A3E6404DC40;
-        Fri, 14 Apr 2023 14:00:02 +0000 (UTC)
-Date:   Fri, 14 Apr 2023 21:59:57 +0800
-From:   Ming Lei <ming.lei@redhat.com>
-To:     Pavel Begunkov <asml.silence@gmail.com>
+        with ESMTP id S229553AbjDNO5b (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 14 Apr 2023 10:57:31 -0400
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD8441710;
+        Fri, 14 Apr 2023 07:57:29 -0700 (PDT)
+Received: by mail-ej1-x62c.google.com with SMTP id xd13so12340712ejb.4;
+        Fri, 14 Apr 2023 07:57:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1681484248; x=1684076248;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DM2mW2Rbzq80i13ESUhdjRuNie03MRT+cBj0ZCjad9Q=;
+        b=O1urDIL0iVK8fIqb6jvRx//AnvMSlvAViqigw8GkIFRQwMcEzKFOmoRQ3ds/rp0tPQ
+         t4BOdSyq1LGN70nqTn9T9piWqIBpvdoF/OCBhokMB7nudO/ZkyJQhV56FKGGn/OVvM60
+         XtQgISR7pYEAjBh/GD9vy5vUjHOtGZwmxvVp2yfyoFZDoaTFHVMAfRepSpoSPpdjOyT+
+         xVTBXPAxTZsDg1oMfLwruQs6X50IjE+v5ivPxZ2kJ/Wuqu3JR2+KuLrxbdB3WpP61gWY
+         zMAnjrFpnTXYEtzPg+udbe+yMY/Z3gOmtg3gdpeNE2ua/t6fluoBV2tdJ5+CGc2xEFiU
+         pvxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681484248; x=1684076248;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DM2mW2Rbzq80i13ESUhdjRuNie03MRT+cBj0ZCjad9Q=;
+        b=HgRof2d4GG8AN0qdu4MaqNoi8K4US6DwM/YBIMSmV/1QHvuusg3I3TNN/9L7Oj7at1
+         D36z2mp1pGLPSlTkhowe7rDaSCOnUlweTKx8nPMQplPcPncvY6VUeDXSRRtxqxU2fuP2
+         PFJMGBFI0lU1g8P0pBHtMkfxTknuSquT2baNVc5VKHOSsvkjC+oNQ0+HN4UD2nATFOKu
+         OtQ448C7mK1NDAY8Db/R73FHJkeR0hYoLFCCzBVrr6sH5Vhi0TUBcdIBlROmy2wlQNmU
+         S8UVvcLZ+PiQhln3+4/1lPsmbQd5oaApDCOVKqehjc3hH/w69yz9DAB7Uxo+h9q2Fw1h
+         0H2g==
+X-Gm-Message-State: AAQBX9cwqPKbgan0Z8e3m4uGZ7ClD9QeugWkHsuFOLPg5ZhmH+HSghzN
+        ELVQYDlnIEw2q0blBYPFRYg=
+X-Google-Smtp-Source: AKy350bHkOFUpBb3YsaKjCJ11CfDiHR+Lq4nnsJ+NGuM2lOCiYs75yLUnU3A5RILbGNYokF5dMCcIw==
+X-Received: by 2002:a17:907:25c9:b0:94e:ef09:544c with SMTP id ae9-20020a17090725c900b0094eef09544cmr1860484ejc.10.1681484247950;
+        Fri, 14 Apr 2023 07:57:27 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:310::26ef? ([2620:10d:c092:600::2:b2ce])
+        by smtp.gmail.com with ESMTPSA id gj19-20020a170906e11300b0094a83007249sm2602686ejb.16.2023.04.14.07.57.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Apr 2023 07:57:27 -0700 (PDT)
+Message-ID: <e152d8f0-6bf9-f658-f484-f7a18055a664@gmail.com>
+Date:   Fri, 14 Apr 2023 15:56:47 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH RFC] io_uring: Pass whole sqe to commands
+Content-Language: en-US
+To:     Ming Lei <ming.lei@redhat.com>
 Cc:     Breno Leitao <leitao@debian.org>, axboe@kernel.dk,
         davem@davemloft.net, dccp@vger.kernel.org, dsahern@kernel.org,
         edumazet@google.com, io-uring@vger.kernel.org, kuba@kernel.org,
         leit@fb.com, linux-kernel@vger.kernel.org,
         marcelo.leitner@gmail.com, matthieu.baerts@tessares.net,
         mptcp@lists.linux.dev, netdev@vger.kernel.org, pabeni@redhat.com,
-        willemdebruijn.kernel@gmail.com, ming.lei@redhat.com
-Subject: Re: [PATCH RFC] io_uring: Pass whole sqe to commands
-Message-ID: <ZDlcXd4K+a2iGbnv@ovpn-8-21.pek2.redhat.com>
+        willemdebruijn.kernel@gmail.com
 References: <20230406144330.1932798-1-leitao@debian.org>
  <20230406165705.3161734-1-leitao@debian.org>
- <ZDdvcSKLa6ZEAhRW@ovpn-8-18.pek2.redhat.com>
- <ZDgyPL6UrX/MaBR4@gmail.com>
+ <ZDdvcSKLa6ZEAhRW@ovpn-8-18.pek2.redhat.com> <ZDgyPL6UrX/MaBR4@gmail.com>
  <ZDi2pP4jgHwCvJRm@ovpn-8-21.pek2.redhat.com>
  <44420e92-f629-f56e-f930-475be6f6a83a@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <44420e92-f629-f56e-f930-475be6f6a83a@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
-        autolearn=unavailable autolearn_force=no version=3.4.6
+ <ZDlcXd4K+a2iGbnv@ovpn-8-21.pek2.redhat.com>
+From:   Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <ZDlcXd4K+a2iGbnv@ovpn-8-21.pek2.redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Fri, Apr 14, 2023 at 02:12:10PM +0100, Pavel Begunkov wrote:
-> On 4/14/23 03:12, Ming Lei wrote:
-> > On Thu, Apr 13, 2023 at 09:47:56AM -0700, Breno Leitao wrote:
-> > > Hello Ming,
-> > > 
-> > > On Thu, Apr 13, 2023 at 10:56:49AM +0800, Ming Lei wrote:
-> > > > On Thu, Apr 06, 2023 at 09:57:05AM -0700, Breno Leitao wrote:
-> > > > > Currently uring CMD operation relies on having large SQEs, but future
-> > > > > operations might want to use normal SQE.
-> > > > > 
-> > > > > The io_uring_cmd currently only saves the payload (cmd) part of the SQE,
-> > > > > but, for commands that use normal SQE size, it might be necessary to
-> > > > > access the initial SQE fields outside of the payload/cmd block.  So,
-> > > > > saves the whole SQE other than just the pdu.
-> > > > > 
-> > > > > This changes slighlty how the io_uring_cmd works, since the cmd
-> > > > > structures and callbacks are not opaque to io_uring anymore. I.e, the
-> > > > > callbacks can look at the SQE entries, not only, in the cmd structure.
-> > > > > 
-> > > > > The main advantage is that we don't need to create custom structures for
-> > > > > simple commands.
-> > > > > 
-> > > > > Suggested-by: Pavel Begunkov <asml.silence@gmail.com>
-> > > > > Signed-off-by: Breno Leitao <leitao@debian.org>
-> > > > > ---
-> > > > 
-> > > > ...
-> > > > 
-> > > > > diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-> > > > > index 2e4c483075d3..9648134ccae1 100644
-> > > > > --- a/io_uring/uring_cmd.c
-> > > > > +++ b/io_uring/uring_cmd.c
-> > > > > @@ -63,14 +63,15 @@ EXPORT_SYMBOL_GPL(io_uring_cmd_done);
-> > > > >   int io_uring_cmd_prep_async(struct io_kiocb *req)
-> > > > >   {
-> > > > >   	struct io_uring_cmd *ioucmd = io_kiocb_to_cmd(req, struct io_uring_cmd);
-> > > > > -	size_t cmd_size;
-> > > > > +	size_t size = sizeof(struct io_uring_sqe);
-> > > > >   	BUILD_BUG_ON(uring_cmd_pdu_size(0) != 16);
-> > > > >   	BUILD_BUG_ON(uring_cmd_pdu_size(1) != 80);
-> > > > > -	cmd_size = uring_cmd_pdu_size(req->ctx->flags & IORING_SETUP_SQE128);
-> > > > > +	if (req->ctx->flags & IORING_SETUP_SQE128)
-> > > > > +		size <<= 1;
-> > > > > -	memcpy(req->async_data, ioucmd->cmd, cmd_size);
-> > > > > +	memcpy(req->async_data, ioucmd->sqe, size);
-> > > > 
-> > > > The copy will make some fields of sqe become READ TWICE, and driver may see
-> > > > different sqe field value compared with the one observed in io_init_req().
-> > > 
-> > > This copy only happens if the operation goes to the async path
-> > > (calling io_uring_cmd_prep_async()).  This only happens if
-> > > f_op->uring_cmd() returns -EAGAIN.
-> > > 
-> > >            ret = file->f_op->uring_cmd(ioucmd, issue_flags);
-> > >            if (ret == -EAGAIN) {
-> > >                    if (!req_has_async_data(req)) {
-> > >                            if (io_alloc_async_data(req))
-> > >                                    return -ENOMEM;
-> > >                            io_uring_cmd_prep_async(req);
-> > >                    }
-> > >                    return -EAGAIN;
-> > >            }
-> > > 
-> > > Are you saying that after this copy, the operation is still reading from
-> > > sqe instead of req->async_data?
-> > 
-> > I meant that the 2nd read is on the sqe copy(req->aync_data), but same
-> > fields can become different between the two READs(first is done on original
-> > SQE during io_init_req(), and second is done on sqe copy in driver).
-> > 
-> > Will this kind of inconsistency cause trouble for driver? Cause READ
-> > TWICE becomes possible with this patch.
+On 4/14/23 14:59, Ming Lei wrote:
+[...]
+>>> Will this kind of inconsistency cause trouble for driver? Cause READ
+>>> TWICE becomes possible with this patch.
+>>
+>> Right it might happen, and I was keeping that in mind, but it's not
+>> specific to this patch. It won't reload core io_uring bits, and all
 > 
-> Right it might happen, and I was keeping that in mind, but it's not
-> specific to this patch. It won't reload core io_uring bits, and all
+> It depends if driver reloads core bits or not, anyway the patch exports
+> all fields and opens the window.
 
-It depends if driver reloads core bits or not, anyway the patch exports
-all fields and opens the window.
+If a driver tries to reload core bits and even worse modify io_uring
+request without proper helpers, it should be rooted out and thrown
+into a bin. In any case cmds are expected to exercise cautiousness
+while working with SQEs as they may change. I'd even argue that
+hiding it as void *cmd makes it much less obvious.
 
-> fields cmds use already have this problem.
-
-driver is supposed to load cmds field just once too, right?
-
+>> fields cmds use already have this problem.
 > 
-> Unless there is a better option, the direction we'll be moving in is
-> adding a preparation step that should read and stash parts of SQE
-> it cares about, which should also make full SQE copy not
-> needed / optional.
+> driver is supposed to load cmds field just once too, right?
 
-Sounds good.
+Ideally they shouldn't, but it's fine to reload as long as
+the cmd can handle it. And it should always be READ_ONCE()
+and so.
 
+>> Unless there is a better option, the direction we'll be moving in is
+>> adding a preparation step that should read and stash parts of SQE
+>> it cares about, which should also make full SQE copy not
+>> needed / optional.
+> 
+> Sounds good.
 
-Thanks,
-Ming
-
+-- 
+Pavel Begunkov

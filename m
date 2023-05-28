@@ -2,62 +2,50 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 65DD571280D
-	for <lists+dccp@lfdr.de>; Fri, 26 May 2023 16:10:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9FAA1713B72
+	for <lists+dccp@lfdr.de>; Sun, 28 May 2023 20:06:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S243693AbjEZOKd (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 26 May 2023 10:10:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50514 "EHLO
+        id S229502AbjE1SGV (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 28 May 2023 14:06:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51436 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237413AbjEZOKc (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 26 May 2023 10:10:32 -0400
-Received: from mail-ua1-x930.google.com (mail-ua1-x930.google.com [IPv6:2607:f8b0:4864:20::930])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B4D3DF;
-        Fri, 26 May 2023 07:10:31 -0700 (PDT)
-Received: by mail-ua1-x930.google.com with SMTP id a1e0cc1a2514c-786efb5ff24so44161241.0;
-        Fri, 26 May 2023 07:10:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685110230; x=1687702230;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fG713w/n5a4Y4ViFtXQB/KYC9f0zPKWxoGiBTJxDL+k=;
-        b=m9DMWB2dnvhFdAq3/ujAYrL5BhwankhnPGSChUOWq8m3xfFLLE583TzVjx3bZgXsVS
-         kDlkULz9eDZ+xlKaLWpGgTdiOpqYohDhGGeKxmsS4WJPsMABy6VT/AyrEGa0Ts7vWZ8W
-         A8CXCpqyYuS7gJ0Ye0/5BXs7vrQrA9bmMEBcrFsWU/htHHYv1/no9yan/8P15XemaUax
-         BWdurVADFOe5XbQ6+PwCU7da2D/zhDHr055LRVAAA9vjXzvvVtzRFZqQuCBCFAfdtEV4
-         4W62mBBFz/lrUSjRLFfKJRDcvBdbIuteeK4gY5r/a0DjatF/qsVeGujZyAyCHRVQDqg+
-         rDsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685110230; x=1687702230;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fG713w/n5a4Y4ViFtXQB/KYC9f0zPKWxoGiBTJxDL+k=;
-        b=i8X5cAt6V315xbStmo9GskMgyDZVOJL8V1JG7Dvp3REc6RP23L6KTGj4SAmB3/WjSc
-         09CtISyw+tV/eHutWssvgrYe6Qu9GTkCpJRGgvkd3aQoPmq/1x8Gywvsl08jYvHbIgmP
-         t3c2b+6YiozsyT3UXlOGJppS7/gLza4QvVHBRpmmUzg7n2hYiQcGZZlh3p501BMwkFrF
-         3FlRgaaXTxE+dg7s2lDkEmZJaSbE8UaYfQ7G0g/xqBzgYil5Z7tMAMDsLi1tJxWppShG
-         Pek1zly4RNnwscq3dAtf19yBOu/ipIqvRJfVFGBQ94c59ZvKMj5c1L36bX55ZHQvcE6s
-         y0ow==
-X-Gm-Message-State: AC+VfDxLNdo8zWywY/QpaSrDtJ8YF2F3u2dby9k98CC+t6POBxlB411j
-        w+ZALPvkcRNSZICUGAItz0nrF+AZf34+r4eAQkk=
-X-Google-Smtp-Source: ACHHUZ6eVTZtnPu5x20WxcO0d18Lw5T2t9skn4lv62QG/WAk5aDS9ISiUWFT9zur/ylXW9J4eGBSPWcNqP+mXC3o1P0=
-X-Received: by 2002:a67:ffc9:0:b0:42f:18d9:a602 with SMTP id
- w9-20020a67ffc9000000b0042f18d9a602mr462435vsq.32.1685110230556; Fri, 26 May
- 2023 07:10:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230525125503.400797-1-leitao@debian.org> <CAF=yD-LHQNkgPb-R==53-2auVxkP9r=xqrz2A8oe61vkoDdWjg@mail.gmail.com>
- <a1074987-c3ce-56cd-3005-beb5a3c55ef9@kernel.org> <CAF=yD-LXcufhJBpkEcUuphFpR1TA4=QwUXw4sKFsSiEL_mwG4Q@mail.gmail.com>
- <ZHB3BNopbx+5AnIa@gmail.com>
-In-Reply-To: <ZHB3BNopbx+5AnIa@gmail.com>
-From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Date:   Fri, 26 May 2023 10:09:53 -0400
-Message-ID: <CAF=yD-LO8fZJfayJoFPO_wvMw=FLGbf_DYUcaBpKv81OEOQVUA@mail.gmail.com>
-Subject: Re: [PATCH net-next v3] net: ioctl: Use kernel memory on protocol
- ioctl callbacks
-To:     Breno Leitao <leitao@debian.org>
-Cc:     David Ahern <dsahern@kernel.org>,
+        with ESMTP id S229457AbjE1SGV (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 28 May 2023 14:06:21 -0400
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A83A8A3;
+        Sun, 28 May 2023 11:06:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1685297179; x=1716833179;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=n1G3073duu9zebJvOfP4bDW93rS2yyqVqrYzBTqEQVI=;
+  b=c8o37eg7aQNu+Uhv5Hx20n7/+23YNNaP3nbde+cTV+Bg165GWJeV2/AJ
+   YKIsZvy5wCu8aEAeSszvoQYM9cYA+xbgYkNKXU4Nb4JHYw8ylwZV9Mz6N
+   pKBKIVykgX1UAAmJmg+ps11vTl8DXeZaabf9JDN0a4ea6ubfSjCMT6obx
+   FxBY7GdBsIFcJ7ukrAjgxnKrw5r3/UWZbhWCeY9+dlYGNZnJy4g5Pwg8r
+   i+0G6gB1U+en+WMCKkOb7OTQvTkeRcIXrYjU/npyV4jFIXRWqGj/ISd0d
+   N4m9ZWcq6wfhJ1HHzh4mbpThazUyoaV8m7VtdN6Odp8kqc18eqrdWmAqE
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10724"; a="420302749"
+X-IronPort-AV: E=Sophos;i="6.00,198,1681196400"; 
+   d="scan'208";a="420302749"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 May 2023 11:06:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10724"; a="738897686"
+X-IronPort-AV: E=Sophos;i="6.00,198,1681196400"; 
+   d="scan'208";a="738897686"
+Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
+  by orsmga001.jf.intel.com with ESMTP; 28 May 2023 11:06:13 -0700
+Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
+        (envelope-from <lkp@intel.com>)
+        id 1q3KmS-000KhW-1C;
+        Sun, 28 May 2023 18:06:12 +0000
+Date:   Mon, 29 May 2023 02:05:23 +0800
+From:   kernel test robot <lkp@intel.com>
+To:     Breno Leitao <leitao@debian.org>, dsahern@kernel.org,
+        willemdebruijn.kernel@gmail.com,
         Remi Denis-Courmont <courmisch@gmail.com>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@google.com>,
@@ -69,75 +57,90 @@ Cc:     David Ahern <dsahern@kernel.org>,
         Matthieu Baerts <matthieu.baerts@tessares.net>,
         Mat Martineau <martineau@kernel.org>,
         Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-        Xin Long <lucien.xin@gmail.com>, leit@fb.com, axboe@kernel.dk,
+        Xin Long <lucien.xin@gmail.com>
+Cc:     llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+        netdev@vger.kernel.org, leit@fb.com, axboe@kernel.dk,
         asml.silence@gmail.com, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, dccp@vger.kernel.org,
-        linux-wpan@vger.kernel.org, mptcp@lists.linux.dev,
-        linux-sctp@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        dccp@vger.kernel.org, linux-wpan@vger.kernel.org,
+        mptcp@lists.linux.dev, linux-sctp@vger.kernel.org
+Subject: Re: [PATCH net-next v3] net: ioctl: Use kernel memory on protocol
+ ioctl callbacks
+Message-ID: <202305290107.hs8sbfYc-lkp@intel.com>
+References: <20230525125503.400797-1-leitao@debian.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230525125503.400797-1-leitao@debian.org>
+X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On Fri, May 26, 2023 at 5:08=E2=80=AFAM Breno Leitao <leitao@debian.org> wr=
-ote:
->
-> On Thu, May 25, 2023 at 12:06:00PM -0400, Willem de Bruijn wrote:
-> > On Thu, May 25, 2023 at 11:34=E2=80=AFAM David Ahern <dsahern@kernel.or=
-g> wrote:
-> > > On 5/25/23 9:05 AM, Willem de Bruijn wrote:
-> > > > I don't understand what this buys us vs testing the sk_family,
-> > > > sk_protocol and cmd here.
-> > >
-> > > To keep protocol specific code out of core files is the reason I
-> > > suggested it.
-> >
-> > I guess you object to demultiplexing based on per-family
-> > protocol and ioctl cmd constants directly in this file?
-> >
-> > That only requires including the smaller uapi headers.
-> >
-> > But now net/core/sock.h now still has to add includes
-> > linux/mroute.h, linux/mroute6.h and net/phonet/phonet.h.
-> >
-> > Aside on phonet_is_sk, if we're keeping this: this should be
-> > sk_is_phonet? Analogous to sk_is_tcp and such. And, it should suffice
-> > to  demultiplex based on the protocol family, without testing the
-> > type or protocol. The family is defined in protocol-independent header
-> > linux/socket.h. The differences between
-> > PN_PROTO_PHONET and PN_PROTO_PIPE should be handled inside the family
-> > code. So I think it is cleaner just to open-coded as `if
-> > (sk->sk_family =3D=3D PF_PHONET)`
->
-> Should we do the same for ipmr as well? Currently I am checking it
-> using:
->
->         return sk->sk_type =3D=3D SOCK_RAW && inet_sk(sk)->inet_num =3D=
-=3D IPPROTO_ICMPV6;
->
-> This is what ip{6}mr functions[1] are use to check if `sk` is using ip{6}=
-mr.
-> If we just use `sk->family`, then I suppose that `sk_is_ip6mr` would be
-> something as coded below. Is this correct?
->
->         static inline int sk_is_ip6mr(struct sock *sk)
->         {
->                 return sk->sk_family =3D=3D PF_INET6;
->         }
+Hi Breno,
 
-Actually, for multicast routing, the protocol check is required.
+kernel test robot noticed the following build errors:
 
-> Anyway, should we continue with the current (V3) approach, where we keep
-> the protocol code out of core files, or, should I come back to the
-> previous (V2) approach, where the protocol checks is coded directly in
-> the core file?
+[auto build test ERROR on net-next/main]
 
-David expressed preference for the current approach. So let's stay with tha=
-t.
+url:    https://github.com/intel-lab-lkp/linux/commits/Breno-Leitao/net-ioctl-Use-kernel-memory-on-protocol-ioctl-callbacks/20230525-205741
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/20230525125503.400797-1-leitao%40debian.org
+patch subject: [PATCH net-next v3] net: ioctl: Use kernel memory on protocol ioctl callbacks
+config: i386-randconfig-i061-20230525 (https://download.01.org/0day-ci/archive/20230529/202305290107.hs8sbfYc-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build):
+        mkdir -p ~/bin
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/dbeb44f8503d11da0219fc6ef8a56c28cfde1511
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Breno-Leitao/net-ioctl-Use-kernel-memory-on-protocol-ioctl-callbacks/20230525-205741
+        git checkout dbeb44f8503d11da0219fc6ef8a56c28cfde1511
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=i386 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=i386 SHELL=/bin/bash net/phonet/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202305290107.hs8sbfYc-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> net/phonet/af_phonet.c:43:5: error: redefinition of 'phonet_sk_ioctl'
+   int phonet_sk_ioctl(struct sock *sk, unsigned int cmd, void __user *arg)
+       ^
+   include/net/phonet/phonet.h:125:19: note: previous definition is here
+   static inline int phonet_sk_ioctl(struct sock *sk, unsigned int cmd, void __user *arg)
+                     ^
+   1 error generated.
+
+
+vim +/phonet_sk_ioctl +43 net/phonet/af_phonet.c
+
+    42	
+  > 43	int phonet_sk_ioctl(struct sock *sk, unsigned int cmd, void __user *arg)
+    44	{
+    45		int karg;
+    46	
+    47		switch (cmd) {
+    48		case SIOCPNADDRESOURCE:
+    49		case SIOCPNDELRESOURCE:
+    50			if (get_user(karg, (int __user *)arg))
+    51				return -EFAULT;
+    52	
+    53			return sk->sk_prot->ioctl(sk, cmd, &karg);
+    54		}
+    55		/* A positive return value means that the ioctl was not processed */
+    56		return 1;
+    57	}
+    58	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

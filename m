@@ -2,151 +2,118 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 88BD572A3F6
-	for <lists+dccp@lfdr.de>; Fri,  9 Jun 2023 22:00:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AF57A72FBF9
+	for <lists+dccp@lfdr.de>; Wed, 14 Jun 2023 13:10:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230015AbjFIUAp (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 9 Jun 2023 16:00:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52436 "EHLO
+        id S236205AbjFNLKY (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 14 Jun 2023 07:10:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34630 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229831AbjFIUAm (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 9 Jun 2023 16:00:42 -0400
-Received: from smtp-fw-52004.amazon.com (smtp-fw-52004.amazon.com [52.119.213.154])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2B6135AA;
-        Fri,  9 Jun 2023 13:00:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1686340840; x=1717876840;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=AwzwnMbVO3rl3y00p/gpeO98vFDZVAnUq22KZ6hErmQ=;
-  b=jyn13C1ZQ3xxp3pqtqBze7Ha+LvMkFcYL/Za6NNJBFmvXCy1xPwqo9K+
-   gY0qt6pcaOhIOCIe4XOBQL16p423n0BklEsh6YUwQCeqqzaz6drhML7++
-   qam99DOMOn8HLraLXFAq6zOzcfXFasIb2puOviIs01Sc0QhxGM0fNjMGQ
-   k=;
-X-IronPort-AV: E=Sophos;i="6.00,230,1681171200"; 
-   d="scan'208";a="136187882"
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO email-inbound-relay-iad-1e-m6i4x-b538c141.us-east-1.amazon.com) ([10.43.8.2])
-  by smtp-border-fw-52004.iad7.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jun 2023 20:00:37 +0000
-Received: from EX19MTAUWB001.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
-        by email-inbound-relay-iad-1e-m6i4x-b538c141.us-east-1.amazon.com (Postfix) with ESMTPS id 84D72A11E1;
-        Fri,  9 Jun 2023 20:00:28 +0000 (UTC)
-Received: from EX19D004ANA001.ant.amazon.com (10.37.240.138) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Fri, 9 Jun 2023 20:00:27 +0000
-Received: from 88665a182662.ant.amazon.com (10.106.101.20) by
- EX19D004ANA001.ant.amazon.com (10.37.240.138) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.26;
- Fri, 9 Jun 2023 20:00:21 +0000
-From:   Kuniyuki Iwashima <kuniyu@amazon.com>
-To:     <leitao@debian.org>
-CC:     <alex.aring@gmail.com>, <andrea.righi@canonical.com>,
-        <asml.silence@gmail.com>, <ast@kernel.org>, <axboe@kernel.dk>,
-        <courmisch@gmail.com>, <davem@davemloft.net>,
-        <dccp@vger.kernel.org>, <dsahern@kernel.org>,
-        <edumazet@google.com>, <hbh25y@gmail.com>,
-        <joannelkoong@gmail.com>, <kernelxing@tencent.com>,
-        <kuba@kernel.org>, <kuniyu@amazon.com>, <leit@fb.com>,
-        <linux-kernel@vger.kernel.org>, <linux-sctp@vger.kernel.org>,
-        <linux-wpan@vger.kernel.org>, <lucien.xin@gmail.com>,
-        <marcelo.leitner@gmail.com>, <martin.lau@kernel.org>,
-        <martineau@kernel.org>, <matthieu.baerts@tessares.net>,
-        <miquel.raynal@bootlin.com>, <mptcp@lists.linux.dev>,
-        <netdev@vger.kernel.org>, <pabeni@redhat.com>,
-        <stefan@datenfreihafen.org>, <willemb@google.com>,
-        <willemdebruijn.kernel@gmail.com>, <wojciech.drewek@intel.com>
-Subject: Re: [PATCH net-next v7] net: ioctl: Use kernel memory on protocol ioctl callbacks
-Date:   Fri, 9 Jun 2023 13:00:10 -0700
-Message-ID: <20230609200010.27991-1-kuniyu@amazon.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230609152800.830401-1-leitao@debian.org>
-References: <20230609152800.830401-1-leitao@debian.org>
+        with ESMTP id S243366AbjFNLKU (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 14 Jun 2023 07:10:20 -0400
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8580F1BF6;
+        Wed, 14 Jun 2023 04:10:15 -0700 (PDT)
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-3f8d0e814dfso4311455e9.3;
+        Wed, 14 Jun 2023 04:10:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686741013; x=1689333013;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uaBKkQp1n+OMyFkJ4TccLXFe9/y5NjGE3wk3E7F2JvA=;
+        b=aEQGBhuOhMcvepCZIHegFR8Z3BhLUEvvbWEn58YGVzQpFalk3Z1VE2mnjFNyoadmYo
+         8vKcEtvcq4FyB8fhgwcUjGkHt9P3Vv0txXRkH4Arv26GcZaanWDsaz080KjinfxNdYwz
+         YV2Z9O7moHXbRVMb95XyOtCL3QM923J3kimARa5/6rd0+B/vZDUjnBSDdYxZgQPZdfs0
+         zGReWQHNmey1/c3G414HeOUQsIGSL6RBptQ62mfbsOlWUwfoEQusDacy8JpKHIsH1sjL
+         7ie1QgbARdo5SdHxKIt4v+EAT0LQmcJPo/Zybev+B+TS3FbNN/6fN6bdATYEVEb469YV
+         l4cg==
+X-Gm-Message-State: AC+VfDwH+ydwPNtPwbR1y1hzkYIW+hLlMVYt45JbHSG3L6bTvEeKjgow
+        MLDm/wpLmVN7N4xiQZtTcHAc2h5kp15bpQ==
+X-Google-Smtp-Source: ACHHUZ79Tg78hSeMYf8i80+UZt8j9D/RlqBQsLBMUfXLapLy25sgMHC6tE+7wSGFK8RGyoW5cYNMeQ==
+X-Received: by 2002:a05:600c:257:b0:3f8:dac6:58ee with SMTP id 23-20020a05600c025700b003f8dac658eemr645823wmj.5.1686741013367;
+        Wed, 14 Jun 2023 04:10:13 -0700 (PDT)
+Received: from localhost (fwdproxy-cln-007.fbsv.net. [2a03:2880:31ff:7::face:b00c])
+        by smtp.gmail.com with ESMTPSA id u26-20020a05600c211a00b003f42314832fsm17115663wml.18.2023.06.14.04.10.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Jun 2023 04:10:12 -0700 (PDT)
+From:   Breno Leitao <leitao@debian.org>
+To:     io-uring@vger.kernel.org, axboe@kernel.dk, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Cc:     leit@fb.com, asml.silence@gmail.com, dsahern@kernel.org,
+        matthieu.baerts@tessares.net, martineau@kernel.org,
+        marcelo.leitner@gmail.com, lucien.xin@gmail.com,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dccp@vger.kernel.org, mptcp@lists.linux.dev,
+        linux-sctp@vger.kernel.org, ast@kernel.org, kuniyu@amazon.com,
+        martin.lau@kernel.org
+Subject: [RFC PATCH v2 0/4] add initial io_uring_cmd support for sockets
+Date:   Wed, 14 Jun 2023 04:07:53 -0700
+Message-Id: <20230614110757.3689731-1-leitao@debian.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.106.101.20]
-X-ClientProxiedBy: EX19D045UWC001.ant.amazon.com (10.13.139.223) To
- EX19D004ANA001.ant.amazon.com (10.37.240.138)
-X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR
-        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,
+        FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-From: Breno Leitao <leitao@debian.org>
-Date: Fri,  9 Jun 2023 08:27:42 -0700
-> Most of the ioctls to net protocols operates directly on userspace
-> argument (arg). Usually doing get_user()/put_user() directly in the
-> ioctl callback.  This is not flexible, because it is hard to reuse these
-> functions without passing userspace buffers.
-> 
-> Change the "struct proto" ioctls to avoid touching userspace memory and
-> operate on kernel buffers, i.e., all protocol's ioctl callbacks is
-> adapted to operate on a kernel memory other than on userspace (so, no
-> more {put,get}_user() and friends being called in the ioctl callback).
-> 
-> This changes the "struct proto" ioctl format in the following way:
-> 
->     int                     (*ioctl)(struct sock *sk, int cmd,
-> -                                        unsigned long arg);
-> +                                        int *karg);
-> 
-> (Important to say that this patch does not touch the "struct proto_ops"
-> protocols)
-> 
-> So, the "karg" argument, which is passed to the ioctl callback, is a
-> pointer allocated to kernel space memory (inside a function wrapper).
-> This buffer (karg) may contain input argument (copied from userspace in
-> a prep function) and it might return a value/buffer, which is copied
-> back to userspace if necessary. There is not one-size-fits-all format
-> (that is I am using 'may' above), but basically, there are three type of
-> ioctls:
-> 
-> 1) Do not read from userspace, returns a result to userspace
-> 2) Read an input parameter from userspace, and does not return anything
->   to userspace
-> 3) Read an input from userspace, and return a buffer to userspace.
-> 
-> The default case (1) (where no input parameter is given, and an "int" is
-> returned to userspace) encompasses more than 90% of the cases, but there
-> are two other exceptions. Here is a list of exceptions:
-> 
-> * Protocol RAW:
->    * cmd = SIOCGETVIFCNT:
->      * input and output = struct sioc_vif_req
->    * cmd = SIOCGETSGCNT
->      * input and output = struct sioc_sg_req
->    * Explanation: for the SIOCGETVIFCNT case, userspace passes the input
->      argument, which is struct sioc_vif_req. Then the callback populates
->      the struct, which is copied back to userspace.
-> 
-> * Protocol RAW6:
->    * cmd = SIOCGETMIFCNT_IN6
->      * input and output = struct sioc_mif_req6
->    * cmd = SIOCGETSGCNT_IN6
->      * input and output = struct sioc_sg_req6
-> 
-> * Protocol PHONET:
->   * cmd == SIOCPNADDRESOURCE | SIOCPNDELRESOURCE
->      * input int (4 bytes)
->   * Nothing is copied back to userspace.
-> 
-> For the exception cases, functions sock_sk_ioctl_inout() will
-> copy the userspace input, and copy it back to kernel space.
-> 
-> The wrapper that prepare the buffer and put the buffer back to user is
-> sk_ioctl(), so, instead of calling sk->sk_prot->ioctl(), the callee now
-> calls sk_ioctl(), which will handle all cases.
-> 
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> Reviewed-by: Willem de Bruijn <willemb@google.com>
-> Reviewed-by: David Ahern <dsahern@kernel.org>
+This patchset creates the initial plumbing for a io_uring command for
+sockets.
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+For now, create two uring commands for sockets, SOCKET_URING_OP_SIOCOUTQ
+and SOCKET_URING_OP_SIOCINQ, which are available in TCP, UDP and RAW
+sockets.
 
-Thanks!
+In order to test this code, I created a liburing test, which is
+currently located at [1], and I will create a pull request once we are
+good with this patchset.
+
+V1 submission was sent a while ago[2], but it required more plumbing
+that were done in different patch submissions[3][4].
+
+PS: This patchset depends on a commit[4] that is not committed to the
+tree yet (but close too, IMO).
+
+[1] Link: https://github.com/leitao/liburing/blob/master/test/socket-io-cmd.c
+[2] Link: https://lore.kernel.org/lkml/20230406144330.1932798-1-leitao@debian.org/
+[3] Link: https://lore.kernel.org/lkml/0a50fae3-1cf4-475e-48ae-25f41967842f@kernel.dk/
+[4] Link: https://lore.kernel.org/lkml/20230609152800.830401-1-leitao@debian.org/
+
+V1->V2:
+	* Rely on a generic socket->ioctl infrastructure instead of
+	  reimplementing it
+
+Breno Leitao (4):
+  net: wire up support for file_operations->uring_cmd()
+  net: add uring_cmd callback to UDP
+  net: add uring_cmd callback to TCP
+  net: add uring_cmd callback to raw "protocol"
+
+ include/linux/net.h      |  2 ++
+ include/net/raw.h        |  3 +++
+ include/net/sock.h       |  6 ++++++
+ include/net/tcp.h        |  2 ++
+ include/net/udp.h        |  2 ++
+ include/uapi/linux/net.h |  5 +++++
+ net/core/sock.c          | 17 +++++++++++++++--
+ net/dccp/ipv4.c          |  1 +
+ net/ipv4/af_inet.c       |  3 +++
+ net/ipv4/raw.c           | 23 +++++++++++++++++++++++
+ net/ipv4/tcp.c           | 21 +++++++++++++++++++++
+ net/ipv4/tcp_ipv4.c      |  1 +
+ net/ipv4/udp.c           | 22 ++++++++++++++++++++++
+ net/l2tp/l2tp_ip.c       |  1 +
+ net/mptcp/protocol.c     |  1 +
+ net/sctp/protocol.c      |  1 +
+ net/socket.c             | 13 +++++++++++++
+ 17 files changed, 122 insertions(+), 2 deletions(-)
+
+-- 
+2.34.1
+

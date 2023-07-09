@@ -2,98 +2,75 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E6BE5744F68
-	for <lists+dccp@lfdr.de>; Sun,  2 Jul 2023 19:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 797D574C124
+	for <lists+dccp@lfdr.de>; Sun,  9 Jul 2023 07:45:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229701AbjGBRz0 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sun, 2 Jul 2023 13:55:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44384 "EHLO
+        id S231617AbjGIFpn (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sun, 9 Jul 2023 01:45:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52698 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229679AbjGBRz0 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sun, 2 Jul 2023 13:55:26 -0400
-Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com [IPv6:2607:f8b0:4864:20::b29])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A1808E5E;
-        Sun,  2 Jul 2023 10:55:24 -0700 (PDT)
-Received: by mail-yb1-xb29.google.com with SMTP id 3f1490d57ef6-c13cb2cb428so622377276.0;
-        Sun, 02 Jul 2023 10:55:24 -0700 (PDT)
+        with ESMTP id S232523AbjGIFpj (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sun, 9 Jul 2023 01:45:39 -0400
+Received: from mail-ua1-x92c.google.com (mail-ua1-x92c.google.com [IPv6:2607:f8b0:4864:20::92c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94C52E48
+        for <dccp@vger.kernel.org>; Sat,  8 Jul 2023 22:45:38 -0700 (PDT)
+Received: by mail-ua1-x92c.google.com with SMTP id a1e0cc1a2514c-78f554d4949so1046008241.3
+        for <dccp@vger.kernel.org>; Sat, 08 Jul 2023 22:45:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688320524; x=1690912524;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=B/346nUIZErMaap4Xzifysw7agxmNBKblpAJllVen+8=;
-        b=HS1Xpu8RutGjzNf2cNefIvO40PuyEyyWN1lXpuUm3Zm6tYXGDXwbDrBzDuJeX7KOHr
-         q1UGGgd94SVTRefQw+1rgl1gQ50uEoBHL2OdSUILUjvF+1ATH9gvheGUN++hFOwLNLid
-         1XMjRZLU+9Ge2en4fJbD50bjnQdqOwyoXZfvhIPbUVY/sq6Vm6BAvUYZPRqmTRzyIG2n
-         JWXOYS2flIDtpE0mu19bw1MyMQp5M6uow+iO1HWzOXqc6Z90+aO2nBs6Bf+FGR5IBS25
-         laBmv/H9uClBFT1isqMjJFlPY+WcanwzxZg1N8ZxZIN6sqfmOEIBN1yT1YF0buNY5Ya/
-         4xig==
+        d=gmail.com; s=20221208; t=1688881537; x=1691473537;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=b4kWzn6pxkecn7JMiXg/VymW/f2W9szhFxBJtG2FdMw=;
+        b=pDt9bsyjKi1uSsC43A4SS5MjXoABZdsdUQSTDi6Av/72kHEPETZmBnLIOSbO4tVdZ3
+         cIxqXDDhhZiPhR0ytXQ2ocOy/xRECnbWjVEZL5iokcSMvJ6BoODF5+dsnE/VDbyibnHx
+         lSUWfVAnKK/xiy39GiUmq1Zrk7x1Rgl0yuv2rcO42YMGZABF3d04tTjNbLCLSw3QBhNN
+         Psnsz4kHb87Ykby/zsR0wyKuxZSMoV86cCxn425yVxTN9mAXqtZlnLWx81YqEw0wLGjB
+         /5zxxfFnEy47LNWJPyJHfkV85nUphCQkR8qrK/H4Eu2c9QgPcqfTsldaSQ7t2nbF0tHr
+         2NHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688320524; x=1690912524;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=B/346nUIZErMaap4Xzifysw7agxmNBKblpAJllVen+8=;
-        b=jXMzier0L+uA9uqJKLdm5TIwgOAhgiAZeSAf6CZ7pSDwvbckdaLE4/JtIdDJA73YLg
-         M1yROHqCUDtrY/d6QM/kLYRfUMkUW39C0xSaijLtk7V/6zkIUKaSdF0bTK5xqzYUOJ21
-         XdMwBdozbMKoKy2GJxu60H09R/zh+jyWANP2/OE6fKdooaiTPggHcKUuaA3MLv/3Jdhv
-         xMdFlk1Uq/jTYzBbOIYSGt4uTRVsHD+zsMsyHJ8qfP+m6a89VPqNNafySDtenOEE0PPW
-         z4AOUwPm5Bd/e0kORptURQp1sAqAxIRYTkl4iPL8RY0mSaU+4n/TgsVND+Kb7gqbxopG
-         V32Q==
-X-Gm-Message-State: ABy/qLbXBRFGQ9vXsWtEkPvP85QWn0z0iO+Pv2E4bf3Lh+XyNrNrqZim
-        170QS63XFk2rmFh6OnNwDK/RIGMcXish1f07JoJTnJKPmcUzgQ==
-X-Google-Smtp-Source: APBJJlGKLhOT4Bu7qJ+9PV6J1mFibevhHpEsj9SgVNCYM6WTAos06S2LRQMzHrHXF1fE6Av0kYh7XbCZNh0JTIxm3q8=
-X-Received: by 2002:a25:2b88:0:b0:bd6:6e3e:3af3 with SMTP id
- r130-20020a252b88000000b00bd66e3e3af3mr4285143ybr.3.1688320523798; Sun, 02
- Jul 2023 10:55:23 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1688881537; x=1691473537;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=b4kWzn6pxkecn7JMiXg/VymW/f2W9szhFxBJtG2FdMw=;
+        b=IJcMe9pjSBF73yClEiixdF4nvgI1kzMClWiAygdRkY0P9JCVep3sALihqYmWiOckCO
+         3cRcgHTzoQIuALSEMazeTW2u7YaANSNIpgfKdU84c8OhJbKy9s3V+5r4iQHKSgvDR9oi
+         c0sd9RxBE5W70myj5IehOqpJD++gz1B8nj73wQsOW9EnD65xY87ZT72/T76k84allbCf
+         PxSvwxeBEttnwenM7Pr+hlwof0m9H+uweYdFsGZ6rM5UsDhXdxZHkXQ6a0wKSGTSOU+5
+         RPWpUTEMz7I7yrkPeLvwYHmJcc4wXe+mjaWxGIe05xRglx6dSwlXuGqGkS5X9A2YMR5W
+         hpfg==
+X-Gm-Message-State: ABy/qLZaaXdqeWvVFTnnGCy/e7eWkXYmvDk4bic/Wfep7tqrRT3higcM
+        lZN6yzfpydfIOMN4YSgsn1WpUQTU10HGEbxERpE=
+X-Google-Smtp-Source: APBJJlHnG6ScjE3Yv3gPdNChLz6A0gHsXj/fVe88dzGHUe0Y7qMQoJTImKZ8neemMgAdWemtZJnTs9u6Il4WDB1ra78=
+X-Received: by 2002:a67:e34b:0:b0:444:c49c:a95d with SMTP id
+ s11-20020a67e34b000000b00444c49ca95dmr4736157vsm.7.1688881537255; Sat, 08 Jul
+ 2023 22:45:37 -0700 (PDT)
 MIME-Version: 1.0
-From:   Askar Safin <safinaskar@gmail.com>
-Date:   Sun, 2 Jul 2023 20:54:47 +0300
-Message-ID: <CAPnZJGB6gk47Hw-OE2_9eSKJ0DwOzEiL+tncMJyiOD6arw6xag@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 17/18] sock: Remove ->sendpage*() in favour of sendmsg(MSG_SPLICE_PAGES)
-To:     David Howells <dhowells@redhat.com>
-Cc:     netdev@vger.kernel.org,
-        Alexander Duyck <alexander.duyck@gmail.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        David Ahern <dsahern@kernel.org>,
-        Matthew Wilcox <willy@infradead.org>,
-        Jens Axboe <axboe@kernel.dk>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org,
-        Marc Kleine-Budde <mkl@pengutronix.de>, bpf@vger.kernel.org,
-        dccp@vger.kernel.org, linux-afs@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, linux-can@vger.kernel.org,
-        linux-crypto@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-hams@vger.kernel.org,
-        linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org,
-        linux-sctp@vger.kernel.org, linux-wpan@vger.kernel.org,
-        linux-x25@vger.kernel.org, mptcp@lists.linux.dev,
-        rds-devel@oss.oracle.com, tipc-discussion@lists.sourceforge.net,
-        virtualization@lists.linux-foundation.org
+Received: by 2002:ab0:2443:0:b0:786:668c:c4ea with HTTP; Sat, 8 Jul 2023
+ 22:45:36 -0700 (PDT)
+Reply-To: ninacoulibaly03@hotmail.com
+From:   nina coulibaly <ninacoulibaly81.info@gmail.com>
+Date:   Sun, 9 Jul 2023 05:45:36 +0000
+Message-ID: <CAJws7ADKwOw4vTWyX8D5jQkiyDvtZxu-cMd0x_zRhRjjsGi+MA@mail.gmail.com>
+Subject: from nina coulibaly
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=4.5 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-> -/* In some cases, both sendpage() and sendmsg() could have added
-> - * an skb to the write queue, but failed adding payload on it.
-> - * We need to remove it to consume less memory, but more
-> - * importantly be able to generate EPOLLOUT for Edge Trigger epoll()
-> - * users.
-> +/* In some cases, both sendmsg() could have added an skb to the write queue,
-> + * but failed adding payload on it.  We need to remove it to consume less
-> + * memory, but more importantly be able to generate EPOLLOUT for Edge Trigger
-> + * epoll() users.
->   */
+Dear ,
 
-There is a typo here. "Both" is redundant now
+Please grant me the permission to share important discussion with you.
+I am looking forward to hearing from you at your earliest convenience.
 
--- 
-Askar Safin
+Best Regards.
+
+Mrs. Nina Coulibaly

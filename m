@@ -2,69 +2,101 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 969F0751BB0
-	for <lists+dccp@lfdr.de>; Thu, 13 Jul 2023 10:35:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 93E28756588
+	for <lists+dccp@lfdr.de>; Mon, 17 Jul 2023 15:54:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234337AbjGMIfh (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 13 Jul 2023 04:35:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39256 "EHLO
+        id S230196AbjGQNy0 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 17 Jul 2023 09:54:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57518 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234351AbjGMIfQ (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 13 Jul 2023 04:35:16 -0400
-X-Greylist: delayed 1023 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 13 Jul 2023 01:27:31 PDT
-Received: from mail.venturelinkbiz.com (mail.venturelinkbiz.com [51.195.119.142])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AE25935B7
-        for <dccp@vger.kernel.org>; Thu, 13 Jul 2023 01:27:31 -0700 (PDT)
-Received: by mail.venturelinkbiz.com (Postfix, from userid 1002)
-        id EE800458E5; Thu, 13 Jul 2023 08:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=venturelinkbiz.com;
-        s=mail; t=1689235825;
-        bh=Mjfq+hZZ0+rPTC06HjjASvlnsTMgj1yAndWxi/OAu2M=;
-        h=Date:From:To:Subject:From;
-        b=xgPSYd9QDo73GSp/1Uomk6PzT59QEIWT15hlP6O4y4SgByzMTw0zy/hsH7Amrnnmo
-         Dq+Qd0uOl9iAlU+a3mZcnKsZXl+mXxrbrlHisg+VGydhzaAZ+vLRJVg6Yb0Eaknlsj
-         wgrgaWJBvr1gSuVTnQkXj9J/vYTM6MssW60fk4PSxh9kYCSEZv1A8jx8SVWQcx78hd
-         xuJAZrb+HQu4OvcrMtgDwvb6Y+hSMjgIOPzFyaKSkzJPRPwgSu2MC6rOJka3Qsb8ud
-         PD4f6cPkXc+PCZOWM73XUfWfJVQt+AxtRMAZaRuJx6TwsGU9qcTDWyZO7C3Jk2ZaUy
-         SN+JDuOPadwxw==
-Received: by venturelinkbiz.com for <dccp@vger.kernel.org>; Thu, 13 Jul 2023 08:10:20 GMT
-Message-ID: <20230713063020-0.1.16.2y89.0.fg1r3ru6i1@venturelinkbiz.com>
-Date:   Thu, 13 Jul 2023 08:10:20 GMT
-From:   "Michal Rmoutil" <michal.rmoutil@venturelinkbiz.com>
-To:     <dccp@vger.kernel.org>
-Subject: =?UTF-8?Q?Syst=C3=A9m_sledov=C3=A1n=C3=AD_a_optimalizace_v=C3=BDroby?=
-X-Mailer: mail.venturelinkbiz.com
+        with ESMTP id S229603AbjGQNyZ (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 17 Jul 2023 09:54:25 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2335EE2
+        for <dccp@vger.kernel.org>; Mon, 17 Jul 2023 06:53:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1689602014;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=cxwNxY4JS8J6tPLEogfd2SFfXj3N8uNj2U1eKeq6+xE=;
+        b=Tciml48Jb8afZz3cX7JA5o0TBxnzAGNSkeOKatB5jAenyd00YNsKrQFzarUFvwlsHx5jVh
+        lTpfaOcC5ABRWLYz1TzvT91cG6BhCiC7Vwzj8ITiTb3vwCs9rRaU4Ngd613hYFcariur23
+        tsgfAPPGhsCJgXBxvANtcRVLz+rQ9H0=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-358-XVvqmdrxPIanAN5fI_qJBg-1; Mon, 17 Jul 2023 09:53:32 -0400
+X-MC-Unique: XVvqmdrxPIanAN5fI_qJBg-1
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-403c7ffd25eso49448441cf.2
+        for <dccp@vger.kernel.org>; Mon, 17 Jul 2023 06:53:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689602012; x=1692194012;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cxwNxY4JS8J6tPLEogfd2SFfXj3N8uNj2U1eKeq6+xE=;
+        b=d3PgdBlh/XI8W+Vh8i7Lnn27Ya3PownrtjRzgikYkP2jk2gefyigJHAoLjVm2kMxja
+         +Hk+J7hvRoG0IXUjKuwTQG0y4fxM6I7KjAfjxrF/YHi/R4767IYfb9PfHkb1qjeN2Ev3
+         oeFqvXBThR4MkC4frdS6R/wNytI1ja0CtfB6dd4t66rvuMgEyztn+EdzFdkbq9tIt4To
+         0jBJ4nQg0MFNS3XiUYt1J1vbPCyKzc1uJcF+Pwt4lZXt6z0MqRTbh1KkA8rIxBukX9Ua
+         6MywNAxowhiH2YaUggI/WURW0vj7IAnMZsWAGAD1DaDzHAUOPykX4EHTDEqkytM3lKhD
+         6i+g==
+X-Gm-Message-State: ABy/qLa4Cv+tJZ3qqSKs1N6oqayIm5q2z0fccbDa+7sPPbyBpBB9oa8z
+        gqMdWsP61GVHY0yQ0xoYu9HpnCxrcJabDB5cMtDh7OOj4cn+HiVJ9j5DeWIkfnM70KlgL4W0MbQ
+        BBHKNCsRm0a23jw==
+X-Received: by 2002:a05:622a:104c:b0:3e3:9117:66e8 with SMTP id f12-20020a05622a104c00b003e3911766e8mr15174573qte.35.1689602012085;
+        Mon, 17 Jul 2023 06:53:32 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlFQ6vap0ITLUfu8vhP2jR7nb8amW+13ht5RG1X59wHJKsZtwSGwA6x7Lps3sxW4+8YYauf9HQ==
+X-Received: by 2002:a05:622a:104c:b0:3e3:9117:66e8 with SMTP id f12-20020a05622a104c00b003e3911766e8mr15174559qte.35.1689602011845;
+        Mon, 17 Jul 2023 06:53:31 -0700 (PDT)
+Received: from debian ([92.62.32.42])
+        by smtp.gmail.com with ESMTPSA id x10-20020ac87eca000000b00403b44bc230sm6250267qtj.95.2023.07.17.06.53.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Jul 2023 06:53:31 -0700 (PDT)
+Date:   Mon, 17 Jul 2023 15:53:24 +0200
+From:   Guillaume Nault <gnault@redhat.com>
+To:     David Miller <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Eric Dumazet <edumazet@google.com>
+Cc:     netdev@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
+        Harald Welte <laforge@gnumonks.org>,
+        osmocom-net-gprs@lists.osmocom.org, dccp@vger.kernel.org,
+        Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+        Xin Long <lucien.xin@gmail.com>, linux-sctp@vger.kernel.org
+Subject: [PATCH net-next 0/3] net: Remove more RTO_ONLINK users.
+Message-ID: <cover.1689600901.git.gnault@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_CSS_A,URIBL_DBL_SPAM autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Level: ***
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dobr=C3=A9 r=C3=A1no
+Code that initialise a flowi4 structure manually before doing a fib
+lookup can easily avoid overloading ->flowi4_tos with the RTO_ONLINK
+bit. They can just set ->flowi4_scope correctly instead.
 
-Zn=C3=A1te syst=C3=A9m, kter=C3=BD nejen hl=C3=ADd=C3=A1, ale i optimaliz=
-uje v=C3=BDrobu a p=C5=99in=C3=A1=C5=A1=C3=AD st=C3=A1l=C3=BD p=C5=99=C3=AD=
-jem?
+Properly separating the routing scope from ->flowi4_tos will allow to
+eventually convert this field to dscp_t (to ensure proper separation
+between DSCP and ECN).
 
-D=C3=ADky nejnov=C4=9Bj=C5=A1=C3=ADm technologi=C3=ADm a anal=C3=BDze dat=
- na=C5=A1e =C5=99e=C5=A1en=C3=AD identifikuje oblasti optimalizace, zv=C3=
-=BD=C5=A1en=C3=AD efektivity a sn=C3=AD=C5=BEen=C3=AD n=C3=A1klad=C5=AF. =
-Na=C5=A1i klienti zaznamenali n=C3=A1r=C5=AFst p=C5=99=C3=ADjm=C5=AF v pr=
-=C5=AFm=C4=9Bru o 20 % a dnes si to m=C5=AF=C5=BEete vyzkou=C5=A1et na 60=
- dn=C3=AD zdarma.
+Guillaume Nault (3):
+  gtp: Set TOS and routing scope independently for fib lookups.
+  dccp: Set TOS and routing scope independently for fib lookups.
+  sctp: Set TOS and routing scope independently for fib lookups.
 
-Pokud chcete dal=C5=A1=C3=AD podrobnosti, odpov=C4=9Bzte pros=C3=ADm na k=
-ontaktn=C3=AD =C4=8D=C3=ADslo.
+ drivers/net/gtp.c   | 3 ++-
+ net/dccp/ipv4.c     | 3 ++-
+ net/sctp/protocol.c | 3 ++-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
 
+-- 
+2.39.2
 
-Pozdravy
-Michal Rmoutil

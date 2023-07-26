@@ -2,85 +2,99 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C17575DCDC
-	for <lists+dccp@lfdr.de>; Sat, 22 Jul 2023 16:11:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B3D29763429
+	for <lists+dccp@lfdr.de>; Wed, 26 Jul 2023 12:47:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229779AbjGVOK7 (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 22 Jul 2023 10:10:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33218 "EHLO
+        id S232680AbjGZKrL (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Wed, 26 Jul 2023 06:47:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37210 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229752AbjGVOK7 (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 22 Jul 2023 10:10:59 -0400
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD87F2D53
-        for <dccp@vger.kernel.org>; Sat, 22 Jul 2023 07:10:57 -0700 (PDT)
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-39cdf9f9d10so5376453b6e.3
-        for <dccp@vger.kernel.org>; Sat, 22 Jul 2023 07:10:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690035057; x=1690639857;
-        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+        with ESMTP id S231475AbjGZKrJ (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Wed, 26 Jul 2023 06:47:09 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E19E212C
+        for <dccp@vger.kernel.org>; Wed, 26 Jul 2023 03:47:08 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-3fbc244d307so65285625e9.1
+        for <dccp@vger.kernel.org>; Wed, 26 Jul 2023 03:47:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1690368427; x=1690973227;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jE88Sg/HkvkvrZgXmJzjM5EFv0iGLJWGouDm2D6gBG0=;
-        b=IAsXhw8Ed7B4TMlhPQFxnJ0EJB1DDLDSPC1TwHS8XlrY7BS41lGV+6G5MltAWPpYDN
-         ZmoxQ+IzPEZzvTFR0aD2/mGGw4kDUwhSkd2nGvIe+tNmHlNRqQ5IEGp2rZiT+yKCDL56
-         FzWA1AsJrqJuNMTuU5p2s2IdS784x9metR3AJdR1MChrfIwKEORnEC0N5SwNUMxWiH/i
-         7i2UQJ2YvhotDmfBEtf224hyxWyMekc74/dNWZ3GtNeN0ZizFtKHq4kHZk1MsC4hPmop
-         o1fEq7l1uJudKgue+61Y2sWEijx7eW7RP6DI9gXPzGtyXsYsj96CFJ3G6gCH1lew74O4
-         RgYg==
-X-Gm-Message-State: ABy/qLYBgKamMzskdvhYPjGm18Tgnwktt/zX0eDnIVm7YSmMMvR/2+Ao
-        huALiWDt67sw+lfw9P7lUqpulg52rB4buV1jscHtHP/sXntWUtY=
-X-Google-Smtp-Source: APBJJlHNcjzpmR2IYLssdl8GbcS097gsETsQPbM2yG7animODfDOsG8U/I/F8z/rynn2gmwAZpRYWKSmMXAhkleVkG598/twLkZ7
+        bh=FPdomX7dp8TGU4MIOJN63VoiHSMVcog9K5D8a+5Yv00=;
+        b=F/K+3WcJUF0cJF24SmVrGpIDnoCnB1agb9ecevYPtDSHJXhTY0KwSLcwh44Z2MPb0V
+         7mCCNzUN4G9CKh22WnVS8Lj74mGPuGtlCClfh/tT+jieUa8s+NF2lVZpkAmgc/dbi+ro
+         x0YEEsXI72lSh4305HwUTjqB0qBJtG0L3aPGIP6xO//UCxvDl0pPerhAefRoUmdOLmlb
+         z6tp9acWjN/hMFIgZH3Hp0Cmqak/6Tlpv331Al30I3d3Gi338FcOOAlatB9nnOCmIuAT
+         GAVr87+hIIGrqYVRmY2ALWB0WfyyhAfXG2E9jySPaxOrrqLkWWwK6nx9v1iXkTB63Z2O
+         TOew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690368427; x=1690973227;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FPdomX7dp8TGU4MIOJN63VoiHSMVcog9K5D8a+5Yv00=;
+        b=WC7bTaZO+iEXvZoMimmKfcioWnTkMV+e811eu+j4q0IHMsEcyDdkURG9eDIVefa+8V
+         uoRgCHn69NW1ewRX1hbDjbUy4cxn9UrYwFq35GsArdxQeLpdQkqlPhEW1lZjNDE3hkJ9
+         NsXAJmQDI2nV0kvROvAYFBvGw5I7lS/1lxbt8RKKRZ/rtDZg9aPV+HOLEEVT5Tkg/GZA
+         JyktdMwAS8nYQ/NVwP0hR1FR0e2EyZ6GU/3paoMiKgnB4c+JtoLuzk6xch9ohZ8uSmeE
+         dPLq9Oo5uKFrj3NInLu8Skg4W656QVxKYSK6DQ2Da7OE1UJopZWJ5xWUruC2P0XcXC6p
+         J6Rw==
+X-Gm-Message-State: ABy/qLZNQacDmJVGLTQWmjlihIEY4wdKuVEEpv0tuvaCFYznuwbo6JnU
+        A0nyL1XeKxgjYn3GgV/nJsigQw==
+X-Google-Smtp-Source: APBJJlEQzU/OChI2cfTtzLG73M1MUxSfhsDlw7ejnSoADvsiVZ5cfbJqWfp50XIZ2gZtpdV547+eTQ==
+X-Received: by 2002:a05:600c:294a:b0:3fc:5fa:e2a9 with SMTP id n10-20020a05600c294a00b003fc05fae2a9mr1102874wmd.41.1690368427054;
+        Wed, 26 Jul 2023 03:47:07 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id u12-20020a7bcb0c000000b003fbc9b9699dsm1619645wmj.45.2023.07.26.03.47.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Jul 2023 03:47:06 -0700 (PDT)
+Date:   Wed, 26 Jul 2023 13:47:02 +0300
+From:   Dan Carpenter <dan.carpenter@linaro.org>
+To:     Gerrit Renker <gerrit@erg.abdn.ac.uk>
+Cc:     "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, dccp@vger.kernel.org,
+        netdev@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH net] dccp: Allocate enough data in ccid_get_builtin_ccids()
+Message-ID: <35ed2523-49ee-4e2b-b50d-38508f74f93f@moroto.mountain>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f11:b0:3a1:f3ed:e9e with SMTP id
- m17-20020a0568080f1100b003a1f3ed0e9emr9991915oiw.3.1690035057187; Sat, 22 Jul
- 2023 07:10:57 -0700 (PDT)
-Date:   Sat, 22 Jul 2023 07:10:57 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000003de1ad060113f3d3@google.com>
-Subject: [syzbot] Monthly dccp report (Jul 2023)
-From:   syzbot <syzbot+listd0be519e02c69d098715@syzkaller.appspotmail.com>
-To:     dccp@vger.kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,FROM_LOCAL_HEX,
-        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello dccp maintainers/developers,
+This is allocating the ARRAY_SIZE() instead of the number of bytes.  The
+array size is 1 or 2 depending on the .config and it should allocate
+8 or 16 bytes instead.
 
-This is a 31-day syzbot report for the dccp subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/dccp
-
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 5 issues are still open and 4 have been fixed so far.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 102     Yes   KASAN: use-after-free Read in ccid2_hc_tx_packet_recv
-                  https://syzkaller.appspot.com/bug?extid=554ccde221001ab5479a
-<2> 47      Yes   BUG: "hc->tx_t_ipi == NUM" holds (exception!) at net/dccp/ccids/ccid3.c:LINE/ccid3_update_send_interval()
-                  https://syzkaller.appspot.com/bug?extid=94641ba6c1d768b1e35e
-<3> 9       Yes   BUG: stored value of X_recv is zero at net/dccp/ccids/ccid3.c:LINE/ccid3_first_li() (3)
-                  https://syzkaller.appspot.com/bug?extid=2ad8ef335371014d4dc7
-
+Fixes: ddebc973c56b ("dccp: Lockless integration of CCID congestion-control plugins")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ net/dccp/ccid.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/net/dccp/ccid.c b/net/dccp/ccid.c
+index 6beac5d348e2..9067958d3857 100644
+--- a/net/dccp/ccid.c
++++ b/net/dccp/ccid.c
+@@ -48,7 +48,8 @@ bool ccid_support_check(u8 const *ccid_array, u8 array_len)
+  */
+ int ccid_get_builtin_ccids(u8 **ccid_array, u8 *array_len)
+ {
+-	*ccid_array = kmalloc(ARRAY_SIZE(ccids), gfp_any());
++	*ccid_array = kmalloc_array(ARRAY_SIZE(ccids), sizeof(*ccid_array),
++				    gfp_any());
+ 	if (*ccid_array == NULL)
+ 		return -ENOBUFS;
+ 
+-- 
+2.39.2
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.

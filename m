@@ -2,83 +2,78 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 764EE7660B1
-	for <lists+dccp@lfdr.de>; Fri, 28 Jul 2023 02:20:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 600D9767C1A
+	for <lists+dccp@lfdr.de>; Sat, 29 Jul 2023 06:31:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230511AbjG1AUY (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Thu, 27 Jul 2023 20:20:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56988 "EHLO
+        id S231604AbjG2EbD (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Sat, 29 Jul 2023 00:31:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230182AbjG1AUX (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Thu, 27 Jul 2023 20:20:23 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2DDA3269E;
-        Thu, 27 Jul 2023 17:20:22 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id A992661F99;
-        Fri, 28 Jul 2023 00:20:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 100C0C433D9;
-        Fri, 28 Jul 2023 00:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690503621;
-        bh=r/6uOjuf+8jNeeGqAD02WhCCOf2Al94cddsqK3FFU9Q=;
-        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-        b=tRIawUj0UTrfi29fx4N2OcqGZQqexbjxn1G9b4UPsY9BlMrtEvi/1N9g9In6Qc+lL
-         NN9IB/WF1qzGxyvWhK8cL7WpgGepyjs6nxmkOtmof9EY/25hCvk20/xi5L2iSNrKfX
-         aeUK+0vpOdZQJWXGUDkpk5FlcgotSufXBmGsHu6kXXtJsZFhHs5lH1/WVa//BvQyZ8
-         L6ECsomIHk6c0CsnxGrr9BYFnAySGT7MI0ubQq/qhgOBp8Npn2bzuZc9De/Z4U2m+i
-         rHKuFoLkRQpHkgjiY0+RPhrIT5H+5eNUr4PAopbwKEwPlr+MhrfCaIHcckj/UgjNhf
-         f/JfjUOGI/QMg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-        by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id ECCFCC64459;
-        Fri, 28 Jul 2023 00:20:20 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+        with ESMTP id S229939AbjG2EbC (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Sat, 29 Jul 2023 00:31:02 -0400
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E0AB49D5
+        for <dccp@vger.kernel.org>; Fri, 28 Jul 2023 21:31:01 -0700 (PDT)
+Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-583c1643f51so2644027b3.1
+        for <dccp@vger.kernel.org>; Fri, 28 Jul 2023 21:31:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690605060; x=1691209860;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RE5l1VpxCufAhFhvUtJmOdSBkyXi7tvoVHorDEIVEKk=;
+        b=ZJfSP9Ai5zq8/2gGe3AWaxRYSIWcMGMa0VSeMPe2GQbcZjA5+fcsmnDuKEGuu6x197
+         D/K6G2utnm5RNrm0jrpJpmqoZWyq5kZgEP4s+sZCZyBe9f4niOAXuZhBxGjGxCEgSOGQ
+         6CphsLLz29Lk6iUJbgXTBFsbLp8VQ3phkyn2rrSbQ4OwyMDmIN6qMyDIbScjIWd7bNoG
+         oGFeOryUSsfVKuFlfpMTkXSOtUTL02bgoPzM8BTHQDPOnX8DwD3D/AjtyJ2i08vi4pV+
+         72PkineKcOkvH3nK+7Gw6zJECTt6VrbUt/BrJVP4TmEDkFOvRxP7XvqA0WKIyFENdJu/
+         /euQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690605060; x=1691209860;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RE5l1VpxCufAhFhvUtJmOdSBkyXi7tvoVHorDEIVEKk=;
+        b=Tjmtn233ZpOGqD9doktYySiIkt0F3KzJURVv4WQYGolAhve5QZlHJGijAeY0QA2cQh
+         vBO3QE/HfE6uAaCsFYHr4a38z64AFfMKREQ5LkQyB5XYpSkNr8wU6Jy67BH+w5eicbmU
+         H9OJb//G0dfxlEwYw7MSw3v2SBVFHffU0Y8yIMuSVgH1HI0JqS5jBZk0q2XYFw3OOrSJ
+         19rAzFzo8q+SLhVp1CSozVvjwTIUkwkiw1GP88CilGrm5S/0O4vudBQZzEoV1zSyitT1
+         51LCrW+x3qvciMqml+WSOONvnDrjEjmwalGUxjdBqx2GEOb+UOL4AE3rhJguqhvqg1YM
+         N3UA==
+X-Gm-Message-State: ABy/qLbIwTQfm+qhGmfjqC5fLgGf9KZvPpwjR/1fYTK+KgZkQsuYx63u
+        R0QOojujIZq90Sgaq2fLo6bkEv3rfmWVIJbS4wA=
+X-Google-Smtp-Source: APBJJlFdZKfziF3CIJ9oAZkLeL6OiyForpbBK41JsZRKBhGzAZdyvCmRUqYdl9l8SOG3GhuusHlNOoJOUzj1bk5ZozY=
+X-Received: by 2002:a81:6dd8:0:b0:567:7dc3:2618 with SMTP id
+ i207-20020a816dd8000000b005677dc32618mr507301ywc.1.1690605060080; Fri, 28 Jul
+ 2023 21:31:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] dccp: Remove unused declaration
- dccp_feat_initialise_sysctls()
-From:   patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169050362096.24970.7000722732893710320.git-patchwork-notify@kernel.org>
-Date:   Fri, 28 Jul 2023 00:20:20 +0000
-References: <20230726143239.9904-1-yuehaibing@huawei.com>
-In-Reply-To: <20230726143239.9904-1-yuehaibing@huawei.com>
-To:     Yue Haibing <yuehaibing@huawei.com>
-Cc:     davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Received: by 2002:a05:7108:6326:b0:31a:14a8:aa9e with HTTP; Fri, 28 Jul 2023
+ 21:30:59 -0700 (PDT)
+Reply-To: bintu37999@gmail.com
+From:   Bintu Felicia <yerobarry10@gmail.com>
+Date:   Sat, 29 Jul 2023 05:30:59 +0100
+Message-ID: <CAD1=OdU8CNRTkW-trhk78giS0M7Csu=qw30JfYK9hAYsXvXKuw@mail.gmail.com>
+Subject: HELLO
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=4.7 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello:
+How are you today? I hope you are fine. My name is Miss
+Bintu Felicia . l am single looking for honest and nice
+person whom i can partner with . I don't care about
+your color, ethnicity, Status or Sex. Upon your reply to
+this mail I will tell you more about myself and send you
+more of my picture .I am sending you this beautiful mail,
+with a wish for much happiness.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Warm regards,
 
-On Wed, 26 Jul 2023 22:32:39 +0800 you wrote:
-> This is never used, so can remove it.
-> 
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  net/dccp/feat.h | 1 -
->  1 file changed, 1 deletion(-)
-
-Here is the summary with links:
-  - [net-next] dccp: Remove unused declaration dccp_feat_initialise_sysctls()
-    https://git.kernel.org/netdev/net-next/c/d4a80cc69aea
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Felicia Bintu

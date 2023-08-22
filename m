@@ -2,78 +2,110 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 600D9767C1A
-	for <lists+dccp@lfdr.de>; Sat, 29 Jul 2023 06:31:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 39EF4784C14
+	for <lists+dccp@lfdr.de>; Tue, 22 Aug 2023 23:32:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231604AbjG2EbD (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Sat, 29 Jul 2023 00:31:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56110 "EHLO
+        id S230248AbjHVVc5 (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 22 Aug 2023 17:32:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39592 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229939AbjG2EbC (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Sat, 29 Jul 2023 00:31:02 -0400
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E0AB49D5
-        for <dccp@vger.kernel.org>; Fri, 28 Jul 2023 21:31:01 -0700 (PDT)
-Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-583c1643f51so2644027b3.1
-        for <dccp@vger.kernel.org>; Fri, 28 Jul 2023 21:31:01 -0700 (PDT)
+        with ESMTP id S230516AbjHVVc5 (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 22 Aug 2023 17:32:57 -0400
+X-Greylist: delayed 903 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 22 Aug 2023 14:32:23 PDT
+Received: from symantec4.comsats.net.pk (symantec4.comsats.net.pk [203.124.41.30])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 472F1E40
+        for <dccp@vger.kernel.org>; Tue, 22 Aug 2023 14:32:22 -0700 (PDT)
+X-AuditID: cb7c291e-055ff70000002aeb-0f-64e510f81203
+Received: from iesco.comsatshosting.com (iesco.comsatshosting.com [210.56.28.11])
+        (using TLS with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+        (Client did not present a certificate)
+        by symantec4.comsats.net.pk (Symantec Messaging Gateway) with SMTP id 6E.DD.10987.8F015E46; Wed, 23 Aug 2023 00:48:08 +0500 (PKT)
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns;
+        d=iesco.com.pk; s=default;
+        h=received:content-type:mime-version:content-transfer-encoding
+          :content-description:subject:to:from:date:reply-to;
+        b=QNLEVYucUvTJcNgtMxSrLgDJIa2wvOQKxNXvsmICuYCpJBfBLULaT+/mbfL46isF3
+          nP1nz9GYk3MDQaLDnW/YYnQ3QKOjk60Cgzk11yYIqbLfZcag0Qv04nUlt2v1DNyF7
+          hFv6u7PlmAOFp8MPi72tVZF9hEG+qHK6QdTOlBy54=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690605060; x=1691209860;
-        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RE5l1VpxCufAhFhvUtJmOdSBkyXi7tvoVHorDEIVEKk=;
-        b=ZJfSP9Ai5zq8/2gGe3AWaxRYSIWcMGMa0VSeMPe2GQbcZjA5+fcsmnDuKEGuu6x197
-         D/K6G2utnm5RNrm0jrpJpmqoZWyq5kZgEP4s+sZCZyBe9f4niOAXuZhBxGjGxCEgSOGQ
-         6CphsLLz29Lk6iUJbgXTBFsbLp8VQ3phkyn2rrSbQ4OwyMDmIN6qMyDIbScjIWd7bNoG
-         oGFeOryUSsfVKuFlfpMTkXSOtUTL02bgoPzM8BTHQDPOnX8DwD3D/AjtyJ2i08vi4pV+
-         72PkineKcOkvH3nK+7Gw6zJECTt6VrbUt/BrJVP4TmEDkFOvRxP7XvqA0WKIyFENdJu/
-         /euQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690605060; x=1691209860;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RE5l1VpxCufAhFhvUtJmOdSBkyXi7tvoVHorDEIVEKk=;
-        b=Tjmtn233ZpOGqD9doktYySiIkt0F3KzJURVv4WQYGolAhve5QZlHJGijAeY0QA2cQh
-         vBO3QE/HfE6uAaCsFYHr4a38z64AFfMKREQ5LkQyB5XYpSkNr8wU6Jy67BH+w5eicbmU
-         H9OJb//G0dfxlEwYw7MSw3v2SBVFHffU0Y8yIMuSVgH1HI0JqS5jBZk0q2XYFw3OOrSJ
-         19rAzFzo8q+SLhVp1CSozVvjwTIUkwkiw1GP88CilGrm5S/0O4vudBQZzEoV1zSyitT1
-         51LCrW+x3qvciMqml+WSOONvnDrjEjmwalGUxjdBqx2GEOb+UOL4AE3rhJguqhvqg1YM
-         N3UA==
-X-Gm-Message-State: ABy/qLbIwTQfm+qhGmfjqC5fLgGf9KZvPpwjR/1fYTK+KgZkQsuYx63u
-        R0QOojujIZq90Sgaq2fLo6bkEv3rfmWVIJbS4wA=
-X-Google-Smtp-Source: APBJJlFdZKfziF3CIJ9oAZkLeL6OiyForpbBK41JsZRKBhGzAZdyvCmRUqYdl9l8SOG3GhuusHlNOoJOUzj1bk5ZozY=
-X-Received: by 2002:a81:6dd8:0:b0:567:7dc3:2618 with SMTP id
- i207-20020a816dd8000000b005677dc32618mr507301ywc.1.1690605060080; Fri, 28 Jul
- 2023 21:31:00 -0700 (PDT)
+        d=iesco.com.pk; s=default;
+        h=reply-to:date:from:to:subject:content-description
+          :content-transfer-encoding:mime-version:content-type;
+        bh=GMzYzcyTxDsE6wX/XHG6MHqAdAiHrhqbmmLQ/TZ1QnQ=;
+        b=bbRP0VFOb/waS8dFyBO3SNKkZbLdySmCjyh32RCV/21wLn9jnZNgHR7wCQMLQsXNT
+          xBnslD7mQKEDyvXR8In/HQgyPRttjo4fP3DxSpEGPoQ54Kqqc8rlyHUeaNkeWfabz
+          snXnPayVCyYhvKr5n5z42GtoCyDZUnAphq5IQgiYU=
+Received: from [94.156.6.90] (UnknownHost [94.156.6.90]) by iesco.comsatshosting.com with SMTP;
+   Wed, 23 Aug 2023 01:11:18 +0500
+Message-ID: <6E.DD.10987.8F015E46@symantec4.comsats.net.pk>
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Received: by 2002:a05:7108:6326:b0:31a:14a8:aa9e with HTTP; Fri, 28 Jul 2023
- 21:30:59 -0700 (PDT)
-Reply-To: bintu37999@gmail.com
-From:   Bintu Felicia <yerobarry10@gmail.com>
-Date:   Sat, 29 Jul 2023 05:30:59 +0100
-Message-ID: <CAD1=OdU8CNRTkW-trhk78giS0M7Csu=qw30JfYK9hAYsXvXKuw@mail.gmail.com>
-Subject: HELLO
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=4.7 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: ****
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Re; Interest,
+To:     dccp@vger.kernel.org
+From:   "Chen Yun" <pso.chairmanbod@iesco.com.pk>
+Date:   Tue, 22 Aug 2023 13:11:32 -0700
+Reply-To: chnyne@gmail.com
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrNLMWRmVeSWpSXmKPExsVyyUKGW/eHwNMUgzk/ZS3+Xu9mc2D0+LxJ
+        LoAxissmJTUnsyy1SN8ugStjyboLLAW7mSva+hexNDA+Zupi5OCQEDCROPLAqIuRi0NIYA+T
+        xKQvT1hAHBaB1cwShy+vY4VwHjJLfNk9jQ2irJlRYn/TJlaQdl4Ba4lt0yO6GDk5mAX0JG5M
+        ncIGYvMKCEqcnAkyCSSuLbFs4WtmkHJmATWJr10lIGFhATGJT9OWsYPYIgISEj2np4LZbAL6
+        Eiu+NjOC2CwCqhKHzj1gBbGFBKQkNl5ZzzaBkX8Wkm2zkGybhWTbLIRtCxhZVjFKFFfmJgID
+        LdlELzk/tzixpFgvL7VEryB7EyMwCE/XaMrtYFx6KfEQowAHoxIP7891T1KEWBPLgLoOMUpw
+        MCuJ8Ep/f5gixJuSWFmVWpQfX1Sak1p8iFGag0VJnNdW6FmykEB6YklqdmpqQWoRTJaJg1Oq
+        gTHHTnFmjVG3aaQit4/CwWXrlRp7db5kid/Pa36f4TvpeVhKUVPWqS3x3yIXVD55kev9e5/b
+        ys92HVv+Bnx6veOKUtymee3GlbvOb33+/Hlp7KoPO3I5Pvz52HWK8VfoXlvtnjTPUhsh8c4d
+        ccs+797tnha111rvbq5tpz/bzpOOsj07FXfJdymxFGckGmoxFxUnAgAsCFlQPgIAAA==
+X-Spam-Status: Yes, score=6.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FORGED_REPLYTO,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_SBL,RCVD_IN_SBL_CSS,SPF_HELO_NONE,
+        SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: *  0.0 URIBL_BLOCKED ADMINISTRATOR NOTICE: The query to URIBL was
+        *      blocked.  See
+        *      http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
+        *      for more information.
+        *      [URIs: iesco.com.pk]
+        *  0.0 RCVD_IN_DNSWL_BLOCKED RBL: ADMINISTRATOR NOTICE: The query to
+        *      DNSWL was blocked.  See
+        *      http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
+        *      for more information.
+        *      [203.124.41.30 listed in list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        *  3.3 RCVD_IN_SBL_CSS RBL: Received via a relay in Spamhaus SBL-CSS
+        *      [94.156.6.90 listed in zen.spamhaus.org]
+        *  0.1 RCVD_IN_SBL RBL: Received via a relay in Spamhaus SBL
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        *  2.1 FREEMAIL_FORGED_REPLYTO Freemail in Reply-To, but not From
+X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-How are you today? I hope you are fine. My name is Miss
-Bintu Felicia . l am single looking for honest and nice
-person whom i can partner with . I don't care about
-your color, ethnicity, Status or Sex. Upon your reply to
-this mail I will tell you more about myself and send you
-more of my picture .I am sending you this beautiful mail,
-with a wish for much happiness.
+Re; Interest,
 
-Warm regards,
+I am interested in discussing the Investment proposal as I explained
+in my previous mail. May you let me know your interest and the
+possibility of a cooperation aimed for mutual interest.
 
-Felicia Bintu
+Looking forward to your mail for further discussion.
+
+Regards
+
+------
+Chen Yun - Chairman of CREC
+China Railway Engineering Corporation - CRECG
+China Railway Plaza, No.69 Fuxing Road, Haidian District, Beijing, P.R.
+China
+

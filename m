@@ -2,86 +2,85 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A999778A8C9
-	for <lists+dccp@lfdr.de>; Mon, 28 Aug 2023 11:21:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2960678BF00
+	for <lists+dccp@lfdr.de>; Tue, 29 Aug 2023 09:14:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230264AbjH1JVG (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Mon, 28 Aug 2023 05:21:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47100 "EHLO
+        id S229797AbjH2HNz (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 29 Aug 2023 03:13:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51034 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230201AbjH1JUe (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Mon, 28 Aug 2023 05:20:34 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53C2F12F
-        for <dccp@vger.kernel.org>; Mon, 28 Aug 2023 02:20:25 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id D9E2C63514
-        for <dccp@vger.kernel.org>; Mon, 28 Aug 2023 09:20:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4864DC433C7;
-        Mon, 28 Aug 2023 09:20:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1693214424;
-        bh=lmCmRnHp5sN/qUUE4MNYbg0ju1991+Nb99EaylABA+A=;
-        h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-        b=pNL4PJcWjPla4t7OkfMPgxyj57wntUHcKsTGFdBEF624NgJhVMKEucIOjfACs520c
-         QauS8IBO0CkGOcrHbOUBBQskWpO+B9wuOvsP+KxNhj84M9/fVnXMA+YZwAKzZSw27v
-         OQ5XxJ64+JQirNZ0aiMTOOIVdaBp+pmOFF2Y5YRlh/0NFslk3LC8WKpMwzKcDptRI5
-         G+kkY8QmIBLN1WHGck0SahligjR7eh2ItJ6VKSLZkutCKS37tBLFZlAA64qFXn4uRF
-         ywOhmPaoCoN4Aq0FwS58RD4ZiNlP4hAhD8IBvsP6cox4JGvotznT3LGYwy7+wGfdeB
-         TdBJbFBzBYrMQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-        by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id 30F82C3959E;
-        Mon, 28 Aug 2023 09:20:24 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+        with ESMTP id S230386AbjH2HNw (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 29 Aug 2023 03:13:52 -0400
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD54819F
+        for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 00:13:48 -0700 (PDT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-55afcc54d55so5078464a12.0
+        for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 00:13:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693293228; x=1693898028;
+        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=r90dxKRrAxSdcMhUbemphmlT2U8eOTFjROIuf6rT5x4=;
+        b=OHFIzzTunZtvVoUEW0BfO59juQLjZzE/KCF/9wYtxewAZdRV++rTYNKvhC7K7pgTSc
+         QKr78cizc68sLxA/EHMx0iZdEfhJ8Regf/b3dTf96P4a3hdLkIyluiZbH4MSdLkw2/GF
+         +AUD77i01+9FT1FlxPaANhE9h4Fd9Vojt5QUvNzXOXl+aAYH8b/kJGMIxh3x9bZNsO2n
+         vSlX3N9eN8KI+T6v/EjwUUJmwcAElHQe3YNwLQZZRvv5IBj4ryRHZxc6mY3Mluwzk2K0
+         UesmPxXgNx+7Eza9ef7w5Z4tgCs0AuNDD4+3XLJqPRS5Egbo60CJ8HeHoNYXx1RrdhgD
+         Q1FA==
+X-Gm-Message-State: AOJu0YxPHJLq06rBTgUXiWhYIYnjWOHxBz/il38jKci3QeU3hY4nwF2a
+        8tf6CipG8kbZVK/ZubelEBvj8F5GsQThE1MWsKQbiNVpoRxh5Uc=
+X-Google-Smtp-Source: AGHT+IErkkDOVDGY+PuYZzei0K8WpzuukspOAHFs8WRVugxDVl1JUe41zpPhjBD/UlW1LWjodN3QvT4eAMg13XvKNMjkk03i/Bbd
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] dccp: Fix out of bounds access in DCCP error handler
-From:   patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169321442419.7279.7733954383397054161.git-patchwork-notify@kernel.org>
-Date:   Mon, 28 Aug 2023 09:20:24 +0000
-References: <20230825133241.3635236-1-jannh@google.com>
-In-Reply-To: <20230825133241.3635236-1-jannh@google.com>
-To:     Jann Horn <jannh@google.com>
-Cc:     davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, dccp@vger.kernel.org, netdev@vger.kernel.org
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+X-Received: by 2002:a17:903:41d2:b0:1c0:bf60:ba51 with SMTP id
+ u18-20020a17090341d200b001c0bf60ba51mr635680ple.3.1693293228282; Tue, 29 Aug
+ 2023 00:13:48 -0700 (PDT)
+Date:   Tue, 29 Aug 2023 00:13:48 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000005f5c1306040a8d02@google.com>
+Subject: [syzbot] Monthly dccp report (Aug 2023)
+From:   syzbot <syzbot+list9a743d22b2ab0cf14540@syzkaller.appspotmail.com>
+To:     dccp@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,FROM_LOCAL_HEX,
+        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
+        RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello:
+Hello dccp maintainers/developers,
 
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+This is a 31-day syzbot report for the dccp subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dccp
 
-On Fri, 25 Aug 2023 15:32:41 +0200 you wrote:
-> There was a previous attempt to fix an out-of-bounds access in the DCCP
-> error handlers, but that fix assumed that the error handlers only want
-> to access the first 8 bytes of the DCCP header. Actually, they also look
-> at the DCCP sequence number, which is stored beyond 8 bytes, so an
-> explicit pskb_may_pull() is required.
-> 
-> Fixes: 6706a97fec96 ("dccp: fix out of bound access in dccp_v4_err()")
-> Fixes: 1aa9d1a0e7ee ("ipv6: dccp: fix out of bound access in dccp_v6_err()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jann Horn <jannh@google.com>
-> 
-> [...]
+During the period, 0 new issues were detected and 1 were fixed.
+In total, 4 issues are still open and 5 have been fixed so far.
 
-Here is the summary with links:
-  - [net] dccp: Fix out of bounds access in DCCP error handler
-    https://git.kernel.org/netdev/net/c/977ad86c2a1b
+Some of the still happening issues:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Ref Crashes Repro Title
+<1> 102     Yes   KASAN: use-after-free Read in ccid2_hc_tx_packet_recv
+                  https://syzkaller.appspot.com/bug?extid=554ccde221001ab5479a
+<2> 48      Yes   BUG: "hc->tx_t_ipi == NUM" holds (exception!) at net/dccp/ccids/ccid3.c:LINE/ccid3_update_send_interval()
+                  https://syzkaller.appspot.com/bug?extid=94641ba6c1d768b1e35e
+<3> 12      Yes   BUG: stored value of X_recv is zero at net/dccp/ccids/ccid3.c:LINE/ccid3_first_li() (3)
+                  https://syzkaller.appspot.com/bug?extid=2ad8ef335371014d4dc7
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.

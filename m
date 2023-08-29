@@ -2,85 +2,94 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2960678BF00
-	for <lists+dccp@lfdr.de>; Tue, 29 Aug 2023 09:14:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 02BBC78BFCA
+	for <lists+dccp@lfdr.de>; Tue, 29 Aug 2023 10:02:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229797AbjH2HNz (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 29 Aug 2023 03:13:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51034 "EHLO
+        id S231403AbjH2IBw (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 29 Aug 2023 04:01:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35506 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230386AbjH2HNw (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 29 Aug 2023 03:13:52 -0400
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD54819F
-        for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 00:13:48 -0700 (PDT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-55afcc54d55so5078464a12.0
-        for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 00:13:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693293228; x=1693898028;
-        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=r90dxKRrAxSdcMhUbemphmlT2U8eOTFjROIuf6rT5x4=;
-        b=OHFIzzTunZtvVoUEW0BfO59juQLjZzE/KCF/9wYtxewAZdRV++rTYNKvhC7K7pgTSc
-         QKr78cizc68sLxA/EHMx0iZdEfhJ8Regf/b3dTf96P4a3hdLkIyluiZbH4MSdLkw2/GF
-         +AUD77i01+9FT1FlxPaANhE9h4Fd9Vojt5QUvNzXOXl+aAYH8b/kJGMIxh3x9bZNsO2n
-         vSlX3N9eN8KI+T6v/EjwUUJmwcAElHQe3YNwLQZZRvv5IBj4ryRHZxc6mY3Mluwzk2K0
-         UesmPxXgNx+7Eza9ef7w5Z4tgCs0AuNDD4+3XLJqPRS5Egbo60CJ8HeHoNYXx1RrdhgD
-         Q1FA==
-X-Gm-Message-State: AOJu0YxPHJLq06rBTgUXiWhYIYnjWOHxBz/il38jKci3QeU3hY4nwF2a
-        8tf6CipG8kbZVK/ZubelEBvj8F5GsQThE1MWsKQbiNVpoRxh5Uc=
-X-Google-Smtp-Source: AGHT+IErkkDOVDGY+PuYZzei0K8WpzuukspOAHFs8WRVugxDVl1JUe41zpPhjBD/UlW1LWjodN3QvT4eAMg13XvKNMjkk03i/Bbd
+        with ESMTP id S233865AbjH2IBm (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 29 Aug 2023 04:01:42 -0400
+X-Greylist: delayed 350 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 29 Aug 2023 01:01:37 PDT
+Received: from mail.corebizinsight.com (mail.corebizinsight.com [217.61.112.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D084611B
+        for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 01:01:37 -0700 (PDT)
+Received: by mail.corebizinsight.com (Postfix, from userid 1002)
+        id 9165E82D28; Tue, 29 Aug 2023 09:55:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=corebizinsight.com;
+        s=mail; t=1693295745;
+        bh=CEmchsDu5Oe+RNHCZSBmKSgMOuy1xnO2dydqkEjt3Qs=;
+        h=Date:From:To:Subject:From;
+        b=XiT4UMpxWDA2/ukDDhvHcn2EPl6/uc0e0AmOZ7JIAa+dM6saC71w/H0PH+YFvtl4L
+         uj4Irp+XFrnSQi95chHW1i5nqXks1xR2EoHShOqA8Nohtk3RgeaS3DxbSxshErirFd
+         CEKM7wSrWJpQJXcZiywvQbWM/tlG4xD69jIvwTd9bJsMhl/u1oGhzTA/+2owB3i8jH
+         n3pKDe5+zSlh9MaD2woRHTkfsolUEQ+GLHUtqNhn39KSqVuEhKDCf8gA9FhTTXovqO
+         /yhm8Igdlv3fYtI+kMN0eZj3YS+PMZ6Bx0hW9Np0Vpb1698yzpq+xhGle7ZJ6FVp2x
+         dtPWDoftPEPuQ==
+Received: by mail.corebizinsight.com for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 07:55:31 GMT
+Message-ID: <20230829084500-0.1.g.16sf.0.if4g0e7gdf@corebizinsight.com>
+Date:   Tue, 29 Aug 2023 07:55:31 GMT
+From:   "Jakub Kovarik" <jakub.kovarik@corebizinsight.com>
+To:     <dccp@vger.kernel.org>
+Subject: =?UTF-8?Q?Pros=C3=ADm_kontaktujte?=
+X-Mailer: mail.corebizinsight.com
 MIME-Version: 1.0
-X-Received: by 2002:a17:903:41d2:b0:1c0:bf60:ba51 with SMTP id
- u18-20020a17090341d200b001c0bf60ba51mr635680ple.3.1693293228282; Tue, 29 Aug
- 2023 00:13:48 -0700 (PDT)
-Date:   Tue, 29 Aug 2023 00:13:48 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000005f5c1306040a8d02@google.com>
-Subject: [syzbot] Monthly dccp report (Aug 2023)
-From:   syzbot <syzbot+list9a743d22b2ab0cf14540@syzkaller.appspotmail.com>
-To:     dccp@vger.kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,FROM_LOCAL_HEX,
-        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
-        RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=no
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: Yes, score=6.5 required=5.0 tests=BAYES_40,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_FMBLA_NEWDOM28,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
+        URIBL_CSS_A,URIBL_DBL_SPAM autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Report: *  0.0 RCVD_IN_DNSWL_BLOCKED RBL: ADMINISTRATOR NOTICE: The query to
+        *      DNSWL was blocked.  See
+        *      http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
+        *      for more information.
+        *      [217.61.112.124 listed in list.dnswl.org]
+        * -0.0 BAYES_40 BODY: Bayes spam probability is 20 to 40%
+        *      [score: 0.2844]
+        *  2.5 URIBL_DBL_SPAM Contains a spam URL listed in the Spamhaus DBL
+        *      blocklist
+        *      [URIs: corebizinsight.com]
+        *  3.3 RCVD_IN_SBL_CSS RBL: Received via a relay in Spamhaus SBL-CSS
+        *      [217.61.112.124 listed in zen.spamhaus.org]
+        *  0.1 URIBL_CSS_A Contains URL's A record listed in the Spamhaus CSS
+        *      blocklist
+        *      [URIs: corebizinsight.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        *  0.8 FROM_FMBLA_NEWDOM28 From domain was registered in last 14-28
+        *      days
+X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Hello dccp maintainers/developers,
+Dobr=C3=A9 r=C3=A1no,
 
-This is a 31-day syzbot report for the dccp subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/dccp
+Je mo=C5=BEn=C3=A9 s v=C3=A1mi nav=C3=A1zat spolupr=C3=A1ci?
 
-During the period, 0 new issues were detected and 1 were fixed.
-In total, 4 issues are still open and 5 have been fixed so far.
+R=C3=A1d si promluv=C3=ADm s osobou zab=C3=BDvaj=C3=ADc=C3=AD se prodejn=C3=
+=AD =C4=8Dinnost=C3=AD.
 
-Some of the still happening issues:
+Pom=C3=A1h=C3=A1me efektivn=C4=9B z=C3=ADsk=C3=A1vat nov=C3=A9 z=C3=A1kaz=
+n=C3=ADky.
 
-Ref Crashes Repro Title
-<1> 102     Yes   KASAN: use-after-free Read in ccid2_hc_tx_packet_recv
-                  https://syzkaller.appspot.com/bug?extid=554ccde221001ab5479a
-<2> 48      Yes   BUG: "hc->tx_t_ipi == NUM" holds (exception!) at net/dccp/ccids/ccid3.c:LINE/ccid3_update_send_interval()
-                  https://syzkaller.appspot.com/bug?extid=94641ba6c1d768b1e35e
-<3> 12      Yes   BUG: stored value of X_recv is zero at net/dccp/ccids/ccid3.c:LINE/ccid3_first_li() (3)
-                  https://syzkaller.appspot.com/bug?extid=2ad8ef335371014d4dc7
+Nevahejte me kontaktovat.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+V p=C5=99=C3=ADpad=C4=9B z=C3=A1jmu V=C3=A1s bude kontaktovat n=C3=A1=C5=A1=
+ anglicky mluv=C3=ADc=C3=AD z=C3=A1stupce.
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Pozdravy
+Jakub Kovarik

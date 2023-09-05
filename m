@@ -2,94 +2,114 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 02BBC78BFCA
-	for <lists+dccp@lfdr.de>; Tue, 29 Aug 2023 10:02:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6073479298A
+	for <lists+dccp@lfdr.de>; Tue,  5 Sep 2023 18:52:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231403AbjH2IBw (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Tue, 29 Aug 2023 04:01:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35506 "EHLO
+        id S245374AbjIEQ1I (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Tue, 5 Sep 2023 12:27:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56994 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233865AbjH2IBm (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Tue, 29 Aug 2023 04:01:42 -0400
-X-Greylist: delayed 350 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 29 Aug 2023 01:01:37 PDT
-Received: from mail.corebizinsight.com (mail.corebizinsight.com [217.61.112.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D084611B
-        for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 01:01:37 -0700 (PDT)
-Received: by mail.corebizinsight.com (Postfix, from userid 1002)
-        id 9165E82D28; Tue, 29 Aug 2023 09:55:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=corebizinsight.com;
-        s=mail; t=1693295745;
-        bh=CEmchsDu5Oe+RNHCZSBmKSgMOuy1xnO2dydqkEjt3Qs=;
-        h=Date:From:To:Subject:From;
-        b=XiT4UMpxWDA2/ukDDhvHcn2EPl6/uc0e0AmOZ7JIAa+dM6saC71w/H0PH+YFvtl4L
-         uj4Irp+XFrnSQi95chHW1i5nqXks1xR2EoHShOqA8Nohtk3RgeaS3DxbSxshErirFd
-         CEKM7wSrWJpQJXcZiywvQbWM/tlG4xD69jIvwTd9bJsMhl/u1oGhzTA/+2owB3i8jH
-         n3pKDe5+zSlh9MaD2woRHTkfsolUEQ+GLHUtqNhn39KSqVuEhKDCf8gA9FhTTXovqO
-         /yhm8Igdlv3fYtI+kMN0eZj3YS+PMZ6Bx0hW9Np0Vpb1698yzpq+xhGle7ZJ6FVp2x
-         dtPWDoftPEPuQ==
-Received: by mail.corebizinsight.com for <dccp@vger.kernel.org>; Tue, 29 Aug 2023 07:55:31 GMT
-Message-ID: <20230829084500-0.1.g.16sf.0.if4g0e7gdf@corebizinsight.com>
-Date:   Tue, 29 Aug 2023 07:55:31 GMT
-From:   "Jakub Kovarik" <jakub.kovarik@corebizinsight.com>
-To:     <dccp@vger.kernel.org>
-Subject: =?UTF-8?Q?Pros=C3=ADm_kontaktujte?=
-X-Mailer: mail.corebizinsight.com
+        with ESMTP id S1353799AbjIEITI (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Tue, 5 Sep 2023 04:19:08 -0400
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com [IPv6:2607:f8b0:4864:20::82f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6C851AE
+        for <dccp@vger.kernel.org>; Tue,  5 Sep 2023 01:19:04 -0700 (PDT)
+Received: by mail-qt1-x82f.google.com with SMTP id d75a77b69052e-41206fd9717so13849421cf.3
+        for <dccp@vger.kernel.org>; Tue, 05 Sep 2023 01:19:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1693901944; x=1694506744; darn=vger.kernel.org;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=CvUmRYKO5rN5JiKdYLn9/Xxm/soJiVGtQm650JnL3Yc=;
+        b=IDuf0baB1t1F8QSCLjWC8pmRvzAKQ/R4M4t5u3FLsOX2SqRgQXz/Z3MpAk8Vd5Kb6m
+         OBaz+r/ujIbUuNkrji3TkmDn2dTAwQpGpPSmDRQp7o69pvQ/Nlbne7CwWkb0CdLrrzzk
+         IN5sVqz4WX/cEw2uA94JE67yTGlOm8wzR3yOF0SXEPyJnQGBjepPHYJlqPiS3zq3DGfU
+         I2yXoCdrDFdm20VoyBK97sKFjeM/5AIhQp1In2otrpCJ9z7tTsw9ci7s0XR+LUbYUzXt
+         uod929b61k889o1RxRCphXZmWycOoUHC60HIKvs/decRlJjUBc58LQQ4Se5bQ0loDS6t
+         OnEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693901944; x=1694506744;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CvUmRYKO5rN5JiKdYLn9/Xxm/soJiVGtQm650JnL3Yc=;
+        b=HUp0ewK3wDNEuWpCTV750Ti7TOCYl6eMw46rwe2Qr5GBeBA1yYFX/RqqbSlzLz+ji9
+         MnMGzaW3uQpB/5+63fzcIbkFziypuo0JWHjKfcSJh2TwLF989ZYBQMjDFFSbvExUFMoQ
+         IoLXKNYvEpQKskItgEJMpjjvMy5Uf0026w7C/9VCRCrqtpjPmApx7WR+VVLYwNJOIU3s
+         ELNJyVka95ibHREZX9RaBlDbWVqNepKxp1nQHiH/H3OsNCFWQ2zTVi5lpoMCfPxjU9D7
+         wlY14khujaPEEkY/hEFyZhhgWZa0rYwiYqTP6nu7HX9OD/61hNw57pWnJC91lQN7/sLF
+         HBnA==
+X-Gm-Message-State: AOJu0YxutQZktck8t9Opvgcce2bjR5n2UeDKNxloNQyRmYopzO+8hAFJ
+        nY2D/FwTgcfwUcUKlF4pCFj8AmIWiyB1zJQaqh0=
+X-Google-Smtp-Source: AGHT+IERAX8PQb3+O/VRt2IpdT+B8+AIRhc7TR9qfBXEywqtD/tUeMqNmseulSPs3fS452xIhVN8tbhQYqX1LXl34po=
+X-Received: by 2002:a0c:aa1b:0:b0:653:5736:c0b4 with SMTP id
+ d27-20020a0caa1b000000b006535736c0b4mr10412089qvb.54.1693901943569; Tue, 05
+ Sep 2023 01:19:03 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a0c:de0e:0:b0:634:8588:8dcb with HTTP; Tue, 5 Sep 2023
+ 01:19:02 -0700 (PDT)
+Reply-To: wuwumoneytransfer5000@hotmail.com
+From:   "(IMF) SCAM VICTIMS" <smmab4668@gmail.com>
+Date:   Tue, 5 Sep 2023 01:19:02 -0700
+Message-ID: <CAPvhgiGb_xchv+cBfjtNXZbs3T38s2BJRqmONSNBDUeOvUkr=Q@mail.gmail.com>
+Subject: Betrugsopfer
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: Yes, score=6.5 required=5.0 tests=BAYES_40,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_FMBLA_NEWDOM28,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
-        URIBL_CSS_A,URIBL_DBL_SPAM autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Report: *  0.0 RCVD_IN_DNSWL_BLOCKED RBL: ADMINISTRATOR NOTICE: The query to
-        *      DNSWL was blocked.  See
-        *      http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
-        *      for more information.
-        *      [217.61.112.124 listed in list.dnswl.org]
-        * -0.0 BAYES_40 BODY: Bayes spam probability is 20 to 40%
-        *      [score: 0.2844]
-        *  2.5 URIBL_DBL_SPAM Contains a spam URL listed in the Spamhaus DBL
-        *      blocklist
-        *      [URIs: corebizinsight.com]
-        *  3.3 RCVD_IN_SBL_CSS RBL: Received via a relay in Spamhaus SBL-CSS
-        *      [217.61.112.124 listed in zen.spamhaus.org]
-        *  0.1 URIBL_CSS_A Contains URL's A record listed in the Spamhaus CSS
-        *      blocklist
-        *      [URIs: corebizinsight.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        *  0.8 FROM_FMBLA_NEWDOM28 From domain was registered in last 14-28
-        *      days
-X-Spam-Level: ******
+X-Spam-Status: No, score=4.7 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Dobr=C3=A9 r=C3=A1no,
-
-Je mo=C5=BEn=C3=A9 s v=C3=A1mi nav=C3=A1zat spolupr=C3=A1ci?
-
-R=C3=A1d si promluv=C3=ADm s osobou zab=C3=BDvaj=C3=ADc=C3=AD se prodejn=C3=
-=AD =C4=8Dinnost=C3=AD.
-
-Pom=C3=A1h=C3=A1me efektivn=C4=9B z=C3=ADsk=C3=A1vat nov=C3=A9 z=C3=A1kaz=
-n=C3=ADky.
-
-Nevahejte me kontaktovat.
-
-V p=C5=99=C3=ADpad=C4=9B z=C3=A1jmu V=C3=A1s bude kontaktovat n=C3=A1=C5=A1=
- anglicky mluv=C3=ADc=C3=AD z=C3=A1stupce.
+Sehr geehrter E-Mail-Besitzer,
 
 
-Pozdravy
-Jakub Kovarik
+
+Der Internationale W=C3=A4hrungsfonds (IWF) entsch=C3=A4digt alle Betrugsop=
+fer
+und Ihre E-Mail-Adresse wurde auf der Liste der Betrugsopfer gefunden.
+
+Dieses Western Union-B=C3=BCro wurde vom IWF beauftragt Ihnen Ihre
+Verg=C3=BCtung per Western Union Money Transfer zu =C3=BCberweisen.
+
+Wir haben uns jedoch entschieden Ihre eigene Zahlung =C3=BCber Geldtransfer
+der Westunion in H=C3=B6he von =E2=82=AC5,000, pro Tag vorzunehmen bis die
+Gesamtsumme von =E2=82=AC1,500.000.00, vollst=C3=A4ndig an Sie =C3=BCberwie=
+sen wurde.
+
+Wir k=C3=B6nnen die Zahlung m=C3=B6glicherweise nicht nur mit Ihrer
+E-Mail-Adresse senden daher ben=C3=B6tigen wir Ihre Informationen dar=C3=BC=
+ber
+wohin wir das Geld an Sie senden wie z. B.:
+
+
+Name des Adressaten ________________
+
+Adresse________________
+
+Land__________________
+
+Telefonnummer________________
+
+Angeh=C3=A4ngte Kopie Ihres Ausweises______________
+
+Das Alter ________________________
+
+
+Wir beginnen mit der =C3=9Cbertragung sobald wir Ihre Informationen
+erhalten haben: Kontakt E-Mail: ( wuwumoneytransfer5000@hotmail.com)
+
+
+Getreu,
+
+
+Herr Anthony Duru,
+
+Direktor von Geldtransfer der Westunion

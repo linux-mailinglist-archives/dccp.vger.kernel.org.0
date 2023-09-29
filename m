@@ -2,70 +2,85 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 919B27AAE45
-	for <lists+dccp@lfdr.de>; Fri, 22 Sep 2023 11:36:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 941827B2EDF
+	for <lists+dccp@lfdr.de>; Fri, 29 Sep 2023 11:08:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232988AbjIVJgy (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Fri, 22 Sep 2023 05:36:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40884 "EHLO
+        id S231774AbjI2JIk (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Fri, 29 Sep 2023 05:08:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57722 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233014AbjIVJgy (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Fri, 22 Sep 2023 05:36:54 -0400
-Received: from mail.moosomin24.com (mail.moosomin24.com [217.61.112.134])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C570318F
-        for <dccp@vger.kernel.org>; Fri, 22 Sep 2023 02:36:46 -0700 (PDT)
-Received: by mail.moosomin24.com (Postfix, from userid 1002)
-        id D47BC827B4; Fri, 22 Sep 2023 11:36:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=moosomin24.com;
-        s=mail; t=1695375403;
-        bh=sxkamsLepnJSy5ikFDKOiyq8RChcIfs44Djo0bti1MM=;
-        h=Date:From:To:Subject:From;
-        b=B9XrMvtjXrUDbzcE3ha9mGH/xJ5gRe7WTiXGHpCsSpxwgZU/tX3YVAgJhyqBDntBQ
-         PY2ivsCGsFG8JJcmQa+e+FmU66yglSlR9rLHkjB7tU3EVMWk+cdimv+jUIMrAs3eSt
-         AEhynp2cZ1vLdoSPgMn7+SgO/M0FdxBAJpaBTjKwb/MmcG8aDOp2NqThNR7u6n+3lG
-         nv2qShZFyhgb0NRVRafByfjdEiQNlMF2XXHTZv/AUm5pmf397dH5wM2t0ztAmbRTSs
-         yzboGGRMmY+GmBo8KfIsavLwmYpEfPW4JiFzoqQzkT3N5/G6J8O/iEsFgLSAlMyzmT
-         4A8aWeXvC/URg==
-Received: by mail.moosomin24.com for <dccp@vger.kernel.org>; Fri, 22 Sep 2023 09:36:27 GMT
-Message-ID: <20230922104500-0.1.2f.303i.0.st9r2b0vkr@moosomin24.com>
-Date:   Fri, 22 Sep 2023 09:36:27 GMT
-From:   "Philipp Raber" <philipp.raber@moosomin24.com>
-To:     <dccp@vger.kernel.org>
-Subject: Metalworking and welding
-X-Mailer: mail.moosomin24.com
+        with ESMTP id S232713AbjI2JIj (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Fri, 29 Sep 2023 05:08:39 -0400
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 99A271B1
+        for <dccp@vger.kernel.org>; Fri, 29 Sep 2023 02:08:35 -0700 (PDT)
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-57b63ce34acso23901647eaf.2
+        for <dccp@vger.kernel.org>; Fri, 29 Sep 2023 02:08:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695978515; x=1696583315;
+        h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vNRH8WIfdTbVrWFPVazVnTDdpUDIwS2HaLsGOKKePxo=;
+        b=uwCqR4eypbcIxG6cCdZtr9qOIG5In3tNR1hYzeLAOvojfrpRW8lR3W8NDCNc26OKc5
+         0d72Yo6hJ4tF8UX+2/oydsYzTMReT1pB5ihmBKWryaFBaqlGKcc57XD+5RpE16szJ9Sm
+         zHM9HFjMpRDCZLfWebgzrAhet3jDDvvzdItmlaVudZZB5ySJ8TQRhRNThdWjP8TVDHkQ
+         mxgL2ofho/BMF0KDprwJObh04PQF5UHdUOEzhZkPC9+ghFjkiOLIyJbeRt8SVwWoGs29
+         PGsgBRb7sUpUOHbWHcYCFJd8H0of9quHLKxStLwWUfJHzWfWt70BuVyhLN1c/LakGP+c
+         XJ+Q==
+X-Gm-Message-State: AOJu0YyN5n/sJD09w/qd8c5XtdG9IEKY206AYSVLqV661I7y3YPJtqn2
+        iVOAGpAq699EyEVNhtuc/IJY8gH2pF82oU58t7Ap0REsFRpJDG4=
+X-Google-Smtp-Source: AGHT+IEyRGjMq5hM9bqfNe3TwgTrfo4G96HAtW7a3smQwOKFjVWdbnbjYTqz30GPp3on0O8h89zdGlid+yrsA3IFrtvu28gXkdq/
 MIME-Version: 1.0
+X-Received: by 2002:a4a:5817:0:b0:57b:e125:36a9 with SMTP id
+ f23-20020a4a5817000000b0057be12536a9mr1241851oob.1.1695978514927; Fri, 29 Sep
+ 2023 02:08:34 -0700 (PDT)
+Date:   Fri, 29 Sep 2023 02:08:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000edd89506067bc438@google.com>
+Subject: [syzbot] Monthly dccp report (Sep 2023)
+From:   syzbot <syzbot+listbf2fd281dcbd524a5041@syzkaller.appspotmail.com>
+To:     dccp@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=1.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        SPF_HELO_NONE,SPF_PASS,URIBL_ABUSE_SURBL,URIBL_BLOCKED autolearn=no
+X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,FROM_LOCAL_HEX,
+        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
+        RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=no
         autolearn_force=no version=3.4.6
-X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-Good morning,
+Hello dccp maintainers/developers,
 
-We specialize in serial production of metal elements.
+This is a 31-day syzbot report for the dccp subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dccp
 
-You do not have to resort to the services of subcontractors - we offer yo=
-u comprehensive services
-Support from design to production to transportation, which guarantees sho=
-rt delivery times orders and lower costs.
+During the period, 0 new issues were detected and 1 were fixed.
+In total, 4 issues are still open and 6 have been fixed so far.
 
-We have an extensive machine park and a large team of specialists, thanks=
- to which we can offer services such as laser sheet metal cutting, pipe a=
-nd profile bending, welding and powder coating.
+Some of the still happening issues:
 
-The main area of our production is currently storage and transport trolle=
-ys. We produce transport pallets, scissor lifts, furniture elements, buil=
-ding formwork and much more.
+Ref Crashes Repro Title
+<1> 102     Yes   KASAN: use-after-free Read in ccid2_hc_tx_packet_recv
+                  https://syzkaller.appspot.com/bug?extid=554ccde221001ab5479a
+<2> 50      Yes   BUG: "hc->tx_t_ipi == NUM" holds (exception!) at net/dccp/ccids/ccid3.c:LINE/ccid3_update_send_interval()
+                  https://syzkaller.appspot.com/bug?extid=94641ba6c1d768b1e35e
+<3> 13      Yes   BUG: stored value of X_recv is zero at net/dccp/ccids/ccid3.c:LINE/ccid3_first_li() (3)
+                  https://syzkaller.appspot.com/bug?extid=2ad8ef335371014d4dc7
 
-If you have any need regarding this, please send me a message.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
-Greetings
-Philipp Raber
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.

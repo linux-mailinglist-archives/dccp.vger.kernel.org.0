@@ -2,105 +2,108 @@ Return-Path: <dccp-owner@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A1AE7CE129
-	for <lists+dccp@lfdr.de>; Wed, 18 Oct 2023 17:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 898867D2947
+	for <lists+dccp@lfdr.de>; Mon, 23 Oct 2023 06:19:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231472AbjJRP2K (ORCPT <rfc822;lists+dccp@lfdr.de>);
-        Wed, 18 Oct 2023 11:28:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57818 "EHLO
+        id S229488AbjJWETc (ORCPT <rfc822;lists+dccp@lfdr.de>);
+        Mon, 23 Oct 2023 00:19:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52204 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230444AbjJRP2J (ORCPT <rfc822;dccp@vger.kernel.org>);
-        Wed, 18 Oct 2023 11:28:09 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA77098
-        for <dccp@vger.kernel.org>; Wed, 18 Oct 2023 08:27:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1697642844;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=LO3U/3O7orcDX1UKblPetHP+0g37M+8wNFC9UUNpGbg=;
-        b=CYutXAeyKfMF66i6HF0a6bvZuMk8XYzpI7MZzxXaLCmDOVztYl9V7grttxXdjmP6d80vQz
-        kklUPX5RxOJknnK6/wN6aMnT3iLwGg8klPJoovGTU/WSy4YxL0BVL7Kh8Ah7qLNSyriF9c
-        WjAW7QmE9zd/EXl0K3lqKXJoiZNGijs=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-428-isUJ8aLWPHuKCa0W-nIBYQ-1; Wed, 18 Oct 2023 11:27:23 -0400
-X-MC-Unique: isUJ8aLWPHuKCa0W-nIBYQ-1
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-66d253b90a1so56214196d6.2
-        for <dccp@vger.kernel.org>; Wed, 18 Oct 2023 08:27:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697642843; x=1698247643;
-        h=content-transfer-encoding:mime-version:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LO3U/3O7orcDX1UKblPetHP+0g37M+8wNFC9UUNpGbg=;
-        b=Su8H0zdzgpjzBS9ZA85cTdSnIN1t7aWRF2Eg56u4PJsUmC441tP1n6NftiqRB8j1qF
-         ZV3EZzzPv45zlp3BKGbAgqGuWXgWDKePLPuC7zS1ow6xF9vDAZEHjmSIiZabONozppvh
-         h4c1uyqXG9L48113z+35mNXxgqY0TsO+qHjXsKV73QKCRZD+d4lbX5hAfKBHC1o5kSo2
-         V3Lw1+VmxVtkw1+Eiq6ZqwsmiR+O3DGC5rW2/F8VIAigixIfyI9dPZBtHDU6yFx1L2pv
-         JK5rCYj8F+9U0LrSEm6m+Lv9wt2ZNcyWMf7RZl4+zzLD8G2L6J7kM3VAR0CEt3E+wKkf
-         yNPw==
-X-Gm-Message-State: AOJu0YzVBqYX8jCpAGo/K9fq7SBibFU5ykJUvT98mAC0I9rmk8ziDe/G
-        uXKP8tnYZM1m4pcHCQZyxaVqNzv6WPhsPCZ1N32adunw5ScQNPDTGjh04INXeg505GYmUN/LH4T
-        e9rrbVU1vJ2zgXw==
-X-Received: by 2002:a05:6214:2602:b0:66c:ffe1:e244 with SMTP id gu2-20020a056214260200b0066cffe1e244mr7592498qvb.62.1697642842849;
-        Wed, 18 Oct 2023 08:27:22 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH6fCGqNMshOHcVQgHFixpMRES/AbjqtXvQxpoRaWfInZXTWRZ0YrGHrSAVlJmDRabVuafBLg==
-X-Received: by 2002:a05:6214:2602:b0:66c:ffe1:e244 with SMTP id gu2-20020a056214260200b0066cffe1e244mr7592455qvb.62.1697642842210;
-        Wed, 18 Oct 2023 08:27:22 -0700 (PDT)
-Received: from vschneid.remote.csb (213-44-141-166.abo.bbox.fr. [213.44.141.166])
-        by smtp.gmail.com with ESMTPSA id dy20-20020ad44e94000000b006588bd29c7esm35137qvb.28.2023.10.18.08.27.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Oct 2023 08:27:21 -0700 (PDT)
-From:   Valentin Schneider <vschneid@redhat.com>
-To:     Eric Dumazet <edumazet@google.com>
-Cc:     dccp@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        David Ahern <dsahern@kernel.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Tomas Glozar <tglozar@redhat.com>
-Subject: Re: [RFC PATCH] tcp/dcpp: Un-pin tw_timer
-In-Reply-To: <CANn89iJUicsEdbp7qrsaSUg8jQ=dBUr0nK296LxXp5rnPrw8cA@mail.gmail.com>
-References: <20231016125934.1970789-1-vschneid@redhat.com>
- <CANn89i+pQ3j+rb2SjFWjCU7BEges3TADDes5+csEr1JJamtzPQ@mail.gmail.com>
- <xhsmhil74m10c.mognet@vschneid.remote.csb>
- <CANn89iJUicsEdbp7qrsaSUg8jQ=dBUr0nK296LxXp5rnPrw8cA@mail.gmail.com>
-Date:   Wed, 18 Oct 2023 17:27:18 +0200
-Message-ID: <xhsmhfs28lzmx.mognet@vschneid.remote.csb>
+        with ESMTP id S229451AbjJWETb (ORCPT <rfc822;dccp@vger.kernel.org>);
+        Mon, 23 Oct 2023 00:19:31 -0400
+X-Greylist: delayed 92 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 22 Oct 2023 21:19:27 PDT
+Received: from omta037.useast.a.cloudfilter.net (omta037.useast.a.cloudfilter.net [44.202.169.36])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EA537F5;
+        Sun, 22 Oct 2023 21:19:27 -0700 (PDT)
+Received: from eig-obgw-5001a.ext.cloudfilter.net ([10.0.29.139])
+        by cmsmtp with ESMTPS
+        id uleKqckAjWcCIumO3qb9Bo; Mon, 23 Oct 2023 04:17:55 +0000
+Received: from 162-240-83-27.unifiedlayer.com ([137.59.148.200])
+        by cmsmtp with ESMTPS
+        id umO1qoa5ZTbebumO2q7k56; Mon, 23 Oct 2023 04:17:54 +0000
+X-Authority-Analysis: v=2.4 cv=E8LeGIRl c=1 sm=1 tr=0 ts=6535f3f2
+ a=MgGYFET5X96nYrQ76toljg==:117 a=32wkWZdPouleh9wPFPhphQ==:17
+ a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
+ a=kj9zAlcOel0A:10 a=bhdUkHdE2iEA:10 a=lUDAUsI-kUQA:10
+ a=9m64_h_j2zU8ieQoq-sA:9 a=CjuIK1q_8ugA:10
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=35686686.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+        Message-ID:Reply-To:Subject:To:From:Date:MIME-Version:Sender:Cc:Content-ID:
+        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+        List-Subscribe:List-Post:List-Owner:List-Archive;
+        bh=Dm1nus89JLbD/65ItGQLhdR/UwQLhddPM+BxEJ7yOwM=; b=PUqKfgRig+pZKS3FGcmiR/SFev
+        Ir0wJh9Rn+3ERSG9EZWXUIwwkBhBvTv/K+zr7llwyUij7W7GrXeQNFseXy5ZGRehyQkV7Im/sBSnW
+        ZW1RFjZ+/Tmt25XwSXgiWJpXzn9YLh/NQXbe9Ptdr0cTtL6CdnKPOMgXgIuWtHCFsYSL83sNrr9fg
+        oCWirZBXSfna5czQWjJaNs3dSoQM4R9wDeQBrA9dVkXIm3Muig4FWV/lPBkQoPYlEStLLChltObtL
+        Sy2QtFxmR6xsbqZf2Wj8Nh1tmj6WCiUL+cPR6p4WRPDflwUWmUYHaLFemYk5AuO1grn5sP4MYGfeG
+        noqvYFUA==;
+Received: from md-hk-12.webhostbox.net ([137.59.148.200]:32260)
+        by md-hk-12.webhostbox.net with esmtpa (Exim 4.96.2)
+        (envelope-from <jc@35686686.com>)
+        id 1qukGq-002oZ1-1e;
+        Mon, 23 Oct 2023 07:32:20 +0530
+Received: from [181.214.94.88]
+ by 35686686.com
+ with HTTP (HTTP/1.1 POST); Mon, 23 Oct 2023 07:32:11 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+Date:   Mon, 23 Oct 2023 10:02:11 +0800
+From:   jc@35686686.com
+To:     undisclosed-recipients:;
+Subject: LOAN SCHEME
+Reply-To: info@kafurinvestment.com
+Mail-Reply-To: info@kafurinvestment.com
+User-Agent: Roundcube Webmail/1.6.0
+Message-ID: <444dc5ecb83daa7b98458b69e615a708@35686686.com>
+X-Sender: jc@35686686.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - md-hk-12.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - 35686686.com
+X-BWhitelist: no
+X-Source-IP: 137.59.148.200
+X-Source-L: No
+X-Exim-ID: 1qukGq-002oZ1-1e
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: md-hk-12.webhostbox.net [137.59.148.200]:32260
+X-Source-Auth: jc@35686686.com
+X-Email-Count: 0
+X-Org:  HG=dishared_whb_net_legacy;ORG=directi;
+X-Source-Cap: ZmJkZXN4amc7Ymx1ZWhvc3Q7bWQtaGstMTIud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfODYBkE0Ew/e76bFA5sYZIlzm61ztzqO4VdblE3rGKcPU99NL3B9NrOQxHnqENTmSMi32Ar5x+auiKKu2DYgyWGs5pp5akxInMwWM9CJGva8KRwo8tYv
+ o2ss0WwK1mkntpNfBoSmANvtgNrRJXXIZUVGK4F1vu5PzrEktoX4dc59/WjrO34w7adxgTHBB0F5s/BAkdDgri4Pmy9aw0xliQoV6ve6xeb46FxSPrCx1vLE
+ hMX3TWwvfNGU5+6UVt4T9X10pCiCWv66gK6Np7bi3fX7jteayBzVpUSuhDpKt8KBVzU7BNaBN6Pqr/HXniZE6y9m57//5cG9cR0xzfSAIzsKKsEUnUsqo4t8
+ GedMoFmfj10f0GdwrDTxAjMqXY0Wi+32g7pazSCByimXAxKZjf/z0OVINkQwWD5D39E8CDBqkHKstJ5oTPracMH1631k0Ht5eTksnj53uyTWhpEd/9lzO3a+
+ C5s3FpXY7cGcvGUw
+X-Spam-Status: No, score=1.5 required=5.0 tests=BAYES_50,DKIM_INVALID,
+        DKIM_SIGNED,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,SUBJ_ALL_CAPS
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <dccp.vger.kernel.org>
 X-Mailing-List: dccp@vger.kernel.org
 
-On 18/10/23 17:00, Eric Dumazet wrote:
-> On Wed, Oct 18, 2023 at 4:57=E2=80=AFPM Valentin Schneider <vschneid@redh=
-at.com> wrote:
->
->>
->> Looks reasonable to me, I'll go write v2.
->>
->> Thanks for the help!
->
-> Sure thing !
->
-> BTW, we also use TIMER_PINNED for req->rsk_timer, are you working on it t=
-oo ?
+Greetings:
 
-Ah, no, that wasn't on my radar. This hasn't shown up on our systems
-yet. From a cursory look it does look like it could lead to similar issues,
-I'll add that to my todolist. Thanks!
+I am Mr. Faheem Badawi, working as a project facilitator for (Kafur 
+Project Management Services) also, with numerous investors worldwide. As 
+a means of widening our global portfolio we would like to know if you 
+have any project(s) requiring funding. We also offer business, personal 
+and home loans to finance new projects as well as expansion capital.
 
+For more updates on the mode of operation send a reply.
+
+Waiting for your prompt response.
+
+Kind regards,
+Faheem Badawi.
+(Financial Advisory - KPMS)

@@ -1,129 +1,67 @@
-Return-Path: <dccp+bounces-19-lists+dccp=lfdr.de@vger.kernel.org>
+Return-Path: <dccp+bounces-22-lists+dccp=lfdr.de@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9027ED74D
-	for <lists+dccp@lfdr.de>; Wed, 15 Nov 2023 23:33:52 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [IPv6:2604:1380:4601:e00::3])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B7C97EF0C4
+	for <lists+dccp@lfdr.de>; Fri, 17 Nov 2023 11:42:31 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 901901C2091D
-	for <lists+dccp@lfdr.de>; Wed, 15 Nov 2023 22:33:51 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 3DE551F288F3
+	for <lists+dccp@lfdr.de>; Fri, 17 Nov 2023 10:42:31 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3019433AE
-	for <lists+dccp@lfdr.de>; Wed, 15 Nov 2023 22:33:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A27031A70B
+	for <lists+dccp@lfdr.de>; Fri, 17 Nov 2023 10:42:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F0Dlmms4"
+	dkim=pass (2048-bit key) header.d=corebizinsight.com header.i=@corebizinsight.com header.b="Rglmk+xH"
 X-Original-To: dccp@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2EFA919B4
-	for <dccp@vger.kernel.org>; Wed, 15 Nov 2023 13:05:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1700082323;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/2ZyYZIlXaVrQ5H2NVMzh6RQkIaOQLrSYQoOoe/xlo=;
-	b=F0Dlmms4Yw+39O81YmCnDUs1Hg+jcVQgntW75uAp8L3U33GgJSt0c8qXwy1h9/g/NNsCi0
-	2v+wUf3+3xqEx6ZZEIntpfbsZFzmtPnCXYmkpWhcCwv5JHk/FpfnABm8AidRklVUJErrbD
-	Y1767LE2u55tV4zpmSm3emfD8Hry1Bc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-250-JizxYATBPXy1AFjmuMswsQ-1; Wed, 15 Nov 2023 16:05:20 -0500
-X-MC-Unique: JizxYATBPXy1AFjmuMswsQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC3D585A58B;
-	Wed, 15 Nov 2023 21:05:19 +0000 (UTC)
-Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.22.34.128])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 604403D6;
-	Wed, 15 Nov 2023 21:05:19 +0000 (UTC)
-From: Valentin Schneider <vschneid@redhat.com>
-To: dccp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-users@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Tomas Glozar <tglozar@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: [PATCH v2 2/2] tcp/dcpp: Don't disable bh around timewait_sock initialization
-Date: Wed, 15 Nov 2023 16:05:09 -0500
-Message-ID: <20231115210509.481514-3-vschneid@redhat.com>
-In-Reply-To: <20231115210509.481514-1-vschneid@redhat.com>
-References: <20231115210509.481514-1-vschneid@redhat.com>
+Received: from mail.corebizinsight.com (mail.corebizinsight.com [217.61.112.124])
+	by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98F5C1A1
+	for <dccp@vger.kernel.org>; Fri, 17 Nov 2023 00:55:39 -0800 (PST)
+Received: by mail.corebizinsight.com (Postfix, from userid 1002)
+	id 7C6B783874; Fri, 17 Nov 2023 09:55:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=corebizinsight.com;
+	s=mail; t=1700211337;
+	bh=CEmchsDu5Oe+RNHCZSBmKSgMOuy1xnO2dydqkEjt3Qs=;
+	h=Date:From:To:Subject:From;
+	b=Rglmk+xHqQwPkIppbkKqIxPRkXz3id4qgY2NERlXOoX508WpiOwfvF0jDq5R3ClK5
+	 Meq+1u9YYgGs13+3b6BDsFKof1NscrZwxvLZty3yJsVEygPEB1N6oYbrTkL1a4oF5P
+	 fmfYTgS81E5Adpqk2538N9rXJB0AGmTN4HhL9KfUqeiFDR93wP2Ur5ZTcHiHQK4mij
+	 SQrClwmEersv3zjx6qN1u01HeDGXX+JZwUy+dwSIOuMd6MWGt91w4mkwFMujd3jeO4
+	 POANUIwEBpeowpCM/UmrND705DoSae8UeC6jNLWZjcvXxWuGA9AZ7qUiBphkS3OkPX
+	 coz5wtNtFMlsQ==
+Received: by mail.corebizinsight.com for <dccp@vger.kernel.org>; Fri, 17 Nov 2023 08:55:22 GMT
+Message-ID: <20231117084500-0.1.22.9wfz.0.mq6rhji303@corebizinsight.com>
+Date: Fri, 17 Nov 2023 08:55:22 GMT
+From: "Jakub Kovarik" <jakub.kovarik@corebizinsight.com>
+To: <dccp@vger.kernel.org>
+Subject: =?UTF-8?Q?Pros=C3=ADm_kontaktujte?=
+X-Mailer: mail.corebizinsight.com
 Precedence: bulk
 X-Mailing-List: dccp@vger.kernel.org
 List-Id: <dccp.vger.kernel.org>
 List-Subscribe: <mailto:dccp+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:dccp+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Now that the tw_timer is armed *after* the hashdance, it is the last step
-of the timewait initialization. We can thus enable softirqs without running
-the risk of the timer handler running before the initialization is done.
+Dobr=C3=A9 r=C3=A1no,
 
-This is conceptually a revert of
-  cfac7f836a71 ("tcp/dccp: block bh before arming time_wait timer")
+Je mo=C5=BEn=C3=A9 s v=C3=A1mi nav=C3=A1zat spolupr=C3=A1ci?
 
-Signed-off-by: Valentin Schneider <vschneid@redhat.com>
----
- net/dccp/minisocks.c     | 4 ----
- net/ipv4/tcp_minisocks.c | 4 ----
- 2 files changed, 8 deletions(-)
+R=C3=A1d si promluv=C3=ADm s osobou zab=C3=BDvaj=C3=ADc=C3=AD se prodejn=C3=
+=AD =C4=8Dinnost=C3=AD.
 
-diff --git a/net/dccp/minisocks.c b/net/dccp/minisocks.c
-index 2f0fad4255e36..cb990bc92a5c9 100644
---- a/net/dccp/minisocks.c
-+++ b/net/dccp/minisocks.c
-@@ -53,15 +53,11 @@ void dccp_time_wait(struct sock *sk, int state, int timeo)
- 		if (state == DCCP_TIME_WAIT)
- 			timeo = DCCP_TIMEWAIT_LEN;
- 
--	       local_bh_disable();
--
- 		// Linkage updates
- 		inet_twsk_hashdance(tw, sk, &dccp_hashinfo);
- 		inet_twsk_schedule(tw, timeo);
- 		// Access to tw after this point is illegal.
- 		inet_twsk_put(tw);
--
--		local_bh_enable();
- 	} else {
- 		/* Sorry, if we're out of memory, just CLOSE this
- 		 * socket up.  We've got bigger problems than
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 48eb0310fe837..c7d46674d55cb 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -338,15 +338,11 @@ void tcp_time_wait(struct sock *sk, int state, int timeo)
- 		if (state == TCP_TIME_WAIT)
- 			timeo = TCP_TIMEWAIT_LEN;
- 
--	       local_bh_disable();
--
- 		// Linkage updates.
- 		inet_twsk_hashdance(tw, sk, net->ipv4.tcp_death_row.hashinfo);
- 		inet_twsk_schedule(tw, timeo);
- 		// Access to tw after this point is illegal.
- 		inet_twsk_put(tw);
--
--		local_bh_enable();
- 	} else {
- 		/* Sorry, if we're out of memory, just CLOSE this
- 		 * socket up.  We've got bigger problems than
--- 
-2.41.0
+Pom=C3=A1h=C3=A1me efektivn=C4=9B z=C3=ADsk=C3=A1vat nov=C3=A9 z=C3=A1kaz=
+n=C3=ADky.
 
+Nevahejte me kontaktovat.
+
+V p=C5=99=C3=ADpad=C4=9B z=C3=A1jmu V=C3=A1s bude kontaktovat n=C3=A1=C5=A1=
+ anglicky mluv=C3=ADc=C3=AD z=C3=A1stupce.
+
+
+Pozdravy
+Jakub Kovarik
 

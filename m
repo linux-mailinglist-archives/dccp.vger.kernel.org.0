@@ -1,46 +1,46 @@
-Return-Path: <dccp+bounces-186-lists+dccp=lfdr.de@vger.kernel.org>
+Return-Path: <dccp+bounces-187-lists+dccp=lfdr.de@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA54295E664
-	for <lists+dccp@lfdr.de>; Mon, 26 Aug 2024 03:41:25 +0200 (CEST)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C6CE95E70C
+	for <lists+dccp@lfdr.de>; Mon, 26 Aug 2024 04:50:20 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 093D11C208EE
-	for <lists+dccp@lfdr.de>; Mon, 26 Aug 2024 01:41:25 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id DF1FCB214EE
+	for <lists+dccp@lfdr.de>; Mon, 26 Aug 2024 02:50:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 809974A11;
-	Mon, 26 Aug 2024 01:41:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D713881E;
+	Mon, 26 Aug 2024 02:50:15 +0000 (UTC)
 X-Original-To: dccp@vger.kernel.org
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29256944E;
-	Mon, 26 Aug 2024 01:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180BA10A0D;
+	Mon, 26 Aug 2024 02:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724636483; cv=none; b=RcBYvMETJH3FyFiX6DM3CaZ/w6HeZgcWlo4qdYXiyWJQJWoKX+Aec+BwXgVY5D/3J9S0dEwGK2Hm5D6gsBA5/H2ZZ6OnvbsSc9roIb2bv1m0pVchFruqlitm/sr5t9aZMjb40EO+Aszrz17oduUGUeLJWqTwuWD1F1aQiZgBOIg=
+	t=1724640615; cv=none; b=fwK0O6cEM6gOl1O4RFv4exVROoE/8CP1m3+RAHcyZjdZklLCm2Vf1jeFsCeRyQqQSngh/wJNPLWN71l+ahRovwaeNPeguxh1PnaezL5QCfVKP4zioVWZ7s/LNGo223lXwBmrElwB6XuC7rI9wPrOCoePDxX6Q57RnbNJ0laleOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724636483; c=relaxed/simple;
-	bh=8zbjCEgdV6fhEoaaYvHPaRiZ+yjWio9aoO+Kg7FTDyU=;
+	s=arc-20240116; t=1724640615; c=relaxed/simple;
+	bh=GqGFZQDcvL+2MIMaoRg+JuCYCCKes0U3X6Wfu2zhcxA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NmpFijVN8t4RVWccxkKErfd5lyiugBOcUglQqU6YrlrQZWujzPkHiXtmvJ4iMqfW3KMfauFoLDGGOZRtOSMcH7+FiJN2GUAZ0NN70xPByWk3HEmAPTQmjE7VDhnG8LWACsz1acenlQsLspXqJm3ZPAX1e7WEwqIzfckgQPPumps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=45.249.212.191
+	 In-Reply-To:Content-Type; b=lQw3+CBb8GdvgPbnPn2vJI/hyLvZyBmv0WLfzqWKR+8yCQjNjzO6aLtg3mLA1dWheR3YdvwaZEUcEddbIBEX+9uocIsHRiL4D6BE5vxw1T/O6Ayp6cP52J/U5bbWNLI7oz4UPGd+QmjIxg5G9KDvmGkrXEN5rk79xKlFfGMqVEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; arc=none smtp.client-ip=45.249.212.190
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Received: from mail.maildlp.com (unknown [172.19.163.44])
-	by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4WsYGK1DcQz1HHJn;
-	Mon, 26 Aug 2024 09:38:01 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.88.234])
+	by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4WsZlx63blz20mfg;
+	Mon, 26 Aug 2024 10:45:17 +0800 (CST)
 Received: from dggpeml500022.china.huawei.com (unknown [7.185.36.66])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4FB1A140135;
-	Mon, 26 Aug 2024 09:41:18 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 9FC2D14022F;
+	Mon, 26 Aug 2024 10:50:04 +0800 (CST)
 Received: from [10.67.111.104] (10.67.111.104) by
  dggpeml500022.china.huawei.com (7.185.36.66) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Mon, 26 Aug 2024 09:41:18 +0800
-Message-ID: <e81473b2-174a-4ca1-ad66-2da98a513fcf@huawei.com>
-Date: Mon, 26 Aug 2024 09:41:17 +0800
+ 15.1.2507.39; Mon, 26 Aug 2024 10:50:04 +0800
+Message-ID: <1b1ee6e6-ff2e-45d6-bfe2-1f8efaba7b38@huawei.com>
+Date: Mon, 26 Aug 2024 10:50:03 +0800
 Precedence: bulk
 X-Mailing-List: dccp@vger.kernel.org
 List-Id: <dccp.vger.kernel.org>
@@ -76,10 +76,14 @@ On 2024/8/24 20:06, David Howells wrote:
 >> +	summary.ack_reason = min(sp->ack.reason, RXRPC_ACK__INVALID);
 > 
 > Can you use umin() rather than min(), please?
-> I see reason is u8, may I use min_t(u8, sp->ack.reason, RXRPC_ACK__INVALID);
+> 
+
+I see reason is u8, so may I use min_t(u8, sp->ack.reason, 
+RXRPC_ACK__INVALID)?
 
 Thanks,
 Hongbo
+
 
 > Thanks,
 > David

@@ -1,96 +1,113 @@
-Return-Path: <dccp+bounces-199-lists+dccp=lfdr.de@vger.kernel.org>
+Return-Path: <dccp+bounces-201-lists+dccp=lfdr.de@vger.kernel.org>
 X-Original-To: lists+dccp@lfdr.de
 Delivered-To: lists+dccp@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070F796222A
-	for <lists+dccp@lfdr.de>; Wed, 28 Aug 2024 10:18:26 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [IPv6:2604:1380:45e3:2400::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id D539596294D
+	for <lists+dccp@lfdr.de>; Wed, 28 Aug 2024 15:53:51 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 992FD286666
-	for <lists+dccp@lfdr.de>; Wed, 28 Aug 2024 08:18:24 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 8F6DE285832
+	for <lists+dccp@lfdr.de>; Wed, 28 Aug 2024 13:53:50 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 167A815B55D;
-	Wed, 28 Aug 2024 08:18:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C86D918787A;
+	Wed, 28 Aug 2024 13:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SRZY1f54"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YkcmiH+s"
 X-Original-To: dccp@vger.kernel.org
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC1215B119
-	for <dccp@vger.kernel.org>; Wed, 28 Aug 2024 08:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BFB186E4C;
+	Wed, 28 Aug 2024 13:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724833094; cv=none; b=bsC/yVqp7FdDJig+2y7m9haXgq6B8ap46iHZS2c2U2MmgcG8mxsKWo5f79qygyycTWEXIky9wknQ4rPiF3aNYD2Ech9WNPgYK5qKgNKoz1gqW/uU4ELLm0fZpwlmgwd4RzueGs9zBL1aoGc9wPhVFcHzPGogQOEvJfrWcYT7pvE=
+	t=1724853226; cv=none; b=CQcX+eP0xtqPbsiMldkaYTDwYzbDtRUqMLMFWgzP4GEbX2G7FJX0tt8LkZLXf0EuCHfvWK4dn422UshQj48koK6z6wFkWR3dtZ0iYxJ8LSLldDNaBNZbWtib8NrXN7hDwUDzvHdP8w+ci7x+gPXfh8gVUOuKUn/LK1N+J+1WHcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724833094; c=relaxed/simple;
-	bh=JL2xVBVvXl/dIQqSPuxus+zASWnK4WlSmgDr1Fwhd5I=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=AcVKilJNb1tRSQzVP3Q57VGpimsBXjeQYhBBOoEZG0TzS4QgBbXCnlKfDAGTkJezgpvT6t1NvrOrNeT9XvyVhnWRaogYxOOBVwQ0Kf406JdpfuH+7CilJ/iJTZRcJ4mddllHdRo0jEU1XMKLnDbjh49px9Zvs+bm3bVfsAISsjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SRZY1f54; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1724833091;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vntgy4JmkKEFTS6EF2ERAWqp5h9DO26vFt8a4ezAyKA=;
-	b=SRZY1f54WQYtV7xv6LH0Ed4p7bbSX5RYgBOR/dyXdc9mFJgPf1EKEPYAwyNsnor9xCWNw/
-	LCiivRlBJKqpZT7uiB4DrMhQhp8bpT+34wwsX/1glMfrWyQeZlImwstbogI75te29UNaOd
-	3bGq2r1WmZIxkRCAyCfYFsLkZqAov/s=
-Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-473-osS7qHy7NCezDtA0lPbHuQ-1; Wed,
- 28 Aug 2024 04:18:07 -0400
-X-MC-Unique: osS7qHy7NCezDtA0lPbHuQ-1
-Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C22B318EB228;
-	Wed, 28 Aug 2024 08:18:04 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.42.28.30])
-	by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AEF1619560A3;
-	Wed, 28 Aug 2024 08:17:58 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <1b1ee6e6-ff2e-45d6-bfe2-1f8efaba7b38@huawei.com>
-References: <1b1ee6e6-ff2e-45d6-bfe2-1f8efaba7b38@huawei.com> <20240824074033.2134514-8-lihongbo22@huawei.com> <20240824074033.2134514-1-lihongbo22@huawei.com> <563923.1724501215@warthog.procyon.org.uk>
+	s=arc-20240116; t=1724853226; c=relaxed/simple;
+	bh=uQhv+PNgrmTou4nKOaSWCbDq0tsirKSailGjmpqVubs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lykRLRJX/lEpdk9lulaaZXNlsJ3OV5pK7Kj5Sh062RGeAYiup1x1og7Dhr4jjk0BlZ/2BzTjE9YLB5dB/Ny2A7uZwY6Dz54Y3uZvpJ3tJkPv0ZexcGGJDHMqZiWdbJpDZxIY1zJVg5Ff4rSunuliER38M4kgRzPcC3IYqqqwEGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YkcmiH+s; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB4AC98EC6;
+	Wed, 28 Aug 2024 13:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724853226;
+	bh=uQhv+PNgrmTou4nKOaSWCbDq0tsirKSailGjmpqVubs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YkcmiH+s+5n6OLE88+mS/D8TkaO30rjgPh/nmp2a4eTWOuzJDU2fVQtVg3mqr1HLt
+	 Nsf7VLke3eyLCBGwWx5aBBz/MBH0M9MTuWCdpgqNP1BeSPsTpfTmFj1YJ4NIOVWsBy
+	 40+72UHjf8O6p7oNiWjYeeGMVQMJ/RzENhSWLZ1W9R8gA/tYnx+XhUFAc0nH8g1NgL
+	 8WFpH1hAGfn0INm3IXclniCGAwYE5grdlS+uGsYRMwnTDOGwkSmfhWoXbn4piQDvId
+	 HG1LOcNDxkv2g7tOc/SFpFxb9F0N7VruG9JSd7QPvkQ++JpohU5/toea4NEJQ/o7/U
+	 3HjOiaf/Ndk5g==
+Date: Wed, 28 Aug 2024 14:53:10 +0100
+From: Simon Horman <horms@kernel.org>
 To: Hongbo Li <lihongbo22@huawei.com>
-Cc: dhowells@redhat.com, johannes@sipsolutions.net, davem@davemloft.net,
-    edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-    allison.henderson@oracle.com, dsahern@kernel.org, pshelar@ovn.org,
-    linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
-    rds-devel@oss.oracle.com, dccp@vger.kernel.org, dev@openvswitch.org,
-    linux-afs@lists.infradead.org
-Subject: Re: [PATCH net-next 7/8] net/rxrpc: Use min() to simplify the code
+Cc: johannes@sipsolutions.net, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, allison.henderson@oracle.com,
+	dsahern@kernel.org, pshelar@ovn.org, linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org, rds-devel@oss.oracle.com,
+	dccp@vger.kernel.org, dev@openvswitch.org,
+	linux-afs@lists.infradead.org
+Subject: Re: [PATCH net-next 2/8] net/rds: Use max() to simplify the code
+Message-ID: <20240828135310.GC1368797@kernel.org>
+References: <20240824074033.2134514-1-lihongbo22@huawei.com>
+ <20240824074033.2134514-3-lihongbo22@huawei.com>
 Precedence: bulk
 X-Mailing-List: dccp@vger.kernel.org
 List-Id: <dccp.vger.kernel.org>
 List-Subscribe: <mailto:dccp+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:dccp+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <948380.1724833077.1@warthog.procyon.org.uk>
-Date: Wed, 28 Aug 2024 09:17:57 +0100
-Message-ID: <948381.1724833077@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240824074033.2134514-3-lihongbo22@huawei.com>
 
-Hongbo Li <lihongbo22@huawei.com> wrote:
+On Sat, Aug 24, 2024 at 03:40:27PM +0800, Hongbo Li wrote:
+> The target if-else can be replaced with max().
+> 
+> Signed-off-by: Hongbo Li <lihongbo22@huawei.com>
+> ---
+>  net/rds/info.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+> 
+> diff --git a/net/rds/info.c b/net/rds/info.c
+> index b6b46a8214a0..8558b0a466b4 100644
+> --- a/net/rds/info.c
+> +++ b/net/rds/info.c
+> @@ -194,10 +194,7 @@ int rds_info_getsockopt(struct socket *sock, int optname, char __user *optval,
+>  	}
+>  	ret = pin_user_pages_fast(start, nr_pages, FOLL_WRITE, pages);
+>  	if (ret != nr_pages) {
+> -		if (ret > 0)
+> -			nr_pages = ret;
+> -		else
+> -			nr_pages = 0;
+> +		nr_pages = max(ret, 0);
 
-> I see reason is u8, so may I use min_t(u8, sp->ack.reason,
-> RXRPC_ACK__INVALID)?
+Along the same lines as Johannes Berg's comment on a different patch [1]
+I think that there is a subtle but important difference, semantically,
+between max() and that the existing code does, for which the best
+description I can think of is setting a floor on the value.
 
-No, please don't use min_t(<unsigned type>, ...) if umin() will do.  IIRC,
-some arches can't do byte-level arithmetic.
+Other than Johannes's comment, and now mine here, I think you will find
+that, if you search the netdev ML, you will find this point being made
+consistently, at least over the past year.
 
-Thanks,
-David
+And yes, we understand that mathematically max() is doing the right thing.
+But that is not the point that is being made here.
 
+I suggest dropping this patch.
+And any others like it.
+
+[1] https://lore.kernel.org/all/d5f495b67fe6bf128e7a51b9fcfe11f70c9b66ae.camel@sipsolutions.net/
+
+>  		ret = -EAGAIN; /* XXX ? */
+>  		goto out;
+>  	}
+> -- 
+> 2.34.1
+> 
+> 
 
